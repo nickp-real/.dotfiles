@@ -59,8 +59,7 @@ return require("packer").startup(function()
 	use("andymass/vim-matchup")
 
 	-- Surround
-	use({
-		"blackCauldron7/surround.nvim",
+	use({"ur4ltz/surround.nvim",
 		config = function()
 			require("surround").setup({ mappings_style = "surround" })
 		end,
