@@ -5,6 +5,7 @@
 	helper = store
 [core]
 	autocrlf = input
+	editor = nvim
 # define command which will be used when "nvim" is set as a merge tool
 [mergetool "nvim"]
     cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
@@ -16,3 +17,5 @@
 [mergetool]
     prompt = false
 	keepBackup = false
+; [safe]
+; 	directory = *

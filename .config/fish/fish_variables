@@ -1,21 +1,28 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR CLICOLOR:1
+SETUVAR EDITOR:nvim
+SETUVAR LANG:en_US\x2eUTF\x2d8
+SETUVAR LANGUAGE:en_US\x2eUTF\x2d8
+SETUVAR LC_ALL:en_US\x2eUTF\x2d8
+SETUVAR LS_COLORS:ow\x3d1\x3b102\x3b90
+SETUVAR VISUAL:nvim
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
 SETUVAR Z_DATA:/home/nickp_real/\x2elocal/share/z/data
 SETUVAR Z_DATA_DIR:/home/nickp_real/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/home/nickp_real\x24
 SETUVAR __fish_initialized:3400
-SETUVAR _fisher_FabioAntunes_2F_fish_2D_nvm_files:/home/nickp_real/\x2econfig/fish/functions/node\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/npm\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/npx\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm_alias_command\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm_alias_function\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/yarn\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__nvm_run\x2efish\x1e/home/nickp_real/\x2econfig/fish/completions/nvm\x2efish
+SETUVAR _fisher_FabioAntunes_2F_fish_2D_nvm_files:/home/nickp_real/\x2econfig/fish/functions/__nvm_run\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/node\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/npm\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/npx\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm_alias_command\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm_alias_function\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/yarn\x2efish\x1e/home/nickp_real/\x2econfig/fish/completions/nvm\x2efish
 SETUVAR _fisher_decors_2F_fish_2D_colored_2D_man_files:/home/nickp_real/\x2econfig/fish/functions/man\x2efish
-SETUVAR _fisher_edc_2F_bass_files:/home/nickp_real/\x2econfig/fish/functions/bass\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__bass\x2epy
+SETUVAR _fisher_edc_2F_bass_files:/home/nickp_real/\x2econfig/fish/functions/__bass\x2epy\x1e/home/nickp_real/\x2econfig/fish/functions/bass\x2efish
 SETUVAR _fisher_jethrokuan_2F_z_files:/home/nickp_real/\x2econfig/fish/functions/__z\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__z_add\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__z_clean\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__z_complete\x2efish\x1e/home/nickp_real/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_autopair_2E_fish_files:/home/nickp_real/\x2econfig/fish/functions/_autopair_backspace\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_insert_left\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_insert_right\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_insert_same\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_tab\x2efish\x1e/home/nickp_real/\x2econfig/fish/conf\x2ed/autopair\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/nickp_real/\x2econfig/fish/functions/fisher\x2efish\x1e/home/nickp_real/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z\x1eFabioAntunes/fish\x2dnvm\x1eedc/bass\x1ejorgebucaran/autopair\x2efish\x1edecors/fish\x2dcolored\x2dman
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
-SETUVAR fish_color_command:005fd7
+SETUVAR fish_color_command:green
 SETUVAR fish_color_comment:990000
 SETUVAR fish_color_cwd:green
 SETUVAR fish_color_cwd_root:red
@@ -26,9 +33,10 @@ SETUVAR fish_color_history_current:\x2d\x2dbold
 SETUVAR fish_color_host:normal
 SETUVAR fish_color_host_remote:yellow
 SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
-SETUVAR fish_color_normal:normal
+SETUVAR fish_color_normal:brwhite
 SETUVAR fish_color_operator:00a6b2
-SETUVAR fish_color_param:00afff
+SETUVAR fish_color_option:blue
+SETUVAR fish_color_param:blue
 SETUVAR fish_color_quote:999900
 SETUVAR fish_color_redirection:00afff
 SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack

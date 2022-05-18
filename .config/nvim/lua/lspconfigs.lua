@@ -79,14 +79,14 @@ local on_attach = function(client, bufnr)
 		end
 	end
 
-	if Diagnostic then
-		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-			vim.lsp.diagnostic.on_publish_diagnostics,
-			diagnostic_config
-		)
-	else
-		vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-	end
+	-- if Diagnostic then
+	-- 	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+	-- 		vim.lsp.diagnostic.on_publish_diagnostics,
+	-- 		diagnostic_config
+	-- 	)
+	-- else
+	-- 	vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+	-- end
 
 	if CursorHold then
 		local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
@@ -102,36 +102,44 @@ end
 local handlers = {
 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-	-- ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostic_config),
+	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostic_config),
 }
 
 vim.diagnostic.config(diagnostic_config)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup()
+local lspconfig = require("lspconfig")
 
-lsp_installer.on_server_ready(function(server)
-	local opts = {
-		capabilities = capabilities,
+-- local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
+local servers = { "bashls", "pyright" }
+for _, lsp in pairs(servers) do
+	lspconfig[lsp].setup({
 		on_attach = on_attach,
-		handlers = handlers,
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-				},
-				diagnostics = {
-					globals = { "vim", "use" },
-				},
-			},
-		},
 		flags = {
-			-- This will be the default in neovim 0.7+
 			debounce_text_changes = 150,
 		},
-	}
-	server:setup(opts)
-end)
+	})
+end
+
+lspconfig.sumneko_lua.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	handlers = handlers,
+	flags = {
+		debounce_text_changes = 150,
+	},
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				globals = { "vim", "use" },
+			},
+		},
+	},
+})
 
 -- flutter
 require("flutter-tools").setup({
