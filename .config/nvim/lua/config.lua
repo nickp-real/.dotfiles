@@ -1,7 +1,6 @@
 -- Config
 vim.opt.backupdir = "~/.cache/vim"
 vim.opt.cc = "80"
-vim.opt.clipboard = "unnamedplus"
 vim.opt.completeopt = "menu,menuone,noselect,noinsert,preview"
 vim.opt.cursorline = true
 vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
@@ -66,8 +65,24 @@ vim.opt.formatoptions = vim.opt.formatoptions
 	+ "j" -- Auto-remove comments if possible.
 	- "2" -- I'm not in gradeschool anymore
 
+-- Clipboard
+vim.g.clipboard = {
+	name = "xsel",
+	copy = {
+		["+"] = "xsel -i -b",
+		["*"] = "xsel -i -p",
+	},
+	paste = {
+		["+"] = "xsel -o -b",
+		["*"] = "xsel -o -p",
+	},
+	cache_enabled = 0,
+}
+vim.opt.clipboard = "unnamedplus"
+
 vim.g.python3_host_prog = "/usr/bin/python3"
 
+-- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
 local set_cursorline = function(event, value, pattern)
 	vim.api.nvim_create_autocmd(event, {
