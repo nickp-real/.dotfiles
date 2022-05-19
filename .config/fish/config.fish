@@ -20,11 +20,11 @@ set -gx PATH $HOME/.pub-cache/bin $PATH
 set -gx PATH ~/.nvm/versions/node/v16.15.0/bin $PATH
 
 # JAVA_HOME
-set -x JAVA_HOME /usr/lib/jvm/java-18-openjdk
+set -gx JAVA_HOME /usr/lib/jvm/java-18-openjdk
 set -gx PATH $JAVA_HOME/bin $PATH
 
 # ANDROID_HOME
-set -x ANDROID_HOME $HOME/Android/Sdk $ANDROID_HOME
+set -gx ANDROID_HOME $HOME/Android/Sdk
 set -gx PATH $ANDROID_HOME/cmdline-tools/latest/bin $PATH
 set -gx PATH $ANDROID_HOME/platform-tools $PATH
 set -gx PATH $ANDROID_HOME/emulator $PATH
@@ -35,18 +35,19 @@ set -x FLUTTER_ROOT $HOME/Software/flutter
 set -gx PATH $FLUTTER_ROOT/bin $PATH
 
 # SET VAR
-set -U EDITOR nvim
-set -U VISUAL $EDITOR
-set -U CLICOLOR 1
-set -U LS_COLORS "ow=1;102;90"
-set -U LC_ALL en_US.UTF-8
-set -U LANG en_US.UTF-8
-set -U LANGUAGE en_US.UTF-8
+set -gx EDITOR nvim
+set -gx VISUAL $EDITOR
+set -gx SUDO_EDITOR $EDITOR 
+set -gx CLICOLOR 1
+set -gx LS_COLORS "ow=1;102;90"
+set -gx LC_ALL en_US.UTF-8
+set -gx LANG en_US.UTF-8
+set -gx LANGUAGE en_US.UTF-8
 
-set -U fish_color_command green 
-set -U fish_color_normal brwhite
-set -U fish_color_option blue
-set -U fish_color_param blue
+set -gx fish_color_command green 
+set -gx fish_color_normal brwhite
+set -gx fish_color_option blue
+set -gx fish_color_param blue
 
 # STARSHIP INIT
 starship init fish | source
