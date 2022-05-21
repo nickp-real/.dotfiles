@@ -1,6 +1,5 @@
 local nullLs_format = { "pyright", "tsserver", "sumneko_lua", "cssls", "jsonls", "html" }
 local nullLs_diagnostic = { "pyright", "tsserver" }
-local no_cursor_hold = { "jsonls", "yamlls" }
 Diagnostic = true
 CursorHold = true
 
@@ -67,28 +66,7 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", { command = "lua vim.lsp.buf.formatting_sync()" })
 	end
 
-	for _, value in ipairs(nullLs_diagnostic) do
-		if client.name == value then
-			Diagnostic = false
-		end
-	end
-
-	for _, value in ipairs(no_cursor_hold) do
-		if client.name == value then
-			CursorHold = false
-		end
-	end
-
-	-- if Diagnostic then
-	-- 	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-	-- 		vim.lsp.diagnostic.on_publish_diagnostics,
-	-- 		diagnostic_config
-	-- 	)
-	-- else
-	-- 	vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-	-- end
-
-	if CursorHold then
+	if client.resolved_capabilities.document_highlight then
 		local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
 		vim.api.nvim_create_autocmd(
 			{ "CursorHold", "CursorHoldI" },
@@ -111,8 +89,7 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 require("nvim-lsp-installer").setup()
 local lspconfig = require("lspconfig")
 
--- local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
-local servers = { "bashls", "pyright" }
+local servers = { "bashls", "pyright", "jsonls" }
 for _, lsp in pairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,

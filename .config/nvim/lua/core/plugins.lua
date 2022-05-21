@@ -1,5 +1,7 @@
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local packer = require("packer")
+
 if fn.empty(fn.glob(install_path)) > 0 then
 	packer_boostrap = fn.system({
 		"git",
@@ -11,7 +13,17 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	})
 end
 
-return require("packer").startup({
+packer.init({
+	config = {
+		display = {
+			open_fn = function()
+				return require("packer.util").float({ border = "rounded" })
+			end,
+		},
+	},
+})
+
+return packer.startup({
 	function()
 		-- Packer
 		use("wbthomason/packer.nvim")
@@ -195,7 +207,4 @@ return require("packer").startup({
 			require("packer").sync()
 		end
 	end,
-	config = { display = {
-		open_fn = require("packer.util").float,
-	} },
 })
