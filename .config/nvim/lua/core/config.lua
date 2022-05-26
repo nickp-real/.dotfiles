@@ -80,7 +80,7 @@ vim.g.clipboard = {
 }
 vim.opt.clipboard = "unnamedplus"
 
-vim.g.python3_host_prog = "/usr/bin/python3"
+vim.g.python3_host_prog = "/usr/bin/python"
 
 -- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
@@ -96,3 +96,16 @@ end
 set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)
 set_cursorline("FileType", false, "TelescopePrompt")
+
+-- Border and hide STL
+vim.opt.fillchars = {
+	horiz = "━",
+	horizup = "┻",
+	horizdown = "┳",
+	vert = "┃",
+	vertleft = "┫",
+	vertright = "┣",
+	stl = " ",
+	stlnc = " ",
+	eob = " ",
+}

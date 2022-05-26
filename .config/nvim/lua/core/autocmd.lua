@@ -1,3 +1,13 @@
+local colorscheme = vim.api.nvim_create_augroup("colorscheme", { clear = true })
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ pattern = "*", command = "highlight NormalFloat guibg=#1f2335", group = colorscheme }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ pattern = "*", command = "highlight FloatBorder guibg=#1f2335", group = colorscheme }
+)
+
 local exec_group = vim.api.nvim_create_augroup("ExecCode", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
@@ -6,7 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>r",
-				'<cmd>TermExec cmd="python %"<cr>',
+				'<cmd>TermExec cmd="python %:p"<cr>',
 				{ noremap = true, silent = true }
 			)
 		end)

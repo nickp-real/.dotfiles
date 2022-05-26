@@ -29,7 +29,6 @@ local kind_icons = {
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local neogen = require("neogen")
-local compare = cmp.config.compare
 cmp.setup({
 	enabled = function()
 		-- disable completion in comments
@@ -59,7 +58,7 @@ cmp.setup({
 			elseif neogen.jumpable() then
 				neogen.jump_next()
 			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
 			else
 				fallback()
 			end
@@ -71,7 +70,7 @@ cmp.setup({
 			elseif neogen.jumpable(true) then
 				neogen.jump_prev()
 			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
 			else
 				fallback()
 			end
@@ -88,7 +87,6 @@ cmp.setup({
 		{ name = "nvim_lsp", max_item_count = 25, priority = 8 },
 		{ name = "luasnip", priority = 7 },
 		{ name = "buffer", Keyword_length = 5, priority = 7 },
-		{ name = "nvim_lsp_signature_help", priority = 6 },
 		{ name = "path", priority = 6 },
 		{ name = "nvim_lua", priority = 5 },
 		-- { name = "rg", Keyword_length = 5, priority = 4 },
@@ -98,16 +96,16 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
-	sorting = {
-		priority_weight = 1.0,
-		comparators = {
-			compare.locality,
-			compare.recently_used,
-			compare.score,
-			compare.offset,
-			compare.order,
-		},
-	},
+	-- sorting = {
+	-- 	priority_weight = 1.0,
+	-- 	comparators = {
+	-- 		compare.locality,
+	-- 		compare.recently_used,
+	-- 		compare.score,
+	-- 		compare.offset,
+	-- 		compare.order,
+	-- 	},
+	-- },
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -118,7 +116,7 @@ cmp.setup.cmdline("/", {
 	},
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({

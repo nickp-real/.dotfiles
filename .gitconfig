@@ -17,5 +17,5 @@
 [mergetool]
     prompt = false
 	keepBackup = false
-; [safe]
-; 	directory = *
+[safe]
+	directory = *

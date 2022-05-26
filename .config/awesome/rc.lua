@@ -11,44 +11,13 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
-local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-	naughty.notify({
-		preset = naughty.config.presets.critical,
-		title = "Oops, there were errors during startup!",
-		text = awesome.startup_errors,
-	})
-end
-
--- Handle runtime errors after startup
-do
-	local in_error = false
-	awesome.connect_signal("debug::error", function(err)
-		-- Make sure we don't go into an endless error loop
-		if in_error then
-			return
-		end
-		in_error = true
-
-		naughty.notify({
-			preset = naughty.config.presets.critical,
-			title = "Oops, an error happened!",
-			text = tostring(err),
-		})
-		in_error = false
-	end)
-end
--- }}}
-
+require("core.error_handling")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
@@ -68,11 +37,11 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-	-- awful.layout.suit.floating,
 	awful.layout.suit.tile,
 	-- awful.layout.suit.tile.left,
 	-- awful.layout.suit.tile.bottom,
 	-- awful.layout.suit.tile.top,
+	awful.layout.suit.floating,
 	-- awful.layout.suit.fair,
 	-- awful.layout.suit.fair.horizontal,
 	-- awful.layout.suit.spiral,
@@ -322,10 +291,10 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "l", function()
 		awful.tag.incncol(-1, nil, true)
 	end, { description = "decrease the number of columns", group = "layout" }),
-	awful.key({ modkey }, "space", function()
+	awful.key({ modkey, "Shift" }, "Return", function()
 		awful.layout.inc(1)
 	end, { description = "select next", group = "layout" }),
-	awful.key({ modkey, "Shift" }, "space", function()
+	awful.key({ modkey, "Control" }, "Return", function()
 		awful.layout.inc(-1)
 	end, { description = "select previous", group = "layout" }),
 
@@ -369,9 +338,9 @@ clientkeys = gears.table.join(
 		c.fullscreen = not c.fullscreen
 		c:raise()
 	end, { description = "toggle fullscreen", group = "client" }),
-	awful.key({ modkey, "Shift" }, "c", function(c)
+	awful.key({ modkey }, "q", function(c)
 		c:kill()
-	end, { description = "close", group = "client" }),
+	end, { description = "close focused client", group = "client" }),
 	awful.key(
 		{ modkey, "Control" },
 		"space",
@@ -600,5 +569,6 @@ end)
 beautiful.useless_gap = 5
 
 -- Auto Startup Program
-awful.spawn("./.fehbg &")
+awful.spawn.with_shell("./.fehbg &")
+awful.spawn.with_shell("pulseaudio -k")
 -- awful.spawn("picom")

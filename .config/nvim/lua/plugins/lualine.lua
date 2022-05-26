@@ -1,8 +1,3 @@
-require("onedark").setup({
-	dark_float = true,
-	dark_sidebar = true,
-	sidebars = { "Outline", "terminal", "toggleterm", "packer", "qf", "Trouble" },
-})
 local lualine = require("lualine")
 local signs = { error = " ", warn = " ", hint = " ", info = " " }
 local diagnostics = {
@@ -73,35 +68,9 @@ lualine.setup({
 	},
 })
 
--- LSP progress indicator
-require("fidget").setup({})
-
 -- Hide Status Line, Lualine
 vim.cmd([[
   hi StatusLine gui=NONE guifg=NONE guibg=NonText guisp=NonText
   hi StatusLineNc gui=NONE guifg=NONE guibg=NonText guisp=NonText
   hi WinSeparator guibg=None guifg=#393f4a
 ]])
-
-local colorscheme = vim.api.nvim_create_augroup("colorscheme", { clear = true })
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ pattern = "*", command = "highlight NormalFloat guibg=#1f2335", group = colorscheme }
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ pattern = "*", command = "highlight FloatBorder guibg=#1f2335", group = colorscheme }
-)
-
--- Border and hide STL
-vim.opt.fillchars = {
-	horiz = "━",
-	horizup = "┻",
-	horizdown = "┳",
-	vert = "┃",
-	vertleft = "┫",
-	vertright = "┣",
-	stl = " ",
-	stlnc = " ",
-	eob = " ",
-}

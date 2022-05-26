@@ -91,7 +91,3 @@ configs.setup({
 		enable = true,
 	},
 })
-
-vim.g.matchup_matchparen_offscreen = { method = "popup", border = 1 }
-require("tabout").setup()
--- require("hlargs").setup()

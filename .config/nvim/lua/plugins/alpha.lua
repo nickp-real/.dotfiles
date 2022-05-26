@@ -30,8 +30,8 @@ dashboard.section.buttons.val = {
 	-- dashboard.button("SPC f m", "  Jump to Bookmarks"),
 	dashboard.button("SPC s l", "  Open Last Session"),
 	dashboard.button("v", "  Neovim Config", "<cmd>e ~/.config/nvim/init.lua<CR>"),
-	dashboard.button("p", "  Plugin Config", "<cmd>e ~/.config/nvim/after/plugin/<CR>"),
-	dashboard.button("t", "  Theme Config", "<cmd>e ~/.config/nvim/plugin/theme.lua<CR>"),
+	-- dashboard.button("p", "  Plugin Config", "<cmd>e ~/.config/nvim/after/plugin/<CR>"),
+	-- dashboard.button("t", "  Theme Config", "<cmd>e ~/.config/nvim/plugin/theme.lua<CR>"),
 	dashboard.button("q", "  Quit NVIM", "<cmd>qa<CR>"),
 }
 

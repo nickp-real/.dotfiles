@@ -17,5 +17,6 @@ require("bufferline").setup({
 				text_align = "center",
 			},
 		},
+		always_show_bufferline = false,
 	},
 })
