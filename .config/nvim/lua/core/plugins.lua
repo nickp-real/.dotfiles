@@ -96,7 +96,7 @@ return packer.startup({
 		use({
 			{
 				"nvim-treesitter/nvim-treesitter",
-				event = "BufEnter",
+				event = "BufRead",
 				run = ":TSUpdate",
 				config = function()
 					require("plugins.treesitter")
@@ -120,12 +120,14 @@ return packer.startup({
 			"m-demare/hlargs.nvim",
 			after = "nvim-treesitter",
 			config = function()
-				require("hlargs").setup()
+				require("hlargs").setup({
+					color = "#e59b4e",
+				})
 			end,
 		})
 
 		-- Log Highlight
-		use({ "MTDL9/vim-log-highlighting", event = "BufEnter", ft = "log" })
+		use({ "MTDL9/vim-log-highlighting", event = "BufRead", ft = "log" })
 
 		-- UI
 		use({
@@ -247,22 +249,60 @@ return packer.startup({
 		})
 
 		-- LSP
-		use("williamboman/nvim-lsp-installer")
 		use({
-			"neovim/nvim-lspconfig",
-			requires = { "hrsh7th/cmp-nvim-lsp", "williamboman/nvim-lsp-installer" },
-			event = "BufRead",
-			config = function()
-				require("lsp.lspconfigs")
-			end,
+			{
+				"williamboman/nvim-lsp-installer",
+				config = function()
+					require("nvim-lsp-installer").setup()
+				end,
+			},
+			{
+				"neovim/nvim-lspconfig",
+				requires = "hrsh7th/cmp-nvim-lsp",
+				event = "BufRead",
+				config = function()
+					require("lsp.lspconfigs")
+				end,
+			},
+			{
+				"jose-elias-alvarez/null-ls.nvim",
+				event = "BufRead",
+				config = function()
+					require("lsp.null-ls")
+				end,
+			},
 		})
 
+		-- Flutter
 		use({
-			"jose-elias-alvarez/null-ls.nvim",
-			event = "BufRead",
-			config = function()
-				require("lsp.null-ls")
-			end,
+			{
+				"akinsho/flutter-tools.nvim",
+				event = "BufRead",
+				requires = "nvim-lua/plenary.nvim",
+				ft = { "flutter", "dart" },
+				config = function()
+					require("lsp.flutter")
+				end,
+			},
+			{
+				"akinsho/pubspec-assist.nvim",
+				requires = "plenary.nvim",
+				rocks = {
+					{
+						"lyaml",
+						server = "http://rocks.moonscript.org",
+						-- If using macOS or Ubuntu, you may need to install the `libyaml` package.
+						-- if you install libyaml with homebrew you will need to set the YAML_DIR
+						-- to the location of the homebrew installation of libyaml e.g.
+						-- env = { YAML_DIR = '/opt/homebrew/Cellar/libyaml/0.2.5/' },
+					},
+				},
+				ft = { "dart", "flutter", "yaml" },
+				config = function()
+					require("pubspec-assist").setup()
+				end,
+			},
+			{ "RobertBrunhage/flutter-riverpod-snippets", ft = { "flutter", "dart" }, after = "nvim-cmp" },
 		})
 
 		-- LSP Addon
@@ -330,33 +370,6 @@ return packer.startup({
 
 		-- Git
 		use({ "tpope/vim-fugitive", event = "CursorHold" })
-
-		-- Flutter
-		use({
-			"akinsho/flutter-tools.nvim",
-			event = "BufEnter",
-			ft = { "flutter", "dart" },
-			requires = "nvim-lua/plenary.nvim",
-		})
-		use({
-			"akinsho/pubspec-assist.nvim",
-			requires = "plenary.nvim",
-			rocks = {
-				{
-					"lyaml",
-					server = "http://rocks.moonscript.org",
-					-- If using macOS or Ubuntu, you may need to install the `libyaml` package.
-					-- if you install libyaml with homebrew you will need to set the YAML_DIR
-					-- to the location of the homebrew installation of libyaml e.g.
-					-- env = { YAML_DIR = '/opt/homebrew/Cellar/libyaml/0.2.5/' },
-				},
-			},
-			ft = { "dart", "flutter", "yaml" },
-			config = function()
-				require("pubspec-assist").setup()
-			end,
-		})
-		use({ "RobertBrunhage/flutter-riverpod-snippets", ft = { "flutter", "dart" }, after = "nvim-cmp" })
 
 		-- Debug Adapter Protocol
 		use({

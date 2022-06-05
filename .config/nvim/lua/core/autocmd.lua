@@ -13,12 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
 	callback = function()
 		vim.schedule(function()
-			vim.api.nvim_set_keymap(
-				"n",
-				"<leader>r",
-				'<cmd>TermExec cmd="python %:p"<cr>',
-				{ noremap = true, silent = true }
-			)
+			vim.api.nvim_set_keymap("n", "<leader>r", '<cmd>TermExec cmd="python %:p"<cr>', { noremap = true, silent = true })
 		end)
 	end,
 	group = exec_group,

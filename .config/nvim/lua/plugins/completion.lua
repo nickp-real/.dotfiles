@@ -29,6 +29,7 @@ local kind_icons = {
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local neogen = require("neogen")
+local compare = cmp.config.compare
 cmp.setup({
 	enabled = function()
 		-- disable completion in comments
@@ -43,7 +44,7 @@ cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+			luasnip.lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
@@ -96,16 +97,16 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
-	-- sorting = {
-	-- 	priority_weight = 1.0,
-	-- 	comparators = {
-	-- 		compare.locality,
-	-- 		compare.recently_used,
-	-- 		compare.score,
-	-- 		compare.offset,
-	-- 		compare.order,
-	-- 	},
-	-- },
+	sorting = {
+		priority_weight = 1.0,
+		comparators = {
+			compare.locality,
+			compare.recently_used,
+			compare.score,
+			compare.offset,
+			compare.order,
+		},
+	},
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).

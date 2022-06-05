@@ -1,5 +1,3 @@
-vim.g.nvim_tree_symlink_arrow = " >> "
-
 require("nvim-tree").setup({
 	disable_netrw = false,
 	hijack_netrw = true,
@@ -30,6 +28,18 @@ require("nvim-tree").setup({
 				corner = "└ ",
 				edge = "│ ",
 				none = "  ",
+			},
+		},
+		icons = {
+			webdev_colors = true,
+			git_placement = "before",
+			padding = " ",
+			symlink_arrow = " >> ",
+			show = {
+				file = true,
+				folder = true,
+				folder_arrow = true,
+				git = true,
 			},
 		},
 	},
