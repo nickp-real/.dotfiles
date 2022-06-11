@@ -1,15 +1,18 @@
-local colorizer = require("colorizer")
+local status_ok, colorizer = pcall(require, "colorizer")
+if not status_ok then
+  return
+end
 
 -- Attach to certain Filetypes, add special configuration for `html`
 -- Use `background` for everything else.
 colorizer.setup({
-	"css",
-	"javascript",
-	"typescript",
-	"html",
-	html = {
-		mode = "foreground",
-	},
+  "css",
+  "javascript",
+  "typescript",
+  "html",
+  html = {
+    mode = "foreground",
+  },
 })
 
 -- Use the `default_options` as the second parameter, which uses

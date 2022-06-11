@@ -1,5 +1,6 @@
 # ALIAS
 alias python "python3.10"
+alias ls "exa"
 alias ll "exa -l -g --icons"
 alias lla "ll -a"
 alias llt "ll -T"
@@ -31,7 +32,7 @@ set -gx PATH $ANDROID_HOME/emulator $PATH
 set -gx PATH $ANDROID_HOME/tools $PATH
 
 # FLUTTER_ROOT
-set -x FLUTTER_ROOT $HOME/Software/flutter
+set -x FLUTTER_ROOT $HOME/Dev-tools/flutter
 set -gx PATH $FLUTTER_ROOT/bin $PATH
 
 # SET VAR

@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd(
 	{ pattern = "*", command = "highlight FloatBorder guibg=#1f2335", group = colorscheme }
 )
 
-local exec_group = vim.api.nvim_create_augroup("ExecCode", { clear = true })
+local exec_group = vim.api.nvim_create_augroup("RunCode", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
 	callback = function()

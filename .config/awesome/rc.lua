@@ -326,10 +326,15 @@ globalkeys = gears.table.join(
 
 	-- Monitor Brightness
 	awful.key({}, "XF86MonBrightnessDown", function()
-		awful.spawn("xbacklight -10")
+		awful.spawn.with_shell("xbacklight -10")
 	end),
 	awful.key({}, "XF86MonBrightnessUp", function()
-		awful.spawn("xbacklight +10")
+		awful.spawn.with_shell("xbacklight +10")
+	end),
+
+	-- Screenshot
+	awful.key({}, "Print", function()
+		awful.spawn.with_shell("flameshot gui")
 	end)
 )
 
