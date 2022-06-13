@@ -3,15 +3,15 @@ local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 local function nkeymap(key, map)
-	keymap("n", key, map, opts)
+  keymap("n", key, map, opts)
 end
 
 local function ikeymap(key, map)
-	keymap("i", key, map, opts)
+  keymap("i", key, map, opts)
 end
 
 local function vkeymap(key, map)
-	keymap("v", key, map, opts)
+  keymap("v", key, map, opts)
 end
 
 -- Spacebar to nothing
@@ -27,6 +27,11 @@ keymap("i", "<C-s>", "<Esc>:w<CR>a", { silent = true })
 -- Visual indent
 vkeymap(">", ">gv")
 vkeymap("<", "<gv")
+
+-- Better enter insert mode on blank line
+vim.keymap.set("n", "i", function()
+  return string.match(vim.api.nvim_get_current_line(), "%g") == nil and "cc" or "i"
+end, { expr = true, noremap = true })
 
 -- Delete buffer
 nkeymap("<C-c>", ":Bdelete<cr>")
@@ -64,6 +69,10 @@ ikeymap("<C-k>", "<Esc>:m .-2<CR>==gi")
 nkeymap("<leader>j", ":m .+1<cr>==")
 nkeymap("<leader>k", ":m .-2<cr>==")
 
+-- Coderunner
+nkeymap("<leader>r", "<cmd>Run<cr>")
+nkeymap("<leader><S-r>", "<cmd>RunUpdate<cr>")
+
 -- LSP
 nkeymap("gw", ":lua vim.lsp.buf.document_symbol()<cr>")
 nkeymap("gw", ":lua vim.lsp.buf.workspace_symbol()<cr>")
@@ -84,15 +93,15 @@ nkeymap("<leader>nn", "<cmd>NvimTreeFindFileToggle<cr>")
 
 -- Toggle Terminal
 vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "term://*toggleterm#*",
-	callback = function()
-		vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-		vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
-		vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
-		vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
-		vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
-		vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
-	end,
+  pattern = "term://*toggleterm#*",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+    vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
+    vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
+    vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
+    vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
+    vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
+  end,
 })
 
 -- Buffer line

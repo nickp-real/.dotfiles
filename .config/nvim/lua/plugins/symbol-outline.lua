@@ -1,3 +1,3 @@
 vim.g.symbols_outline = {
-	-- width = 36,
+  -- width = 36,
 }

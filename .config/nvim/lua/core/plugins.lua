@@ -120,7 +120,9 @@ return packer.startup({
       "folke/todo-comments.nvim",
       event = "BufRead",
       requires = "nvim-lua/plenary.nvim",
-      config = function() end,
+      config = function()
+        require("plugins.todo-comment")
+      end,
     })
 
     use({
@@ -247,16 +249,18 @@ return packer.startup({
     })
 
     use({
-      "ur4ltz/surround.nvim",
+      "tpope/vim-surround",
       event = "BufRead",
-      config = function()
-        require("plugins.surround")
-      end,
     })
 
     use({
       "wellle/targets.vim",
       event = "BufRead",
+    })
+
+    use({
+      "tpope/vim-repeat",
+      event = "CursorHold",
     })
 
     -- Terminal
@@ -365,10 +369,10 @@ return packer.startup({
           },
           {
             "danymat/neogen",
+            requires = "nvim-treesitter/nvim-treesitter",
             config = function()
               require("plugins.neogen")
             end,
-            requires = "nvim-treesitter/nvim-treesitter",
           },
         },
       },
@@ -379,6 +383,7 @@ return packer.startup({
       { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+      { "mtoohey31/cmp-fish", after = "nvim-cmp", ft = "fish" },
     })
 
     use({

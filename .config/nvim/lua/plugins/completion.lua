@@ -96,6 +96,7 @@ cmp.setup({
     { name = "buffer", Keyword_length = 5, priority = 7 },
     { name = "path", priority = 6 },
     { name = "nvim_lua", priority = 5 },
+    { name = "fish", priority = 5 },
     -- { name = "rg", Keyword_length = 5, priority = 4 },
   }),
   preselete = cmp.PreselectMode.None,

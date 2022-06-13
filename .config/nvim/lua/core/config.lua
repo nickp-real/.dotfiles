@@ -55,28 +55,28 @@ vim.opt.wrap = true
 
 -- Format Option
 vim.opt.formatoptions = vim.opt.formatoptions
-	- "a" -- Auto formatting is BAD.
-	- "t" -- Don't auto format my code. I got linters for that.
-	+ "c" -- In general, I like it when comments respect textwidth
-	+ "q" -- Allow formatting comments w/ gq
-	- "o" -- O and o, don't continue comments
-	+ "r" -- But do continue when pressing enter.
-	+ "n" -- Indent past the formatlistpat, not underneath it.
-	+ "j" -- Auto-remove comments if possible.
-	- "2" -- I'm not in gradeschool anymore
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "c" -- In general, I like it when comments respect textwidth
+  + "q" -- Allow formatting comments w/ gq
+  - "o" -- O and o, don't continue comments
+  + "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- I'm not in gradeschool anymore
 
 -- Clipboard
 vim.g.clipboard = {
-	name = "xsel",
-	copy = {
-		["+"] = "xsel -i -b",
-		["*"] = "xsel -i -p",
-	},
-	paste = {
-		["+"] = "xsel -o -b",
-		["*"] = "xsel -o -p",
-	},
-	cache_enabled = 0,
+  name = "xsel",
+  copy = {
+    ["+"] = "xsel -i -b",
+    ["*"] = "xsel -i -p",
+  },
+  paste = {
+    ["+"] = "xsel -o -b",
+    ["*"] = "xsel -o -p",
+  },
+  cache_enabled = 0,
 }
 vim.opt.clipboard = "unnamedplus"
 
@@ -85,13 +85,13 @@ vim.g.python3_host_prog = "/usr/bin/python"
 -- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
 local set_cursorline = function(event, value, pattern)
-	vim.api.nvim_create_autocmd(event, {
-		group = group,
-		pattern = pattern,
-		callback = function()
-			vim.opt_local.cursorline = value
-		end,
-	})
+  vim.api.nvim_create_autocmd(event, {
+    group = group,
+    pattern = pattern,
+    callback = function()
+      vim.opt_local.cursorline = value
+    end,
+  })
 end
 set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)
@@ -99,13 +99,13 @@ set_cursorline("FileType", false, "TelescopePrompt")
 
 -- Border and hide STL
 vim.opt.fillchars = {
-	horiz = "━",
-	horizup = "┻",
-	horizdown = "┳",
-	vert = "┃",
-	vertleft = "┫",
-	vertright = "┣",
-	stl = " ",
-	stlnc = " ",
-	eob = " ",
+  horiz = "━",
+  horizup = "┻",
+  horizdown = "┳",
+  vert = "┃",
+  vertleft = "┫",
+  vertright = "┣",
+  stl = " ",
+  stlnc = " ",
+  eob = " ",
 }

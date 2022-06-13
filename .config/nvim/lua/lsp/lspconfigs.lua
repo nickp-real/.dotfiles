@@ -44,7 +44,7 @@ lspconfig.tsserver.setup({
   flags = utils.flags,
 })
 
-lspconfig.ccls.setup({
+lspconfig.cssls.setup({
   capabilities = utils.capabilities,
   on_attach = function(client, bunfnr)
     require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
