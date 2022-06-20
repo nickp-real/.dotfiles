@@ -6,7 +6,8 @@ end
 
 local utils = require("lsp.utils")
 
-local servers = { "bashls", "eslint" }
+-- stock format
+local servers = { "bashls", "clangd" }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -16,58 +17,45 @@ for _, lsp in pairs(servers) do
   })
 end
 
+-- custom format
+local no_format_servers = { "pyright", "cssls", "html", "tailwindcss" }
+for _, lsp in pairs(no_format_servers) do
+  lspconfig[lsp].setup({
+    capabilities = utils.capabilities,
+    on_attach = utils.no_format_on_attach,
+    handlers = utils.handlers,
+    flags = utils.flags,
+  })
+end
+
 lspconfig.sumneko_lua.setup({
   capabilities = utils.capabilities,
-  on_attach = function(client, bunfnr)
-    require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
-  end,
+  on_attach = utils.no_format_on_attach,
   handlers = utils.handlers,
   flags = utils.flags,
   settings = require("lsp.servers.sumneko_lua").settings,
 })
 
-lspconfig.pyright.setup({
-  capabilities = utils.capabilities,
-  on_attach = function(client, bunfnr)
-    require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
-  end,
-  handlers = utils.handlers,
-  flags = utils.flags,
-})
-
 lspconfig.tsserver.setup({
-  capabilities = utils.capabilities,
-  on_attach = function(client, bunfnr)
-    require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
-  end,
-  handlers = utils.handlers,
+  capabilities = require("lsp.servers.tsserver").capabilities,
+  on_attach = require("lsp.servers.tsserver").on_attach,
+  handlers = utils.no_diagnostic_handler,
   flags = utils.flags,
-})
-
-lspconfig.cssls.setup({
-  capabilities = utils.capabilities,
-  on_attach = function(client, bunfnr)
-    require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
-  end,
-  handlers = utils.handlers,
-  flags = utils.flags,
+  settings = require("lsp.servers.tsserver").settings,
 })
 
 lspconfig.jsonls.setup({
   capabilities = utils.capabilities,
-  on_attach = function(client, bunfnr)
-    require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
-  end,
+  on_attach = utils.no_format_on_attach,
   handlers = utils.handlers,
   flags = utils.flags,
   settings = require("lsp.servers.jsonls").settings,
 })
 
-lspconfig.html.setup({
+lspconfig.arduino_language_server.setup({
   capabilities = utils.capabilities,
-  on_attach = function(client, bunfnr)
-    require("lsp.servers.null-ls-format").on_attach(client, bunfnr)
-  end,
+  on_attach = utils.on_attach,
   handlers = utils.handlers,
   flags = utils.flags,
+  on_new_config = require("lsp.servers.arduino_language_server").on_new_config,
 })

@@ -3,11 +3,11 @@ if not status_ok then
   return
 end
 
-vim.g.indent_blankline_use_treesitter = true
-vim.g.indent_blankline_show_current_context = true
-
 indent_blankline.setup({
   indentLine_enabled = 1,
+  show_current_context = true,
+  -- show_current_context_start = true,
+  use_treesitter = true,
   char = "▏",
   buftype_exclude = { "terminal", "help", "nofile", "prompt", "popup" },
   filetype_exclude = {
@@ -23,5 +23,5 @@ indent_blankline.setup({
     "Trouble",
   },
   show_trailing_blankline_indent = false,
-  -- show_first_indent_level = false,
+  show_first_indent_level = false,
 })

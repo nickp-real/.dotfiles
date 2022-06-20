@@ -7,6 +7,7 @@ bufferline.setup({
   options = {
     diagnostics = "nvim_lsp",
     diagnostics_update_in_insert = false,
+    close_command = "Bdelete! %d",
     indicator_icon = "▌",
     offsets = {
       {
@@ -22,6 +23,5 @@ bufferline.setup({
         text_align = "center",
       },
     },
-    always_show_bufferline = false,
   },
 })

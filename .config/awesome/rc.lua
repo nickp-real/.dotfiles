@@ -575,5 +575,6 @@ beautiful.useless_gap = 5
 
 -- Auto Startup Program
 awful.spawn.with_shell("./.fehbg &")
-awful.spawn.with_shell("pulseaudio -k")
+-- awful.spawn.with_shell("pulseaudio -k")
+awful.spawn("flameshot")
 -- awful.spawn("picom")

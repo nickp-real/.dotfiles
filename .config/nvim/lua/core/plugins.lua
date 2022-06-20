@@ -2,7 +2,7 @@ local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_boostrap = fn.system({
+  PACKER_BOOSTRAP = fn.system({
     "git",
     "clone",
     "--depth",
@@ -230,39 +230,6 @@ return packer.startup({
       end,
     })
 
-    -- Editing
-    use({
-      "numToStr/Comment.nvim",
-      event = "BufRead",
-      config = function()
-        require("plugins.comment")
-      end,
-    })
-
-    use({
-      "abecodes/tabout.nvim",
-      event = "BufRead",
-      after = "nvim-treesitter",
-      config = function()
-        require("plugins.tabout")
-      end,
-    })
-
-    use({
-      "tpope/vim-surround",
-      event = "BufRead",
-    })
-
-    use({
-      "wellle/targets.vim",
-      event = "BufRead",
-    })
-
-    use({
-      "tpope/vim-repeat",
-      event = "CursorHold",
-    })
-
     -- Terminal
     use({
       "akinsho/toggleterm.nvim",
@@ -332,6 +299,13 @@ return packer.startup({
       { "RobertBrunhage/flutter-riverpod-snippets", ft = { "flutter", "dart" }, after = "nvim-cmp" },
     })
 
+    -- Arduino Tools
+    use({
+      "stevearc/vim-arduino",
+      event = "BufRead",
+      ft = "arduino",
+    })
+
     -- LSP Addon
     use({
       "stevearc/dressing.nvim",
@@ -384,6 +358,36 @@ return packer.startup({
       { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "mtoohey31/cmp-fish", after = "nvim-cmp", ft = "fish" },
+      { "petertriho/cmp-git", after = "nvim-cmp", ft = { "gitcommit", "octo" }, requires = "nvim-lua/plenary.nvim" },
+    })
+
+    -- Editing
+    use({
+      "numToStr/Comment.nvim",
+      event = "BufRead",
+      config = function()
+        require("plugins.comment")
+      end,
+    })
+
+    use({
+      "abecodes/tabout.nvim",
+      event = "BufRead",
+      requires = "nvim-treesitter",
+      after = "nvim-cmp",
+      config = function()
+        require("plugins.tabout")
+      end,
+    })
+
+    use({
+      "tpope/vim-surround",
+      event = "BufRead",
+    })
+
+    use({
+      "tpope/vim-repeat",
+      event = "CursorHold",
     })
 
     use({
@@ -454,7 +458,7 @@ return packer.startup({
       config = function() end,
     })
 
-    if packer_boostrap then
+    if PACKER_BOOSTRAP then
       require("packer").sync()
     end
   end,

@@ -6,6 +6,7 @@ end
 telescope.setup({
   defaults = {
     prompt_prefix = "  ",
+    path_display = { "smart" },
     preview = {
       treesitter = true,
     },
@@ -14,5 +15,6 @@ telescope.setup({
     layout_config = {
       prompt_position = "top",
     },
+    file_ignore_patterns = { ".git/", "node_modules" },
   },
 })

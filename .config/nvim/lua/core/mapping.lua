@@ -30,7 +30,11 @@ vkeymap("<", "<gv")
 
 -- Better enter insert mode on blank line
 vim.keymap.set("n", "i", function()
-  return string.match(vim.api.nvim_get_current_line(), "%g") == nil and "cc" or "i"
+  return string.match(vim.api.nvim_get_current_line(), "%g") == nil
+      and vim.bo.filetype ~= "toggleterm"
+      and vim.bo.filetype ~= "TelescopePrompt"
+      and "cc"
+    or "i"
 end, { expr = true, noremap = true })
 
 -- Delete buffer
@@ -95,12 +99,14 @@ nkeymap("<leader>nn", "<cmd>NvimTreeFindFileToggle<cr>")
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*toggleterm#*",
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-    vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
-    vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
-    vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
-    vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
-    vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
+    vim.schedule(function()
+      vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
+    end)
   end,
 })
 
@@ -131,9 +137,6 @@ nkeymap("S", "<cmd>HopWord<cr>")
 -- Session Manager
 nkeymap("<leader>sl", "<cmd>SessionManager load_last_session<cr>")
 nkeymap("<leader>so", "<cmd>SessionManager load_session<cr>")
-nkeymap("<leader>sc", "<cmd>SessionManager load_current_dir_session<cr>")
-nkeymap("<leader>ss", "<cmd>SessionManager save_current_session<cr>")
-nkeymap("<leader>sd", "<cmd>SessionManager delete_session<cr>")
 
 -- Git
 nkeymap("<leader>gs", "<cmd>G<cr>")

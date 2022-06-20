@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 onedark.setup({
-  dark_float = false,
+  dark_float = true,
   dark_sidebar = true,
   sidebars = { "Outline" },
 })

@@ -8,7 +8,7 @@ alias cmd "cmd.exe"
 alias pwsh "pwsh.exe"
 # alias open "wslview"
 alias vim "nvim"
-alias v "nvim"
+# alias v "nvim"
 
 # Arch
 alias pac "sudo pacman -S"

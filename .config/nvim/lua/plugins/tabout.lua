@@ -3,4 +3,7 @@ if not status_ok then
   return
 end
 
-tabout.setup()
+tabout.setup({
+  act_as_shift_tab = true,
+  ignore_beginning = false,
+})

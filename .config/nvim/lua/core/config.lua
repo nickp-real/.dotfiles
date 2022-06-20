@@ -6,6 +6,7 @@ vim.opt.cursorline = true
 vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 vim.opt.equalalways = false
 vim.opt.ffs = "unix"
+vim.opt.fileencoding = "utf-8"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldmethod = "expr"
 vim.opt.guicursor:append({ "n-i:blinkon1" })
@@ -31,6 +32,7 @@ vim.opt.termguicolors = true
 vim.opt.title = true
 vim.opt.wildoptions = "pum"
 vim.opt.updatetime = 250
+vim.opt.undofile = true
 
 -- Tap
 vim.opt.autoindent = true
@@ -52,18 +54,6 @@ vim.opt.inccommand = "split"
 vim.opt.linebreak = true
 vim.opt.textwidth = 80
 vim.opt.wrap = true
-
--- Format Option
-vim.opt.formatoptions = vim.opt.formatoptions
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "c" -- In general, I like it when comments respect textwidth
-  + "q" -- Allow formatting comments w/ gq
-  - "o" -- O and o, don't continue comments
-  + "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
 
 -- Clipboard
 vim.g.clipboard = {

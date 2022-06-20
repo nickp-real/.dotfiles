@@ -6,7 +6,7 @@ if not (cmp_status_ok and luasnip_status_ok and neogen_status_ok) then
   return
 end
 
-local compare = cmp.config.compare
+-- local compare = cmp.config.compare
 
 local kind_icons = {
   Text = "",
@@ -53,6 +53,7 @@ cmp.setup({
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
+
   mapping = cmp.mapping.preset.insert({
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -62,10 +63,10 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
       elseif neogen.jumpable() then
         neogen.jump_next()
-      elseif luasnip.expand_or_jumpable() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
       else
         fallback()
       end
@@ -74,21 +75,23 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) and luasnip.expand_or_locally_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
       elseif neogen.jumpable(true) then
         neogen.jump_prev()
-      elseif luasnip.jumpable(-1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
       else
         fallback()
       end
     end, { "i", "s" }),
   }),
+
   formatting = {
     format = function(_, vim_item)
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
       return vim_item
     end,
   },
+
   sources = cmp.config.sources({
     { name = "nvim_lsp_signature_help", priority = 8 },
     { name = "nvim_lsp", max_item_count = 25, priority = 8 },
@@ -97,6 +100,7 @@ cmp.setup({
     { name = "path", priority = 6 },
     { name = "nvim_lua", priority = 5 },
     { name = "fish", priority = 5 },
+    { name = "git", priority = 5 },
     -- { name = "rg", Keyword_length = 5, priority = 4 },
   }),
   preselete = cmp.PreselectMode.None,
@@ -111,11 +115,13 @@ cmp.setup({
   sorting = {
     priority_weight = 1.0,
     comparators = {
-      compare.locality,
-      compare.recently_used,
-      compare.score,
-      compare.offset,
-      compare.order,
+      cmp.config.compare.exact,
+      cmp.config.compare.locality,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.offset,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.order,
     },
   },
 })
