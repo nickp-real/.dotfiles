@@ -11,10 +11,28 @@ telescope.setup({
       treesitter = true,
     },
     color_devicons = true,
+    initial_mode = "insert",
+    selection_strategy = "reset",
     sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
     layout_config = {
-      prompt_position = "top",
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.6,
+        results_width = 0.4,
+      },
+      vertical = {
+        mirror = false,
+      },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
     },
     file_ignore_patterns = { ".git/", "node_modules" },
+    mappings = {
+      i = {
+        ["<C-u>"] = false,
+      },
+    },
   },
 })

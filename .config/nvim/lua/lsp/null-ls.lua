@@ -19,6 +19,7 @@ local sources = {
   formatting.rustywind,
 
   -- diagnostic
+  diagnostics.flake8,
   diagnostics.eslint_d,
 
   -- code actions
@@ -29,7 +30,7 @@ null_ls.setup({
   sources = sources,
   on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then
-      utils.auto_format(bufnr)
+      utils.auto_format(client)
     end
   end,
   update_in_insert = false,

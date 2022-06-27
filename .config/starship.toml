@@ -1,3 +1,6 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
 $all\
 $fill\
@@ -6,7 +9,7 @@ $time\
 $line_break\
 $character
 """
-command_timeout = 2000
+command_timeout = 1000
 
 
 [fill]

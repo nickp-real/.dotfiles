@@ -39,6 +39,19 @@ dressing.setup({
     -- Priority list of preferred vim.select implementations
     backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
 
+    telescope = require("telescope.themes").get_dropdown({
+      layout_strategy = "horizontal",
+      layout_config = {
+        horizontal = {
+          prompt_position = "top",
+        },
+        vertical = {
+          mirror = false,
+        },
+      },
+      previewer = false,
+    }),
+
     -- Options for fzf selector
     fzf = {
       window = {

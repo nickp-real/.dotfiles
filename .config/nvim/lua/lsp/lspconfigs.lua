@@ -7,7 +7,7 @@ end
 local utils = require("lsp.utils")
 
 -- stock format
-local servers = { "bashls", "clangd" }
+local servers = { "bashls", "clangd", "gopls" }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -18,7 +18,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- custom format
-local no_format_servers = { "pyright", "cssls", "html", "tailwindcss" }
+local no_format_servers = { "cssls", "html", "tailwindcss" }
 for _, lsp in pairs(no_format_servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -52,10 +52,9 @@ lspconfig.jsonls.setup({
   settings = require("lsp.servers.jsonls").settings,
 })
 
-lspconfig.arduino_language_server.setup({
+lspconfig.pyright.setup({
   capabilities = utils.capabilities,
-  on_attach = utils.on_attach,
-  handlers = utils.handlers,
+  on_attach = require("lsp.servers.pyright").on_attach,
+  handlers = utils.no_diagnostic_handler,
   flags = utils.flags,
-  on_new_config = require("lsp.servers.arduino_language_server").on_new_config,
 })

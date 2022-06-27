@@ -77,6 +77,12 @@ nkeymap("<leader>k", ":m .-2<cr>==")
 nkeymap("<leader>r", "<cmd>Run<cr>")
 nkeymap("<leader><S-r>", "<cmd>RunUpdate<cr>")
 
+-- Format Async on save
+vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
+
+-- Clear highlight
+nkeymap("<c-h>", "<cmd>nohlsearch<cr>")
+
 -- LSP
 nkeymap("gw", ":lua vim.lsp.buf.document_symbol()<cr>")
 nkeymap("gw", ":lua vim.lsp.buf.workspace_symbol()<cr>")
@@ -93,7 +99,6 @@ nkeymap("<leader>fN", "<cmd>Telescope file_browser path=%:p:h<cr>")
 -- NvimTree
 nkeymap("<C-n>", "<cmd>NvimTreeToggle<cr>")
 nkeymap("<leader>nr", "<cmd>NvimTreeRefresh<cr>")
-nkeymap("<leader>nn", "<cmd>NvimTreeFindFileToggle<cr>")
 
 -- Toggle Terminal
 vim.api.nvim_create_autocmd("TermOpen", {

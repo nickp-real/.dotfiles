@@ -77,7 +77,6 @@ return packer.startup({
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
         after = "onedark.nvim",
-        event = "BufEnter",
         config = function()
           require("plugins.lualine")
         end,
@@ -127,7 +126,6 @@ return packer.startup({
 
     use({
       "m-demare/hlargs.nvim",
-      event = "BufRead",
       after = "nvim-treesitter",
       config = function()
         require("plugins.hlargs")
@@ -243,14 +241,22 @@ return packer.startup({
     use({
       {
         "williamboman/nvim-lsp-installer",
+        event = "BufRead",
         config = function()
           require("lsp.lsp-installer")
         end,
       },
       {
+        "lukas-reineke/lsp-format.nvim",
+        event = "BufRead",
+        config = function()
+          require("lsp-format").setup({})
+        end,
+      },
+      {
         "neovim/nvim-lspconfig",
         requires = "hrsh7th/cmp-nvim-lsp",
-        event = "BufRead",
+        after = { "nvim-lsp-installer", "lsp-format.nvim" },
         config = function()
           require("lsp.config")
           require("lsp.lspconfigs")
@@ -258,7 +264,7 @@ return packer.startup({
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        event = "BufRead",
+        after = { "nvim-lsp-installer", "lsp-format.nvim" },
         config = function()
           require("lsp.config")
           require("lsp.null-ls")
@@ -297,13 +303,6 @@ return packer.startup({
         end,
       },
       { "RobertBrunhage/flutter-riverpod-snippets", ft = { "flutter", "dart" }, after = "nvim-cmp" },
-    })
-
-    -- Arduino Tools
-    use({
-      "stevearc/vim-arduino",
-      event = "BufRead",
-      ft = "arduino",
     })
 
     -- LSP Addon
@@ -372,7 +371,6 @@ return packer.startup({
 
     use({
       "abecodes/tabout.nvim",
-      event = "BufRead",
       requires = "nvim-treesitter",
       after = "nvim-cmp",
       config = function()

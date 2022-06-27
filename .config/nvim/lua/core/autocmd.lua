@@ -1,14 +1,3 @@
--- Colorsheme
-local colorscheme = vim.api.nvim_create_augroup("colorscheme", { clear = true })
-vim.api.nvim_create_autocmd(
-  "ColorScheme",
-  { pattern = "*", command = "highlight NormalFloat guibg=#1f2335", group = colorscheme }
-)
-vim.api.nvim_create_autocmd(
-  "ColorScheme",
-  { pattern = "*", command = "highlight FloatBorder guibg=#1f2335", group = colorscheme }
-)
-
 -- Highlight on yank
 local yank = vim.api.nvim_create_augroup("yank", { clear = true })
 vim.api.nvim_create_autocmd(
@@ -36,6 +25,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   group = format_options,
 })
 
+-- spell for filetype
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
 -- Alpha bufferline
 local alpha = vim.api.nvim_create_augroup("Alpha", { clear = true })
 vim.api.nvim_create_autocmd({ "User" }, {
@@ -43,13 +41,11 @@ vim.api.nvim_create_autocmd({ "User" }, {
   callback = function()
     vim.opt_local.showtabline = 0
     vim.opt_local.laststatus = 0
-    vim.opt_local.ruler = false
     vim.api.nvim_create_autocmd("BufUnload", {
       buffer = 0,
       callback = function()
         vim.opt_local.showtabline = 2
         vim.opt_local.laststatus = 3
-        vim.opt_local.ruler = true
       end,
       group = alpha,
     })
@@ -69,4 +65,13 @@ vim.api.nvim_create_autocmd("FileType", {
     cmp.setup.buffer({ enabled = false })
   end,
   group = cmp_telescope,
+})
+
+-- Use 'q' to quit from common plugins
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir" },
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", { silent = true })
+    vim.bo.buflisted = false
+  end,
 })

@@ -1,6 +1,7 @@
 local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local illuminate_status_ok, illuminate = pcall(require, "illuminate")
-if not (cmp_nvim_lsp_status_ok and illuminate_status_ok) then
+local lsp_format_ok, lsp_format = pcall(require, "lsp-format")
+if not (cmp_nvim_lsp_status_ok and illuminate_status_ok and lsp_format_ok) then
   return
 end
 
@@ -39,15 +40,8 @@ local no_diagnositc_handlers = {
 M.handlers = handlers
 M.no_diagnostic_handler = no_diagnositc_handlers
 
-local auto_format = function(bufnr)
-  local group = vim.api.nvim_create_augroup("LSP Format", { clear = false })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.buf.formatting_sync()
-    end,
-    group = group,
-  })
+local auto_format = function(client)
+  lsp_format.on_attach(client)
 end
 
 local on_attach = function(client, bufnr)
@@ -121,7 +115,9 @@ M.no_format_on_attach = function(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities = capabilities
 
 M.flags = {
   allow_incremental_sync = true,

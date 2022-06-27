@@ -48,10 +48,10 @@ window:
   # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 10
-    y: 5
+    y: 10
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: true
+  # dynamic_padding: false
 
   # Window decorations
   #
@@ -135,14 +135,14 @@ font:
   # spacing.
   offset:
     x: -3
-    y: 1
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
   # right, increasing `y` moves the glyph upward.
-  # glyph_offset:
-  #   x: -1
-  #   y: 5
+  glyph_offset:
+    x: 0
+    y: 0
 
   # Thin stroke font rendering (macOS only)
   #

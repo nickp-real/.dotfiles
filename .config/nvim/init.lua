@@ -3,7 +3,7 @@ pcall(require, "impatient")
 
 -- Core
 require("core.plugins")
-require("core.config")
+require("core.option")
 require("core.disable_builtin")
 require("core.autocmd")
 require("core.coderunner")

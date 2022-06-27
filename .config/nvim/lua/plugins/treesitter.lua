@@ -33,13 +33,30 @@ configs.setup({
     extended_mode = false,
     max_file_lines = nil,
     colors = {
-      "#ABB2BF",
-      "#C678DD",
-      "#61AFEF",
-      "#56B6C2",
-      "#E5C07B",
-      "#98C379",
-      "#E06C75",
+      "#abb2bf", -- bright white
+      "#c678dd", -- purple
+      -- "#528bff", -- bright blue
+      "#61afef", -- blue
+      "#98c379", -- green
+      "#e5c07b", -- bright yellow
+      "#d19a66", -- bright orange
+      "#e86671", -- bright red
+
+      -- "#798294", -- white
+      -- "#c678dd", -- purple
+      -- "#61afef", -- blue
+      -- "#98c379", -- green
+      -- "#ebd09c", -- yellow
+      -- "#e59b4e", -- orange
+      -- "#e06c75", --red,
+
+      -- "#e06c75", - red
+      -- "#ebd09c", -- yellow
+      -- "#e59b4e", -- orange
+      -- "#98c379", -- green
+      -- "#61afef", -- blue
+      -- "#56b6c2", -- cyan
+      -- "#c678dd", -- purple
     },
   },
   textobjects = {

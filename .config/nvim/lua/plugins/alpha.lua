@@ -41,4 +41,5 @@ dashboard.section.buttons.val = {
 
 dashboard.section.footer.val = footer()
 
+dashboard.opts.opts.noautocmd = true
 alpha.setup(dashboard.opts)
