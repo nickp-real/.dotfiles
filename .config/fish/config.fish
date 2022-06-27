@@ -54,6 +54,8 @@ set -Ux fish_color_normal brwhite
 set -Ux fish_color_option blue
 set -Ux fish_color_param blue
 set -Ux fish_term24bit 1
+set -Ux fzf_preview_dir_cmd exa --all --color=always
+# set fzf_fd_opts --hidden --exclude=.git
 
 # STARSHIP INIT
 starship init fish | source

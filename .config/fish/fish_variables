@@ -16,13 +16,14 @@ SETUVAR Z_DATA_DIR:/home/nickp_real/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/home/nickp_real\x24
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_FabioAntunes_2F_fish_2D_nvm_files:/home/nickp_real/\x2econfig/fish/functions/__nvm_run\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/node\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/npm\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/npx\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm_alias_command\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/nvm_alias_function\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/yarn\x2efish\x1e/home/nickp_real/\x2econfig/fish/completions/nvm\x2efish
+SETUVAR _fisher_PatrickF1_2F_fzf_2E_fish_files:/home/nickp_real/\x2econfig/fish/functions/_fzf_configure_bindings_help\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_extract_var_info\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_preview_changed_file\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_preview_file\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_report_file_type\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_search_directory\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_search_git_log\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_search_git_status\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_search_history\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_search_processes\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_search_variables\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_fzf_wrapper\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/fzf_configure_bindings\x2efish\x1e/home/nickp_real/\x2econfig/fish/conf\x2ed/fzf\x2efish\x1e/home/nickp_real/\x2econfig/fish/completions/fzf_configure_bindings\x2efish
 SETUVAR _fisher_acomagu_2F_fish_2D_async_2D_prompt_files:/home/nickp_real/\x2econfig/fish/conf\x2ed/__async_prompt\x2efish
 SETUVAR _fisher_decors_2F_fish_2D_colored_2D_man_files:/home/nickp_real/\x2econfig/fish/functions/man\x2efish
 SETUVAR _fisher_edc_2F_bass_files:/home/nickp_real/\x2econfig/fish/functions/__bass\x2epy\x1e/home/nickp_real/\x2econfig/fish/functions/bass\x2efish
 SETUVAR _fisher_jethrokuan_2F_z_files:/home/nickp_real/\x2econfig/fish/functions/__z\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__z_add\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__z_clean\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/__z_complete\x2efish\x1e/home/nickp_real/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_autopair_2E_fish_files:/home/nickp_real/\x2econfig/fish/functions/_autopair_backspace\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_insert_left\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_insert_right\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_insert_same\x2efish\x1e/home/nickp_real/\x2econfig/fish/functions/_autopair_tab\x2efish\x1e/home/nickp_real/\x2econfig/fish/conf\x2ed/autopair\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/nickp_real/\x2econfig/fish/functions/fisher\x2efish\x1e/home/nickp_real/\x2econfig/fish/completions/fisher\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z\x1eFabioAntunes/fish\x2dnvm\x1eedc/bass\x1ejorgebucaran/autopair\x2efish\x1edecors/fish\x2dcolored\x2dman\x1eacomagu/fish\x2dasync\x2dprompt
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z\x1eFabioAntunes/fish\x2dnvm\x1eedc/bass\x1ejorgebucaran/autopair\x2efish\x1edecors/fish\x2dcolored\x2dman\x1eacomagu/fish\x2dasync\x2dprompt\x1ePatrickF1/fzf\x2efish
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR --export fish_color_command:green
@@ -55,3 +56,4 @@ SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR --export fish_term24bit:1
+SETUVAR --export fzf_preview_dir_cmd:exa\x1e\x2d\x2dall\x1e\x2d\x2dcolor\x3dalways
