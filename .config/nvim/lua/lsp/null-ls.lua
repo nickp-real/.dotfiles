@@ -23,6 +23,7 @@ local sources = {
   diagnostics.eslint_d,
 
   -- code actions
+  code_actions.gitsigns,
   code_actions.eslint_d,
 }
 
