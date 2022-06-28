@@ -18,7 +18,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- custom format
-local no_format_servers = { "cssls", "html", "tailwindcss" }
+local no_format_servers = { "cssls", "html" }
 for _, lsp in pairs(no_format_servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -57,4 +57,13 @@ lspconfig.pyright.setup({
   on_attach = require("lsp.servers.pyright").on_attach,
   handlers = utils.no_diagnostic_handler,
   flags = utils.flags,
+})
+
+lspconfig.tailwindcss.setup({
+  capabilities = require("lsp.servers.tailwindcss").capabilities,
+  filetypes = require("lsp.servers.tailwindcss").filetypes,
+  handlers = utils.handlers,
+  init_options = require("lsp.servers.tailwindcss").init_options,
+  on_attach = require("lsp.servers.tailwindcss").on_attach,
+  settings = require("lsp.servers.tailwindcss").settings,
 })
