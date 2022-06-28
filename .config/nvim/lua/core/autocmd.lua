@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Use 'q' to quit from common plugins
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir" },
+  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "startuptime" },
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", { silent = true })
     vim.bo.buflisted = false
