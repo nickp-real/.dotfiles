@@ -258,15 +258,13 @@ return packer.startup({
         requires = "hrsh7th/cmp-nvim-lsp",
         after = { "nvim-lsp-installer", "lsp-format.nvim" },
         config = function()
-          require("lsp.config")
           require("lsp.lspconfigs")
         end,
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        after = { "nvim-lsp-installer", "lsp-format.nvim" },
+        after = "lsp-format.nvim",
         config = function()
-          require("lsp.config")
           require("lsp.null-ls")
         end,
       },
@@ -276,11 +274,10 @@ return packer.startup({
     use({
       {
         "akinsho/flutter-tools.nvim",
-        event = "BufRead",
+        after = "lsp-format.nvim",
         requires = "nvim-lua/plenary.nvim",
         ft = { "flutter", "dart" },
         config = function()
-          require("lsp.config")
           require("lsp.flutter")
         end,
       },
