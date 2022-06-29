@@ -35,58 +35,69 @@ packer.init({
 return packer.startup({
   function()
     -- Packer
-    use({ "wbthomason/packer.nvim" })
-
-    -- Load first
-    use("lewis6991/impatient.nvim")
-    use("nathom/filetype.nvim")
-    use("nvim-lua/plenary.nvim")
-    use("nvim-lua/popup.nvim")
     use({
-      "kyazdani42/nvim-web-devicons",
-    })
-    use({
-      "goolord/alpha-nvim",
-      config = function()
-        require("plugins.alpha")
-      end,
-    })
+      "wbthomason/packer.nvim",
 
-    -- Discord Presence
-    use({ "andweeb/presence.nvim", event = "BufRead" })
+      -- Load first
+      "lewis6991/impatient.nvim",
+      "nathom/filetype.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-lua/popup.nvim",
+      {
+        "kyazdani42/nvim-web-devicons",
+      },
+      {
+        "goolord/alpha-nvim",
+        config = function()
+          require("plugins.alpha")
+        end,
+      },
+
+      -- Discord Presence
+      { "andweeb/presence.nvim", event = "BufRead" },
+    })
 
     -- Theme, Statusbar, Bufferbar
     use({
-      "ful1e5/onedark.nvim",
-      config = function()
-        require("plugins.onedark")
-      end,
-    })
-
-    use({
-      "akinsho/bufferline.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      after = "onedark.nvim",
-      config = function()
-        require("plugins.bufferline")
-      end,
-    })
-
-    use({
       {
-        "nvim-lualine/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
-        after = "onedark.nvim",
+        "ful1e5/onedark.nvim",
         config = function()
-          require("plugins.lualine")
+          require("plugins.onedark")
         end,
       },
-      -- LSP progress indicator
       {
-        "j-hui/fidget.nvim",
-        after = "lualine.nvim",
+        "akinsho/bufferline.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        after = "onedark.nvim",
         config = function()
-          require("plugins.fidget")
+          require("plugins.bufferline")
+        end,
+      },
+      {
+        {
+          "nvim-lualine/lualine.nvim",
+          requires = { "kyazdani42/nvim-web-devicons", opt = true },
+          after = "onedark.nvim",
+          config = function()
+            require("plugins.lualine")
+          end,
+        },
+
+        -- LSP progress indicator
+        {
+          "j-hui/fidget.nvim",
+          after = "lualine.nvim",
+          config = function()
+            require("plugins.fidget")
+          end,
+        },
+      },
+
+      -- Float UI
+      {
+        "stevearc/dressing.nvim",
+        config = function()
+          require("plugins.dressing")
         end,
       },
     })
@@ -304,13 +315,6 @@ return packer.startup({
 
     -- LSP Addon
     use({
-      "stevearc/dressing.nvim",
-      config = function()
-        require("plugins.dressing")
-      end,
-    })
-
-    use({
       "folke/trouble.nvim",
       event = "CursorHold",
       requires = "kyazdani42/nvim-web-devicons",
@@ -445,7 +449,7 @@ return packer.startup({
       end,
     })
 
-    use("dstein64/vim-startuptime")
+    use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
     use("wsdjeg/vim-fetch")
     use("famiu/bufdelete.nvim")
     use({

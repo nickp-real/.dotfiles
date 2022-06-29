@@ -46,7 +46,6 @@ set -Ux CLICOLOR 1
 set -Ux LS_COLORS "ow=1;102;90"
 set -Ux LC_ALL en_US.UTF-8
 set -Ux LANG en_US.UTF-8
-set -Ux LANGUAGE en_US.UTF-8
 set -Ux LESS '-R --use-color -Dd+r$Du+b'
 
 set -Ux fish_color_command green 
@@ -56,6 +55,7 @@ set -Ux fish_color_param blue
 set -Ux fish_term24bit 1
 set -Ux fzf_preview_dir_cmd exa --all --color=always
 # set fzf_fd_opts --hidden --exclude=.git
+set -Ux FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
 
 # STARSHIP INIT
 starship init fish | source
