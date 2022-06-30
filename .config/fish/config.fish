@@ -7,6 +7,7 @@ alias llt "ll -T"
 alias diff 'diff --color=auto'
 alias grep 'grep --color=auto'
 alias ip 'ip -color=auto'
+alias pip_update 'pip list | cut -d" " -f1 | tail -n+3 | xargs pip install --upgrade'
 # alias cmd "cmd.exe"
 # alias pwsh "pwsh.exe"
 # alias open "wslview"
