@@ -9,5 +9,15 @@ luasnip.config.set_config({
   enable_autosnippets = true,
 })
 
-require("luasnip.loaders.from_vscode").lazy_load()
+luasnip.snippets = {
+  all = {},
+  html = {},
+}
+
+-- enable html snippets in javascript/javascript(REACT)
+luasnip.snippets.javascript = luasnip.snippets.html
+luasnip.snippets.javascriptreact = luasnip.snippets.html
+luasnip.snippets.typescriptreact = luasnip.snippets.html
+
 luasnip.filetype_extend("dart", { "flutter" })
+require("luasnip.loaders.from_vscode").lazy_load()

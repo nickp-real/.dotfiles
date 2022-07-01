@@ -43,9 +43,7 @@ return packer.startup({
       "nathom/filetype.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-lua/popup.nvim",
-      {
-        "kyazdani42/nvim-web-devicons",
-      },
+      "kyazdani42/nvim-web-devicons",
       {
         "goolord/alpha-nvim",
         config = function()
@@ -172,14 +170,6 @@ return packer.startup({
       end,
     })
 
-    use({
-      "RRethy/vim-illuminate",
-      event = "CursorHold",
-      config = function()
-        require("plugins.vim-illuminate")
-      end,
-    })
-
     -- Navigation
     use({
       "kyazdani42/nvim-tree.lua",
@@ -251,30 +241,30 @@ return packer.startup({
     -- LSP
     use({
       {
-        "williamboman/nvim-lsp-installer",
-        event = "BufRead",
-        config = function()
-          require("lsp.lsp-installer")
-        end,
-      },
-      {
-        "lukas-reineke/lsp-format.nvim",
-        event = "BufRead",
-        config = function()
-          require("lsp-format").setup({})
-        end,
-      },
-      {
         "neovim/nvim-lspconfig",
-        requires = "hrsh7th/cmp-nvim-lsp",
-        after = { "nvim-lsp-installer", "lsp-format.nvim" },
+        requires = {
+          "hrsh7th/cmp-nvim-lsp",
+          "williamboman/nvim-lsp-installer",
+          "lukas-reineke/lsp-format.nvim",
+          "jose-elias-alvarez/nvim-lsp-ts-utils",
+          "b0o/SchemaStore.nvim",
+          {
+            "RRethy/vim-illuminate",
+            config = function()
+              require("plugins.vim-illuminate")
+            end,
+          },
+        },
+        event = "BufRead",
         config = function()
+          require("lsp.config")
           require("lsp.lspconfigs")
         end,
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        after = "lsp-format.nvim",
+        requires = "lukas-reineke/lsp-format.nvim",
+        event = "BufRead",
         config = function()
           require("lsp.null-ls")
         end,
@@ -285,8 +275,8 @@ return packer.startup({
     use({
       {
         "akinsho/flutter-tools.nvim",
-        after = "lsp-format.nvim",
-        requires = "nvim-lua/plenary.nvim",
+        requires = { "nvim-lua/plenary.nvim", "lukas-reineke/lsp-format.nvim" },
+        event = "BufRead",
         ft = { "flutter", "dart" },
         config = function()
           require("lsp.flutter")
@@ -381,7 +371,7 @@ return packer.startup({
 
     use({
       "tpope/vim-surround",
-      event = "BufRead",
+      event = "CursorHold",
     })
 
     use({
@@ -391,6 +381,7 @@ return packer.startup({
 
     use({
       "windwp/nvim-autopairs",
+      event = "InsertCharPre",
       after = { "nvim-treesitter", "nvim-cmp" },
       config = function()
         require("plugins.autopairs")
@@ -443,15 +434,15 @@ return packer.startup({
 
     use({
       "Shatur/neovim-session-manager",
-      event = "BufEnter",
+      event = "BufWinEnter",
       config = function()
         require("plugins.session-manager")
       end,
     })
 
     use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
-    use("wsdjeg/vim-fetch")
-    use("famiu/bufdelete.nvim")
+    use({ "wsdjeg/vim-fetch", event = "CursorHold" })
+    use({ "famiu/bufdelete.nvim", event = "BufRead" })
     use({
       "kwkarlwang/bufresize.nvim",
       config = function() end,

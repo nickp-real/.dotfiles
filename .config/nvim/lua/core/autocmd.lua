@@ -53,23 +53,9 @@ vim.api.nvim_create_autocmd({ "User" }, {
   group = alpha,
 })
 
--- Hide autocmd in TelescopePrompt
-local cmp_telescope = vim.api.nvim_create_augroup("Disable Cmp in TelescopePrompt", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "TelescopePrompt",
-  callback = function()
-    local status_ok, cmp = pcall(require, "cmp")
-    if not status_ok then
-      return
-    end
-    cmp.setup.buffer({ enabled = false })
-  end,
-  group = cmp_telescope,
-})
-
 -- Use 'q' to quit from common plugins
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "startuptime" },
+  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "startuptime", "trouble" },
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", { silent = true })
     vim.bo.buflisted = false

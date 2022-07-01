@@ -19,7 +19,6 @@ local sources = {
   formatting.rustywind,
 
   -- diagnostic
-  diagnostics.flake8,
   diagnostics.eslint_d,
 
   -- code actions

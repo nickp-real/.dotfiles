@@ -1,47 +1,22 @@
-local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-local illuminate_status_ok, illuminate = pcall(require, "illuminate")
+local M = {}
+
+-- lsp format
 local lsp_format_ok, lsp_format = pcall(require, "lsp-format")
-if not (cmp_nvim_lsp_status_ok and illuminate_status_ok and lsp_format_ok) then
+if not lsp_format_ok then
   return
 end
 
-local M = {}
-
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-M.diagnostic_signs = signs
-
-local diagnostic_config = {
-  update_in_insert = false,
-  virtual_text = true,
-  signs = { active = signs },
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = "minimal",
-    border = "rounded",
-    source = "always",
-  },
-}
-
-M.diagnostic_config = diagnostic_config
-
-local handlers = {
-  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-  ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostic_config),
-}
-
-local no_diagnositc_handlers = {
-  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-  ["textDocument/publishDiagnostics"] = function() end,
-}
-
-M.handlers = handlers
-M.no_diagnostic_handler = no_diagnositc_handlers
-
+lsp_format.setup()
 local auto_format = function(client)
   lsp_format.on_attach(client)
+end
+
+M.auto_format = auto_format
+
+-- illuminate
+local illuminate_status_ok, illuminate = pcall(require, "illuminate")
+if not illuminate_status_ok then
+  return
 end
 
 local on_attach = function(client, bufnr)
@@ -78,7 +53,7 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap("n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
   if client.resolved_capabilities.document_formatting then
-    auto_format(bufnr)
+    auto_format(client)
   end
 
   if client.resolved_capabilities.document_highlight then
@@ -86,9 +61,18 @@ local on_attach = function(client, bufnr)
   end
 end
 
-M.auto_format = auto_format
-
 M.on_attach = on_attach
+
+local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not cmp_nvim_lsp_status_ok then
+  return
+end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+M.capabilities = capabilities
 
 M.custom_diagnostic_hide = function(bufnr)
   local diag_group = vim.api.nvim_create_augroup("null-ls diagnostics", { clear = false })
@@ -113,11 +97,6 @@ M.no_format_on_attach = function(client, bufnr)
   client.resolved_capabilities.document_range_formatting = false
   on_attach(client, bufnr)
 end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = capabilities
 
 M.flags = {
   allow_incremental_sync = true,

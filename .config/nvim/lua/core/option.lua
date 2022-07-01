@@ -55,7 +55,7 @@ vim.opt.inccommand = "split"
 
 -- Wrap thing
 vim.opt.linebreak = true
-vim.opt.textwidth = 80
+vim.opt.textwidth = 79
 vim.opt.wrap = true
 
 -- Clipboard

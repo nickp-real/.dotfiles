@@ -8,6 +8,3 @@ require("core.disable_builtin")
 require("core.autocmd")
 require("core.coderunner")
 require("core.mapping")
-
--- LSP
-require("lsp.config")
