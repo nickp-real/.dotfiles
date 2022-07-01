@@ -25,16 +25,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   group = format_options,
 })
 
--- spell for filetype
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   pattern = { "gitcommit", "markdown" },
---   callback = function()
---     vim.opt_local.wrap = true
---     vim.opt_local.spell = true
---   end,
--- })
+-- disable spell for filetype
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+  pattern = "term://*toggleterm#*",
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
 
--- Alpha bufferline
+-- Alpha Disable Bufferline
 local alpha = vim.api.nvim_create_augroup("Alpha", { clear = true })
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "AlphaReady" },
