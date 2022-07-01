@@ -122,6 +122,13 @@ return packer.startup({
         end,
       },
       { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
+      {
+        "lewis6991/spellsitter.nvim",
+        after = "nvim-treesitter",
+        config = function()
+          require("plugins.spellsitter")
+        end,
+      },
     })
 
     use({

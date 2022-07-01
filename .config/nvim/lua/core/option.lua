@@ -53,10 +53,11 @@ vim.opt.tabstop = 4
 vim.opt.ignorecase = true
 vim.opt.inccommand = "split"
 
--- Wrap thing
+-- text thing
 vim.opt.linebreak = true
 vim.opt.textwidth = 79
 vim.opt.wrap = true
+vim.opt.spell = true
 
 -- Clipboard
 vim.g.clipboard = {
@@ -74,6 +75,10 @@ vim.g.clipboard = {
 vim.opt.clipboard = "unnamedplus"
 
 vim.g.python3_host_prog = "/usr/bin/python"
+
+-- nvim filetype load
+vim.g.did_load_filetypes = 0
+vim.g.do_filetype_lua = 1
 
 -- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
