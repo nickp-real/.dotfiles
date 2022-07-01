@@ -6,7 +6,7 @@ if not (cmp_status_ok and luasnip_status_ok and neogen_status_ok) then
   return
 end
 
--- local compare = cmp.config.compare
+local compare = cmp.config.compare
 
 local kind_icons = {
   Text = "",
@@ -110,7 +110,6 @@ cmp.setup({
     { name = "nvim_lua", priority = 5 },
     { name = "fish", priority = 5 },
     { name = "git", priority = 5 },
-    -- { name = "rg", Keyword_length = 5, priority = 4 },
   }),
   preselete = cmp.PreselectMode.None,
   confirm_opts = {
@@ -124,13 +123,24 @@ cmp.setup({
   sorting = {
     priority_weight = 1.0,
     comparators = {
-      cmp.config.compare.exact,
-      cmp.config.compare.locality,
-      cmp.config.compare.score,
-      cmp.config.compare.recently_used,
-      cmp.config.compare.offset,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.order,
+      -- compare.score_offset, -- not good at all
+      compare.locality,
+      compare.recently_used,
+      compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+      compare.offset,
+      compare.order,
+      -- compare.scopes, -- what?
+      -- compare.sort_text,
+      -- compare.exact,
+      -- compare.kind,
+      -- compare.length, -- useless
+      -- cmp.config.compare.exact,
+      -- cmp.config.compare.locality,
+      -- cmp.config.compare.score,
+      -- cmp.config.compare.recently_used,
+      -- cmp.config.compare.offset,
+      -- cmp.config.compare.sort_text,
+      -- cmp.config.compare.order,
     },
   },
 })

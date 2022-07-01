@@ -353,7 +353,6 @@ return packer.startup({
       { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
       { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-      { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "mtoohey31/cmp-fish", after = "nvim-cmp", ft = "fish" },
@@ -403,6 +402,7 @@ return packer.startup({
     -- Debug Adapter Protocol
     use({
       "rcarriga/nvim-dap-ui",
+      event = "BufRead",
       requires = {
         {
           "mfussenegger/nvim-dap",
@@ -415,16 +415,21 @@ return packer.startup({
 
     -- Preview
     -- Markdown
-    use({ "ellisonleao/glow.nvim", ft = "markdown" })
     use({
-      "iamcco/markdown-preview.nvim",
-      ft = "markdown",
-      run = "cd app && yarn install",
-      cmd = "MarkdownPreview",
+      { "ellisonleao/glow.nvim", event = "CursorHold", ft = "markdown" },
+      {
+        "iamcco/markdown-preview.nvim",
+        event = "CursorHold",
+        ft = "markdown",
+        run = "cd app && yarn install",
+        cmd = "MarkdownPreview",
+      },
     })
+
     -- HTML
     use({
       "turbio/bracey.vim",
+      event = "CursorHold",
       ft = { "html", "css", "javascript" },
       run = "npm install --prefix server",
       config = function()
@@ -454,7 +459,10 @@ return packer.startup({
     use({ "famiu/bufdelete.nvim", event = "BufRead" })
     use({
       "kwkarlwang/bufresize.nvim",
-      config = function() end,
+      event = "BufRead",
+      config = function()
+        require("plugins.bufresize")
+      end,
     })
 
     if PACKER_BOOSTRAP then
