@@ -125,6 +125,7 @@ return packer.startup({
       {
         "lewis6991/spellsitter.nvim",
         after = "nvim-treesitter",
+        event = "BufRead",
         config = function()
           require("plugins.spellsitter")
         end,
@@ -143,6 +144,7 @@ return packer.startup({
     use({
       "m-demare/hlargs.nvim",
       after = "nvim-treesitter",
+      event = "BufRead",
       config = function()
         require("plugins.hlargs")
       end,
@@ -162,7 +164,7 @@ return packer.startup({
 
     use({
       "norcalli/nvim-colorizer.lua",
-      event = "CursorHold",
+      event = "BufRead",
       config = function()
         require("plugins.colorizer")
       end,
