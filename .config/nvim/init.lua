@@ -1,5 +1,5 @@
 -- Fast Startup
-pcall(require, "impatient")
+require("plugins.impatient")
 
 -- Core
 require("core.plugins")
