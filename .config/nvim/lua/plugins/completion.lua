@@ -153,15 +153,6 @@ cmp.setup.cmdline(":", {
   }),
 })
 
--- Set configuration for specific filetype.
-cmp.setup.filetype("gitcommit", {
-  sources = cmp.config.sources({
-    { name = "git" },
-  }, {
-    { name = "buffer" },
-  }),
-})
-
 cmp.setup.filetype("TelescopePrompt", {
   enabled = false,
 })
