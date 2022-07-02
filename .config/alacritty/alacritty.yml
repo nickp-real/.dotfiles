@@ -443,7 +443,7 @@ blink_interval: 1000
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /bin/fish
+  program: /usr/bin/fish
 #  args:
 #    - --login
 
