@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = "qf",
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "<cr>", "<cr>:close<cr>", { silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<cr>", "<cr>:cclose<cr>", { silent = true })
     vim.bo.buflisted = false
   end,
 })
