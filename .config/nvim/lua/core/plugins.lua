@@ -34,8 +34,12 @@ packer.init({
 
 return packer.startup({
   function()
-    -- Packer
+    -------------
+    -- Startup --
+    -------------
+
     use({
+      -- Packer
       "wbthomason/packer.nvim",
 
       -- Load first
@@ -55,7 +59,10 @@ return packer.startup({
       { "andweeb/presence.nvim", event = "BufRead" },
     })
 
-    -- Theme, Statusbar, Bufferbar
+    ---------------------------------
+    -- Theme, Statusbar, Bufferbar --
+    ---------------------------------
+
     use({
       {
         "ful1e5/onedark.nvim",
@@ -100,7 +107,10 @@ return packer.startup({
       },
     })
 
-    -- Treesitter
+    ----------------
+    -- Treesitter --
+    ----------------
+
     use({
       {
         "nvim-treesitter/nvim-treesitter",
@@ -132,28 +142,13 @@ return packer.startup({
       },
     })
 
-    use({
-      "folke/todo-comments.nvim",
-      event = "BufRead",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("plugins.todo-comment")
-      end,
-    })
-
-    use({
-      "m-demare/hlargs.nvim",
-      after = "nvim-treesitter",
-      event = "BufRead",
-      config = function()
-        require("plugins.hlargs")
-      end,
-    })
-
     -- Log Highlight
     use({ "MTDL9/vim-log-highlighting", event = "BufRead", ft = "log" })
 
-    -- UI
+    --------
+    -- UI --
+    --------
+
     use({
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
@@ -179,7 +174,28 @@ return packer.startup({
       end,
     })
 
-    -- Navigation
+    use({
+      "folke/todo-comments.nvim",
+      event = "BufRead",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("plugins.todo-comment")
+      end,
+    })
+
+    use({
+      "m-demare/hlargs.nvim",
+      after = "nvim-treesitter",
+      event = "BufRead",
+      config = function()
+        require("plugins.hlargs")
+      end,
+    })
+
+    ----------------
+    -- Navigation --
+    ----------------
+
     use({
       "kyazdani42/nvim-tree.lua",
       event = "CursorHold",
@@ -247,7 +263,10 @@ return packer.startup({
       end,
     })
 
-    -- LSP
+    ---------
+    -- LSP --
+    ---------
+
     use({
       {
         "neovim/nvim-lspconfig",
@@ -312,7 +331,10 @@ return packer.startup({
       { "RobertBrunhage/flutter-riverpod-snippets", ft = { "flutter", "dart" }, after = "nvim-cmp" },
     })
 
-    -- LSP Addon
+    ---------------
+    -- LSP Addon --
+    ---------------
+
     use({
       "folke/trouble.nvim",
       event = "CursorHold",
@@ -323,7 +345,10 @@ return packer.startup({
     })
     -- use("mfussenegger/nvim-lint")
 
-    -- Completion
+    ----------------
+    -- Completion --
+    ----------------
+
     use({
       {
         "hrsh7th/nvim-cmp",
@@ -359,7 +384,10 @@ return packer.startup({
       { "petertriho/cmp-git", after = "nvim-cmp", ft = { "gitcommit", "octo" }, requires = "nvim-lua/plenary.nvim" },
     })
 
-    -- Editing
+    -------------
+    -- Editing --
+    -------------
+
     use({
       "numToStr/Comment.nvim",
       event = "BufRead",
@@ -396,10 +424,16 @@ return packer.startup({
       end,
     })
 
-    -- Git
+    ---------
+    -- Git --
+    ---------
+
     use({ "tpope/vim-fugitive", event = "CursorHold" })
 
-    -- Debug Adapter Protocol
+    ----------------------------
+    -- Debug Adapter Protocol --
+    ----------------------------
+
     use({
       "rcarriga/nvim-dap-ui",
       event = "BufRead",
@@ -413,7 +447,10 @@ return packer.startup({
       },
     })
 
-    -- Preview
+    ---------------
+    -- Previewer --
+    ---------------
+
     -- Markdown
     use({
       { "ellisonleao/glow.nvim", event = "CursorHold", ft = "markdown" },
@@ -437,7 +474,10 @@ return packer.startup({
       end,
     })
 
-    -- General
+    -------------
+    -- General --
+    -------------
+
     use({
       "simrat39/symbols-outline.nvim",
       event = "CursorHold",
