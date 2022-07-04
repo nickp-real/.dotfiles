@@ -9,8 +9,8 @@ local utils = require("lsp.utils")
 
 lsp_installer.setup()
 
--- stock format
-local servers = { "bashls", "clangd", "gopls" }
+-- normal setting
+local servers = { "bashls", "clangd" }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -20,7 +20,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- custom format
-local no_format_servers = { "cssls", "html" }
+local no_format_servers = { "cssls", "html", "gopls" }
 for _, lsp in pairs(no_format_servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -36,6 +36,13 @@ lspconfig.sumneko_lua.setup({
   settings = require("lsp.servers.sumneko_lua").settings,
 })
 
+lspconfig.pyright.setup({
+  capabilities = utils.capabilities,
+  on_attach = utils.no_format_on_attach,
+  flags = utils.flags,
+  settings = require("lsp.servers.pyright").settings,
+})
+
 lspconfig.tsserver.setup({
   capabilities = require("lsp.servers.tsserver").capabilities,
   on_attach = require("lsp.servers.tsserver").on_attach,
@@ -49,13 +56,6 @@ lspconfig.jsonls.setup({
   on_attach = utils.no_format_on_attach,
   flags = utils.flags,
   settings = require("lsp.servers.jsonls").settings,
-})
-
-lspconfig.pyright.setup({
-  capabilities = utils.capabilities,
-  on_attach = utils.no_format_on_attach,
-  flags = utils.flags,
-  settings = require("lsp.servers.pyright").settings,
 })
 
 lspconfig.tailwindcss.setup({
