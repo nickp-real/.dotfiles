@@ -56,6 +56,7 @@ cmp.setup({
       return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
     end
   end,
+
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -109,7 +110,6 @@ cmp.setup({
     { name = "path", priority = 6 },
     { name = "nvim_lua", priority = 5 },
     { name = "fish", priority = 5 },
-    { name = "git", priority = 5 },
   }),
   preselete = cmp.PreselectMode.None,
   confirm_opts = {
