@@ -24,6 +24,9 @@ set -gx PATH ~/.local/bin $PATH
 set -gx PATH $HOME/.pub-cache/bin $PATH
 set -gx PATH ~/.nvm/versions/node/v16.15.1/bin $PATH
 
+set -gx GOPATH $HOME/go
+set -gx PATH $GOPATH/bin $PATH
+
 # JAVA_HOME
 set -gx JAVA_HOME /usr/lib/jvm/java-18-openjdk
 set -gx PATH $JAVA_HOME/bin $PATH
