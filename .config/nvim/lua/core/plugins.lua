@@ -101,6 +101,7 @@ return packer.startup({
       -- Float UI
       {
         "stevearc/dressing.nvim",
+        after = "onedark.nvim",
         config = function()
           require("plugins.dressing")
         end,
@@ -354,7 +355,7 @@ return packer.startup({
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdLineEnter" },
         config = function()
-          require("plugins.completion")
+          require("plugins.cmp")
         end,
         requires = {
           {
@@ -372,6 +373,7 @@ return packer.startup({
               require("plugins.neogen")
             end,
           },
+          "lukas-reineke/cmp-under-comparator",
         },
       },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
