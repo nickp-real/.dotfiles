@@ -14,6 +14,10 @@ alias pip_update 'pip list | cut -d" " -f1 | tail -n+3 | xargs pip install --upg
 alias vim "nvim"
 # alias v "nvim"
 
+# Docker
+alias docker-start "systemctl start docker.service"
+alias docker-stop "systemctl stop docker.service"
+
 # Arch
 alias pac "sudo pacman -S"
 alias pac_autoremove "sudo pacman -Rcs $(pacman -Qdtq)"
