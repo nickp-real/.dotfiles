@@ -1,4 +1,5 @@
 -- Config
+vim.opt.autowriteall = true
 vim.opt.backupdir = "~/.cache/vim"
 -- vim.opt.cc = "80"
 vim.opt.completeopt = { "menuone", "noselect" }
