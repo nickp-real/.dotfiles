@@ -101,7 +101,6 @@ return packer.startup({
       -- Float UI
       {
         "stevearc/dressing.nvim",
-        after = "onedark.nvim",
         config = function()
           require("plugins.dressing")
         end,
@@ -240,7 +239,7 @@ return packer.startup({
 
     use({
       "phaazon/hop.nvim",
-      branch = "v1", -- optional but strongly recommended
+      branch = "v2", -- optional but strongly recommended
       event = "BufRead",
       config = function()
         require("plugins.hop")
@@ -477,7 +476,7 @@ return packer.startup({
     })
 
     -------------
-    -- General --
+    -- Utility --
     -------------
 
     use({
@@ -505,6 +504,10 @@ return packer.startup({
       config = function()
         require("plugins.bufresize")
       end,
+    })
+    use({
+      "jghauser/mkdir.nvim",
+      event = "BufRead",
     })
 
     if PACKER_BOOSTRAP then
