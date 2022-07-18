@@ -45,6 +45,7 @@ local settings = {
         "tw\\(.*?\\)`([^`]*)",
       },
     },
+    codeActions = true,
     validate = true,
   },
 }

@@ -210,7 +210,7 @@ return packer.startup({
         requires = "nvim-lua/plenary.nvim",
         event = "CursorHold",
         config = function()
-          require("plugins.telescope")
+          require("plugins.telescope_conf")
         end,
       },
       {
@@ -407,13 +407,11 @@ return packer.startup({
     })
 
     use({
-      "tpope/vim-surround",
+      "kylechui/nvim-surround",
       event = "CursorHold",
-    })
-
-    use({
-      "tpope/vim-repeat",
-      event = "CursorHold",
+      config = function()
+        require("plugins.nvim-surround")
+      end,
     })
 
     use({

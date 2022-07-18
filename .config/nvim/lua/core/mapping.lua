@@ -37,6 +37,31 @@ vim.keymap.set("n", "i", function()
     or "i"
 end, { expr = true, noremap = true })
 
+-- delete a character without yank into register
+-- nkeymap("x", "_x")
+
+-- delete blank line without yank into register
+local function smart_dd()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  end
+  return "dd"
+end
+
+vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
+
+local function smart_d()
+  local l, c = unpack(vim.api.nvim_win_get_cursor(0))
+  for _, line in ipairs(vim.api.nvim_buf_get_lines(0, l - 1, l, true)) do
+    if line:match("^%s*$") then
+      return '"_d'
+    end
+  end
+  return "d"
+end
+
+vim.keymap.set("v", "d", smart_d, { noremap = true, expr = true })
+
 -- Delete buffer
 nkeymap("<C-c>", ":Bdelete<cr>")
 nkeymap("<A-c>", ":bd<cr>")
@@ -72,6 +97,9 @@ ikeymap("<C-j>", "<Esc>:m .+1<CR>==gi")
 ikeymap("<C-k>", "<Esc>:m .-2<CR>==gi")
 nkeymap("<leader>j", ":m .+1<cr>==")
 nkeymap("<leader>k", ":m .-2<cr>==")
+
+-- Select all text
+nkeymap("<leader>a", "<cmd>keepjumps normal! ggVG<cr>")
 
 -- Coderunner
 nkeymap("<leader>r", "<cmd>Run<cr>")

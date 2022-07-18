@@ -20,7 +20,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- custom format
-local no_format_servers = { "cssls", "html", "gopls" }
+local no_format_servers = { "html", "gopls" }
 for _, lsp in pairs(no_format_servers) do
   lspconfig[lsp].setup({
     capabilities = utils.capabilities,
@@ -64,4 +64,11 @@ lspconfig.tailwindcss.setup({
   init_options = require("lsp.servers.tailwindcss").init_options,
   on_attach = require("lsp.servers.tailwindcss").on_attach,
   settings = require("lsp.servers.tailwindcss").settings,
+})
+
+lspconfig.cssls.setup({
+  capabilities = utils.capabilities,
+  on_attach = utils.no_format_on_attach,
+  flags = utils.flags,
+  settings = require("lsp.servers.cssls").settings,
 })

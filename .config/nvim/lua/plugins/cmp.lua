@@ -63,6 +63,10 @@ cmp.setup({
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
+  confirm_opts = {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = false,
+  },
 
   mapping = cmp.mapping.preset.insert({
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -112,10 +116,6 @@ cmp.setup({
     { name = "fish", priority = 5 },
   }),
   preselete = cmp.PreselectMode.None,
-  confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = false,
-  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),

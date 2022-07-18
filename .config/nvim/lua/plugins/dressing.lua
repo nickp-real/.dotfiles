@@ -31,6 +31,11 @@ dressing.setup({
 
     -- see :help dressing_get_config
     get_config = nil,
+    override = function(conf)
+      conf.col = -1
+      conf.row = 0
+      return conf
+    end,
   },
   select = {
     -- Set to false to disable the vim.ui.select implementation

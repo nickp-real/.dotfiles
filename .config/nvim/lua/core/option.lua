@@ -3,7 +3,6 @@ vim.opt.autowriteall = true
 vim.opt.backupdir = "~/.cache/vim"
 -- vim.opt.cc = "80"
 vim.opt.completeopt = { "menuone", "noselect" }
-vim.opt.conceallevel = 0
 vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 vim.opt.equalalways = false
 vim.opt.ffs = "unix"

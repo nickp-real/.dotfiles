@@ -58,6 +58,7 @@ set -Ux LS_COLORS "ow=1;102;90"
 set -Ux LC_ALL en_US.UTF-8
 set -Ux LANG en_US.UTF-8
 set -Ux LESS '-R --use-color -Dd+r$Du+b'
+set -Ux MANPAGER 'nvim +Man!'
 
 set -Ux fish_color_command green 
 set -Ux fish_color_normal brwhite
