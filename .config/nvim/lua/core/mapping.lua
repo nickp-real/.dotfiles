@@ -50,18 +50,6 @@ end
 
 vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
 
-local function smart_d()
-  local l, c = unpack(vim.api.nvim_win_get_cursor(0))
-  for _, line in ipairs(vim.api.nvim_buf_get_lines(0, l - 1, l, true)) do
-    if line:match("^%s*$") then
-      return '"_d'
-    end
-  end
-  return "d"
-end
-
-vim.keymap.set("v", "d", smart_d, { noremap = true, expr = true })
-
 -- Delete buffer
 nkeymap("<C-c>", ":Bdelete<cr>")
 nkeymap("<A-c>", ":bd<cr>")
@@ -180,3 +168,11 @@ nkeymap("<leader>gl", "<cmd>diffget //3<cr>")
 nkeymap("<leader>nf", "<cmd>Neogen func<cr>")
 nkeymap("<leader>nc", "<cmd>Neogen class<cr>")
 nkeymap("<leader>nt", "<cmd>Neogen type<cr>")
+
+-- Dial
+nkeymap("<C-a>", require("dial.map").inc_normal())
+nkeymap("<C-x>", require("dial.map").dec_normal())
+vkeymap("<C-a>", require("dial.map").inc_visual())
+vkeymap("<C-x>", require("dial.map").dec_visual())
+vkeymap("g<C-a>", require("dial.map").inc_gvisual())
+vkeymap("g<C-x>", require("dial.map").dec_gvisual())

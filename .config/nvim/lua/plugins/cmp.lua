@@ -1,8 +1,9 @@
 local cmp_status_ok, cmp = pcall(require, "cmp")
 local luasnip_status_ok, luasnip = pcall(require, "luasnip")
 local neogen_status_ok, neogen = pcall(require, "neogen")
+local tabout_status_ok, tabout = pcall(require, "tabout")
 
-if not (cmp_status_ok and luasnip_status_ok and neogen_status_ok) then
+if not (cmp_status_ok and luasnip_status_ok and neogen_status_ok and tabout_status_ok) then
   return
 end
 
@@ -81,6 +82,8 @@ cmp.setup({
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
       elseif neogen.jumpable() then
         neogen.jump_next()
+      elseif vim.api.nvim_get_mode().mode == "i" then
+        tabout.tabout()
       else
         fallback()
       end
@@ -93,6 +96,8 @@ cmp.setup({
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
       elseif neogen.jumpable(true) then
         neogen.jump_prev()
+      elseif vim.api.nvim_get_mode().mode == "i" then
+        tabout.taboutBack()
       else
         fallback()
       end

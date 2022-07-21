@@ -2,9 +2,11 @@
 require("plugins.impatient")
 
 -- Core
-require("core.plugins")
-require("core.option")
 require("core.disable_builtin")
+require("core.option")
+require("core.plugins")
 require("core.autocmd")
-require("core.coderunner")
-require("core.mapping")
+vim.schedule(function()
+  require("core.mapping")
+  require("core.coderunner")
+end)

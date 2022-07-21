@@ -50,10 +50,13 @@ local settings = {
   },
 }
 
+local root_dir = { "tailwind.config.js", "tailwind.config.ts" }
+
 M.on_attach = on_attach
 M.filetypes = filetypes
 M.capabilities = capabilities
 M.settings = settings
 M.init_options = init_options
+M.root_dir = root_dir
 
 return M

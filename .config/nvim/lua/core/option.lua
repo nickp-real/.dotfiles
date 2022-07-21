@@ -7,10 +7,8 @@ vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:mi
 vim.opt.equalalways = false
 vim.opt.ffs = "unix"
 vim.opt.fileencoding = "utf-8"
-vim.opt.magic = true
 vim.opt.mouse = "a"
 vim.opt.scrolloff = 8
-vim.opt.shell = "fish"
 vim.opt.showbreak = string.rep(" ", 3)
 vim.opt.showmatch = true
 vim.opt.sidescrolloff = 8
@@ -75,10 +73,6 @@ vim.g.clipboard = {
 vim.opt.clipboard = "unnamedplus"
 
 vim.g.python3_host_prog = "/usr/bin/python"
-
--- nvim filetype load
-vim.g.did_load_filetypes = 0
-vim.g.do_filetype_lua = 1
 
 -- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })

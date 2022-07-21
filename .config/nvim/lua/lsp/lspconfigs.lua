@@ -6,6 +6,7 @@ if not (lsp_config_status_ok and lsp_installer_status_ok) then
 end
 
 local utils = require("lsp.utils")
+local root_pattern = require("lspconfig.util").root_pattern
 
 lsp_installer.setup()
 
@@ -64,6 +65,7 @@ lspconfig.tailwindcss.setup({
   init_options = require("lsp.servers.tailwindcss").init_options,
   on_attach = require("lsp.servers.tailwindcss").on_attach,
   settings = require("lsp.servers.tailwindcss").settings,
+  root_dir = root_pattern(unpack(require("lsp.servers.tailwindcss").root_dir)),
 })
 
 lspconfig.cssls.setup({

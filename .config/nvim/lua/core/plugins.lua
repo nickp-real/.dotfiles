@@ -24,6 +24,15 @@ if not status_ok then
   return
 end
 
+local function lazy(plugin, timer)
+  if plugin then
+    timer = timer or 0
+    vim.defer_fn(function()
+      packer.loader(plugin)
+    end, timer)
+  end
+end
+
 packer.init({
   display = {
     open_fn = function()
@@ -39,21 +48,16 @@ return packer.startup({
     -------------
 
     use({
+      -- Cache
+      "lewis6991/impatient.nvim",
+
       -- Packer
       "wbthomason/packer.nvim",
 
       -- Load first
-      "lewis6991/impatient.nvim",
       "nathom/filetype.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-lua/popup.nvim",
-      "kyazdani42/nvim-web-devicons",
-      {
-        "goolord/alpha-nvim",
-        config = function()
-          require("plugins.alpha")
-        end,
-      },
 
       -- Discord Presence
       { "andweeb/presence.nvim", event = "BufRead" },
@@ -66,14 +70,15 @@ return packer.startup({
     use({
       {
         "ful1e5/onedark.nvim",
+        as = "theme",
         config = function()
           require("plugins.onedark")
         end,
       },
+      { "kyazdani42/nvim-web-devicons", after = "theme" },
       {
         "akinsho/bufferline.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-        after = "onedark.nvim",
+        after = "nvim-web-devicons",
         config = function()
           require("plugins.bufferline")
         end,
@@ -81,8 +86,7 @@ return packer.startup({
       {
         {
           "nvim-lualine/lualine.nvim",
-          requires = { "kyazdani42/nvim-web-devicons", opt = true },
-          after = "onedark.nvim",
+          after = "nvim-web-devicons",
           config = function()
             require("plugins.lualine")
           end,
@@ -105,6 +109,14 @@ return packer.startup({
           require("plugins.dressing")
         end,
       },
+    })
+
+    -- First Page
+    use({
+      "goolord/alpha-nvim",
+      config = function()
+        require("plugins.alpha")
+      end,
     })
 
     ----------------
@@ -135,7 +147,6 @@ return packer.startup({
       {
         "lewis6991/spellsitter.nvim",
         after = "nvim-treesitter",
-        event = "BufRead",
         config = function()
           require("plugins.spellsitter")
         end,
@@ -373,6 +384,13 @@ return packer.startup({
             end,
           },
           "lukas-reineke/cmp-under-comparator",
+          {
+            "abecodes/tabout.nvim",
+            requires = "nvim-treesitter",
+            config = function()
+              require("plugins.tabout")
+            end,
+          },
         },
       },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
@@ -382,7 +400,6 @@ return packer.startup({
       { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "mtoohey31/cmp-fish", after = "nvim-cmp", ft = "fish" },
-      { "petertriho/cmp-git", after = "nvim-cmp", ft = { "gitcommit", "octo" }, requires = "nvim-lua/plenary.nvim" },
     })
 
     -------------
@@ -394,15 +411,6 @@ return packer.startup({
       event = "BufRead",
       config = function()
         require("plugins.comment")
-      end,
-    })
-
-    use({
-      "abecodes/tabout.nvim",
-      requires = "nvim-treesitter",
-      after = "nvim-cmp",
-      config = function()
-        require("plugins.tabout")
       end,
     })
 
@@ -423,6 +431,8 @@ return packer.startup({
       end,
     })
 
+    use({ "monaqa/dial.nvim", event = "BufRead" })
+
     ---------
     -- Git --
     ---------
@@ -434,16 +444,14 @@ return packer.startup({
     ----------------------------
 
     use({
-      "rcarriga/nvim-dap-ui",
-      event = "BufRead",
-      requires = {
-        {
-          "mfussenegger/nvim-dap",
-          config = function()
-            require("plugins.dap")
-          end,
-        },
+      {
+        "mfussenegger/nvim-dap",
+        module = "dap",
+        config = function()
+          require("plugins.dap")
+        end,
       },
+      { "rcarriga/nvim-dap-ui", module = "dapui" },
     })
 
     ---------------

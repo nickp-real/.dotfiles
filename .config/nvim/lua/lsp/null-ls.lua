@@ -16,11 +16,14 @@ local sources = {
 
   -- lua
   formatting.stylua,
+
   -- python
   formatting.black.with({ extra_args = { "--fast" } }),
+
   -- front-end
   formatting.prettierd,
   formatting.rustywind,
+
   -- go
   formatting.golines,
 
@@ -35,8 +38,6 @@ local sources = {
   -- Code Actions --
   ------------------
 
-  -- gitsigns
-  code_actions.gitsigns,
   -- front-end
   code_actions.eslint_d,
 }
