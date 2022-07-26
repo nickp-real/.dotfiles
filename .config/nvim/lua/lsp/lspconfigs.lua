@@ -30,6 +30,22 @@ for _, lsp in pairs(no_format_servers) do
   })
 end
 
+-- typescript lsp
+local typescript_ok, typescript = pcall(require, "typescript")
+if typescript_ok then
+  typescript.setup({
+    disable_commands = false, -- prevent the plugin from creating Vim commands
+    debug = false, -- enable debug logging for commands
+    -- LSP Config options
+    server = {
+      capabilities = require("lsp.servers.tsserver").capabilities,
+      handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
+      on_attach = require("lsp.servers.tsserver").on_attach,
+      flags = utils.flags,
+    },
+  })
+end
+
 lspconfig.sumneko_lua.setup({
   capabilities = utils.capabilities,
   on_attach = utils.no_format_on_attach,
@@ -42,14 +58,6 @@ lspconfig.pyright.setup({
   on_attach = utils.no_format_on_attach,
   flags = utils.flags,
   settings = require("lsp.servers.pyright").settings,
-})
-
-lspconfig.tsserver.setup({
-  capabilities = require("lsp.servers.tsserver").capabilities,
-  on_attach = require("lsp.servers.tsserver").on_attach,
-  handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
-  flags = utils.flags,
-  settings = require("lsp.servers.tsserver").settings,
 })
 
 lspconfig.jsonls.setup({

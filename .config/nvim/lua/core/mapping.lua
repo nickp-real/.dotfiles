@@ -52,7 +52,7 @@ vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
 
 -- Delete buffer
 nkeymap("<C-c>", ":Bdelete<cr>")
-nkeymap("<A-c>", ":bd<cr>")
+nkeymap("<C-q>", ":bd<cr>")
 
 -- Ctrl-W to Alt
 nkeymap("<A-h>", "<C-w>h")

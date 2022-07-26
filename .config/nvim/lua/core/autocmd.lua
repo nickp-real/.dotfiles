@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 
 -- Alpha Disable Bufferline
-local alpha = vim.api.nvim_create_augroup("Alpha", { clear = true })
+local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "AlphaReady" },
   callback = function()
@@ -46,10 +46,24 @@ vim.api.nvim_create_autocmd({ "User" }, {
         vim.opt_local.showtabline = 2
         vim.opt_local.laststatus = 3
       end,
-      group = alpha,
+      group = disable_bufferline,
     })
   end,
-  group = alpha,
+  group = disable_bufferline,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = "man",
+  callback = function()
+    vim.opt_local.showtabline = 0
+    vim.api.nvim_create_autocmd("BufUnload", {
+      buffer = 0,
+      callback = function()
+        vim.opt_local.showtabline = 2
+      end,
+      group = disable_bufferline,
+    })
+  end,
+  group = disable_bufferline,
 })
 
 -- Use 'q' to quit from common plugins

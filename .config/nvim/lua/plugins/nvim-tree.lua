@@ -6,7 +6,7 @@ end
 nvim_tree.setup({
   auto_reload_on_write = true,
   create_in_closed_folder = true,
-  disable_netrw = false,
+  disable_netrw = true,
   hijack_cursor = false,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
@@ -101,7 +101,7 @@ nvim_tree.setup({
     update_root = false,
     ignore_list = {},
   },
-  ignore_ft_on_setup = {},
+  ignore_ft_on_setup = { "alpha" },
   system_open = {
     cmd = "",
     args = {},

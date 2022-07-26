@@ -58,9 +58,6 @@ return packer.startup({
       "nathom/filetype.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-lua/popup.nvim",
-
-      -- Discord Presence
-      { "andweeb/presence.nvim", event = "BufRead" },
     })
 
     ---------------------------------
@@ -105,6 +102,7 @@ return packer.startup({
       -- Float UI
       {
         "stevearc/dressing.nvim",
+        event = "UIEnter",
         config = function()
           require("plugins.dressing")
         end,
@@ -281,12 +279,13 @@ return packer.startup({
     use({
       {
         "neovim/nvim-lspconfig",
+        event = "BufRead",
         requires = {
           "hrsh7th/cmp-nvim-lsp",
           "williamboman/nvim-lsp-installer",
           "lukas-reineke/lsp-format.nvim",
-          "jose-elias-alvarez/nvim-lsp-ts-utils",
           "b0o/SchemaStore.nvim",
+          "jose-elias-alvarez/typescript.nvim",
           {
             "RRethy/vim-illuminate",
             config = function()
@@ -294,7 +293,6 @@ return packer.startup({
             end,
           },
         },
-        event = "BufRead",
         config = function()
           require("lsp.config")
           require("lsp.lspconfigs")
@@ -485,6 +483,9 @@ return packer.startup({
     -- Utility --
     -------------
 
+    -- Discord Presence
+    use({ "andweeb/presence.nvim", event = "BufRead" })
+
     use({
       "simrat39/symbols-outline.nvim",
       event = "CursorHold",
@@ -495,7 +496,7 @@ return packer.startup({
 
     use({
       "Shatur/neovim-session-manager",
-      event = "BufWinEnter",
+      cmd = "SessionManager",
       config = function()
         require("plugins.session-manager")
       end,
@@ -515,6 +516,7 @@ return packer.startup({
       "jghauser/mkdir.nvim",
       event = "BufRead",
     })
+    use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 
     if PACKER_BOOSTRAP then
       require("packer").sync()

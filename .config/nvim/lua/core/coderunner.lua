@@ -12,7 +12,7 @@ local run_command_table = {
 }
 
 -- To run file run :Run or just press <F5>
-function Run_code()
+function _G.run_code()
   if run_command_table[vim.bo.filetype] then
     vim.cmd("TermExec cmd='" .. run_command_table[vim.bo.filetype] .. "'")
   else
@@ -31,7 +31,7 @@ end
 -- Use the following function to update the execution command of a filetype temporarly
 -- Usage :RunUpdate  --OR-- :RunUpdate filetype
 -- If no argument is provided, the command is going to take the filetype of active buffer
-function Update_command_table(filetype)
+function _G.update_command_table(filetype)
   local command
 
   if filetype == nil then
@@ -56,6 +56,31 @@ function Update_command_table(filetype)
   end
 end
 
-vim.cmd("command! Run :lua Run_code()")
+vim.cmd("command! Run :lua run_code()")
 
-vim.cmd("command! -nargs=* RunUpdate :lua Update_command_table(<f-args>)")
+vim.cmd("command! -nargs=* RunUpdate :lua update_command_table(<f-args>)")
+
+-- Run code on save in the vsplit buffer
+-- local bufnr = 12
+
+-- local function appendLineToBuffer(bufnr, text)
+--   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {text})
+-- end
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   group = vim.api.nvim_create_augroup("RunCodeOnSave", {clear = true}),
+--   pattern = "*",
+--   callback = function ()
+--     appendLineToBuffer(bufnr, "output of: filename.filetype")
+--     vim.fn.jobstart({"go", "run", "main.go"}, {
+--       stdout_buffered = true,
+--       on_stdout = function(_, data)
+--         if data then
+--           appendLineToBuffer(bufnr, data)
+--         end
+--       end,
+--       on_stderr = function(_, data)
+--         appendLineToBuffer(bufnr, data)
+--       end
+--     })
+--   end
+-- })
