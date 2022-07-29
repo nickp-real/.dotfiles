@@ -281,8 +281,8 @@ return packer.startup({
         "neovim/nvim-lspconfig",
         event = "BufRead",
         requires = {
-          "hrsh7th/cmp-nvim-lsp",
-          "williamboman/nvim-lsp-installer",
+          "williamboman/mason.nvim",
+          "williamboman/mason-lspconfig.nvim",
           "lukas-reineke/lsp-format.nvim",
           "b0o/SchemaStore.nvim",
           "jose-elias-alvarez/typescript.nvim",
@@ -292,6 +292,7 @@ return packer.startup({
               require("plugins.vim-illuminate")
             end,
           },
+          "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
           require("lsp.config")
@@ -346,12 +347,26 @@ return packer.startup({
 
     use({
       "folke/trouble.nvim",
-      event = "CursorHold",
+      after = "nvim-lspconfig",
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
         require("plugins.trouble")
       end,
     })
+    use({
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      after = "mason.nvim",
+      config = function()
+        require("lsp.mason-tool-installer")
+      end,
+    })
+    -- use({
+    --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    --   after = "nvim-lspconfig",
+    --   config = function()
+    --     require("plugins.lsp_lines")
+    --   end,
+    -- })
     -- use("mfussenegger/nvim-lint")
 
     ----------------
@@ -516,7 +531,13 @@ return packer.startup({
       "jghauser/mkdir.nvim",
       event = "BufRead",
     })
-    use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+    use({
+      "kevinhwang91/nvim-bqf",
+      ft = "qf",
+      config = function()
+        require("plugins.nvim-bqf")
+      end,
+    })
 
     if PACKER_BOOSTRAP then
       require("packer").sync()

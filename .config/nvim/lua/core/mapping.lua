@@ -176,3 +176,6 @@ vkeymap("<C-a>", require("dial.map").inc_visual())
 vkeymap("<C-x>", require("dial.map").dec_visual())
 vkeymap("g<C-a>", require("dial.map").inc_gvisual())
 vkeymap("g<C-x>", require("dial.map").dec_gvisual())
+
+-- LSP line
+nkeymap("<Leader>l", "<cmd> lua require('lsp_lines').toggle<cr>")

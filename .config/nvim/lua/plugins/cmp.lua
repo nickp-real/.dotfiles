@@ -46,6 +46,11 @@ cmp_window.info = function(self)
   return info
 end
 
+local check_backspace = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
 cmp.setup({
   enabled = function()
     -- disable completion in comments
@@ -84,6 +89,8 @@ cmp.setup({
         neogen.jump_next()
       elseif vim.api.nvim_get_mode().mode == "i" then
         tabout.tabout()
+      elseif check_backspace() then
+        fallback()
       else
         fallback()
       end

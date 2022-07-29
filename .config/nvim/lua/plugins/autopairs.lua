@@ -12,7 +12,6 @@ nvim_autopairs.setup({
     javascript = { "string", "template_string" },
     java = false,
   },
-  enable_check_bracket_line = false,
   fast_wrap = {},
 })
 
