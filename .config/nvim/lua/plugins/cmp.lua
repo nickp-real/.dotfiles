@@ -75,6 +75,8 @@ cmp.setup({
   },
 
   mapping = cmp.mapping.preset.insert({
+    ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+    ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
@@ -110,14 +112,16 @@ cmp.setup({
       end
     end, { "i", "s" }),
   }),
-
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   formatting = {
     format = function(_, vim_item)
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
       return vim_item
     end,
   },
-
   sources = cmp.config.sources({
     { name = "nvim_lsp_signature_help", priority = 8 },
     { name = "nvim_lsp", max_item_count = 25, priority = 8 },
@@ -125,13 +129,8 @@ cmp.setup({
     { name = "buffer", Keyword_length = 5, priority = 7 },
     { name = "path", priority = 6 },
     { name = "nvim_lua", priority = 5 },
-    { name = "fish", priority = 5 },
   }),
   preselete = cmp.PreselectMode.None,
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
   sorting = {
     priority_weight = 1.0,
     comparators = {
@@ -172,4 +171,13 @@ cmp.setup.cmdline(":", {
 
 cmp.setup.filetype("TelescopePrompt", {
   enabled = false,
+})
+
+cmp.setup.filetype("fish", {
+  sources = cmp.config.sources({
+    { name = "luasnip", priority = 7 },
+    { name = "fish", priority = 6 },
+    { name = "path", priority = 6 },
+    { name = "buffer", Keyword_length = 5, priority = 5 },
+  }),
 })

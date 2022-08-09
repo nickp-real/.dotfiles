@@ -16,10 +16,11 @@ alias rm "rm -v"
 # alias open "wslview"
 alias vim "nvim"
 # alias v "nvim"
+alias battery "cat /sys/class/power_supply/BAT0/capacity"
 
 # Docker
-alias docker-start "systemctl start docker.service"
-alias docker-stop "systemctl stop docker.service"
+alias docker-start "systemctl --user start docker.service"
+alias docker-stop "systemctl --user stop docker.service"
 
 # Arch
 alias pac "sudo pacman -S"
@@ -31,6 +32,12 @@ set -gx PATH ~/.local/bin $PATH
 set -gx PATH $HOME/.pub-cache/bin $PATH
 set -gx PATH ~/.nvm/versions/node/v16.15.1/bin $PATH
 
+# pnpm
+set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH
+# pnpm end
+
+# Go path
 set -gx GOPATH $HOME/go
 set -gx PATH $GOPATH/bin $PATH
 
@@ -67,7 +74,7 @@ set -Ux fish_color_param blue
 set -Ux fish_term24bit 1
 set -Ux fzf_preview_dir_cmd exa --all --color=always
 # set fzf_fd_opts --hidden --exclude=.git
-set -Ux FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
+set -Ux FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
 
 # STARSHIP INIT
 starship init fish | source
@@ -75,6 +82,7 @@ starship init fish | source
 # The Fuck INIT
 thefuck --alias | source
 
+# Start X server
 if test -z "$DISPLAY"; and test "$XDG_VTNR" -eq 1
     exec startx
 end

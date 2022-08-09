@@ -10,9 +10,12 @@ colorizer.setup({
   "javascript",
   "typescript",
   "html",
+  "lua",
   html = {
     mode = "foreground",
   },
+}, {
+  css = true,
 })
 
 -- Use the `default_options` as the second parameter, which uses

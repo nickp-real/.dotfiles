@@ -14,6 +14,10 @@ local function vkeymap(key, map)
   keymap("v", key, map, opts)
 end
 
+local function xkeymap(key, map)
+  keymap("x", key, map, opts)
+end
+
 -- Spacebar to nothing
 keymap("n", "<Space>", "<Nop>", {})
 
@@ -38,7 +42,7 @@ vim.keymap.set("n", "i", function()
 end, { expr = true, noremap = true })
 
 -- delete a character without yank into register
--- nkeymap("x", "_x")
+-- vim.keymap.set({ "n", "x" }, "x", "_x")
 
 -- delete blank line without yank into register
 local function smart_dd()
@@ -118,10 +122,10 @@ nkeymap("<leader>nr", "<cmd>NvimTreeRefresh<cr>")
 
 -- Toggle Terminal
 vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "term://*toggleterm#*",
+  -- pattern = "term://*toggleterm#*",
   callback = function()
     vim.schedule(function()
-      vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "<leader><esc>", [[<C-\><C-n>]], opts)
       vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
       vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
       vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
@@ -178,4 +182,15 @@ vkeymap("g<C-a>", require("dial.map").inc_gvisual())
 vkeymap("g<C-x>", require("dial.map").dec_gvisual())
 
 -- LSP line
-nkeymap("<Leader>l", "<cmd> lua require('lsp_lines').toggle<cr>")
+-- nkeymap("<Leader>l", "<cmd> lua require('lsp_lines').toggle<cr>")
+
+-- Hlslens
+nkeymap("*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
+nkeymap("#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
+nkeymap("g*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
+nkeymap("g#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
+
+xkeymap("*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
+xkeymap("#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
+xkeymap("g*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
+xkeymap("g#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])

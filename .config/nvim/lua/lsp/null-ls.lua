@@ -3,8 +3,6 @@ if not status_ok then
   return
 end
 
-local utils = require("lsp.utils")
-
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
@@ -22,7 +20,11 @@ local sources = {
 
   -- front-end
   formatting.prettierd,
-  formatting.rustywind,
+  formatting.rustywind.with({
+    condition = function(utils)
+      return utils.root_has_file({ "tailwind.config.js", "tailwind.config.ts" })
+    end,
+  }),
 
   -- go
   formatting.golines,
@@ -32,15 +34,25 @@ local sources = {
   ----------------
 
   -- front-end
-  diagnostics.eslint_d,
+  diagnostics.eslint_d.with({
+    condition = function(utils)
+      return utils.root_has_file({ ".eslintrc.json" })
+    end,
+  }),
 
   ------------------
   -- Code Actions --
   ------------------
 
   -- front-end
-  code_actions.eslint_d,
+  code_actions.eslint_d.with({
+    condition = function(utils)
+      return utils.root_has_file({ ".eslintrc.json" })
+    end,
+  }),
 }
+
+local utils = require("lsp.utils")
 
 null_ls.setup({
   sources = sources,

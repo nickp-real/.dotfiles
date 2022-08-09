@@ -45,7 +45,21 @@ local on_attach = function(client, bufnr)
   utils.custom_diagnostic_hide(bufnr)
 end
 
+local settings = {
+  javascript = {
+    format = {
+      enable = false,
+    },
+  },
+  typescript = {
+    format = {
+      enable = false,
+    },
+  },
+}
+
 M.capabilities = capabilities
 M.on_attach = on_attach
+M.settings = settings
 
 return M

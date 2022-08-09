@@ -13,6 +13,7 @@ nvim_autopairs.setup({
     java = false,
   },
   fast_wrap = {},
+  -- enable_check_bracket_line = false,
 })
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")

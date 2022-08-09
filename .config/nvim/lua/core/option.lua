@@ -2,7 +2,7 @@
 vim.opt.autowriteall = true
 vim.opt.backupdir = "~/.cache/vim"
 -- vim.opt.cc = "80"
-vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 vim.opt.equalalways = false
 vim.opt.ffs = "unix"
@@ -22,6 +22,7 @@ vim.opt.undofile = true
 
 -- UI
 vim.opt.cursorline = true
+-- vim.opt.foldcolumn = "1"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldmethod = "expr"
 vim.opt.guicursor:append({ "n-i:blinkon1" })
@@ -100,4 +101,8 @@ vim.opt.fillchars = {
   stl = " ",
   stlnc = " ",
   eob = " ",
+  -- fold = " ",
+  -- foldopen = "",
+  -- foldsep = " ",
+  -- foldclose = "",
 }

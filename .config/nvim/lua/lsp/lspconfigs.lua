@@ -44,13 +44,30 @@ mason_lsp.setup({
   automatic_installation = true,
 })
 
+local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not cmp_nvim_lsp_status_ok then
+  return
+end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local lsp_default = {
+  capabilities = capabilities,
+  flags = {
+    allow_incremental_sync = true,
+    debounce_text_changes = 150,
+  },
+}
+
+lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_default)
+
 -- normal setting
 local servers = { "bashls", "clangd" }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
-    capabilities = utils.capabilities,
     on_attach = utils.on_attach,
-    flags = utils.flags,
   })
 end
 
@@ -58,9 +75,7 @@ end
 local no_format_servers = { "html", "gopls" }
 for _, lsp in pairs(no_format_servers) do
   lspconfig[lsp].setup({
-    capabilities = utils.capabilities,
     on_attach = utils.no_format_on_attach,
-    flags = utils.flags,
   })
 end
 
@@ -70,33 +85,44 @@ if typescript_ok then
     disable_commands = false, -- prevent the plugin from creating Vim commands
     debug = false, -- enable debug logging for commands
     -- LSP Config options
-    server = {
+    -- Shothand for non eslint (framework) dir and with eslint dir
+    server = not vim.tbl_isempty(vim.fn.glob(".eslintrc*", 0, 1)) and {
       capabilities = require("lsp.servers.tsserver").capabilities,
       handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
       on_attach = require("lsp.servers.tsserver").on_attach,
+      settings = require("lsp.servers.tsserver").settings,
       flags = utils.flags,
+    } or {
+      capabilities = require("lsp.servers.tsserver").capabilities,
+      on_attach = require("lsp.servers.tsserver").on_attach,
+      settings = require("lsp.servers.tsserver").settings,
+      flags = utils.flags,
+      root_dir = function(fname)
+        return vim.fn.getcwd()
+      end,
     },
   })
 end
 
+-- return {
+--   capabilities = require("lsp.servers.tsserver").capabilities,
+--   on_attach = require("lsp.servers.tsserver").on_attach,
+--   settings = require("lsp.servers.tsserver").settings,
+--   flags = utils.flags,
+--   single_file_support = true
+-- }
 lspconfig.sumneko_lua.setup({
-  capabilities = utils.capabilities,
   on_attach = utils.no_format_on_attach,
-  flags = utils.flags,
   settings = require("lsp.servers.sumneko_lua").settings,
 })
 
 lspconfig.pyright.setup({
-  capabilities = utils.capabilities,
   on_attach = utils.no_format_on_attach,
-  flags = utils.flags,
   settings = require("lsp.servers.pyright").settings,
 })
 
 lspconfig.jsonls.setup({
-  capabilities = utils.capabilities,
   on_attach = utils.no_format_on_attach,
-  flags = utils.flags,
   settings = require("lsp.servers.jsonls").settings,
 })
 
@@ -110,8 +136,6 @@ lspconfig.tailwindcss.setup({
 })
 
 lspconfig.cssls.setup({
-  capabilities = utils.capabilities,
   on_attach = utils.no_format_on_attach,
-  flags = utils.flags,
   settings = require("lsp.servers.cssls").settings,
 })

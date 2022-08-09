@@ -67,10 +67,14 @@ return packer.startup({
     use({
       {
         "ful1e5/onedark.nvim",
+        -- "olimorris/onedarkpro.nvim",
+        -- "navarasu/onedark.nvim",
+        -- "LunarVim/onedarker.nvim",
+        -- "RRethy/nvim-base16",
         as = "theme",
-        config = function()
-          require("plugins.onedark")
-        end,
+        -- config = function()
+        --   require("plugins.onedark")
+        -- end,
       },
       { "kyazdani42/nvim-web-devicons", after = "theme" },
       {
@@ -102,7 +106,6 @@ return packer.startup({
       -- Float UI
       {
         "stevearc/dressing.nvim",
-        event = "UIEnter",
         config = function()
           require("plugins.dressing")
         end,
@@ -147,6 +150,14 @@ return packer.startup({
         after = "nvim-treesitter",
         config = function()
           require("plugins.spellsitter")
+        end,
+      },
+      {
+        "kevinhwang91/nvim-ufo",
+        after = "nvim-treesitter",
+        requires = "kevinhwang91/promise-async",
+        config = function()
+          require("plugins.nvim-ufo")
         end,
       },
     })
@@ -257,7 +268,7 @@ return packer.startup({
 
     use({
       "karb94/neoscroll.nvim",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins.neoscroll")
       end,
@@ -303,6 +314,7 @@ return packer.startup({
         "jose-elias-alvarez/null-ls.nvim",
         requires = "lukas-reineke/lsp-format.nvim",
         event = "BufRead",
+        after = "nvim-lspconfig",
         config = function()
           require("lsp.null-ls")
         end,
@@ -314,8 +326,8 @@ return packer.startup({
       {
         "akinsho/flutter-tools.nvim",
         requires = { "nvim-lua/plenary.nvim", "lukas-reineke/lsp-format.nvim" },
-        event = "BufRead",
         ft = { "flutter", "dart" },
+        event = "BufRead",
         config = function()
           require("lsp.flutter")
         end,
@@ -360,6 +372,7 @@ return packer.startup({
         require("lsp.mason-tool-installer")
       end,
     })
+    use({ "folke/lsp-colors.nvim", after = "nvim-lspconfig" })
     -- use({
     --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     --   after = "nvim-lspconfig",
@@ -501,6 +514,7 @@ return packer.startup({
     -- Discord Presence
     use({ "andweeb/presence.nvim", event = "BufRead" })
 
+    -- Symbols Outline
     use({
       "simrat39/symbols-outline.nvim",
       event = "CursorHold",
@@ -509,6 +523,7 @@ return packer.startup({
       end,
     })
 
+    -- Session Manager
     use({
       "Shatur/neovim-session-manager",
       cmd = "SessionManager",
@@ -517,7 +532,9 @@ return packer.startup({
       end,
     })
 
+    -- Startuptime
     use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
+
     use({ "wsdjeg/vim-fetch", event = "CursorHold" })
     use({ "famiu/bufdelete.nvim", event = "BufRead" })
     use({
@@ -536,6 +553,35 @@ return packer.startup({
       ft = "qf",
       config = function()
         require("plugins.nvim-bqf")
+      end,
+    })
+
+    -- Notify
+    use({
+      "rcarriga/nvim-notify",
+      config = function()
+        require("plugins.notify")
+      end,
+      event = "BufRead",
+    })
+
+    -- Search
+    use({ "haya14busa/vim-asterisk", event = "CursorHold" })
+    use({
+      "kevinhwang91/nvim-hlslens",
+      after = "vim-asterisk",
+      event = "CursorHold",
+      config = function()
+        require("plugins.hlslens")
+      end,
+    })
+
+    -- CodeRunner
+    use({
+      "stevearc/overseer.nvim",
+      event = "CursorHold",
+      config = function()
+        require("plugins.overseer")
       end,
     })
 
