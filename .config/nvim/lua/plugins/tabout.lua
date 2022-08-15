@@ -5,5 +5,4 @@ end
 
 tabout.setup({
   act_as_shift_tab = true,
-  ignore_beginning = false,
 })

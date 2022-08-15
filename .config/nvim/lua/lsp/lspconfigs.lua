@@ -45,13 +45,20 @@ mason_lsp.setup({
 })
 
 local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_nvim_lsp_status_ok then
+local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
+if not (cmp_nvim_lsp_status_ok and lsp_signature_ok) then
   return
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local signature_config = {
+  hint_enable = false,
+}
+
+lsp_signature.setup(signature_config)
 
 local lsp_default = {
   capabilities = capabilities,
@@ -81,12 +88,28 @@ end
 
 -- typescript lsp
 if typescript_ok then
+  local eslint_config_extist = function()
+    local eslintrc = vim.fn.glob(".eslintrc*", 0, 1)
+
+    if not vim.tbl_isempty(eslintrc) then
+      return true
+    end
+
+    if vim.fn.filereadable("package.json") == 1 then
+      if vim.fn.json_decode(vim.fn.readfile("package.json"))["eslintConfig"] then
+        return true
+      end
+    end
+
+    return false
+  end
+
   typescript.setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
     debug = false, -- enable debug logging for commands
     -- LSP Config options
     -- Shothand for non eslint (framework) dir and with eslint dir
-    server = not vim.tbl_isempty(vim.fn.glob(".eslintrc*", 0, 1)) and {
+    server = eslint_config_extist() and {
       capabilities = require("lsp.servers.tsserver").capabilities,
       handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
       on_attach = require("lsp.servers.tsserver").on_attach,

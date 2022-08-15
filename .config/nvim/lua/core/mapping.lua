@@ -42,7 +42,7 @@ vim.keymap.set("n", "i", function()
 end, { expr = true, noremap = true })
 
 -- delete a character without yank into register
--- vim.keymap.set({ "n", "x" }, "x", "_x")
+nkeymap("x", '"_x')
 
 -- delete blank line without yank into register
 local function smart_dd()
@@ -58,6 +58,10 @@ vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
 nkeymap("<C-c>", ":Bdelete<cr>")
 nkeymap("<C-q>", ":bd<cr>")
 
+-- Increment/Decrement
+nkeymap("+", "<C-a>")
+nkeymap("-", "<C-x>")
+
 -- Ctrl-W to Alt
 nkeymap("<A-h>", "<C-w>h")
 nkeymap("<A-j>", "<C-w>j")
@@ -70,6 +74,9 @@ nkeymap("<A-Up>", ":resize +2<cr>")
 nkeymap("<A-Down>", ":resize -2<cr>")
 nkeymap("<A-Left>", ":vertical resize -2<cr>")
 nkeymap("<A-Right>", ":vertical resize +2<cr>")
+
+-- New tab
+nkeymap("te", ":tabedit<cr>")
 
 -- Keeping it center
 nkeymap("n", "nzzzv")
@@ -194,3 +201,9 @@ xkeymap("*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
 xkeymap("#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
 xkeymap("g*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
 xkeymap("g#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
+
+-- UFO
+nkeymap("zR", ":lua require('ufo').openAllFolds()<cr>")
+nkeymap("zM", ":lua require('ufo').closeAllFolds()<cr>")
+nkeymap("zr", ":lua require('ufo').openAllFolds()<cr>")
+nkeymap("zm", ":lua require('ufo').closeFoldsWith()<cr>")

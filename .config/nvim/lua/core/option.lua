@@ -23,8 +23,11 @@ vim.opt.undofile = true
 -- UI
 vim.opt.cursorline = true
 -- vim.opt.foldcolumn = "1"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+-- vim.opt.foldmethod = "expr"
 vim.opt.guicursor:append({ "n-i:blinkon1" })
 vim.opt.laststatus = 3
 vim.opt.number = true

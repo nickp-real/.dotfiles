@@ -304,6 +304,7 @@ return packer.startup({
             end,
           },
           "hrsh7th/cmp-nvim-lsp",
+          "ray-x/lsp_signature.nvim",
         },
         config = function()
           require("lsp.config")
@@ -410,20 +411,13 @@ return packer.startup({
             end,
           },
           "lukas-reineke/cmp-under-comparator",
-          {
-            "abecodes/tabout.nvim",
-            requires = "nvim-treesitter",
-            config = function()
-              require("plugins.tabout")
-            end,
-          },
         },
       },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
       { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
+      -- { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "mtoohey31/cmp-fish", after = "nvim-cmp", ft = "fish" },
     })
@@ -449,6 +443,15 @@ return packer.startup({
     })
 
     use({
+      "abecodes/tabout.nvim",
+      requires = "nvim-treesitter",
+      after = "nvim-cmp",
+      config = function()
+        require("plugins.tabout")
+      end,
+    })
+
+    use({
       "windwp/nvim-autopairs",
       event = "InsertCharPre",
       after = { "nvim-treesitter", "nvim-cmp" },
@@ -464,6 +467,14 @@ return packer.startup({
     ---------
 
     use({ "tpope/vim-fugitive", event = "CursorHold" })
+    use({
+      "TimUntersberger/neogit",
+      requires = "nvim-lua/plenary.nvim",
+      event = "CursorHold",
+      config = function()
+        require("plugins.neogit")
+      end,
+    })
 
     ----------------------------
     -- Debug Adapter Protocol --

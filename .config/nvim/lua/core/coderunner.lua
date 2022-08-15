@@ -127,9 +127,9 @@ vim.api.nvim_create_user_command("AutoRun", function()
 
     if not bufnr then
       vim.notify("AutoRun Starts Now!", nil, { title = "AutoRun" })
-      vim.cmd("vnew")
+      vim.api.nvim_command("vnew")
       bufnr = vim.api.nvim_get_current_buf()
-      vim.cmd("wincmd p")
+      vim.api.nvim_command("wincmd p")
     else
       vim.notify("AutoRun Command Changed!", nil, { title = "AutoRun" })
     end
