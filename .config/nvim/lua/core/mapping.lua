@@ -232,9 +232,15 @@ local leader_mapping = {
     -- Git
     g = {
       name = "Git",
-      s = { "<cmd>G<cr>", "Show" },
+      s = { "<cmd>Neogit<cr>", "Show" },
       h = { "<cmd>diffget //2<cr>", "Diff Get Left" },
       l = { "<cmd>diffget //3<cr>", "Diff Get Right" },
+      d = {
+        name = "File History Diff",
+        f = { "<cmd>DiffviewFileHistory %<cr>", "View Current File Diff" },
+        F = { "<cmd>DiffviewFileHistory<cr>", "View Current Branch Diff" },
+      },
+      D = { "<cmd>DiffviewOpen<cr>", "View Diff" },
     },
 
     -- Neogen
@@ -249,8 +255,11 @@ local leader_mapping = {
     ["<Tab>"] = { "<cmd>BufferLineMoveNext<CR>", "Buffer Tab Move Next" },
     ["<S-Tab>"] = { "<cmd>BufferLineMovePrev<CR>", "Buffer Tab Move Prev" },
 
-    -- New tab
-    ["te"] = { ":tabedit<cr>", "New Tab" },
+    -- Tab
+    t = {
+      e = { ":tabedit<cr>", "New Tab" },
+      q = { ":tabclose<cr>", "Close Tab" },
+    },
 
     -- Moving Text
     j = { ":m .+1<cr>==", "Up" },

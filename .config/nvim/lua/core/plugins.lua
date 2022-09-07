@@ -492,7 +492,23 @@ return packer.startup({
     -- Git --
     ---------
 
-    use({ "tpope/vim-fugitive", event = "CursorHold" })
+    use({
+      "TimUntersberger/neogit",
+      requires = "nvim-lua/plenary.nvim",
+      event = "CursorHold",
+      config = function()
+        require("plugins.neogit")
+      end,
+    })
+
+    use({
+      "sindrets/diffview.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      event = "CursorHold",
+      config = function()
+        require("plugins.diffview")
+      end,
+    })
 
     ----------------------------
     -- Debug Adapter Protocol --

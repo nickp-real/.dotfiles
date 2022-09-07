@@ -13,6 +13,6 @@ neogit.setup({
     item = { "", "" },
   },
   integrations = {
-    diffview = false,
+    diffview = true,
   },
 })

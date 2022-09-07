@@ -8,7 +8,8 @@
 	editor = nvim
 # define command which will be used when "nvim" is set as a merge tool
 [mergetool "nvim"]
-    cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+    cmd = nvim -f -c \"DiffviewOpen!\" 
+    ; \"$MERGED\"
 # set "nvim" as tool for merging
 [merge]
     tool = nvim
