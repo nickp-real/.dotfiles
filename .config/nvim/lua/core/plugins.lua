@@ -481,6 +481,13 @@ return packer.startup({
       end,
     })
 
+    use({
+      "mizlan/iswap.nvim",
+      config = function()
+        require("plugins.iswap")
+      end,
+    })
+
     ---------
     -- Git --
     ---------

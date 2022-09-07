@@ -190,6 +190,9 @@ vkeymap("<C-x>", require("dial.map").dec_visual())
 vkeymap("g<C-a>", require("dial.map").inc_gvisual())
 vkeymap("g<C-x>", require("dial.map").dec_gvisual())
 
+-- ISwap
+nkeymap("<leader>sw", "<cmd>ISwap<cr>")
+
 local leader_mapping = {
   ["<leader>"] = {
     -- Telescope
