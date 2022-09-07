@@ -589,6 +589,8 @@ return packer.startup({
 
     -- Search
     use({ "haya14busa/vim-asterisk", event = "CursorHold" })
+
+    -- for highlight
     use({
       "kevinhwang91/nvim-hlslens",
       after = "vim-asterisk",
@@ -598,12 +600,10 @@ return packer.startup({
       end,
     })
 
-    -- CodeRunner
     use({
-      "stevearc/overseer.nvim",
-      event = "CursorHold",
+      "folke/which-key.nvim",
       config = function()
-        require("plugins.overseer")
+        require("plugins.which-key")
       end,
     })
 
