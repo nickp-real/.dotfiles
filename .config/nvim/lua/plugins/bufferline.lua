@@ -8,7 +8,10 @@ bufferline.setup({
     diagnostics = "nvim_lsp",
     diagnostics_update_in_insert = false,
     close_command = "Bdelete! %d",
-    indicator_icon = "▌",
+    indicator = {
+      icon = "▌",
+      style = "icon",
+    },
     offsets = {
       {
         filetype = "Outline",

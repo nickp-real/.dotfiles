@@ -43,6 +43,12 @@ end, { expr = true, noremap = true })
 
 -- delete a character without yank into register
 nkeymap("x", '"_x')
+nkeymap("X",'"_X')
+vkeymap("x", '"_x')
+vkeymap("X",'"_X')
+
+-- Don't yank on visual paste
+vkeymap("p", '"_dP')
 
 -- delete blank line without yank into register
 local function smart_dd()
@@ -68,6 +74,7 @@ nkeymap("<A-j>", "<C-w>j")
 nkeymap("<A-k>", "<C-w>k")
 nkeymap("<A-l>", "<C-w>l")
 nkeymap("<A-o>", "<C-w>o")
+nkeymap("<A-w>", "<C-w>w")
 
 -- Split resize
 nkeymap("<A-Up>", ":resize +2<cr>")
@@ -76,7 +83,11 @@ nkeymap("<A-Left>", ":vertical resize -2<cr>")
 nkeymap("<A-Right>", ":vertical resize +2<cr>")
 
 -- New tab
-nkeymap("te", ":tabedit<cr>")
+nkeymap("<leader>te", ":tabedit<cr>")
+
+-- Split
+nkeymap("<leader>ss", ":split<cr><C-w>w")
+nkeymap("<leader>sv", ":vsplit<cr><C-w>w")
 
 -- Keeping it center
 nkeymap("n", "nzzzv")
@@ -165,6 +176,10 @@ nkeymap("<leader>o", "<cmd>SymbolsOutline<cr>")
 -- Hop
 nkeymap("s", "<cmd>HopChar2<cr>")
 nkeymap("S", "<cmd>HopWord<cr>")
+vim.api.nvim_set_keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+vim.api.nvim_set_keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
+vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
 
 -- Session Manager
 nkeymap("<leader>sl", "<cmd>SessionManager load_last_session<cr>")
@@ -205,5 +220,5 @@ xkeymap("g#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
 -- UFO
 nkeymap("zR", ":lua require('ufo').openAllFolds()<cr>")
 nkeymap("zM", ":lua require('ufo').closeAllFolds()<cr>")
-nkeymap("zr", ":lua require('ufo').openAllFolds()<cr>")
-nkeymap("zm", ":lua require('ufo').closeFoldsWith()<cr>")
+-- nkeymap("zr", ":lua require('ufo').openFoldsExceptKinds()<cr>")
+-- nkeymap("zm", ":lua require('ufo').closeFoldsWith(0)<cr>")

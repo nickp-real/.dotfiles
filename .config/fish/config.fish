@@ -11,6 +11,7 @@ alias pip_update 'pip list | cut -d" " -f1 | tail -n+3 | xargs pip install --upg
 alias mv "mv -v"
 alias cp "cp -v"
 alias rm "rm -v"
+alias du "du -chsh"
 # alias cmd "cmd.exe"
 # alias pwsh "pwsh.exe"
 # alias open "wslview"
@@ -19,8 +20,8 @@ alias vim "nvim"
 alias battery "cat /sys/class/power_supply/BAT0/capacity"
 
 # Docker
-alias docker-start "systemctl --user start docker.service"
-alias docker-stop "systemctl --user stop docker.service"
+alias docker-start "systemctl start docker.service"
+alias docker-stop "systemctl stop docker.service"
 
 # Arch
 alias pac "sudo pacman -S"
@@ -56,6 +57,9 @@ set -gx PATH $ANDROID_HOME/tools $PATH
 set -x FLUTTER_ROOT $HOME/Dev-tools/flutter
 set -gx PATH $FLUTTER_ROOT/bin $PATH
 
+# Rofi
+set -gx PATH $HOME/.config/rofi/scripts $PATH
+
 # SET VAR
 set -Ux EDITOR nvim
 set -Ux VISUAL $EDITOR
@@ -67,15 +71,21 @@ set -Ux LANG en_US.UTF-8
 set -Ux LESS '-R --use-color -Dd+r$Du+b'
 set -Ux MANPAGER 'nvim +Man!'
 
+# fish var
 set -Ux fish_color_command green 
 set -Ux fish_color_normal brwhite
 set -Ux fish_color_option blue
 set -Ux fish_color_param blue
 set -Ux fish_term24bit 1
+
+# fzf
 set -Ux fzf_preview_dir_cmd exa --all --color=always
 # set fzf_fd_opts --hidden --exclude=.git
 set -Ux FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
 
+# qt5
+set -Ux QT_QPA_PLATFORMTHEME qt5ct
+#
 # STARSHIP INIT
 starship init fish | source
 

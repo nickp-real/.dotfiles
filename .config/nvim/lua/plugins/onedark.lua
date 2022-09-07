@@ -47,8 +47,11 @@ onedark.setup({
       LspReferenceText = { bg = "#343a45" },
       LspReferenceWrite = { bg = "#343a45" },
       LspReferenceRead = { bg = "#343a45" },
-      illuminatedWord = { bg = "#343a45" },
-      illuminatedCurWord = { bg = "#343a45" },
+      -- illuminatedWord = { bg = "#343a45" },
+      -- illuminatedCurWord = { bg = "#343a45" },
+      IlluminatedWordText = { bg = "#343a45" },
+      IlluminatedWordWrite = { bg = "#343a45" },
+      IlluminatedWordRead = { bg = "#343a45" },
 
       -- DevIcons
       DevIconC = { fg = c.dev_icons.blue },

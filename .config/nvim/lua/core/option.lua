@@ -9,6 +9,7 @@ vim.opt.ffs = "unix"
 vim.opt.fileencoding = "utf-8"
 vim.opt.mouse = "a"
 vim.opt.scrolloff = 8
+vim.opt.shell = "fish"
 vim.opt.showbreak = string.rep(" ", 3)
 vim.opt.showmatch = true
 vim.opt.sidescrolloff = 8
@@ -27,6 +28,7 @@ vim.opt.cursorline = true
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
+vim.opt.foldnestmax = 0
 -- vim.opt.foldmethod = "expr"
 vim.opt.guicursor:append({ "n-i:blinkon1" })
 vim.opt.laststatus = 3

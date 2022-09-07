@@ -13,16 +13,14 @@
 dir="$HOME/.config/rofi/powermenu/type-3"
 theme='style-1'
 
-# screen_width=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/' | cut -d 'x' -f1)
-screen_width=$(xrandr | rg ' connected' | cut -d " " -f3 | cut -d "x" -f1)
-
-if [ "$screen_width" -gt 1920 ]; then
-    theme='style-1-wide'
-fi
-
 # CMDs
 uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
+screen_width=$(xrandr | rg ' connected' | cut -d "x" -f1 | rg -o "[0-9]{4}" | tail -1)
+
+if [ $screen_width -gt 1920 ]; then
+    theme='style-1-wide'
+fi
 
 # Options
 shutdown=''
@@ -38,7 +36,6 @@ rofi_cmd() {
 	rofi -dmenu \
 		-p "Uptime: $uptime" \
 		-mesg "Uptime: $uptime" \
-		-select $lock \
 		-theme ${dir}/${theme}.rasi
 }
 
@@ -47,7 +44,6 @@ confirm_cmd() {
 	rofi -dmenu \
 		-p 'Confirmation' \
 		-mesg 'Are you Sure?' \
-		-select $yes \
 		-theme ${dir}/shared/confirm.rasi
 }
 

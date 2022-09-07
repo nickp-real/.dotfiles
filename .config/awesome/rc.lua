@@ -306,10 +306,14 @@ globalkeys = gears.table.join(
 		end
 	end, { description = "restore minimized", group = "client" }),
 
-	-- Prompt
+	-- rofi
 	awful.key({ modkey }, "r", function()
-		awful.spawn("rofi -show drun")
-	end, { description = "run prompt", group = "launcher" }),
+		awful.spawn("launcher_t1")
+	end, { description = "launch rofi", group = "launcher" }),
+	-- powermenu
+	awful.key({ modkey, "Shift" }, "Escape", function()
+		awful.spawn("powermenu_t3")
+	end, { description = "launch powermenu", group = "launcher" }),
 
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
@@ -347,8 +351,8 @@ clientkeys = gears.table.join(
 		c:kill()
 	end, { description = "close focused client", group = "client" }),
 	awful.key(
-		{ modkey, "Control" },
-		"space",
+		{ modkey, "Shift" },
+		"f",
 		awful.client.floating.toggle,
 		{ description = "toggle floating", group = "client" }
 	),
@@ -503,19 +507,34 @@ awful.rules.rules = {
 }
 -- }}}
 
+local rounded_corner = function(c)
+	c.shape = function(cr, w, h)
+		gears.shape.rounded_rect(cr, w, h, 10)
+	end
+end
+
+local rect_corner = function(c)
+	c.shape = gears.shape.rectangle
+end
+
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
 	-- Set the windows at the slave,
 	-- i.e. put it at the end of others instead of setting it master.
 	-- if not awesome.startup then awful.client.setslave(c) end
-	c.shape = function(cr, w, h)
-		gears.shape.rounded_rect(cr, w, h, 10)
-	end
 
 	if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
 		-- Prevent clients from being unreachable after screen count changes.
 		awful.placement.no_offscreen(c)
+	end
+
+	c.shape = function(cr, width, height)
+		if c.fullscreen or c.maximized then
+			gears.shape.rectangle(cr, width, height)
+		else
+			gears.shape.rounded_rect(cr, width, height, 10)
+		end
 	end
 end)
 

@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd(
 
 -- Format Option
 local format_options = vim.api.nvim_create_augroup("Format Options", { clear = true })
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     vim.schedule(function()
       vim.opt.formatoptions = vim.opt.formatoptions
@@ -68,12 +68,28 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Use 'q' to quit from common plugins
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "startuptime", "trouble", "null-ls-info" },
+  pattern = {
+    "qf",
+    "help",
+    "man",
+    "lspinfo",
+    "spectre_panel",
+    "lir",
+    "startuptime",
+    "trouble",
+    "null-ls-info",
+  },
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", { silent = true })
     vim.bo.buflisted = false
   end,
 })
+
+-- vim.api.nvim_create_autocmd({ "VimLeave" }, {
+--   callback = function()
+--     vim.api.nvim_exec("!~/.local/share/nvim/mason/bin/eslint_d stop", {})
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd({ "FileType" }, {
 --   pattern = "qf",

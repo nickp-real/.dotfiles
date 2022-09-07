@@ -38,11 +38,14 @@ if cmp_nvim_lsp_ok then
       },
     },
   }
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
 end
 
 local on_attach = function(client, bufnr)
   utils.no_format_on_attach(client, bufnr)
-  utils.custom_diagnostic_hide(bufnr)
 end
 
 local settings = {

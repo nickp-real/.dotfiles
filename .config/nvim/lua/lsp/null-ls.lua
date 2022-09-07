@@ -20,11 +20,11 @@ local sources = {
 
   -- front-end
   formatting.prettierd,
-  formatting.rustywind.with({
-    condition = function(utils)
-      return utils.root_has_file({ "tailwind.config.js", "tailwind.config.ts" })
-    end,
-  }),
+  -- formatting.rustywind.with({
+  --   condition = function(utils)
+  --     return utils.root_has_file({ "tailwind.config.js", "tailwind.config.ts" })
+  --   end,
+  -- }),
 
   -- go
   formatting.golines,
@@ -34,22 +34,22 @@ local sources = {
   ----------------
 
   -- front-end
-  diagnostics.eslint_d.with({
-    condition = function(utils)
-      return utils.root_has_file({ ".eslintrc.json" })
-    end,
-  }),
+  -- diagnostics.eslint_d.with({
+  --   condition = function(utils)
+  --     return utils.root_has_file({ ".eslintrc.json" })
+  --   end,
+  -- }),
 
   ------------------
   -- Code Actions --
   ------------------
 
   -- front-end
-  code_actions.eslint_d.with({
-    condition = function(utils)
-      return utils.root_has_file({ ".eslintrc.json" })
-    end,
-  }),
+  -- code_actions.eslint_d.with({
+  --   condition = function(utils)
+  --     return utils.root_has_file({ ".eslintrc.json" })
+  --   end,
+  -- }),
 }
 
 local utils = require("lsp.utils")

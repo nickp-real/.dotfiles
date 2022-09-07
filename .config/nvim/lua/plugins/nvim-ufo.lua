@@ -1,5 +1,6 @@
 local status_ok, ufo = pcall(require, "ufo")
-if not status_ok then
+local promise_status_ok, promise = pcall(require, "promise")
+if not (status_ok and promise_status_ok) then
   return
 end
 
@@ -46,10 +47,32 @@ local handler = function(virtText, lnum, endLnum, width, truncate, ctx)
   return newVirtText
 end
 
+local function customizeSelector(bufnr)
+  local function handleFallbackException(err, providerName)
+    if type(err) == "string" and err:match("UfoFallbackException") then
+      return ufo.getFolds(providerName, bufnr)
+    else
+      return promise.reject(err)
+    end
+  end
+
+  return ufo
+    .getFolds("lsp", bufnr)
+    :catch(function(err)
+      return handleFallbackException(err, "treesitter")
+    end)
+    :catch(function(err)
+      return handleFallbackException(err, "indent")
+    end)
+end
+
 ufo.setup({
   provider_selector = function(bufnr, filetype, buftype)
-    return { "treesitter", "indent" }
+    return customizeSelector
   end,
+  -- provider_selector = function(bufnr, filetype, buftype)
+  --   return { "treesitter", "indent" }
+  -- end,
   enable_fold_end_virt_text = true,
   fold_virt_text_handler = handler,
 })

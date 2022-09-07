@@ -13,7 +13,7 @@ M.settings = {
       version = "LuaJIT",
     },
     diagnostics = {
-      globals = { "vim", "use" },
+      globals = { "vim", "use", "packer_plugins" },
     },
   },
 }

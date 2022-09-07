@@ -9,6 +9,7 @@ SETUVAR --export LC_ALL:en_US\x2eUTF\x2d8
 SETUVAR --export LESS:\x2dR\x20\x2d\x2duse\x2dcolor\x20\x2dDd\x2br\x24Du\x2bb
 SETUVAR --export LS_COLORS:ow\x3d1\x3b102\x3b90
 SETUVAR --export MANPAGER:nvim\x20\x2bMan\x21
+SETUVAR --export QT_QPA_PLATFORMTHEME:qt5ct
 SETUVAR --export SUDO_EDITOR:nvim
 SETUVAR --export VISUAL:nvim
 SETUVAR ZO_CMD:zo

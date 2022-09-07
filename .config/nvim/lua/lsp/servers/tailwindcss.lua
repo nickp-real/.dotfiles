@@ -8,14 +8,6 @@ if cmp_nvim_lsp_ok then
   capabilities.textDocument.colorProvider = { dynamicRegistration = false }
 end
 
--- Settings
-
-local on_attach = function(client, bufnr)
-  if client.server_capabilities.colorProvider then
-    require("lsp.servers.tailwindcss_util").buf_attach(bufnr)
-  end
-end
-
 local filetypes = { "html", "css", "mdx", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
 
 local init_options = {
@@ -52,7 +44,6 @@ local settings = {
 
 local root_dir = { "tailwind.config.js", "tailwind.config.ts" }
 
-M.on_attach = on_attach
 M.filetypes = filetypes
 M.capabilities = capabilities
 M.settings = settings

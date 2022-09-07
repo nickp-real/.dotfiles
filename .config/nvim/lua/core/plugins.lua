@@ -146,6 +146,13 @@ return packer.startup({
       },
       { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
       {
+        "nvim-treesitter/nvim-treesitter-context",
+        after = "nvim-treesitter",
+        config = function()
+          require("plugins.treesitter-context")
+        end,
+      },
+      {
         "lewis6991/spellsitter.nvim",
         after = "nvim-treesitter",
         config = function()
@@ -195,7 +202,8 @@ return packer.startup({
     })
 
     use({
-      "folke/todo-comments.nvim",
+      -- Fork
+      "B4mbus/todo-comments.nvim",
       event = "BufRead",
       requires = "nvim-lua/plenary.nvim",
       config = function()
@@ -305,6 +313,7 @@ return packer.startup({
           },
           "hrsh7th/cmp-nvim-lsp",
           "ray-x/lsp_signature.nvim",
+          "mrshmllow/document-color.nvim",
         },
         config = function()
           require("lsp.config")
@@ -429,6 +438,7 @@ return packer.startup({
     use({
       "numToStr/Comment.nvim",
       event = "BufRead",
+      after = "nvim-treesitter",
       config = function()
         require("plugins.comment")
       end,
@@ -444,7 +454,7 @@ return packer.startup({
 
     use({
       "abecodes/tabout.nvim",
-      requires = "nvim-treesitter",
+      wants = "nvim-treesitter",
       after = "nvim-cmp",
       config = function()
         require("plugins.tabout")
@@ -462,19 +472,20 @@ return packer.startup({
 
     use({ "monaqa/dial.nvim", event = "BufRead" })
 
+    use({
+      "axelvc/template-string.nvim",
+      event = "InsertEnter",
+      ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      config = function()
+        require("plugins.template-string")
+      end,
+    })
+
     ---------
     -- Git --
     ---------
 
     use({ "tpope/vim-fugitive", event = "CursorHold" })
-    use({
-      "TimUntersberger/neogit",
-      requires = "nvim-lua/plenary.nvim",
-      event = "CursorHold",
-      config = function()
-        require("plugins.neogit")
-      end,
-    })
 
     ----------------------------
     -- Debug Adapter Protocol --

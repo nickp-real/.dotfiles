@@ -107,8 +107,8 @@ configs.setup({
         ["[f"] = "@function.outer",
         ["[["] = "@class.outer",
       },
+      ["[F"] = "@function.outer",
       goto_previous_end = {
-        ["[F"] = "@function.outer",
         ["[]"] = "@class.outer",
       },
     },

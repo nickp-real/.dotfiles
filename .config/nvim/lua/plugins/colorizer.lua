@@ -6,14 +6,15 @@ end
 -- Attach to certain Filetypes, add special configuration for `html`
 -- Use `background` for everything else.
 colorizer.setup({
-  "css",
-  "javascript",
-  "typescript",
-  "html",
-  "lua",
-  html = {
-    mode = "foreground",
-  },
+  "*",
+  "!css",
+  "!html",
+  "!tsx",
+  "!typescriptreact",
+  "!jsx",
+  "!javascriptreact",
+  "!dart",
+  "!packer",
 }, {
   css = true,
 })
