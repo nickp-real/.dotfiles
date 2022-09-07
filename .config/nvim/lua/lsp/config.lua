@@ -1,4 +1,4 @@
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
 local diagnostic_config = {
   update_in_insert = false,

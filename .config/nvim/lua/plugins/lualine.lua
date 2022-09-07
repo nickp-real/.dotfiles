@@ -3,7 +3,7 @@ if not status_ok then
   return
 end
 
-local signs = { error = " ", warn = " ", hint = " ", info = " " }
+local signs = { error = " ", warn = " ", hint = " ", info = " " }
 local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
@@ -33,7 +33,10 @@ lualine.setup({
     },
     lualine_b = {
       "branch",
-      "diff",
+      {
+        "diff",
+        symbols = { added = " ", modified = " ", removed = " " },
+      },
       diagnostics,
     },
     lualine_c = {
