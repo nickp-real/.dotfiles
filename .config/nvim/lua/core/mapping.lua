@@ -138,7 +138,7 @@ nkeymap("<Tab>", "<cmd>BufferLineCycleNext<CR>")
 nkeymap("<S-Tab>", "<cmd>BufferLineCyclePrev<CR>")
 
 -- Hop
-nkeymap("s", "<cmd>HopChar2<cr>")
+nkeymap("s", "<cmd>HopChar1<cr>")
 nkeymap("S", "<cmd>HopWord<cr>")
 vim.api.nvim_set_keymap(
   "",
@@ -233,14 +233,16 @@ local leader_mapping = {
     g = {
       name = "Git",
       s = { "<cmd>Neogit<cr>", "Show" },
-      h = { "<cmd>diffget //2<cr>", "Diff Get Left" },
-      l = { "<cmd>diffget //3<cr>", "Diff Get Right" },
-      d = {
-        name = "File History Diff",
-        f = { "<cmd>DiffviewFileHistory %<cr>", "View Current File Diff" },
-        F = { "<cmd>DiffviewFileHistory<cr>", "View Current Branch Diff" },
-      },
-      D = { "<cmd>DiffviewOpen<cr>", "View Diff" },
+      -- h = { "<cmd>diffget //2<cr>", "Diff Get Left" },
+      -- l = { "<cmd>diffget //3<cr>", "Diff Get Right" },
+    },
+
+    -- Diffview
+    d = {
+      name = "Diffview",
+      d = { "<cmd>DiffviewOpen<cr>", "View Diff" },
+      f = { "<cmd>DiffviewFileHistory %<cr>", "View Current File Diff" },
+      F = { "<cmd>DiffviewFileHistory<cr>", "View Current Branch Diff" },
     },
 
     -- Neogen

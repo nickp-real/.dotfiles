@@ -53,11 +53,6 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-local noFoldCapabilities = capabilities
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
 
 local signature_config = {
   hint_enable = false,
@@ -121,7 +116,6 @@ lspconfig.pyright.setup({
 })
 
 lspconfig.jsonls.setup({
-  capabilities = noFoldCapabilities,
   on_attach = utils.no_format_on_attach,
   settings = require("lsp.servers.jsonls").settings,
 })
@@ -136,7 +130,6 @@ lspconfig.tailwindcss.setup({
 })
 
 lspconfig.cssls.setup({
-  capabilities = noFoldCapabilities,
   on_attach = utils.no_format_on_attach,
   settings = require("lsp.servers.cssls").settings,
 })

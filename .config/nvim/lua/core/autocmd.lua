@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd(
   { pattern = "*", command = 'lua vim.highlight.on_yank({higroup="Visual", timeout=200})', group = yank }
 )
 
--- Format Option
+-- -- Format Option
 local format_options = vim.api.nvim_create_augroup("Format Options", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()

@@ -106,6 +106,7 @@ vim.opt.fillchars = {
   stl = " ",
   stlnc = " ",
   eob = " ",
+  diff = "╱",
   -- fold = " ",
   -- foldopen = "",
   -- foldsep = " ",

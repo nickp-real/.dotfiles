@@ -81,12 +81,3 @@ onedark.setup({
     }
   end,
 })
-
--- local status_ok, onedarkpro = pcall(require, "onedarkpro")
--- if not status_ok then
---  return
---end
-
---onedarkpro.setup()
-
---vim.cmd("colorscheme onedarkpro")
