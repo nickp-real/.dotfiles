@@ -10,6 +10,9 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+-- dpi
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 -- Notification library
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -20,7 +23,7 @@ require("awful.hotkeys_popup.keys")
 require("core.error_handling")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
 beautiful.font = "san-serif medium 12px"
 
 -- This is used later as the default terminal and editor to run.
@@ -56,6 +59,10 @@ awful.layout.layouts = {
 }
 -- }}}
 
+local function widget_margin(widget)
+	return wibox.widget({ widget, margins = dpi(2.5), widget = wibox.container.margin })
+end
+
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
@@ -90,11 +97,11 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+mykeyboardlayout = widget_margin(awful.widget.keyboardlayout())
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = widget_margin(wibox.widget.textclock())
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -180,6 +187,8 @@ awful.screen.connect_for_each_screen(function(s)
 			awful.layout.inc(-1)
 		end)
 	))
+	s.mylayoutbox = widget_margin(s.mylayoutbox)
+
 	-- Create a taglist widget
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
@@ -192,10 +201,38 @@ awful.screen.connect_for_each_screen(function(s)
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
+		widget_template = {
+			{
+				{
+					{
+						{
+							id = "icon_role",
+							widget = wibox.widget.imagebox,
+						},
+						top = dpi(2),
+						right = dpi(3),
+						widget = wibox.container.margin,
+					},
+					{
+						id = "text_role",
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = dpi(10),
+				right = dpi(10),
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+		},
 	})
 
+	-- Systray
+	s.systray = wibox.container.margin(wibox.widget.systray(), dpi(0), dpi(0), dpi(2.5), dpi(2.5))
+
 	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s })
+	s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(30) })
 
 	-- Add widgets to the wibox
 	s.mywibox:setup({
@@ -210,7 +247,7 @@ awful.screen.connect_for_each_screen(function(s)
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			mykeyboardlayout,
-			wibox.widget.systray(),
+			s.systray,
 			mytextclock,
 			s.mylayoutbox,
 		},
@@ -591,11 +628,6 @@ client.connect_signal("unfocus", function(c)
 end)
 -- }}}
 
--- Padding
-beautiful.useless_gap = 5
-
 -- Auto Startup Program
-awful.spawn.with_shell("./.fehbg &")
--- awful.spawn.with_shell("pulseaudio -k")
 awful.spawn("flameshot")
 awful.spawn.with_shell("picom --experimental-backends &")
