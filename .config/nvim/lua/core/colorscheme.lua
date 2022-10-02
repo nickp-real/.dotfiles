@@ -78,6 +78,50 @@ onedark.setup({
       DevIconXml = { fg = c.dev_icons.orange },
       DevIconYaml = { fg = c.dev_icons.purple },
       DevIconYml = { fg = c.dev_icons.purple },
+
+      -- Cmp
+      -- PmenuSel = { bg = c.bg0, fg = c.none },
+      -- Pmenu = { fg = c.fg_light, bg = c.bg1 },
+
+      -- CmpItemAbbrDeprecated = { fg = c.fg_gutter, bg = c.none, fmt = "strikethrough" },
+      -- CmpItemAbbrMatch = { fg = c.blue0, bg = c.none, fmt = "bold" },
+      -- CmpItemAbbrMatchFuzzy = { fg = c.blue0, bg = c.none, fmt = "bold" },
+      -- CmpItemMenu = { fg = c.purple0, bg = c.none, fmt = "italic" },
+
+      -- CmpItemKindField = { fg = "#ffffff", bg = c.red1 },
+      -- CmpItemKindProperty = { fg = "#ffffff", bg = c.red1 },
+      -- CmpItemKindEvent = { fg = "#ffffff", bg = c.red1 },
+
+      -- CmpItemKindText = { fg = "#ffffff", bg = c.green0 },
+      -- CmpItemKindEnum = { fg = "#ffffff", bg = c.green0 },
+      -- CmpItemKindKeyword = { fg = "#ffffff", bg = c.green0 },
+
+      -- CmpItemKindConstant = { fg = "#ffffff", bg = c.yellow0 },
+      -- CmpItemKindConstructor = { fg = "#ffffff", bg = c.yellow0 },
+      -- CmpItemKindReference = { fg = "#ffffff", bg = c.yellow0 },
+
+      -- CmpItemKindFunction = { fg = "#ffffff", bg = c.purple0 },
+      -- CmpItemKindStruct = { fg = "#ffffff", bg = c.purple0 },
+      -- CmpItemKindClass = { fg = "#ffffff", bg = c.purple0 },
+      -- CmpItemKindModule = { fg = "#ffffff", bg = c.purple0 },
+      -- CmpItemKindOperator = { fg = "#ffffff", bg = c.purple0 },
+
+      -- CmpItemKindVariable = { fg = "#ffffff", bg = c.fg_dark },
+      -- CmpItemKindFile = { fg = "#ffffff", bg = c.fg_dark },
+
+      -- CmpItemKindUnit = { fg = "#ffffff", bg = c.orange1 },
+      -- CmpItemKindSnippet = { fg = "#ffffff", bg = c.orange1 },
+      -- CmpItemKindFolder = { fg = "#ffffff", bg = c.orange1 },
+
+      -- CmpItemKindMethod = { fg = "#ffffff", bg = c.blue1 },
+      -- CmpItemKindValue = { fg = "#ffffff", bg = c.blue1 },
+      -- CmpItemKindEnumMember = { fg = "#ffffff", bg = c.blue1 },
+
+      -- CmpItemKindInterface = { fg = "#ffffff", bg = c.cyan0 },
+      -- CmpItemKindColor = { fg = "#ffffff", bg = c.cyan0 },
+      -- CmpItemKindTypeParameter = { fg = "#ffffff", bg = c.cyan0 },
     }
   end,
 })
+
+-- vim.cmd("colorscheme onedarkpro")

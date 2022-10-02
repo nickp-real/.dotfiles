@@ -27,7 +27,7 @@ dashboard.section.header.val = {
 dashboard.section.buttons.val = {
   dashboard.button("e", "  New File", "<cmd>ene <CR>"),
   dashboard.button("SPC f f", "  Find File"),
-  dashboard.button("SPC f b", "  File Browser"),
+  dashboard.button("SPC f n", "  File Browser"),
   dashboard.button("SPC f o", "  Recently Opened Files"),
   -- dashboard.button("SPC f r", "  Frecency/MRU"),
   dashboard.button("SPC f g", "  Find Word"),

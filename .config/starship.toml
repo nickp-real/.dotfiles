@@ -16,7 +16,6 @@ command_timeout = 1000
 symbol = " "
 
 [git_status]
-deleted = "✘ "
 disabled = false
 
 [time]

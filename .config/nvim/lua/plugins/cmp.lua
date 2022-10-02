@@ -68,19 +68,22 @@ cmp.setup({
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-  confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = false,
-  },
+  -- confirm_opts = {
+  --   behavior = cmp.ConfirmBehavior.Replace,
+  --   select = false,
+  -- },
 
   mapping = cmp.mapping.preset.insert({
-    ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-    ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<CR>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -89,7 +92,7 @@ cmp.setup({
       elseif neogen.jumpable() then
         neogen.jump_next()
       -- elseif check_backspace() then
-      --   fallback()
+      --   cmp.complete()
       else
         fallback()
       end
@@ -108,12 +111,21 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   window = {
+    -- completion = {
+    --   winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+    --   col_offset = -3,
+    --   side_padding = 0,
+    -- },
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
+    fields = { "kind", "abbr", "menu" },
     format = function(_, vim_item)
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+      local strings = vim.split(vim_item.kind, "%s", { trimepty = true })
+      vim_item.kind = strings[1]
+      vim_item.menu = "  (" .. strings[2] .. ")"
       return vim_item
     end,
   },
@@ -129,11 +141,11 @@ cmp.setup({
   sorting = {
     priority_weight = 1.0,
     comparators = {
+      compare.offset,
+      compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
       compare.locality,
       compare.recently_used,
-      compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
       require("cmp-under-comparator").under,
-      compare.offset,
       compare.order,
       -- cmp.config.compare.exact,
       -- cmp.config.compare.locality,

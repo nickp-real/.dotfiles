@@ -1,67 +1,73 @@
+local opt = vim.opt
+local opt_local = vim.opt_local
+local g = vim.g
+
 -- Config
-vim.opt.autowriteall = true
-vim.opt.backupdir = "~/.cache/vim"
--- vim.opt.cc = "80"
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
-vim.opt.equalalways = false
-vim.opt.ffs = "unix"
-vim.opt.fileencoding = "utf-8"
-vim.opt.mouse = "a"
-vim.opt.scrolloff = 8
-vim.opt.shell = "fish"
-vim.opt.showbreak = string.rep(" ", 3)
-vim.opt.showmatch = true
-vim.opt.sidescrolloff = 8
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.swapfile = false
-vim.opt.title = true
-vim.opt.wildoptions = "pum"
-vim.opt.updatetime = 250
-vim.opt.undofile = true
+opt.autowriteall = true
+opt.completeopt = { "menu", "menuone", "noselect" }
+opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
+opt.equalalways = false
+opt.mouse = "a"
+opt.scrolloff = 8
+opt.shell = "fish"
+opt.showbreak = string.rep(" ", 3)
+opt.shortmess:append("c")
+opt.splitbelow = true
+opt.splitright = true
+opt.swapfile = false
+opt.title = true
+opt.wildoptions = "pum"
+opt.undofile = true
 
 -- UI
-vim.opt.cursorline = true
--- vim.opt.foldcolumn = "1"
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = true
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 0
--- vim.opt.foldmethod = "expr"
-vim.opt.guicursor:append({ "n-i:blinkon1" })
-vim.opt.laststatus = 3
-vim.opt.number = true
-vim.opt.numberwidth = 4
-vim.opt.pumheight = 10
-vim.opt.relativenumber = true
-vim.opt.ruler = false
-vim.opt.showmode = false
-vim.opt.signcolumn = "yes"
-vim.opt.termguicolors = true
+opt.cursorline = true
+-- opt.foldcolumn = "1"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldnestmax = 0
+-- opt.foldmethod = "expr"
+opt.guicursor:append({ "n-i:blinkon1" })
+opt.laststatus = 3
+opt.lazyredraw = true
+opt.number = true
+opt.numberwidth = 4
+opt.pumheight = 10
+opt.relativenumber = true
+opt.ruler = false
+opt.showmode = false
+opt.signcolumn = "yes"
+opt.termguicolors = true
 
--- Tap
-vim.opt.autoindent = true
-vim.opt.breakindent = true
-vim.opt.cindent = true
-vim.opt.smartindent = true
-
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.tabstop = 4
+-- Indenting
+opt.breakindent = true
+opt.smartindent = true
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.softtabstop = 2
+opt.tabstop = 2
 
 -- Search
--- vim.opt.hlsearch = false
-vim.opt.ignorecase = true
-vim.opt.inccommand = "split"
+-- opt.hlsearch = false
+opt.ignorecase = true
+opt.smartcase = true
+opt.inccommand = "split"
 
 -- text thing
-vim.opt.linebreak = true
-vim.opt.textwidth = 79
-vim.opt.wrap = true
-vim.opt.spell = true
+opt.linebreak = true
+opt.textwidth = 79
+opt.spell = true
+opt.whichwrap:append("<,>,[,],h,l")
+
+-- Performance
+opt.redrawtime = 1500
+opt.timeoutlen = 250
+opt.ttimeoutlen = 10
+opt.updatetime = 100
+
+-- Leader key
+g.mapleader = " "
 
 -- Clipboard
 vim.g.clipboard = {
@@ -76,9 +82,7 @@ vim.g.clipboard = {
   },
   cache_enabled = 0,
 }
-vim.opt.clipboard = "unnamedplus"
-
-vim.g.python3_host_prog = "/usr/bin/python"
+opt.clipboard = "unnamedplus"
 
 -- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
@@ -87,7 +91,7 @@ local set_cursorline = function(event, value, pattern)
     group = group,
     pattern = pattern,
     callback = function()
-      vim.opt_local.cursorline = value
+      opt_local.cursorline = value
     end,
   })
 end
@@ -96,7 +100,7 @@ set_cursorline("WinEnter", true)
 set_cursorline("FileType", false, "TelescopePrompt")
 
 -- Border and hide STL
-vim.opt.fillchars = {
+opt.fillchars = {
   horiz = "━",
   horizup = "┻",
   horizdown = "┳",

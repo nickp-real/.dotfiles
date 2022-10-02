@@ -6,6 +6,8 @@ end
 luasnip.config.set_config({
   history = true,
   updateevents = "TextChanged,TextChangedI",
+  region_check_events = "CursorHold,InsertLeave,InsertEnter",
+  delete_check_events = "TextChanged,InsertEnter",
   enable_autosnippets = true,
 })
 
@@ -14,9 +16,7 @@ luasnip.snippets = {
   html = {},
 }
 
--- enable html snippets in javascript/javascript(REACT)
-luasnip.filetype_extend("javascript", { "html" })
-luasnip.filetype_extend("typescript", { "html" })
+-- enable html snippets in javascript/typescript (REACT)
 luasnip.filetype_extend("javascriptreact", { "html" })
 luasnip.filetype_extend("typescriptreact", { "html" })
 

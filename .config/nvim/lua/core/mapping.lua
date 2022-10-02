@@ -1,55 +1,50 @@
 -- Var
-local keymap = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
-local wk = require("which-key")
-
-local function nkeymap(key, map)
-  keymap("n", key, map, opts)
+local bind = function(op, outer_opts)
+  outer_opts = vim.tbl_extend("force", { silent = true }, outer_opts or {})
+  return function(lhs, rhs, opts)
+    opts = vim.tbl_extend("force", outer_opts, opts or {})
+    vim.keymap.set(op, lhs, rhs, opts)
+  end
 end
 
-local function ikeymap(key, map)
-  keymap("i", key, map, opts)
-end
-
-local function vkeymap(key, map)
-  keymap("v", key, map, opts)
-end
-
-local function xkeymap(key, map)
-  keymap("x", key, map, opts)
-end
+local nmap = bind("n", { noremap = false })
+local nnoremap = bind("n")
+local vnoremap = bind("v")
+local xnoremap = bind("x")
+local inoremap = bind("i")
+local nxonoremap = bind({"n", "x", "o"})
 
 -- Spacebar to nothing
-keymap("n", "<Space>", "<Nop>", { noremap = true })
-
--- Leader
-vim.g.mapleader = " "
+nnoremap("<Space>", "<Nop>")
 
 -- Save
-keymap("n", "<C-s>", ":w<CR>", { silent = true })
-keymap("i", "<C-s>", "<Esc>:w<CR>a", { silent = true })
+nnoremap("<C-s>", ":w<CR>")
+inoremap("<C-s>", "<Esc>:w<Cr>a")
 
 -- Visual indent
-vkeymap(">", ">gv")
-vkeymap("<", "<gv")
+vnoremap(">", ">gv")
+vnoremap("<", "<gv")
 
 -- Better enter insert mode on blank line
-vim.keymap.set("n", "i", function()
+inoremap("i", function()
   return string.match(vim.api.nvim_get_current_line(), "%g") == nil
       and vim.bo.filetype ~= "toggleterm"
       and vim.bo.filetype ~= "TelescopePrompt"
       and "cc"
     or "i"
-end, { expr = true, noremap = true })
+end, { expr = true })
 
 -- delete a character without yank into register
-nkeymap("x", '"_x')
-nkeymap("X", '"_X')
-vkeymap("x", '"_x')
-vkeymap("X", '"_X')
+nnoremap("x", '"_x')
+nnoremap("X", '"_X')
+vnoremap("x", '"_x')
+vnoremap("X", '"_X')
 
 -- Don't yank on visual paste
-vkeymap("p", '"_dP')
+vnoremap("p", '"_dP')
+
+-- paste
+xnoremap("<leader>p", '"_dP')
 
 -- delete blank line without yank into register
 local function smart_dd()
@@ -59,71 +54,91 @@ local function smart_dd()
   return "dd"
 end
 
-vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
+nnoremap("dd", smart_dd, { expr = true })
 
 -- Delete buffer
-nkeymap("<C-c>", ":Bdelete<cr>")
-nkeymap("<C-q>", ":bd<cr>")
+nnoremap("<C-c>", ":Bdelete<cr>")
+nnoremap("<C-q>", ":bd<cr>")
 
 -- Increment/Decrement
-nkeymap("+", "<C-a>")
-nkeymap("-", "<C-x>")
+nnoremap("+", "<C-a>")
+nnoremap("-", "<C-x>")
 
 -- Ctrl-W to Alt
-nkeymap("<A-h>", "<C-w>h")
-nkeymap("<A-j>", "<C-w>j")
-nkeymap("<A-k>", "<C-w>k")
-nkeymap("<A-l>", "<C-w>l")
-nkeymap("<A-o>", "<C-w>o")
-nkeymap("<A-w>", "<C-w>w")
-
--- Split resize
-nkeymap("<A-Up>", ":resize +2<cr>")
-nkeymap("<A-Down>", ":resize -2<cr>")
-nkeymap("<A-Left>", ":vertical resize -2<cr>")
-nkeymap("<A-Right>", ":vertical resize +2<cr>")
+nnoremap("<A-h>", "<C-w>h")
+nnoremap("<A-j>", "<C-w>j")
+nnoremap("<A-k>", "<C-w>k")
+nnoremap("<A-l>", "<C-w>l")
+nnoremap("<A-o>", "<C-w>o")
+nnoremap("<A-w>", "<C-w>w")
 
 -- Split
-nkeymap("<leader>ss", ":split<cr><C-w>w")
-nkeymap("<leader>sv", ":vsplit<cr><C-w>w")
+nnoremap("<leader>ss", ":split<cr><C-w>w")
+nnoremap("<leader>sv", ":vsplit<cr><C-w>w")
 
--- Keeping it center
-nkeymap("n", "nzzzv")
-nkeymap("N", "Nzzzv")
-nkeymap("J", "mzJ`z")
+-- Split resize
+nnoremap("<A-Up>", ":resize +2<cr>")
+nnoremap("<A-Down>", ":resize -2<cr>")
+nnoremap("<A-Left>", ":vertical resize -2<cr>")
+nnoremap("<A-Right>", ":vertical resize +2<cr>")
+
+-- Tab
+nnoremap("<leader>te" , ":tabedit<cr>")
+nnoremap("<leader>tq" , ":tabclose<cr>")
+
+-- Keep it center
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
+nnoremap("J", "mzJ`z")
 
 -- Undo break points
-ikeymap(",", ",<C-g>u")
-ikeymap(".", ".<C-g>u")
-ikeymap("!", "!<C-g>u")
-ikeymap("?", "?<C-g>u")
+inoremap(",", ",<C-g>u")
+inoremap(".", ".<C-g>u")
+inoremap("!", "!<C-g>u")
+inoremap("?", "?<C-g>u")
 
 -- Moving text
-vkeymap("J", ":m '>+1<CR>gv=gv")
-vkeymap("K", ":m '<-2<CR>gv=gv")
-ikeymap("<C-j>", "<Esc>:m .+1<CR>==gi")
-ikeymap("<C-k>", "<Esc>:m .-2<CR>==gi")
+nnoremap("<leader>j" , ":m .+1<cr>==")
+nnoremap("<leader>k" , ":m .-2<cr>==")
+inoremap("<C-j>", "<Esc>:m .+1<CR>==gi")
+inoremap("<C-k>", "<Esc>:m .-2<CR>==gi")
+vnoremap("J", ":m '>+1<CR>gv=gv")
+vnoremap("K", ":m '<-2<CR>gv=gv")
+
+-- Select All Text
+nnoremap("<leader>a" , ":keepjumps normal! ggVG<cr>")
 
 -- Format Async on save
 vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
 
 -- Clear highlight
-nkeymap("<c-h>", "<cmd>nohlsearch<cr>")
+nnoremap("<c-h>", ":nohlsearch<cr>")
 
 -- LSP
-nkeymap("gw", ":lua vim.lsp.buf.document_symbol()<cr>")
-nkeymap("gw", ":lua vim.lsp.buf.workspace_symbol()<cr>")
+nnoremap('<space>e', vim.diagnostic.open_float)
+nnoremap('[d', vim.diagnostic.goto_prev)
+nnoremap(']d', vim.diagnostic.goto_next)
+nnoremap('<space>q', vim.diagnostic.setloclist)
+
+-- Coderunner
+nnoremap("<leader>r" , ":Run<cr>")
+nnoremap("<leader>R" , ":RunUpdate<cr>")
+
+------------
+-- Plugin --
+------------
 
 -- NvimTree
-nkeymap("<C-n>", "<cmd>NvimTreeToggle<cr>")
-nkeymap("<leader>nr", "<cmd>NvimTreeRefresh<cr>")
+nnoremap("<C-n>", ":NvimTreeToggle<cr>")
+nnoremap("<leader>nr", ":NvimTreeRefresh<cr>")
 
 -- Toggle Terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   -- pattern = "term://*toggleterm#*",
   callback = function()
+    local opts = { noremap = true, silent = true }
     vim.schedule(function()
-      vim.api.nvim_buf_set_keymap(0, "t", "<leader><esc>", [[<C-\><C-n>]], opts)
+      vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
       vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
       vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
       vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
@@ -134,149 +149,101 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 -- Buffer line
-nkeymap("<Tab>", "<cmd>BufferLineCycleNext<CR>")
-nkeymap("<S-Tab>", "<cmd>BufferLineCyclePrev<CR>")
+nnoremap("<Tab>", ":BufferLineCycleNext<CR>")
+nnoremap("<S-Tab>", ":BufferLineCyclePrev<CR>")
 
 -- Hop
-nkeymap("s", "<cmd>HopChar1<cr>")
-nkeymap("S", "<cmd>HopWord<cr>")
-vim.api.nvim_set_keymap(
-  "",
-  "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "t",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "",
-  "T",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
-  {}
-)
+nnoremap("s", ":HopChar1<cr>")
+nnoremap("S", ":HopWord<cr>")
+
+local hopHorizontal = require("hop").hint_char1
+local hintDirection = require("hop.hint").HintDirection
+
+nxonoremap("f", function ()
+  hopHorizontal({direction = hintDirection.AFTER_CURSOR, current_line_only = true})
+end)
+nxonoremap("F", function ()
+  hopHorizontal({direction = hintDirection.BEFORE_CURSOR, current_line_only = true})
+end)
+nxonoremap("t", function ()
+  hopHorizontal({direction = hintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1})
+end)
+nxonoremap("T", function ()
+  hopHorizontal({direction = hintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1})
+end)
 
 -- Hlslens
-nkeymap("*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
-nkeymap("#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
-nkeymap("g*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
-nkeymap("g#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
+nnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
+nnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
+nnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
+nnoremap("g#", [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]])
 
-xkeymap("*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
-xkeymap("#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
-xkeymap("g*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
-xkeymap("g#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
+xnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
+xnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
+xnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
+xnoremap("g#", [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]])
 
 -- UFO
-nkeymap("zR", ":lua require('ufo').openAllFolds()<cr>")
-nkeymap("zM", ":lua require('ufo').closeAllFolds()<cr>")
--- nkeymap("zr", ":lua require('ufo').openFoldsExceptKinds()<cr>")
--- nkeymap("zm", ":lua require('ufo').closeFoldsWith(0)<cr>")
+nnoremap("zR", ":lua require('ufo').openAllFolds()<cr>")
+nnoremap("zM", ":lua require('ufo').closeAllFolds()<cr>")
+-- nnoremap("zr", ":lua require('ufo').openFoldsExceptKinds()<cr>")
+-- nnoremap("zm", ":lua require('ufo').closeFoldsWith(0)<cr>")
 
 -- Dial
-nkeymap("<C-a>", require("dial.map").inc_normal())
-nkeymap("<C-x>", require("dial.map").dec_normal())
-vkeymap("<C-a>", require("dial.map").inc_visual())
-vkeymap("<C-x>", require("dial.map").dec_visual())
-vkeymap("g<C-a>", require("dial.map").inc_gvisual())
-vkeymap("g<C-x>", require("dial.map").dec_gvisual())
+nnoremap("<C-a>", require("dial.map").inc_normal())
+nnoremap("<C-x>", require("dial.map").dec_normal())
+vnoremap("<C-a>", require("dial.map").inc_visual())
+vnoremap("<C-x>", require("dial.map").dec_visual())
+vnoremap("g<C-a>", require("dial.map").inc_gvisual())
+vnoremap("g<C-x>", require("dial.map").dec_gvisual())
 
 -- ISwap
-nkeymap("<leader>sw", "<cmd>ISwap<cr>")
+nnoremap("<leader>sw", ":ISwap<cr>")
 
-local leader_mapping = {
-  ["<leader>"] = {
-    -- Telescope
-    f = {
-      name = "Telescope",
-      f = { "<cmd>Telescope find_files<cr>", "Find File" },
-      g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-      b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-      h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
-      o = { "<cmd>Telescope oldfiles<cr>", "Old Files" },
-      n = { "<cmd>Telescope file_browser<cr>", "Browse Current Working Dir" },
-      N = { "<cmd>Telescope file_browser path=%:p:h<cr>", "Browse Current Dir" },
-    },
+-- Telescope
+nnoremap("<leader>ff", ":Telescope find_files<cr>")
+nnoremap("<leader>fg", ":Telescope live_grep<cr>")
+nnoremap("<leader>fb" , ":Telescope buffers<cr>")
+nnoremap("<leader>fh" , ":Telescope help_tags<cr>")
+nnoremap("<leader>fo" , ":Telescope oldfiles<cr>")
+nnoremap("<leader>fn" , ":Telescope file_browser<cr>")
+nnoremap("<leader>fN" , ":Telescope file_browser path=%:p:h<cr>")
 
-    -- Trouble
-    x = {
-      name = "Trouble",
-      x = { "<cmd>TroubleToggle<cr>", "Toggle" },
-      w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics" },
-      d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
-      q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
-      l = { "<cmd>TroubleToggle loclist<cr>", "Loclist" },
-      r = { "<cmd>TroubleToggle lsp_references<cr>", "LSP References" },
-      t = { "<cmd>TodoTrouble<cr>", "Todo" },
-    },
 
-    -- Symbols Outline
-    o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
+-- Trouble
+nnoremap("<leader>xx" , ":TroubleToggle<cr>")
+nnoremap("<leader>xw" , ":TroubleToggle workspace_diagnostics<cr>")
+nnoremap("<leader>xd" , ":TroubleToggle document_diagnostics<cr>")
+nnoremap("<leader>xq" , ":TroubleToggle quickfix<cr>")
+nnoremap("<leader>xl" , ":TroubleToggle loclist<cr>")
+nnoremap("<leader>xr" , ":TroubleToggle lsp_references<cr>")
+nnoremap("<leader>xt" , ":TodoTrouble<cr>")
 
-    -- Session Manager
-    s = {
-      name = "Session Manager",
-      l = { "<cmd>SessionManager load_last_session<cr>", "Load Last Session" },
-      o = { "<cmd>SessionManager load_session<cr>", "Load Session" },
-    },
+-- Symbols Outline
+nnoremap("<leader>so", ":SymbolsOutline<cr>")
 
-    -- Git
-    g = {
-      name = "Git",
-      s = { "<cmd>Neogit<cr>", "Show" },
-      -- h = { "<cmd>diffget //2<cr>", "Diff Get Left" },
-      -- l = { "<cmd>diffget //3<cr>", "Diff Get Right" },
-    },
+-- Session Manager
+nnoremap("<leader>sl" , ":SessionManager load_last_session<cr>")
+nnoremap("<leader>so" , ":SessionManager load_session<cr>")
 
-    -- Diffview
-    d = {
-      name = "Diffview",
-      d = { "<cmd>DiffviewOpen<cr>", "View Diff" },
-      f = { "<cmd>DiffviewFileHistory %<cr>", "View Current File Diff" },
-      F = { "<cmd>DiffviewFileHistory<cr>", "View Current Branch Diff" },
-    },
+-- Git
+nnoremap("<leader>gs", ":Neogit<cr>")
+-- nnoremap("<leader>gh" , ":diffget //2<cr>")
+-- nnoremap("<leader>gl" , ":diffget //3<cr>")
 
-    -- Neogen
-    n = {
-      name = "Neogen",
-      f = { "<cmd>Neogen func<cr>", "Function" },
-      c = { "<cmd>Neogen class<cr>", "Class" },
-      t = { "<cmd>Neogen type<cr>", "Type" },
-    },
+-- Diffview
+nnoremap("<leader>dd" , ":DiffviewOpen<cr>")
+nnoremap("<leader>df" , ":DiffviewFileHistory %<cr>")
+nnoremap("<leader>dF" , ":DiffviewFileHistory<cr>")
 
-    -- Bufferline
-    ["<Tab>"] = { "<cmd>BufferLineMoveNext<CR>", "Buffer Tab Move Next" },
-    ["<S-Tab>"] = { "<cmd>BufferLineMovePrev<CR>", "Buffer Tab Move Prev" },
+-- Neogen
+nnoremap("<leader>nf" , ":Neogen func<cr>")
+nnoremap("<leader>nc" , ":Neogen class<cr>")
+nnoremap("<leader>nt" , ":Neogen type<cr>")
 
-    -- Tab
-    t = {
-      e = { ":tabedit<cr>", "New Tab" },
-      q = { ":tabclose<cr>", "Close Tab" },
-    },
-
-    -- Moving Text
-    j = { ":m .+1<cr>==", "Up" },
-    k = { ":m .-2<cr>==", "Down" },
-
-    -- Select All Text
-    a = { "<cmd>keepjumps normal! ggVG<cr>", "Select All Text" },
-
-    -- Coderunner
-    r = { "<cmd>Run<cr>", "Run Code" },
-    R = { "<cmd>RunUpdate<cr>", "Update Run Code Command" },
-  },
-}
-
-wk.register(leader_mapping)
+-- Bufferline
+nnoremap("<leader><Tab>" , ":BufferLineMoveNext<CR>")
+nnoremap("<leader><S-Tab>" , ":BufferLineMovePrev<CR>")
 
 -- LSP line
--- nkeymap("<Leader>l", "<cmd> lua require('lsp_lines').toggle<cr>")
+-- nnoremap("<Leader>l", ": lua require('lsp_lines').toggle<cr>")

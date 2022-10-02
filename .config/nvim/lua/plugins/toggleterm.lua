@@ -16,9 +16,9 @@ end
 
 toggle_term.setup({
   -- size can be a number or function which is passed the current terminal
-  function(term) -- size = 20,
+  size = function(term) -- size = 20,
     if term.direction == "horizontal" then
-      return 15
+      return 10
     elseif term.direction == "vertical" then
       return vim.o.columns * 0.4
     end

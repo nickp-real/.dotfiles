@@ -6,11 +6,11 @@ if cmp_nvim_lsp_ok then
   capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.colorProvider = { dynamicRegistration = false }
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
 end
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 
 local filetypes = { "html", "css", "mdx", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
 

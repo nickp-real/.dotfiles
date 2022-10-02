@@ -10,6 +10,7 @@ flutter_tools.setup({
     -- the border type to use for all floating windows, the same options/formats
     -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
     border = "rounded",
+    notification_style = "native",
   },
   decorations = {
     statusline = {
@@ -73,7 +74,6 @@ flutter_tools.setup({
     settings = {
       showTodos = false,
       completeFunctionCalls = true,
-      -- analysisExcludedFolders = {<path-to-flutter-sdk-packages>}
     },
   },
 })

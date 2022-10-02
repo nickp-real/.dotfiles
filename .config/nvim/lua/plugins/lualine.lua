@@ -40,7 +40,9 @@ lualine.setup({
       diagnostics,
     },
     lualine_c = {
-      "%=",
+      function()
+        return "%="
+      end,
       {
         "filename",
         flie_status = true,
@@ -72,6 +74,9 @@ lualine.setup({
     "toggleterm",
     "fugitive",
     "symbols-outline",
+    "quickfix",
+    "nvim-dap-ui",
+    "man",
   },
 })
 

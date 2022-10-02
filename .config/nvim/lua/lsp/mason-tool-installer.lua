@@ -19,7 +19,7 @@ mason_tool_installer.setup({
     ------------
     -- Linter --
     ------------
-    "eslint_d",
+    -- "eslint_d",
   },
 
   -- if set to true this will check each tool for updates. If updates

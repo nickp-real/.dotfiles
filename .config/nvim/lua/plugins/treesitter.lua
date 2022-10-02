@@ -25,9 +25,6 @@ configs.setup({
   autotag = {
     enable = true,
   },
-  autopairs = {
-    enable = true,
-  },
   rainbow = {
     enable = true,
     extended_mode = false,
@@ -107,8 +104,8 @@ configs.setup({
         ["[f"] = "@function.outer",
         ["[["] = "@class.outer",
       },
-      ["[F"] = "@function.outer",
       goto_previous_end = {
+        ["[F"] = "@function.outer",
         ["[]"] = "@class.outer",
       },
     },

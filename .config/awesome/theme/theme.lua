@@ -5,6 +5,7 @@
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
+local gears = require("gears")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -14,7 +15,7 @@ local current_path = awful.util.getdir("config") .. "/theme"
 
 local theme = {}
 
-theme.font = "sans-serif medium 12"
+theme.font = "monospace medium " .. dpi(10)
 
 theme.bg_normal = "#222222"
 theme.bg_focus = "#535d6c"
@@ -28,7 +29,7 @@ theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
 theme.useless_gap = dpi(5)
-theme.border_width = dpi(2)
+theme.border_width = dpi(3)
 theme.border_normal = "#000000"
 theme.border_focus = "#535d6c"
 theme.border_marked = "#91231c"
@@ -42,12 +43,19 @@ theme.border_marked = "#91231c"
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- prompt_[fg|bg|fg_cursor|bg_cursor|font]
--- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
+-- theme.taglist_bg_focus = "#ff0000"
+
+-- hotkeys
+-- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
+theme.hotkeys_description_font = "Roboto Mono 8"
+theme.hotkeys_shape = function(cr, width, height)
+	gears.shape.rounded_rect(cr, width, height, dpi(10))
+end
+theme.hotkeys_group_margin = dpi(10)
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(6)
+local taglist_square_size = dpi(5)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(taglist_square_size, theme.fg_normal)
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(taglist_square_size, theme.fg_normal)
 
@@ -123,7 +131,7 @@ theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "/usr/share/icons/Papirus-Dark"
+theme.icon_theme = "Papirus-Dark"
 
 return theme
 

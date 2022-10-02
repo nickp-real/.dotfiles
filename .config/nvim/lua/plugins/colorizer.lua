@@ -15,6 +15,8 @@ colorizer.setup({
   "!javascriptreact",
   "!dart",
   "!packer",
+  "!TelescopePrompt",
+  "!NvimTree",
 }, {
   css = true,
 })

@@ -4,12 +4,9 @@ if not (status_ok and promise_status_ok) then
   return
 end
 
-local handler = function(virtText, lnum, endLnum, width, truncate, ctx)
+local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
-  local end_virt_text = ctx.end_virt_text
   local suffix = ("  %d "):format(endLnum - lnum)
-  local padding = ""
-
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
   local curWidth = 0
@@ -25,25 +22,13 @@ local handler = function(virtText, lnum, endLnum, width, truncate, ctx)
       chunkWidth = vim.fn.strdisplaywidth(chunkText)
       -- str width returned from truncate() may less than 2nd argument, need padding
       if curWidth + chunkWidth < targetWidth then
-        padding = padding .. (" "):rep(targetWidth - curWidth - chunkWidth)
+        suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
       end
       break
     end
     curWidth = curWidth + chunkWidth
   end
-
-  local dot = " ⋯  "
-
-  table.insert(newVirtText, { dot, "UfoFoldedEllipsis" })
   table.insert(newVirtText, { suffix, "MoreMsg" })
-  table.insert(newVirtText, { dot, "UfoFoldedEllipsis" })
-
-  for _, v in ipairs(end_virt_text) do
-    table.insert(newVirtText, v)
-  end
-
-  table.insert(newVirtText, { padding, "" })
-
   return newVirtText
 end
 
@@ -67,12 +52,11 @@ local function customizeSelector(bufnr)
 end
 
 ufo.setup({
-  provider_selector = function(bufnr, filetype, buftype)
-    return customizeSelector
-  end,
   -- provider_selector = function(bufnr, filetype, buftype)
-  --   return { "treesitter", "indent" }
+  --   return customizeSelector
   -- end,
-  enable_fold_end_virt_text = true,
+  provider_selector = function(bufnr, filetype, buftype)
+    return { "treesitter", "indent" }
+  end,
   fold_virt_text_handler = handler,
 })

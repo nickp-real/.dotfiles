@@ -19,7 +19,12 @@ local sources = {
   formatting.black.with({ extra_args = { "--fast" } }),
 
   -- front-end
-  formatting.prettierd,
+  formatting.prettierd.with({
+    env = {
+      PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+    },
+  }),
+  -- formatting.prettierd,
   -- formatting.rustywind.with({
   --   condition = function(utils)
   --     return utils.root_has_file({ "tailwind.config.js", "tailwind.config.ts" })
@@ -57,7 +62,7 @@ local utils = require("lsp.utils")
 null_ls.setup({
   sources = sources,
   on_attach = function(client, bufnr)
-    if client.resolved_capabilities.document_formatting then
+    if client.supports_method("textDocument/formatting") then
       utils.auto_format(client)
     end
   end,

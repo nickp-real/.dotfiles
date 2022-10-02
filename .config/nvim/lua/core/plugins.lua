@@ -55,7 +55,6 @@ return packer.startup({
       "wbthomason/packer.nvim",
 
       -- Load first
-      "nathom/filetype.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-lua/popup.nvim",
     })
@@ -71,6 +70,7 @@ return packer.startup({
         -- "navarasu/onedark.nvim",
         -- "LunarVim/onedarker.nvim",
         -- "RRethy/nvim-base16",
+        -- "sainnhe/edge",
         as = "theme",
         -- config = function()
         --   require("plugins.onedark")
@@ -106,6 +106,7 @@ return packer.startup({
       -- Float UI
       {
         "stevearc/dressing.nvim",
+        after = "alpha-nvim",
         config = function()
           require("plugins.dressing")
         end,
@@ -152,21 +153,6 @@ return packer.startup({
           require("plugins.treesitter-context")
         end,
       },
-      {
-        "lewis6991/spellsitter.nvim",
-        after = "nvim-treesitter",
-        config = function()
-          require("plugins.spellsitter")
-        end,
-      },
-      {
-        "kevinhwang91/nvim-ufo",
-        after = "nvim-treesitter",
-        requires = "kevinhwang91/promise-async",
-        config = function()
-          require("plugins.nvim-ufo")
-        end,
-      },
     })
 
     -- Log Highlight
@@ -202,8 +188,7 @@ return packer.startup({
     })
 
     use({
-      -- Fork
-      "B4mbus/todo-comments.nvim",
+      "folke/todo-comments.nvim",
       event = "BufRead",
       requires = "nvim-lua/plenary.nvim",
       config = function()
@@ -220,13 +205,23 @@ return packer.startup({
       end,
     })
 
+    use({
+      "kevinhwang91/nvim-ufo",
+      -- after = { "nvim-treesitter", "nvim-lspconfig" },
+      event = "BufRead",
+      requires = "kevinhwang91/promise-async",
+      config = function()
+        require("plugins.nvim-ufo")
+      end,
+    })
+
     ----------------
     -- Navigation --
     ----------------
 
     use({
       "kyazdani42/nvim-tree.lua",
-      event = "CursorHold",
+      event = "BufRead",
       config = function()
         require("plugins.nvim-tree")
       end,
@@ -236,7 +231,7 @@ return packer.startup({
       {
         "nvim-telescope/telescope.nvim",
         requires = "nvim-lua/plenary.nvim",
-        event = "CursorHold",
+        event = "BufWinEnter",
         config = function()
           require("plugins.telescope_conf")
         end,
@@ -268,17 +263,19 @@ return packer.startup({
     use({
       "phaazon/hop.nvim",
       branch = "v2", -- optional but strongly recommended
-      event = "BufRead",
+      -- cmd = { "HopChar1", "HopWord" },
+      -- module = "Hop",
+      event = "CursorHold",
       config = function()
         require("plugins.hop")
       end,
     })
 
     use({
-      "karb94/neoscroll.nvim",
+      "declancm/cinnamon.nvim",
       event = "BufRead",
       config = function()
-        require("plugins.neoscroll")
+        require("plugins.cinnamon")
       end,
     })
 
@@ -504,7 +501,7 @@ return packer.startup({
     use({
       "sindrets/diffview.nvim",
       requires = "nvim-lua/plenary.nvim",
-      event = "CursorHold",
+      event = "BufRead",
       config = function()
         require("plugins.diffview")
       end,

@@ -15,7 +15,7 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 -- Notification library
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
+local hotkeys_popup = require("awful.hotkeys_popup.widget")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -23,8 +23,8 @@ require("awful.hotkeys_popup.keys")
 require("core.error_handling")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
-beautiful.font = "san-serif medium 12px"
+local theme = awful.util.getdir("config") .. "/theme/theme.lua"
+beautiful.init(theme)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -48,7 +48,7 @@ awful.layout.layouts = {
 	-- awful.layout.suit.fair,
 	-- awful.layout.suit.fair.horizontal,
 	-- awful.layout.suit.spiral,
-	-- awful.layout.suit.spiral.dwindle,
+	awful.layout.suit.spiral.dwindle,
 	-- awful.layout.suit.max,
 	-- awful.layout.suit.max.fullscreen,
 	-- awful.layout.suit.magnifier,
@@ -60,7 +60,11 @@ awful.layout.layouts = {
 -- }}}
 
 local function widget_margin(widget)
-	return wibox.widget({ widget, margins = dpi(2.5), widget = wibox.container.margin })
+	return wibox.widget({
+		widget,
+		margins = dpi(5),
+		widget = wibox.container.margin,
+	})
 end
 
 -- {{{ Menu
@@ -209,8 +213,7 @@ awful.screen.connect_for_each_screen(function(s)
 							id = "icon_role",
 							widget = wibox.widget.imagebox,
 						},
-						top = dpi(2),
-						right = dpi(3),
+						margins = dpi(5),
 						widget = wibox.container.margin,
 					},
 					{
@@ -229,10 +232,16 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	-- Systray
-	s.systray = wibox.container.margin(wibox.widget.systray(), dpi(0), dpi(0), dpi(2.5), dpi(2.5))
+	s.systray = wibox.container.margin(wibox.widget.systray(), dpi(0), dpi(0), dpi(5), dpi(5))
 
 	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(30) })
+	s.mywibox = awful.wibar({
+		position = "top",
+		screen = s,
+		height = dpi(30),
+		margins = { top = dpi(10), bottom = 0, left = dpi(10), right = dpi(10) },
+		shape = gears.shape.rounded_rect,
+	})
 
 	-- Add widgets to the wibox
 	s.mywibox:setup({
@@ -546,7 +555,7 @@ awful.rules.rules = {
 
 local rounded_corner = function(c)
 	c.shape = function(cr, w, h)
-		gears.shape.rounded_rect(cr, w, h, 10)
+		gears.shape.rounded_rect(cr, w, h, dpi(10))
 	end
 end
 
@@ -570,7 +579,7 @@ client.connect_signal("manage", function(c)
 		if c.fullscreen or c.maximized then
 			gears.shape.rectangle(cr, width, height)
 		else
-			gears.shape.rounded_rect(cr, width, height, 10)
+			gears.shape.rounded_rect(cr, width, height, dpi(10))
 		end
 	end
 end)
@@ -631,3 +640,4 @@ end)
 -- Auto Startup Program
 awful.spawn("flameshot")
 awful.spawn.with_shell("picom --experimental-backends &")
+awful.spawn.with_shell("libinput-gestures-setup start &")

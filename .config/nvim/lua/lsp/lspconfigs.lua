@@ -46,19 +46,22 @@ mason_lsp.setup({
   automatic_installation = true,
 })
 
-if not (cmp_nvim_lsp_status_ok and lsp_signature_ok) then
-  return
-end
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+if cmp_nvim_lsp_status_ok then
+  capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+end
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-local signature_config = {
-  hint_enable = false,
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
 }
 
-lsp_signature.setup(signature_config)
+if lsp_signature_ok then
+  local signature_config = {
+    hint_enable = false,
+  }
+  lsp_signature.setup(signature_config)
+end
 
 local lsp_default = {
   capabilities = capabilities,
