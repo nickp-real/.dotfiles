@@ -6,6 +6,11 @@ local settings = {
       unknownAtRules = "ignore",
     },
   },
+  scss = {
+    lint = {
+      unknownAtRules = "ignore",
+    },
+  },
 }
 
 M.settings = settings

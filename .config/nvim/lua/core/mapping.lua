@@ -12,7 +12,8 @@ local nnoremap = bind("n")
 local vnoremap = bind("v")
 local xnoremap = bind("x")
 local inoremap = bind("i")
-local nxonoremap = bind({"n", "x", "o"})
+local nxonoremap = bind({ "n", "x", "o" })
+local nxnoremap = bind({ "n", "x" })
 
 -- Spacebar to nothing
 nnoremap("<Space>", "<Nop>")
@@ -83,8 +84,8 @@ nnoremap("<A-Left>", ":vertical resize -2<cr>")
 nnoremap("<A-Right>", ":vertical resize +2<cr>")
 
 -- Tab
-nnoremap("<leader>te" , ":tabedit<cr>")
-nnoremap("<leader>tq" , ":tabclose<cr>")
+nnoremap("<leader>te", ":tabedit<cr>")
+nnoremap("<leader>tq", ":tabclose<cr>")
 
 -- Keep it center
 nnoremap("n", "nzzzv")
@@ -98,31 +99,28 @@ inoremap("!", "!<C-g>u")
 inoremap("?", "?<C-g>u")
 
 -- Moving text
-nnoremap("<leader>j" , ":m .+1<cr>==")
-nnoremap("<leader>k" , ":m .-2<cr>==")
+nnoremap("<leader>j", ":m .+1<cr>==")
+nnoremap("<leader>k", ":m .-2<cr>==")
 inoremap("<C-j>", "<Esc>:m .+1<CR>==gi")
 inoremap("<C-k>", "<Esc>:m .-2<CR>==gi")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
 -- Select All Text
-nnoremap("<leader>a" , ":keepjumps normal! ggVG<cr>")
+nnoremap("<leader>a", ":keepjumps normal! ggVG<cr>")
 
 -- Format Async on save
-vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
-
--- Clear highlight
-nnoremap("<c-h>", ":nohlsearch<cr>")
+vim.cmd([[cabbrev wq execute "lua vim.lsp.buf.format()" <bar> wq]])
 
 -- LSP
-nnoremap('<space>e', vim.diagnostic.open_float)
-nnoremap('[d', vim.diagnostic.goto_prev)
-nnoremap(']d', vim.diagnostic.goto_next)
-nnoremap('<space>q', vim.diagnostic.setloclist)
+nnoremap("<space>e", vim.diagnostic.open_float)
+nnoremap("[d", vim.diagnostic.goto_prev)
+nnoremap("]d", vim.diagnostic.goto_next)
+nnoremap("<space>q", vim.diagnostic.setloclist)
 
 -- Coderunner
-nnoremap("<leader>r" , ":Run<cr>")
-nnoremap("<leader>R" , ":RunUpdate<cr>")
+nnoremap("<leader>r", ":Run<cr>")
+nnoremap("<leader>R", ":RunUpdate<cr>")
 
 ------------
 -- Plugin --
@@ -159,29 +157,24 @@ nnoremap("S", ":HopWord<cr>")
 local hopHorizontal = require("hop").hint_char1
 local hintDirection = require("hop.hint").HintDirection
 
-nxonoremap("f", function ()
-  hopHorizontal({direction = hintDirection.AFTER_CURSOR, current_line_only = true})
+nxonoremap("f", function()
+  hopHorizontal({ direction = hintDirection.AFTER_CURSOR, current_line_only = true })
 end)
-nxonoremap("F", function ()
-  hopHorizontal({direction = hintDirection.BEFORE_CURSOR, current_line_only = true})
+nxonoremap("F", function()
+  hopHorizontal({ direction = hintDirection.BEFORE_CURSOR, current_line_only = true })
 end)
-nxonoremap("t", function ()
-  hopHorizontal({direction = hintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1})
+nxonoremap("t", function()
+  hopHorizontal({ direction = hintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
 end)
-nxonoremap("T", function ()
-  hopHorizontal({direction = hintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1})
+nxonoremap("T", function()
+  hopHorizontal({ direction = hintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })
 end)
 
 -- Hlslens
-nnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
-nnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
-nnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
-nnoremap("g#", [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]])
-
-xnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
-xnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
-xnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
-xnoremap("g#", [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]])
+nxnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
+nxnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
+nxnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
+nxnoremap("g#", [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]])
 
 -- UFO
 nnoremap("zR", ":lua require('ufo').openAllFolds()<cr>")
@@ -203,28 +196,27 @@ nnoremap("<leader>sw", ":ISwap<cr>")
 -- Telescope
 nnoremap("<leader>ff", ":Telescope find_files<cr>")
 nnoremap("<leader>fg", ":Telescope live_grep<cr>")
-nnoremap("<leader>fb" , ":Telescope buffers<cr>")
-nnoremap("<leader>fh" , ":Telescope help_tags<cr>")
-nnoremap("<leader>fo" , ":Telescope oldfiles<cr>")
-nnoremap("<leader>fn" , ":Telescope file_browser<cr>")
-nnoremap("<leader>fN" , ":Telescope file_browser path=%:p:h<cr>")
-
+nnoremap("<leader>fb", ":Telescope buffers<cr>")
+nnoremap("<leader>fh", ":Telescope help_tags<cr>")
+nnoremap("<leader>fo", ":Telescope oldfiles<cr>")
+nnoremap("<leader>fn", ":Telescope file_browser<cr>")
+nnoremap("<leader>fN", ":Telescope file_browser path=%:p:h<cr>")
 
 -- Trouble
-nnoremap("<leader>xx" , ":TroubleToggle<cr>")
-nnoremap("<leader>xw" , ":TroubleToggle workspace_diagnostics<cr>")
-nnoremap("<leader>xd" , ":TroubleToggle document_diagnostics<cr>")
-nnoremap("<leader>xq" , ":TroubleToggle quickfix<cr>")
-nnoremap("<leader>xl" , ":TroubleToggle loclist<cr>")
-nnoremap("<leader>xr" , ":TroubleToggle lsp_references<cr>")
-nnoremap("<leader>xt" , ":TodoTrouble<cr>")
+nnoremap("<leader>xx", ":TroubleToggle<cr>")
+nnoremap("<leader>xw", ":TroubleToggle workspace_diagnostics<cr>")
+nnoremap("<leader>xd", ":TroubleToggle document_diagnostics<cr>")
+nnoremap("<leader>xq", ":TroubleToggle quickfix<cr>")
+nnoremap("<leader>xl", ":TroubleToggle loclist<cr>")
+nnoremap("<leader>xr", ":TroubleToggle lsp_references<cr>")
+nnoremap("<leader>xt", ":TodoTrouble<cr>")
 
 -- Symbols Outline
 nnoremap("<leader>so", ":SymbolsOutline<cr>")
 
 -- Session Manager
-nnoremap("<leader>sl" , ":SessionManager load_last_session<cr>")
-nnoremap("<leader>so" , ":SessionManager load_session<cr>")
+nnoremap("<leader>sl", ":SessionManager load_last_session<cr>")
+nnoremap("<leader>so", ":SessionManager load_session<cr>")
 
 -- Git
 nnoremap("<leader>gs", ":Neogit<cr>")
@@ -232,18 +224,18 @@ nnoremap("<leader>gs", ":Neogit<cr>")
 -- nnoremap("<leader>gl" , ":diffget //3<cr>")
 
 -- Diffview
-nnoremap("<leader>dd" , ":DiffviewOpen<cr>")
-nnoremap("<leader>df" , ":DiffviewFileHistory %<cr>")
-nnoremap("<leader>dF" , ":DiffviewFileHistory<cr>")
+nnoremap("<leader>dd", ":DiffviewOpen<cr>")
+nnoremap("<leader>df", ":DiffviewFileHistory %<cr>")
+nnoremap("<leader>dF", ":DiffviewFileHistory<cr>")
 
 -- Neogen
-nnoremap("<leader>nf" , ":Neogen func<cr>")
-nnoremap("<leader>nc" , ":Neogen class<cr>")
-nnoremap("<leader>nt" , ":Neogen type<cr>")
+nnoremap("<leader>nf", ":Neogen func<cr>")
+nnoremap("<leader>nc", ":Neogen class<cr>")
+nnoremap("<leader>nt", ":Neogen type<cr>")
 
 -- Bufferline
-nnoremap("<leader><Tab>" , ":BufferLineMoveNext<CR>")
-nnoremap("<leader><S-Tab>" , ":BufferLineMovePrev<CR>")
+nnoremap("<leader><Tab>", ":BufferLineMoveNext<CR>")
+nnoremap("<leader><S-Tab>", ":BufferLineMovePrev<CR>")
 
 -- LSP line
 -- nnoremap("<Leader>l", ": lua require('lsp_lines').toggle<cr>")

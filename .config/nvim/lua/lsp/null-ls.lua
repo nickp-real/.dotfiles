@@ -62,8 +62,8 @@ local utils = require("lsp.utils")
 null_ls.setup({
   sources = sources,
   on_attach = function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      utils.auto_format(client)
+    if client.server_capabilities.documentFormattingProvider then
+      utils.auto_format(client, bufnr)
     end
   end,
   update_in_insert = false,

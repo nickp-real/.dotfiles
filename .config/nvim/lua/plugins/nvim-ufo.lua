@@ -32,6 +32,12 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
   return newVirtText
 end
 
+local ftMap = {
+  -- vim = 'indent',
+  python = { "indent" },
+  -- git = ''
+}
+
 local function customizeSelector(bufnr)
   local function handleFallbackException(err, providerName)
     if type(err) == "string" and err:match("UfoFallbackException") then
@@ -52,11 +58,11 @@ local function customizeSelector(bufnr)
 end
 
 ufo.setup({
-  -- provider_selector = function(bufnr, filetype, buftype)
-  --   return customizeSelector
-  -- end,
   provider_selector = function(bufnr, filetype, buftype)
-    return { "treesitter", "indent" }
+    return ftMap[filetype] or customizeSelector
   end,
+  -- provider_selector = function(bufnr, filetype, buftype)
+  --   return { "treesitter", "indent" }
+  -- end,
   fold_virt_text_handler = handler,
 })

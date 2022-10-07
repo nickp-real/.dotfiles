@@ -2,18 +2,17 @@ local M = {}
 
 -- addon
 local doc_color_status_ok, doc_color = pcall(require, "document-color")
-local lsp_format_ok, lsp_format = pcall(require, "lsp-format")
-if not lsp_format_ok then
-  return
-end
+local navic_status_ok, navic = pcall(require, "nvim-navic")
 
-lsp_format.setup()
-local auto_format = function(client)
-  lsp_format.on_attach(client)
-end
-
-if not doc_color_status_ok then
-  return
+local auto_format = function(client, bufnr)
+  local group = vim.api.nvim_create_augroup("format_on_save", { clear = false })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format({ bufnr = bufnr })
+    end,
+    group = group,
+  })
 end
 
 local lsp_mapping = function(bufnr)
@@ -35,8 +34,12 @@ local lsp_mapping = function(bufnr)
   vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
   vim.keymap.set("n", "<space>f", function()
-    vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ bufnr = bufnr })
   end, bufopts)
+end
+
+if not (doc_color_status_ok or navic_status_ok) then
+  return
 end
 
 local on_attach = function(client, bufnr)
@@ -49,18 +52,41 @@ local on_attach = function(client, bufnr)
 
   lsp_mapping(bufnr)
 
-  if client.supports_method("textDocument/formatting") then
-    auto_format(client)
+  if client.server_capabilities.documentFormattingProvider then
+    auto_format(client, bufnr)
+  end
+
+  if client.server_capabilities.documentHighlightProvider then
+    local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      buffer = bufnr,
+      group = group,
+      callback = function()
+        vim.lsp.buf.document_highlight()
+      end,
+    })
+
+    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+      buffer = bufnr,
+      group = group,
+      callback = function()
+        vim.lsp.buf.clear_references()
+      end,
+    })
   end
 
   if client.server_capabilities.colorProvider then
     doc_color.buf_attach(bufnr, { mode = "background" })
   end
+
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
 end
 
 local no_format_on_attach = function(client, bufnr)
-  client.server_capabilities.document_formatting = false
-  client.server_capabilities.document_range_formatting = false
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
   on_attach(client, bufnr)
 end
 

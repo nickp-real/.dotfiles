@@ -124,4 +124,67 @@ onedark.setup({
   end,
 })
 
+-- local status_ok, onedarkpro = pcall(require, "onedarkpro")
+-- if not status_ok then
+--   return
+-- end
+
+-- onedarkpro.setup({
+--   caching = false, -- Use caching for the theme?
+--   colors = {}, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
+--   highlights = {
+--     diffAdded = { fg = "#109868" },
+--     -- diffChanged = { fg = "e0af68" },
+--     diffRemoved = { fg = "#9a353d" },
+--   }, -- Override default highlight and/or filetype groups
+--   filetypes = { -- Override which filetype highlight groups are loaded
+--     markdown = true,
+--     python = true,
+--     ruby = true,
+--     yaml = true,
+--   },
+--   plugins = { -- Override which plugin highlight groups are loaded
+--     -- See the Supported Plugins section for a list of available plugins
+--     all = false,
+--     gitsigns = true,
+--     hop = true,
+--     indentline = true,
+--     nvim_cmp = true,
+--     nvim_dap = true,
+--     nvim_dap_ui = true,
+--     nvim_hlslens = true,
+--     native_lsp = true,
+--     nvim_navic = true,
+--     nvim_notify = true,
+--     nvim_tree = true,
+--     nvim_ts_rainbow = true,
+--     packer = true,
+--     telescope = true,
+--     toggleterm = true,
+--     treesitter = true,
+--     trouble = true,
+--     -- lspsaga.nvim (lsp_saga)
+--     -- marks.nvim (marks)
+--   },
+--   styles = { -- Choose from "bold,italic,underline"
+--     strings = "NONE", -- Style that is applied to strings.
+--     comments = "italic", -- Style that is applied to comments
+--     keywords = "italic", -- Style that is applied to keywords
+--     functions = "NONE", -- Style that is applied to functions
+--     variables = "NONE", -- Style that is applied to variables
+--     virtual_text = "NONE", -- Style that is applied to virtual text
+--   },
+--   options = {
+--     bold = true, -- Use the colorscheme's opinionated bold styles?
+--     italic = true, -- Use the colorscheme's opinionated italic styles?
+--     underline = true, -- Use the colorscheme's opinionated underline styles?
+--     undercurl = true, -- Use the colorscheme's opinionated undercurl styles?
+--     cursorline = true, -- Use cursorline highlighting?
+--     transparency = false, -- Use a transparent background?
+--     terminal_colors = false, -- Use the colorscheme's colors for Neovim's :terminal?
+--     window_unfocused_color = false, -- When the window is out of focus, change the normal background?
+--   },
+-- })
+
 -- vim.cmd("colorscheme onedarkpro")
+-- vim.cmd("colorscheme onedarker")

@@ -2,9 +2,8 @@ local M = {}
 local utils = require("lsp.utils")
 
 M.on_attach = function(client, bufnr)
-  client.server_capabilities.document_formatting = false
-  client.server_capabilities.document_range_formatting = false
-  utils.on_attach(client, bufnr)
+  utils.no_format_on_attach(client, bufnr)
+  require("lsp-inlayhints").on_attach(client, bufnr)
 end
 
 M.settings = {

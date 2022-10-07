@@ -68,9 +68,9 @@ return packer.startup({
         "ful1e5/onedark.nvim",
         -- "olimorris/onedarkpro.nvim",
         -- "navarasu/onedark.nvim",
-        -- "LunarVim/onedarker.nvim",
         -- "RRethy/nvim-base16",
         -- "sainnhe/edge",
+        -- "lunarvim/Onedarker.nvim"
         as = "theme",
         -- config = function()
         --   require("plugins.onedark")
@@ -299,18 +299,24 @@ return packer.startup({
         requires = {
           "williamboman/mason.nvim",
           "williamboman/mason-lspconfig.nvim",
-          "lukas-reineke/lsp-format.nvim",
           "b0o/SchemaStore.nvim",
           "jose-elias-alvarez/typescript.nvim",
-          {
-            "RRethy/vim-illuminate",
-            config = function()
-              require("plugins.vim-illuminate")
-            end,
-          },
+          -- {
+          --   "RRethy/vim-illuminate",
+          --   config = function()
+          --     require("plugins.vim-illuminate")
+          --   end,
+          -- },
           "hrsh7th/cmp-nvim-lsp",
           "ray-x/lsp_signature.nvim",
           "mrshmllow/document-color.nvim",
+          {
+            "lvimuser/lsp-inlayhints.nvim",
+            config = function()
+              require("plugins.lsp-inlayhints")
+            end,
+          },
+          { "SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig" },
         },
         config = function()
           require("lsp.config")
@@ -319,7 +325,6 @@ return packer.startup({
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        requires = "lukas-reineke/lsp-format.nvim",
         event = "BufRead",
         after = "nvim-lspconfig",
         config = function()
@@ -332,7 +337,7 @@ return packer.startup({
     use({
       {
         "akinsho/flutter-tools.nvim",
-        requires = { "nvim-lua/plenary.nvim", "lukas-reineke/lsp-format.nvim" },
+        requires = { "nvim-lua/plenary.nvim" },
         ft = { "flutter", "dart" },
         event = "BufRead",
         config = function()
@@ -379,7 +384,8 @@ return packer.startup({
         require("lsp.mason-tool-installer")
       end,
     })
-    use({ "folke/lsp-colors.nvim", after = "nvim-lspconfig" })
+    use({ "folke/lsp-colors.nvim", after = "nvim-lspconfig", event = "BufRead" })
+
     -- use({
     --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     --   after = "nvim-lspconfig",
@@ -617,13 +623,6 @@ return packer.startup({
       event = "CursorHold",
       config = function()
         require("plugins.hlslens")
-      end,
-    })
-
-    use({
-      "folke/which-key.nvim",
-      config = function()
-        require("plugins.which-key")
       end,
     })
 

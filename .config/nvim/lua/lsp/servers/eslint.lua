@@ -3,8 +3,8 @@ local M = {}
 local utils = require("lsp.utils")
 
 local on_attach = function(client, bufnr)
-  client.server_capabilities.document_formatting = true
-  client.server_capabilities.document_range_formatting = true
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
 
   utils.on_attach(client, bufnr)
 end

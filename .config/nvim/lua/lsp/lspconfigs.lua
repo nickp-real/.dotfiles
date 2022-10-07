@@ -92,12 +92,12 @@ if typescript_ok then
     disable_commands = false, -- prevent the plugin from creating Vim commands
     debug = false, -- enable debug logging for commands
     -- LSP Config options
-    -- Shothand for non eslint (framework) dir and with eslint dir
     server = {
       capabilities = require("lsp.servers.tsserver").capabilities,
       on_attach = require("lsp.servers.tsserver").on_attach,
       settings = require("lsp.servers.tsserver").settings,
       flags = utils.flags,
+      handlers = require("lsp.servers.tsserver").handlers,
       single_file_support = true,
     },
   })

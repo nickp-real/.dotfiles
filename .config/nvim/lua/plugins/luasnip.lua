@@ -5,7 +5,7 @@ end
 
 luasnip.config.set_config({
   history = true,
-  updateevents = "TextChanged,TextChangedI",
+  update_events = "InsertLeave,TextChanged,TextChangedI",
   region_check_events = "CursorHold,InsertLeave,InsertEnter",
   delete_check_events = "TextChanged,InsertEnter",
   enable_autosnippets = true,
