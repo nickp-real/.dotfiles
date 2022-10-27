@@ -14,6 +14,10 @@ M.settings = {
     diagnostics = {
       globals = { "vim", "use", "packer_plugins" },
     },
+    hint = {
+      enable = true,
+      setType = true,
+    },
   },
 }
 

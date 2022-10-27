@@ -10,8 +10,8 @@ configs.setup({
     additional_vim_regex_highlighting = false,
   },
   indent = {
-    enable = false,
-    disable = { "python", "dart" },
+    enable = true,
+    disable = { "python" },
   },
   incremental_selection = {
     enable = true,
@@ -95,18 +95,22 @@ configs.setup({
       goto_next_start = {
         ["]f"] = "@function.outer",
         ["]]"] = "@class.outer",
+        ["]a"] = "@parameter.outer",
       },
       goto_next_end = {
         ["]F"] = "@function.outer",
         ["]["] = "@class.outer",
+        ["]A"] = "@parameter.outer",
       },
       goto_previous_start = {
         ["[f"] = "@function.outer",
         ["[["] = "@class.outer",
+        ["[a"] = "@parameter.outer",
       },
       goto_previous_end = {
         ["[F"] = "@function.outer",
         ["[]"] = "@class.outer",
+        ["[A"] = "@parameter.outer",
       },
     },
   },

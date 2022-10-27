@@ -16,5 +16,11 @@ nvim_autopairs.setup({
   -- enable_check_bracket_line = false,
 })
 
+-- local rule = require("nvim-autopairs.rule")
+
+-- nvim_autopairs.add_rules({
+--   rule("%<%>$", "</>", { "typescript", "typescriptreact", "javascript", "javascriptreact" }):use_regex(true),
+-- })
+
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

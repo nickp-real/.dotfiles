@@ -9,4 +9,5 @@
 
 * {
     font: "JetBrains Mono Nerd Font 10";
+    /* font: "Roboto Mono Nerd Font Mono 10"; */
 }

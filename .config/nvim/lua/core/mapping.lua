@@ -27,7 +27,7 @@ vnoremap(">", ">gv")
 vnoremap("<", "<gv")
 
 -- Better enter insert mode on blank line
-inoremap("i", function()
+nnoremap("i", function()
   return string.match(vim.api.nvim_get_current_line(), "%g") == nil
       and vim.bo.filetype ~= "toggleterm"
       and vim.bo.filetype ~= "TelescopePrompt"
@@ -194,7 +194,14 @@ vnoremap("g<C-x>", require("dial.map").dec_gvisual())
 nnoremap("<leader>sw", ":ISwap<cr>")
 
 -- Telescope
-nnoremap("<leader>ff", ":Telescope find_files<cr>")
+nnoremap("<leader>ff", function()
+  local is_git = os.execute("git") == 0
+  if is_git then
+    require("telescope.builtin").git_files()
+  else
+    require("telescope.builtin").find_files()
+  end
+end)
 nnoremap("<leader>fg", ":Telescope live_grep<cr>")
 nnoremap("<leader>fb", ":Telescope buffers<cr>")
 nnoremap("<leader>fh", ":Telescope help_tags<cr>")
@@ -216,7 +223,7 @@ nnoremap("<leader>so", ":SymbolsOutline<cr>")
 
 -- Session Manager
 nnoremap("<leader>sl", ":SessionManager load_last_session<cr>")
-nnoremap("<leader>so", ":SessionManager load_session<cr>")
+nnoremap("<leader>sn", ":SessionManager load_session<cr>")
 
 -- Git
 nnoremap("<leader>gs", ":Neogit<cr>")

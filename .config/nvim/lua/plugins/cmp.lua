@@ -50,6 +50,28 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
+local buffer_option = {
+  -- Complete from all visible buffers (splits)
+  get_bufnrs = function()
+    local bufs = {}
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      bufs[vim.api.nvim_win_get_buf(win)] = true
+    end
+    return vim.tbl_keys(bufs)
+  end,
+}
+
+local types = require("cmp.types")
+
+local function deprioritize_snippet(entry1, entry2)
+  if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
+    return false
+  end
+  if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
+    return true
+  end
+end
+
 cmp.setup({
   enabled = function()
     -- disable completion in comments
@@ -105,6 +127,8 @@ cmp.setup({
         luasnip.jump(-1)
       elseif neogen.jumpable(true) then
         neogen.jump_prev()
+      elseif check_backspace() then
+        fallback()
       else
         fallback()
       end
@@ -132,15 +156,16 @@ cmp.setup({
   sources = cmp.config.sources({
     -- { name = "nvim_lsp_signature_help", priority = 8 },
     { name = "nvim_lsp", max_item_count = 25, priority = 8 },
-    { name = "luasnip", priority = 7 },
-    { name = "buffer", Keyword_length = 5, priority = 7 },
-    { name = "path", priority = 6 },
+    { name = "luasnip", priority = 7, max_item_count = 8 },
+    { name = "buffer", Keyword_length = 5, priority = 7, option = buffer_option, max_item_count = 8 },
     { name = "nvim_lua", priority = 5 },
+    { name = "path", priority = 4 },
   }),
   preselete = cmp.PreselectMode.None,
   sorting = {
     priority_weight = 1.0,
     comparators = {
+      -- deprioritize_snippet,
       compare.offset,
       compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
       compare.locality,
@@ -159,7 +184,7 @@ cmp.setup({
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline("/", {
+cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = "buffer" },

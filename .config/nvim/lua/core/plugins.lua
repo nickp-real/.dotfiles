@@ -65,8 +65,8 @@ return packer.startup({
 
     use({
       {
-        "ful1e5/onedark.nvim",
-        -- "olimorris/onedarkpro.nvim",
+        -- "ful1e5/onedark.nvim",
+        "olimorris/onedarkpro.nvim",
         -- "navarasu/onedark.nvim",
         -- "RRethy/nvim-base16",
         -- "sainnhe/edge",
@@ -79,7 +79,8 @@ return packer.startup({
       { "kyazdani42/nvim-web-devicons", after = "theme" },
       {
         "akinsho/bufferline.nvim",
-        after = "nvim-web-devicons",
+        tag = "v2.*",
+        requires = "nvim-web-devicons",
         config = function()
           require("plugins.bufferline")
         end,
@@ -215,6 +216,19 @@ return packer.startup({
       end,
     })
 
+    -- use({
+    --   "folke/noice.nvim",
+    --   event = "VimEnter",
+    --   config = function()
+    --     require("plugins.noice")
+    --   end,
+    --   requires = {
+    --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --     "MunifTanjim/nui.nvim",
+    --     "rcarriga/nvim-notify",
+    --   },
+    -- })
+
     ----------------
     -- Navigation --
     ----------------
@@ -228,36 +242,18 @@ return packer.startup({
     })
 
     use({
-      {
-        "nvim-telescope/telescope.nvim",
-        requires = "nvim-lua/plenary.nvim",
-        event = "BufWinEnter",
-        config = function()
-          require("plugins.telescope_conf")
-        end,
-      },
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        run = "make",
-        after = "telescope.nvim",
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
-      },
-      {
+      "nvim-telescope/telescope.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         "nvim-telescope/telescope-file-browser.nvim",
-        after = "telescope.nvim",
-        config = function()
-          require("telescope").load_extension("file_browser")
-        end,
-      },
-      {
         "nvim-telescope/telescope-media-files.nvim",
-        after = "telescope.nvim",
-        config = function()
-          require("telescope").load_extension("media_files")
-        end,
       },
+      keys = "<leader>f",
+      module = "telescope",
+      config = function()
+        require("plugins.telescope_conf")
+      end,
     })
 
     use({
@@ -301,12 +297,6 @@ return packer.startup({
           "williamboman/mason-lspconfig.nvim",
           "b0o/SchemaStore.nvim",
           "jose-elias-alvarez/typescript.nvim",
-          -- {
-          --   "RRethy/vim-illuminate",
-          --   config = function()
-          --     require("plugins.vim-illuminate")
-          --   end,
-          -- },
           "hrsh7th/cmp-nvim-lsp",
           "ray-x/lsp_signature.nvim",
           "mrshmllow/document-color.nvim",
@@ -316,7 +306,13 @@ return packer.startup({
               require("plugins.lsp-inlayhints")
             end,
           },
-          { "SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig" },
+          {
+            "SmiteshP/nvim-navic",
+            requires = "neovim/nvim-lspconfig",
+            config = function()
+              require("plugins.nvim-navic")
+            end,
+          },
         },
         config = function()
           require("lsp.config")
@@ -473,7 +469,13 @@ return packer.startup({
       end,
     })
 
-    use({ "monaqa/dial.nvim", event = "BufRead" })
+    use({
+      "monaqa/dial.nvim",
+      event = "BufRead",
+      config = function()
+        require("plugins.dial")
+      end,
+    })
 
     use({
       "axelvc/template-string.nvim",
@@ -611,6 +613,7 @@ return packer.startup({
         require("plugins.notify")
       end,
       event = "BufRead",
+      module = "notify",
     })
 
     -- Search

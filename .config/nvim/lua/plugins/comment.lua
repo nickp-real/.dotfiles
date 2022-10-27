@@ -13,6 +13,3 @@ comment.setup({
     block = "gbc",
   },
 })
-
-local ft = require("Comment.ft")
-ft.dart = { "//%s", "/*%s*/" }

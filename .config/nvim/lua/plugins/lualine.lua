@@ -23,7 +23,7 @@ lualine.setup({
     -- section_separators = { left = "", right = "" },
     component_separators = "",
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha" },
+    disabled_filetypes = { "alpha", winbar = { "toggleterm", "NvimTree" } },
     always_divide_middle = true,
     globalstatus = true,
   },
@@ -40,9 +40,7 @@ lualine.setup({
       diagnostics,
     },
     lualine_c = {
-      function()
-        return "%="
-      end,
+      "%=",
       {
         "filename",
         flie_status = true,
@@ -69,23 +67,23 @@ lualine.setup({
     lualine_z = {},
   },
   tabline = {},
-  winbar = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { "filename", "%{%v:lua.require'nvim-navic'.get_location()%}" },
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {},
-  },
+  -- winbar = {
+  --   lualine_a = {},
+  --   lualine_b = { { "filetype", icon_only = true }, { "filename", file_status = false } },
+  --   lualine_c = { "%{%v:lua.require'nvim-navic'.get_location()%}" },
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = {},
+  -- },
 
-  inactive_winbar = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { "filename" },
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {},
-  },
+  -- inactive_winbar = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = { " " },
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = {},
+  -- },
 
   extensions = {
     "nvim-tree",

@@ -8,31 +8,37 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = yank,
 })
 
--- -- Format Option
+-- Format Option
 local format_options = vim.api.nvim_create_augroup("Format Options", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd("FileType", {
   callback = function()
-    vim.schedule(function()
-      vim.opt.formatoptions = vim.opt.formatoptions
-        - "a" -- Auto formatting is BAD.
-        - "t" -- Don't auto format my code. I got linters for that.
-        + "c" -- In general, I like it when comments respect textwidth
-        + "q" -- Allow formatting comments w/ gq
-        - "o" -- O and o, don't continue comments
-        + "r" -- But do continue when pressing enter.
-        + "n" -- Indent past the formatlistpat, not underneath it.
-        + "j" -- Auto-remove comments if possible.
-        - "2" -- I'm not in gradeschool anymore
-    end)
+    vim.opt_local.formatoptions = vim.opt_local.formatoptions
+      - "a" -- Auto formatting is BAD.
+      - "t" -- Don't auto format my code. I got linters for that.
+      + "c" -- In general, I like it when comments respect textwidth
+      + "q" -- Allow formatting comments w/ gq
+      - "o" -- O and o, don't continue comments
+      + "r" -- But do continue when pressing enter.
+      + "n" -- Indent past the formatlistpat, not underneath it.
+      + "j" -- Auto-remove comments if possible.
+      - "2" -- I'm not in gradeschool anymore
   end,
   group = format_options,
 })
 
+-- Spell
 -- disable spell for filetype
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
   pattern = "term://*toggleterm#*",
   callback = function()
     vim.opt_local.spell = false
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "html", "markdown", "text" },
+  callback = function()
+    vim.opt_local.spell = true
   end,
 })
 

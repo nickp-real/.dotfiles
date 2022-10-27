@@ -46,10 +46,10 @@ mason_lsp.setup({
   automatic_installation = true,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-if cmp_nvim_lsp_status_ok then
-  capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+if not cmp_nvim_lsp_status_ok then
+  return
 end
+local capabilities = cmp_nvim_lsp.default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
@@ -71,7 +71,7 @@ local lsp_default = {
 lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_default)
 
 -- normal setting
-local servers = { "bashls", "clangd", "taplo" }
+local servers = { "bashls", "clangd", "taplo", "sqls" }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
     on_attach = utils.on_attach,
@@ -79,7 +79,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- custom format
-local no_format_servers = { "html", "gopls" }
+local no_format_servers = { "gopls", "emmet_ls" }
 for _, lsp in pairs(no_format_servers) do
   lspconfig[lsp].setup({
     on_attach = utils.no_format_on_attach,
@@ -109,7 +109,7 @@ lspconfig.eslint.setup({
 })
 
 lspconfig.sumneko_lua.setup({
-  on_attach = utils.no_format_on_attach,
+  on_attach = require("lsp.servers.sumneko_lua").on_attach,
   settings = require("lsp.servers.sumneko_lua").settings,
 })
 
@@ -130,6 +130,11 @@ lspconfig.tailwindcss.setup({
   init_options = require("lsp.servers.tailwindcss").init_options,
   settings = require("lsp.servers.tailwindcss").settings,
   root_dir = root_pattern(unpack(require("lsp.servers.tailwindcss").root_dir)),
+})
+
+lspconfig.html.setup({
+  on_attach = utils.on_attach,
+  settings = require("lsp.servers.html").settings,
 })
 
 lspconfig.cssls.setup({

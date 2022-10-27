@@ -5,6 +5,11 @@ end
 
 telescope.setup({
   defaults = {
+    pickers = {
+      find_files = {
+        find_command = { "fd", "--hidden", "--glob", "" },
+      },
+    },
     prompt_prefix = "  ",
     path_display = { "smart" },
     preview = {
@@ -36,3 +41,7 @@ telescope.setup({
     },
   },
 })
+
+telescope.load_extension("fzf")
+telescope.load_extension("file_browser")
+telescope.load_extension("media_files")

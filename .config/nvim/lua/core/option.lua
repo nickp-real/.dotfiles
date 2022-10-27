@@ -6,7 +6,6 @@ local g = vim.g
 opt.autowriteall = true
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
-opt.equalalways = false
 opt.mouse = "a"
 opt.scrolloff = 8
 opt.shell = "fish"
@@ -17,9 +16,11 @@ opt.splitright = true
 opt.swapfile = false
 opt.title = true
 opt.wildoptions = "pum"
+opt.winfixwidth = true
 opt.undofile = true
 
 -- UI
+-- opt.cmdheight = 0
 opt.cursorline = true
 -- opt.foldcolumn = "1"
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -30,7 +31,6 @@ opt.foldnestmax = 0
 -- opt.foldmethod = "expr"
 opt.guicursor:append({ "n-i:blinkon1" })
 opt.laststatus = 3
-opt.lazyredraw = true
 opt.number = true
 opt.numberwidth = 4
 opt.pumheight = 10
@@ -57,20 +57,22 @@ opt.inccommand = "split"
 -- text thing
 opt.linebreak = true
 opt.textwidth = 79
-opt.spell = true
 opt.whichwrap:append("<,>,[,],h,l")
 
 -- Performance
 opt.redrawtime = 1500
-opt.timeoutlen = 250
-opt.ttimeoutlen = 10
-opt.updatetime = 100
+opt.timeoutlen = 500
+opt.ttimeoutlen = 25
+opt.updatetime = 500
+
+-- Session
+g.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
 -- Leader key
 g.mapleader = " "
 
 -- Clipboard
-vim.g.clipboard = {
+g.clipboard = {
   name = "xsel",
   copy = {
     ["+"] = "xsel -i -b",
@@ -116,3 +118,6 @@ opt.fillchars = {
   -- foldsep = " ",
   -- foldclose = "",
 }
+
+-- env
+g.python3_host_prog = "/usr/bin/python3"

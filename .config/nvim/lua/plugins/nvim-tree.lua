@@ -22,11 +22,11 @@ nvim_tree.setup({
   respect_buf_cwd = false,
   view = {
     adaptive_size = false,
-    centralize_selection = false,
+    centralize_selection = true,
     width = 30,
     hide_root_folder = false,
     side = "left",
-    preserve_window_proportions = false,
+    preserve_window_proportions = true,
     number = false,
     relativenumber = false,
     signcolumn = "yes",
@@ -96,8 +96,8 @@ nvim_tree.setup({
   },
   update_focused_file = {
     enable = true,
-    update_cwd = false,
-    update_root = false,
+    update_cwd = true,
+    update_root = true,
     ignore_list = {},
   },
   ignore_ft_on_setup = { "alpha" },
@@ -116,7 +116,7 @@ nvim_tree.setup({
     },
   },
   filters = {
-    dotfiles = false,
+    dotfiles = true,
     custom = {},
     exclude = {},
   },
@@ -141,7 +141,7 @@ nvim_tree.setup({
     },
     open_file = {
       quit_on_open = true,
-      resize_window = true,
+      resize_window = false,
       window_picker = {
         enable = true,
         chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
