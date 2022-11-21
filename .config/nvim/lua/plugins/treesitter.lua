@@ -11,7 +11,7 @@ configs.setup({
   },
   indent = {
     enable = true,
-    disable = { "python" },
+    disable = { "python", "dart" },
   },
   incremental_selection = {
     enable = true,

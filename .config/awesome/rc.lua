@@ -640,5 +640,5 @@ end)
 -- Auto Startup Program
 awful.spawn("flameshot")
 awful.spawn("copyq")
-awful.spawn.with_shell("picom --experimental-backends &")
+awful.spawn.with_shell("picom &")
 awful.spawn.with_shell("libinput-gestures-setup start &")

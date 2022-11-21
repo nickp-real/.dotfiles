@@ -22,3 +22,5 @@
 	directory = *
 [color]
 	ui = true
+[advice]
+  addIgnoredFile = false

@@ -19,12 +19,12 @@ local sources = {
   formatting.black.with({ extra_args = { "--fast" } }),
 
   -- front-end
-  formatting.prettierd.with({
-    env = {
-      PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
-    },
-  }),
-  -- formatting.prettierd,
+  -- formatting.prettierd.with({
+  --   env = {
+  --     PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+  --   },
+  -- }),
+  formatting.prettierd,
   -- formatting.rustywind.with({
   --   condition = function(utils)
   --     return utils.root_has_file({ "tailwind.config.js", "tailwind.config.ts" })
@@ -55,6 +55,7 @@ local sources = {
   --     return utils.root_has_file({ ".eslintrc.json" })
   --   end,
   -- }),
+  require("typescript.extensions.null-ls.code-actions"),
 }
 
 local utils = require("lsp.utils")

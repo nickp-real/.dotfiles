@@ -56,7 +56,7 @@ opt.inccommand = "split"
 
 -- text thing
 opt.linebreak = true
-opt.textwidth = 79
+opt.textwidth = 80
 opt.whichwrap:append("<,>,[,],h,l")
 
 -- Performance

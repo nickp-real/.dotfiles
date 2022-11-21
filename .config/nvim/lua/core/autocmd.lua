@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Spell
 -- disable spell for filetype
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
+vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*toggleterm#*",
   callback = function()
     vim.opt_local.spell = false
@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Alpha Disable Bufferline
 local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
-vim.api.nvim_create_autocmd({ "User" }, {
+vim.api.nvim_create_autocmd("User", {
   pattern = { "AlphaReady" },
   callback = function()
     vim.opt_local.showtabline = 0
@@ -60,7 +60,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
   group = disable_bufferline,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "man",
   callback = function()
     vim.opt_local.showtabline = 0
@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- Use 'q' to quit from common plugins
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "qf",
     "help",
@@ -91,6 +91,29 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", { silent = true })
     vim.bo.buflisted = false
+  end,
+})
+
+-- Add shebang add the top of the .sh, .py file
+local appendLine = function()
+  vim.fn.append(1, "")
+  vim.fn.append(2, "")
+  vim.fn.cursor(3, 0)
+end
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = { "*.sh", "*.bash" },
+  callback = function()
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env bash" })
+    appendLine()
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = { ".py" },
+  callback = function()
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env python3" })
+    appendLine()
   end,
 })
 

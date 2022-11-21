@@ -47,7 +47,7 @@ set -gx GOPATH $HOME/go
 fish_add_path $GOPATH/bin 
 
 # JAVA_HOME
-set -gx JAVA_HOME /usr/lib/jvm/java-18-openjdk
+set -gx JAVA_HOME /usr/lib/jvm/java-19-openjdk
 fish_add_path $JAVA_HOME/bin 
 
 # ANDROID_HOME

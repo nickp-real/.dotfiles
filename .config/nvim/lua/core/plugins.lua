@@ -34,6 +34,7 @@ local function lazy(plugin, timer)
 end
 
 packer.init({
+  git = { clone_timeout = 6000 },
   display = {
     open_fn = function()
       return require("packer.util").float({ border = "rounded" })
@@ -321,7 +322,7 @@ return packer.startup({
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        event = "BufRead",
+        -- event = "BufRead",
         after = "nvim-lspconfig",
         config = function()
           require("lsp.null-ls")
@@ -335,7 +336,8 @@ return packer.startup({
         "akinsho/flutter-tools.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         ft = { "flutter", "dart" },
-        event = "BufRead",
+        after = "nvim-lspconfig",
+        -- event = "BufRead",
         config = function()
           require("lsp.flutter")
         end,
@@ -626,6 +628,15 @@ return packer.startup({
       event = "CursorHold",
       config = function()
         require("plugins.hlslens")
+      end,
+    })
+
+    -- Tmux
+    use({
+      event = "BufRead",
+      "aserowy/tmux.nvim",
+      config = function()
+        require("plugins.tmux")
       end,
     })
 

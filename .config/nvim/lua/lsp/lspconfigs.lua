@@ -71,7 +71,7 @@ local lsp_default = {
 lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_default)
 
 -- normal setting
-local servers = { "bashls", "clangd", "taplo", "sqls" }
+local servers = { "bashls", "clangd", "taplo", "sqls", "marksman", "grammarly" }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
     on_attach = utils.on_attach,

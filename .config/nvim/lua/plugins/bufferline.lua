@@ -27,4 +27,9 @@ bufferline.setup({
       },
     },
   },
+  highlights = {
+    indicator_selected = {
+      fg = "#61afef",
+    },
+  },
 })

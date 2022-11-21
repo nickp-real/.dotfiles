@@ -1,19 +1,10 @@
 -- Var
-local bind = function(op, outer_opts)
-  outer_opts = vim.tbl_extend("force", { silent = true }, outer_opts or {})
-  return function(lhs, rhs, opts)
-    opts = vim.tbl_extend("force", outer_opts, opts or {})
-    vim.keymap.set(op, lhs, rhs, opts)
-  end
-end
-
-local nmap = bind("n", { noremap = false })
-local nnoremap = bind("n")
-local vnoremap = bind("v")
-local xnoremap = bind("x")
-local inoremap = bind("i")
-local nxonoremap = bind({ "n", "x", "o" })
-local nxnoremap = bind({ "n", "x" })
+local keymap_utils = require("keymap_utils")
+local nnoremap = keymap_utils.nnoremap
+local inoremap = keymap_utils.inoremap
+local vnoremap = keymap_utils.vnoremap
+local xnoremap = keymap_utils.xnoremap
+local nxnoremap = keymap_utils.nxnoremap
 
 -- Spacebar to nothing
 nnoremap("<Space>", "<Nop>")
@@ -66,10 +57,6 @@ nnoremap("+", "<C-a>")
 nnoremap("-", "<C-x>")
 
 -- Ctrl-W to Alt
-nnoremap("<A-h>", "<C-w>h")
-nnoremap("<A-j>", "<C-w>j")
-nnoremap("<A-k>", "<C-w>k")
-nnoremap("<A-l>", "<C-w>l")
 nnoremap("<A-o>", "<C-w>o")
 nnoremap("<A-w>", "<C-w>w")
 
@@ -153,22 +140,6 @@ nnoremap("<S-Tab>", ":BufferLineCyclePrev<CR>")
 -- Hop
 nnoremap("s", ":HopChar1<cr>")
 nnoremap("S", ":HopWord<cr>")
-
-local hopHorizontal = require("hop").hint_char1
-local hintDirection = require("hop.hint").HintDirection
-
-nxonoremap("f", function()
-  hopHorizontal({ direction = hintDirection.AFTER_CURSOR, current_line_only = true })
-end)
-nxonoremap("F", function()
-  hopHorizontal({ direction = hintDirection.BEFORE_CURSOR, current_line_only = true })
-end)
-nxonoremap("t", function()
-  hopHorizontal({ direction = hintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-end)
-nxonoremap("T", function()
-  hopHorizontal({ direction = hintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })
-end)
 
 -- Hlslens
 nxnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
