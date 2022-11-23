@@ -78,37 +78,31 @@ return packer.startup({
         -- end,
       },
       { "kyazdani42/nvim-web-devicons", after = "theme" },
+
+      -- Bufferline
       {
         "akinsho/bufferline.nvim",
         tag = "v2.*",
         requires = "nvim-web-devicons",
+        after = "theme",
         config = function()
           require("plugins.bufferline")
         end,
       },
-      {
-        {
-          "nvim-lualine/lualine.nvim",
-          after = "nvim-web-devicons",
-          config = function()
-            require("plugins.lualine")
-          end,
-        },
 
-        -- LSP progress indicator
-        {
-          "j-hui/fidget.nvim",
-          after = "lualine.nvim",
-          config = function()
-            require("plugins.fidget")
-          end,
-        },
+      -- Statusline
+      {
+        "nvim-lualine/lualine.nvim",
+        after = "theme",
+        config = function()
+          require("plugins.lualine")
+        end,
       },
 
       -- Float UI
       {
         "stevearc/dressing.nvim",
-        after = "alpha-nvim",
+        event = "BufRead",
         config = function()
           require("plugins.dressing")
         end,
@@ -118,6 +112,7 @@ return packer.startup({
     -- First Page
     use({
       "goolord/alpha-nvim",
+      event = "VimEnter",
       config = function()
         require("plugins.alpha")
       end,
@@ -158,7 +153,7 @@ return packer.startup({
     })
 
     -- Log Highlight
-    use({ "MTDL9/vim-log-highlighting", event = "BufRead", ft = "log" })
+    use({ "MTDL9/vim-log-highlighting", ft = "log" })
 
     --------
     -- UI --
@@ -191,7 +186,7 @@ return packer.startup({
 
     use({
       "folke/todo-comments.nvim",
-      event = "BufRead",
+      after = "nvim-treesitter",
       requires = "nvim-lua/plenary.nvim",
       config = function()
         require("plugins.todo-comment")
@@ -201,7 +196,6 @@ return packer.startup({
     use({
       "m-demare/hlargs.nvim",
       after = "nvim-treesitter",
-      event = "BufRead",
       config = function()
         require("plugins.hlargs")
       end,
@@ -250,7 +244,7 @@ return packer.startup({
         "nvim-telescope/telescope-file-browser.nvim",
         "nvim-telescope/telescope-media-files.nvim",
       },
-      keys = "<leader>f",
+      cmd = "Telescope",
       module = "telescope",
       config = function()
         require("plugins.telescope_conf")
@@ -260,9 +254,7 @@ return packer.startup({
     use({
       "phaazon/hop.nvim",
       branch = "v2", -- optional but strongly recommended
-      -- cmd = { "HopChar1", "HopWord" },
-      -- module = "Hop",
-      event = "CursorHold",
+      cmd = { "HopChar1", "HopWord" },
       config = function()
         require("plugins.hop")
       end,
@@ -293,20 +285,13 @@ return packer.startup({
       {
         "neovim/nvim-lspconfig",
         event = "BufRead",
+        module = "lspconfig",
         requires = {
-          "williamboman/mason.nvim",
-          "williamboman/mason-lspconfig.nvim",
           "b0o/SchemaStore.nvim",
           "jose-elias-alvarez/typescript.nvim",
           "hrsh7th/cmp-nvim-lsp",
           "ray-x/lsp_signature.nvim",
           "mrshmllow/document-color.nvim",
-          {
-            "lvimuser/lsp-inlayhints.nvim",
-            config = function()
-              require("plugins.lsp-inlayhints")
-            end,
-          },
           {
             "SmiteshP/nvim-navic",
             requires = "neovim/nvim-lspconfig",
@@ -326,6 +311,38 @@ return packer.startup({
         after = "nvim-lspconfig",
         config = function()
           require("lsp.null-ls")
+        end,
+      },
+      {
+        "lvimuser/lsp-inlayhints.nvim",
+        after = "nvim-lspconfig",
+        config = function()
+          require("plugins.lsp-inlayhints")
+        end,
+      },
+    })
+
+    -- Mason, lsp installer
+    use({
+      {
+        "williamboman/mason.nvim",
+        event = "BufRead",
+        config = function()
+          require("lsp.mason")
+        end,
+      },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        after = "mason.nvim",
+        config = function()
+          require("lsp.mason-lsp")
+        end,
+      },
+      {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        after = "mason.nvim",
+        config = function()
+          require("lsp.mason-tool-installer")
         end,
       },
     })
@@ -375,14 +392,16 @@ return packer.startup({
         require("plugins.trouble")
       end,
     })
+    use({ "folke/lsp-colors.nvim", after = "nvim-lspconfig" })
+
+    -- LSP progress indicator
     use({
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      after = "mason.nvim",
+      "j-hui/fidget.nvim",
+      after = "nvim-lspconfig",
       config = function()
-        require("lsp.mason-tool-installer")
+        require("plugins.fidget")
       end,
     })
-    use({ "folke/lsp-colors.nvim", after = "nvim-lspconfig", event = "BufRead" })
 
     -- use({
     --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -473,7 +492,7 @@ return packer.startup({
 
     use({
       "monaqa/dial.nvim",
-      event = "BufRead",
+      event = "CursorHold",
       config = function()
         require("plugins.dial")
       end,
@@ -481,7 +500,7 @@ return packer.startup({
 
     use({
       "axelvc/template-string.nvim",
-      event = "InsertEnter",
+      key = "$",
       ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
       config = function()
         require("plugins.template-string")
@@ -490,6 +509,7 @@ return packer.startup({
 
     use({
       "mizlan/iswap.nvim",
+      cmd = "ISwap",
       config = function()
         require("plugins.iswap")
       end,
@@ -569,7 +589,7 @@ return packer.startup({
     -- Symbols Outline
     use({
       "simrat39/symbols-outline.nvim",
-      event = "CursorHold",
+      cmd = "SymbolsOutline",
       config = function()
         require("plugins.symbol-outline")
       end,
@@ -633,8 +653,8 @@ return packer.startup({
 
     -- Tmux
     use({
-      event = "BufRead",
       "aserowy/tmux.nvim",
+      event = "BufRead",
       config = function()
         require("plugins.tmux")
       end,

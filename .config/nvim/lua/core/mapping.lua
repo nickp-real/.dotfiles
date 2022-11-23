@@ -153,14 +153,6 @@ nnoremap("zM", ":lua require('ufo').closeAllFolds()<cr>")
 -- nnoremap("zr", ":lua require('ufo').openFoldsExceptKinds()<cr>")
 -- nnoremap("zm", ":lua require('ufo').closeFoldsWith(0)<cr>")
 
--- Dial
-nnoremap("<C-a>", require("dial.map").inc_normal())
-nnoremap("<C-x>", require("dial.map").dec_normal())
-vnoremap("<C-a>", require("dial.map").inc_visual())
-vnoremap("<C-x>", require("dial.map").dec_visual())
-vnoremap("g<C-a>", require("dial.map").inc_gvisual())
-vnoremap("g<C-x>", require("dial.map").dec_gvisual())
-
 -- ISwap
 nnoremap("<leader>sw", ":ISwap<cr>")
 
