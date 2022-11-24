@@ -35,6 +35,10 @@ end
 
 packer.init({
   git = { clone_timeout = 6000 },
+  profile = {
+    enable = true,
+    threshold = 1, -- the amount in ms that a plugin's load time must be over for it to be included in the profile
+  },
   display = {
     open_fn = function()
       return require("packer.util").float({ border = "rounded" })
@@ -56,8 +60,8 @@ return packer.startup({
       "wbthomason/packer.nvim",
 
       -- Load first
-      "nvim-lua/plenary.nvim",
-      "nvim-lua/popup.nvim",
+      { "nvim-lua/plenary.nvim", module = "plenary" },
+      { "nvim-lua/popup.nvim", module = "popup" },
     })
 
     ---------------------------------
@@ -98,15 +102,15 @@ return packer.startup({
           require("plugins.lualine")
         end,
       },
+    })
 
-      -- Float UI
-      {
-        "stevearc/dressing.nvim",
-        event = "BufRead",
-        config = function()
-          require("plugins.dressing")
-        end,
-      },
+    -- Float UI
+    use({
+      "stevearc/dressing.nvim",
+      event = "BufRead",
+      config = function()
+        require("plugins.dressing")
+      end,
     })
 
     -- First Page
@@ -289,7 +293,6 @@ return packer.startup({
         requires = {
           "b0o/SchemaStore.nvim",
           "jose-elias-alvarez/typescript.nvim",
-          "hrsh7th/cmp-nvim-lsp",
           "ray-x/lsp_signature.nvim",
           "mrshmllow/document-color.nvim",
           {
@@ -377,7 +380,6 @@ return packer.startup({
           require("plugins.pubspec-assist")
         end,
       },
-      { "RobertBrunhage/flutter-riverpod-snippets", ft = { "flutter", "dart" }, after = "nvim-cmp" },
     })
 
     ---------------
@@ -386,7 +388,8 @@ return packer.startup({
 
     use({
       "folke/trouble.nvim",
-      after = "nvim-lspconfig",
+      cmd = "TroubleToggle",
+      module = "trouble",
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
         require("plugins.trouble")
@@ -417,6 +420,30 @@ return packer.startup({
     ----------------
 
     use({
+      "rafamadriz/friendly-snippets",
+      event = "InsertEnter",
+      module = { "cmp", "cmp_nvim_lsp" },
+    })
+
+    use({
+      "L3MON4D3/LuaSnip",
+      wants = "friendly-snippets",
+      after = "nvim-cmp",
+      config = function()
+        require("plugins.luasnip")
+      end,
+    })
+
+    use({
+
+      { "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
+      { "hrsh7th/cmp-nvim-lua", after = "cmp_luasnip" },
+      { "hrsh7th/cmp-nvim-lsp", after = "cmp-nvim-lua" },
+      { "hrsh7th/cmp-buffer", after = "cmp-nvim-lsp" },
+      { "hrsh7th/cmp-path", after = "cmp-buffer" },
+    })
+
+    use({
       {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdLineEnter" },
@@ -424,31 +451,20 @@ return packer.startup({
           require("plugins.cmp")
         end,
         requires = {
-          {
-            "L3MON4D3/LuaSnip",
-            event = "CursorHold",
-            config = function()
-              require("plugins.luasnip")
-            end,
-            requires = "rafamadriz/friendly-snippets",
-          },
-          {
-            "danymat/neogen",
-            requires = "nvim-treesitter/nvim-treesitter",
-            config = function()
-              require("plugins.neogen")
-            end,
-          },
           "lukas-reineke/cmp-under-comparator",
         },
       },
-      { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-      { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-      { "hrsh7th/cmp-path", after = "nvim-cmp" },
       { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
       -- { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
-      { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-      { "mtoohey31/cmp-fish", after = "nvim-cmp", ft = "fish" },
+      { "mtoohey31/cmp-fish", after = "cmp-nvim-lsp", ft = "fish" },
+      {
+        "danymat/neogen",
+        after = "nvim-cmp",
+        requires = "nvim-treesitter/nvim-treesitter",
+        config = function()
+          require("plugins.neogen")
+        end,
+      },
     })
 
     -------------
@@ -608,7 +624,7 @@ return packer.startup({
     use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
 
     use({ "wsdjeg/vim-fetch", event = "CursorHold" })
-    use({ "famiu/bufdelete.nvim", event = "BufRead" })
+    use({ "famiu/bufdelete.nvim", cmd = "Bdelete" })
     use({
       "kwkarlwang/bufresize.nvim",
       event = "BufRead",

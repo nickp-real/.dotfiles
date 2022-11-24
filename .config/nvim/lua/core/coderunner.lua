@@ -1,5 +1,5 @@
 local run_command_table = {
-  ["cpp"] = "g++ % -o %:r && ./%:r",
+  ["cpp"] = "g++ -Wall -O2 % -o %:r && ./%:r",
   ["c"] = "gcc % -o %:r && ./%:r",
   ["python"] = "python %",
   ["lua"] = "lua %",
@@ -30,7 +30,7 @@ end
 
 local default_run_command = function(filetype, file, filename)
   local cmd = {
-    ["cpp"] = "g++ " .. file .. " -o " .. filename .. " && ./" .. filename,
+    ["cpp"] = "g++ -Wall -O2 " .. file .. " -o " .. filename .. " && ./" .. filename,
     ["c"] = "gcc " .. file .. " -o " .. filename .. " && ./" .. filename,
     ["python"] = "python " .. file,
     ["lua"] = "lua " .. file,
@@ -47,7 +47,7 @@ end
 -- To run file run :Run or just press <F5>
 function _G.run_code()
   if run_command_table[vim.bo.filetype] then
-    vim.cmd("TermExec cmd='" .. run_command_table[vim.bo.filetype] .. "'")
+    vim.cmd("2TermExec cmd='" .. run_command_table[vim.bo.filetype] .. "' direction='float'")
   else
     print("\nFileType not supported\n")
   end
@@ -59,6 +59,10 @@ local function strsplit(inputstr)
     table.insert(t, str)
   end
   return t
+end
+
+local function notify(text, title)
+  vim.notify(text, nil, { title = title })
 end
 
 -- Use the following function to update the execution command of a filetype temporarly
@@ -89,10 +93,12 @@ function _G.update_command_table(filetype)
   end
 end
 
+-- Normal run code, output through terminal
 vim.api.nvim_create_user_command("Run", "lua run_code()", {})
 vim.api.nvim_create_user_command("RunUpdate", "lua update_command_table(<f-args>)", {})
 -- vim.cmd("command! -nargs=* RunUpdate :lua update_command_table(<f-args>)")
 
+-- Run on save
 local attach_to_buffer = function(output_bufnr, pattern, file, command)
   vim.api.nvim_create_autocmd("BufWritePost", {
     group = vim.api.nvim_create_augroup("AutoRun", { clear = true }),
@@ -114,8 +120,9 @@ local attach_to_buffer = function(output_bufnr, pattern, file, command)
   })
 end
 
-local bufnr
-
+-- Buffers
+local resultBufnr, inputBufnr
+-- AutoRun
 vim.api.nvim_create_user_command("AutoRun", function()
   local file = expand("%")
   local filename = expand("%:r")
@@ -125,16 +132,56 @@ vim.api.nvim_create_user_command("AutoRun", function()
       return
     end
 
-    if not bufnr then
-      vim.notify("AutoRun Starts Now!", nil, { title = "AutoRun" })
-      vim.api.nvim_command("vnew")
-      bufnr = vim.api.nvim_get_current_buf()
+    if not resultBufnr then
+      notify("AutoRun Starts Now!", "AutoRun")
+      vim.api.nvim_command("vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile")
+      resultBufnr = vim.api.nvim_get_current_buf()
       vim.api.nvim_command("wincmd p")
     else
-      vim.notify("AutoRun Command Changed!", nil, { title = "AutoRun" })
+      notify("AutoRun Command Changed!", "AutoRun")
     end
 
     local pattern = pattern_table[vim.bo.filetype]
-    attach_to_buffer(tonumber(bufnr), pattern, file, input)
+    attach_to_buffer(tonumber(resultBufnr), pattern, file, input)
   end)
+end, {})
+
+-- AutoRunCP
+vim.api.nvim_create_user_command("AutoRunCP", function()
+  local file = expand("%")
+  local filename = expand("%:r")
+  local default = default_run_command(vim.bo.filetype, file, filename) .. " < input.txt"
+
+  vim.ui.input({ prompt = "Command: ", default = default }, function(input)
+    if not input then
+      return
+    end
+    if not (resultBufnr and inputBufnr) then
+      notify("AutoRunCP Starts Now!", "AutoRunCP")
+      vim.api.nvim_command("vnew input.txt")
+      inputBufnr = vim.api.nvim_get_current_buf()
+      vim.api.nvim_command("new | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile")
+      resultBufnr = vim.api.nvim_get_current_buf()
+      vim.api.nvim_command("wincmd h")
+    else
+      notify("AutoRunCP Command Changed!", "AutoRunCP")
+    end
+
+    local pattern = { "input.txt", pattern_table[vim.bo.filetype] }
+    attach_to_buffer(tonumber(resultBufnr), pattern, file, input)
+  end)
+end, {})
+
+-- AutoRunClear
+vim.api.nvim_create_user_command("AutoRunClear", function()
+  vim.api.nvim_command("only")
+  if resultBufnr then
+    vim.api.nvim_command("Bdelete!" .. resultBufnr)
+    resultBufnr = nil
+  end
+  if inputBufnr then
+    vim.api.nvim_command("Bdelete!" .. inputBufnr)
+    inputBufnr = nil
+  end
+  notify("AutoRun Clear Complete!", "AutoRun")
 end, {})
