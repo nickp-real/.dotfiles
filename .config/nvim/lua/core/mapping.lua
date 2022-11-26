@@ -207,5 +207,8 @@ nnoremap("<leader>nt", ":Neogen type<cr>")
 nnoremap("<leader><Tab>", ":BufferLineMoveNext<CR>")
 nnoremap("<leader><S-Tab>", ":BufferLineMovePrev<CR>")
 
+-- SwapSplit
+nnoremap("<leader>sp", ":SwapSplit<cr>")
+
 -- LSP line
 -- nnoremap("<Leader>l", ": lua require('lsp_lines').toggle<cr>")

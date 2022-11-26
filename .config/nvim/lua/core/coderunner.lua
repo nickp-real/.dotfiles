@@ -9,6 +9,7 @@ local run_command_table = {
   ["rust"] = "rustc % && ./%:r",
   ["go"] = "go run %",
   ["javascript"] = "node %",
+  ["dart"] = "dart run %",
 }
 
 local pattern_table = {
@@ -22,6 +23,7 @@ local pattern_table = {
   ["rust"] = "*.rust",
   ["go"] = "*.go",
   ["javascript"] = "*.js",
+  ["dart"] = "*.dart",
 }
 
 local expand = function(str)
@@ -40,6 +42,7 @@ local default_run_command = function(filetype, file, filename)
     ["rust"] = "rustc " .. file .. " && ./" .. filename,
     ["go"] = "go run " .. file,
     ["javascript"] = "node " .. file,
+    ["dart"] = "dart run " .. file,
   }
   return cmd[filetype]
 end
@@ -176,7 +179,6 @@ end, {})
 vim.api.nvim_create_user_command("AutoRunClear", function()
   vim.api.nvim_command("only")
   if resultBufnr then
-    vim.api.nvim_command("Bdelete!" .. resultBufnr)
     resultBufnr = nil
   end
   if inputBufnr then

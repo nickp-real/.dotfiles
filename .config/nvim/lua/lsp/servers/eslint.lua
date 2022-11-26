@@ -29,6 +29,7 @@ local settings = {
   packageManager = "pnpm",
   quiet = false,
   rulesCustomizations = {},
+  provideLintTask = true,
   run = "onType",
   useESLintClass = false,
   validate = "on",

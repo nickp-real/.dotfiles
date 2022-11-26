@@ -676,6 +676,9 @@ return packer.startup({
       end,
     })
 
+    -- Swap the split
+    use({ "xorid/swap-split.nvim", cmd = "SwapSplit" })
+
     if PACKER_BOOSTRAP then
       require("packer").sync()
     end
