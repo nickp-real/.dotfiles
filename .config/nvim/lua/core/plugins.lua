@@ -81,7 +81,7 @@ return packer.startup({
         --   require("plugins.onedark")
         -- end,
       },
-      { "kyazdani42/nvim-web-devicons", after = "theme" },
+      { "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
 
       -- Bufferline
       {
@@ -96,10 +96,10 @@ return packer.startup({
 
       -- Statusline
       {
-        "nvim-lualine/lualine.nvim",
+        "feline-nvim/feline.nvim",
         after = "theme",
         config = function()
-          require("plugins.lualine")
+          require("plugins.feline")
         end,
       },
     })
@@ -130,6 +130,7 @@ return packer.startup({
       {
         "nvim-treesitter/nvim-treesitter",
         event = "BufRead",
+        module = "nvim-treesitter",
         run = ":TSUpdate",
         config = function()
           require("plugins.treesitter")
@@ -207,8 +208,7 @@ return packer.startup({
 
     use({
       "kevinhwang91/nvim-ufo",
-      -- after = { "nvim-treesitter", "nvim-lspconfig" },
-      event = "BufRead",
+      after = { "nvim-treesitter", "nvim-lspconfig" },
       requires = "kevinhwang91/promise-async",
       config = function()
         require("plugins.nvim-ufo")
@@ -233,10 +233,20 @@ return packer.startup({
     ----------------
 
     use({
-      "kyazdani42/nvim-tree.lua",
-      event = "BufRead",
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+      },
+      event = "BufEnter",
+      -- cmd = "Neotree",
+      -- cond = function()
+      --   return vim.fn.isdirectory(vim.fn.expand("%")) == 1
+      -- end,
       config = function()
-        require("plugins.nvim-tree")
+        require("plugins.neotree")
       end,
     })
 
@@ -310,7 +320,6 @@ return packer.startup({
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        -- event = "BufRead",
         after = "nvim-lspconfig",
         config = function()
           require("lsp.null-ls")
@@ -323,6 +332,8 @@ return packer.startup({
           require("plugins.lsp-inlayhints")
         end,
       },
+      -- Java
+      { "mfussenegger/nvim-jdtls", ft = "java" },
     })
 
     -- Mason, lsp installer
@@ -356,7 +367,6 @@ return packer.startup({
         "akinsho/flutter-tools.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         ft = { "flutter", "dart" },
-        after = "nvim-lspconfig",
         -- event = "BufRead",
         config = function()
           require("lsp.flutter")
@@ -531,6 +541,15 @@ return packer.startup({
       end,
     })
 
+    use({
+      "Wansmer/treesj",
+      cmd = "TSJToggle",
+      requires = "nvim-treesitter",
+      config = function()
+        require("plugins.treesj")
+      end,
+    })
+
     ---------
     -- Git --
     ---------
@@ -574,10 +593,9 @@ return packer.startup({
 
     -- Markdown
     use({
-      { "ellisonleao/glow.nvim", event = "CursorHold", ft = "markdown" },
+      { "ellisonleao/glow.nvim", ft = "markdown" },
       {
         "iamcco/markdown-preview.nvim",
-        event = "CursorHold",
         ft = "markdown",
         run = "cd app && yarn install",
         cmd = "MarkdownPreview",
@@ -587,8 +605,7 @@ return packer.startup({
     -- HTML
     use({
       "turbio/bracey.vim",
-      event = "CursorHold",
-      ft = { "html", "css", "javascript" },
+      ft = { "html" },
       run = "npm install --prefix server",
       config = function()
         vim.g.bracey_refresh_on_save = 1
@@ -678,6 +695,11 @@ return packer.startup({
 
     -- Swap the split
     use({ "xorid/swap-split.nvim", cmd = "SwapSplit" })
+
+    -- Duck over your code!
+    use({
+      "tamton-aquib/duck.nvim",
+    })
 
     if PACKER_BOOSTRAP then
       require("packer").sync()

@@ -26,6 +26,11 @@ flutter_tools.setup({
   debugger = { -- integrate with nvim dap + install dart code debugger
     enabled = true,
     run_via_dap = false, -- use dap instead of a plenary job to run flutter apps
+    exception_breakpoints = {},
+    register_configurations = function(_)
+      require("dap").configurations.dart = {}
+      require("dap.ext.vscode").load_launchjs()
+    end,
     -- register_configurations = function(paths)
     --   require("dap").configurations.dart = {
     --     -- <put here config that you would find in .vscode/launch.json>
@@ -36,7 +41,7 @@ flutter_tools.setup({
   -- flutter_lookup_cmd = nil, -- example "dirname $(which flutter)" or "asdf where flutter"
   -- fvm = false, -- takes priority over path, uses <workspace>/.fvm/flutter_sdk if enabled
   widget_guides = {
-    enabled = false,
+    enabled = true,
   },
   closing_tags = {
     -- highlight = "ErrorMsg", -- highlight for the closing tag

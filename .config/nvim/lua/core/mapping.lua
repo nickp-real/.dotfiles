@@ -77,7 +77,9 @@ nnoremap("<leader>tq", ":tabclose<cr>")
 -- Keep it center
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
-nnoremap("J", "mzJ`z")
+
+-- Toggle the split/join the code block
+nnoremap("J", ":TSJToggle<cr>")
 
 -- Undo break points
 inoremap(",", ",<C-g>u")
@@ -113,9 +115,8 @@ nnoremap("<leader>R", ":RunUpdate<cr>")
 -- Plugin --
 ------------
 
--- NvimTree
-nnoremap("<C-n>", ":NvimTreeToggle<cr>")
-nnoremap("<leader>nr", ":NvimTreeRefresh<cr>")
+-- NeoTree
+nnoremap("<C-n>", ":Neotree reveal toggle<cr>")
 
 -- Toggle Terminal
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -157,9 +158,10 @@ nnoremap("zM", ":lua require('ufo').closeAllFolds()<cr>")
 nnoremap("<leader>sw", ":ISwap<cr>")
 
 -- Telescope
-nnoremap("<leader>ff", function()
-  local is_git = os.execute("git") == 0
-  if is_git then
+nnoremap("<leader>ff", ":Telescope find_files<cr>")
+nnoremap("<leader>fF", function()
+  vim.fn.system("git rev-parse --is-inside-work-tree")
+  if vim.v.shell_error == 0 then
     require("telescope.builtin").git_files()
   else
     require("telescope.builtin").find_files()
@@ -171,6 +173,7 @@ nnoremap("<leader>fh", ":Telescope help_tags<cr>")
 nnoremap("<leader>fo", ":Telescope oldfiles<cr>")
 nnoremap("<leader>fn", ":Telescope file_browser<cr>")
 nnoremap("<leader>fN", ":Telescope file_browser path=%:p:h<cr>")
+nnoremap("<leader>fk", ":Telescope keymaps<cr>")
 
 -- Trouble
 nnoremap("<leader>xx", ":TroubleToggle<cr>")
@@ -194,7 +197,7 @@ nnoremap("<leader>gs", ":Neogit<cr>")
 -- nnoremap("<leader>gl" , ":diffget //3<cr>")
 
 -- Diffview
-nnoremap("<leader>dd", ":DiffviewOpen<cr>")
+nnoremap("<leader>ds", ":DiffviewOpen<cr>")
 nnoremap("<leader>df", ":DiffviewFileHistory %<cr>")
 nnoremap("<leader>dF", ":DiffviewFileHistory<cr>")
 
@@ -212,3 +215,19 @@ nnoremap("<leader>sp", ":SwapSplit<cr>")
 
 -- LSP line
 -- nnoremap("<Leader>l", ": lua require('lsp_lines').toggle<cr>")
+
+-- Duck
+local duck = require("duck")
+nnoremap("<leader>dd", duck.hatch)
+nnoremap("<leader>dk", duck.cook)
+
+-- Dap
+local dap = require("dap")
+nnoremap("<F5>", dap.continue)
+nnoremap("<F10>", dap.step_over)
+nnoremap("<F11>", dap.step_into)
+nnoremap("<F12>", dap.step_out)
+nnoremap("<leader>b", dap.toggle_breakpoint)
+nnoremap("<leader>B", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
+nnoremap("<leader>lp", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
+nnoremap("<leader>dr", dap.repl.open)

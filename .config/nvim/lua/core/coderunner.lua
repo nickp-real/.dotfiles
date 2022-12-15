@@ -141,6 +141,7 @@ vim.api.nvim_create_user_command("AutoRun", function()
       resultBufnr = vim.api.nvim_get_current_buf()
       vim.api.nvim_command("wincmd p")
     else
+      vim.api.nvim_del_augroup_by_name("AutoRun")
       notify("AutoRun Command Changed!", "AutoRun")
     end
 
@@ -167,6 +168,7 @@ vim.api.nvim_create_user_command("AutoRunCP", function()
       resultBufnr = vim.api.nvim_get_current_buf()
       vim.api.nvim_command("wincmd h")
     else
+      vim.api.nvim_del_augroup_by_name("AutoRun")
       notify("AutoRunCP Command Changed!", "AutoRunCP")
     end
 
@@ -185,5 +187,7 @@ vim.api.nvim_create_user_command("AutoRunClear", function()
     vim.api.nvim_command("Bdelete!" .. inputBufnr)
     inputBufnr = nil
   end
+
+  vim.api.nvim_del_augroup_by_name("AutoRun")
   notify("AutoRun Clear Complete!", "AutoRun")
 end, {})

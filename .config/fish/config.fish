@@ -1,9 +1,10 @@
 # ALIAS
 alias python "python3.10"
-alias ls "exa"
+alias ls "exa --icons"
 alias ll "exa -l -g --icons"
 alias lla "ll -a"
 alias llt "ll -T"
+alias t "exa --tree"
 alias diff 'diff --color=auto'
 alias grep 'grep --color=auto'
 alias ip 'ip -color=auto'

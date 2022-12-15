@@ -3,7 +3,6 @@ local utils = require("lsp.utils")
 
 M.on_attach = function(client, bufnr)
   utils.no_format_on_attach(client, bufnr)
-  require("lsp-inlayhints").on_attach(client, bufnr)
 end
 
 M.settings = {

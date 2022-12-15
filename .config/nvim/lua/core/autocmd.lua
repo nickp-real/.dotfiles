@@ -1,6 +1,8 @@
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 -- Highlight on yank
-local yank = vim.api.nvim_create_augroup("yank", { clear = true })
-vim.api.nvim_create_autocmd("TextYankPost", {
+local yank = augroup("yank", { clear = true })
+autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
     vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
@@ -9,8 +11,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Format Option
-local format_options = vim.api.nvim_create_augroup("Format Options", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
+local format_options = augroup("Format Options", { clear = true })
+autocmd("FileType", {
   callback = function()
     vim.opt_local.formatoptions = vim.opt_local.formatoptions
       - "a" -- Auto formatting is BAD.
@@ -28,14 +30,14 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Spell
 -- disable spell for filetype
-vim.api.nvim_create_autocmd("TermOpen", {
+autocmd("TermOpen", {
   pattern = "term://*toggleterm#*",
   callback = function()
     vim.opt_local.spell = false
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = { "html", "markdown", "text" },
   callback = function()
     vim.opt_local.spell = true
@@ -43,42 +45,29 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Alpha Disable Bufferline
-local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
-vim.api.nvim_create_autocmd("User", {
-  pattern = { "AlphaReady" },
+local disable_bufferline = augroup("Disable Bufferline", { clear = true })
+autocmd("FileType", {
+  pattern = { "man", "alpha" },
   callback = function()
-    vim.opt_local.showtabline = 0
-    vim.opt_local.laststatus = 0
-    vim.api.nvim_create_autocmd("BufUnload", {
+    local old_laststatus = vim.opt.laststatus
+    local old_tabline = vim.opt.showtabline
+    autocmd("BufUnload", {
       buffer = 0,
       callback = function()
-        vim.opt_local.showtabline = 2
-        vim.opt_local.laststatus = 3
+        vim.opt.laststatus = old_laststatus
+        vim.opt.showtabline = old_tabline
       end,
       group = disable_bufferline,
     })
-  end,
-  group = disable_bufferline,
-})
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "man",
-  callback = function()
-    vim.opt_local.showtabline = 0
-    vim.api.nvim_create_autocmd("BufUnload", {
-      buffer = 0,
-      callback = function()
-        vim.opt_local.showtabline = 2
-      end,
-      group = disable_bufferline,
-    })
+    vim.opt.laststatus = 0
+    vim.opt.showtabline = 0
   end,
   group = disable_bufferline,
 })
 
 -- Use 'q' to quit from common plugins
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = {
-    "qf",
     "help",
     "man",
     "lspinfo",
@@ -89,7 +78,15 @@ vim.api.nvim_create_autocmd("FileType", {
     "null-ls-info",
   },
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", { silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "q", ":q<cr>", { silent = true })
+    vim.bo.buflisted = false
+  end,
+})
+
+autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "q", ":cclose<cr>", { silent = true })
     vim.bo.buflisted = false
   end,
 })
@@ -101,32 +98,30 @@ local appendLine = function()
   vim.fn.cursor(3, 0)
 end
 
-vim.api.nvim_create_autocmd("BufNewFile", {
-  pattern = { "*.sh", "*.bash" },
+local cmd = {
+  ["sh"] = "bash",
+  ["bash"] = "bash",
+  ["py"] = "python3",
+}
+
+autocmd("BufNewFile", {
+  pattern = { "*.sh", "*.bash", "*.py" },
   callback = function()
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env bash" })
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env " .. cmd[vim.fn.expand("%:e")] })
     appendLine()
   end,
 })
 
-vim.api.nvim_create_autocmd("BufNewFile", {
-  pattern = { ".py" },
-  callback = function()
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env python3" })
-    appendLine()
-  end,
-})
-
--- vim.api.nvim_create_autocmd({ "VimLeave" }, {
+-- autocmd("BufNewFile", {
+--   pattern = { ".py" },
 --   callback = function()
---     vim.api.nvim_exec("!~/.local/share/nvim/mason/bin/eslint_d stop", {})
+--     vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env python3" })
+--     appendLine()
 --   end,
 -- })
 
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   pattern = "qf",
+-- autocmd({ "VimLeave" }, {
 --   callback = function()
---     vim.api.nvim_buf_set_keymap(0, "n", "<cr>", "<cr>:cclose<cr>", { silent = true })
---     vim.bo.buflisted = false
+--     vim.api.nvim_exec("!~/.local/share/nvim/mason/bin/eslint_d stop", {})
 --   end,
 -- })

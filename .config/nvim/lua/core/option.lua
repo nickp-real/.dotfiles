@@ -97,9 +97,10 @@ local set_cursorline = function(event, value, pattern)
     end,
   })
 end
-set_cursorline("WinLeave", false)
-set_cursorline("WinEnter", true)
-set_cursorline("FileType", false, "TelescopePrompt")
+local no_cursor = { "TelescopePrompt", "alpha" }
+set_cursorline("WinLeave", false, no_cursor)
+set_cursorline("WinEnter", true, no_cursor)
+set_cursorline("FileType", false, no_cursor)
 
 -- Border and hide STL
 opt.fillchars = {
@@ -121,3 +122,6 @@ opt.fillchars = {
 
 -- env
 g.python3_host_prog = "/usr/bin/python3"
+
+-- Neotree
+g.neo_tree_remove_legacy_commands = 1

@@ -19,6 +19,7 @@ colorizer.setup({
   "!NvimTree",
 }, {
   css = true,
+  names = false,
 })
 
 -- Use the `default_options` as the second parameter, which uses

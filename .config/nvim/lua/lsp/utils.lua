@@ -3,6 +3,8 @@ local M = {}
 -- addon
 local doc_color_status_ok, doc_color = pcall(require, "document-color")
 local navic_status_ok, navic = pcall(require, "nvim-navic")
+local lsp_inlay_ok, lsp_inlayhints = pcall(require, "lsp-inlayhints")
+local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
 local auto_format = function(client, bufnr)
   local group = vim.api.nvim_create_augroup("format_on_save", { clear = false })
@@ -38,10 +40,6 @@ local lsp_mapping = function(bufnr)
   end, bufopts)
 end
 
-if not (doc_color_status_ok or navic_status_ok) then
-  return
-end
-
 local on_attach = function(client, bufnr)
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
@@ -75,12 +73,16 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  if client.server_capabilities.colorProvider then
+  if client.server_capabilities.colorProvider and doc_color_status_ok then
     doc_color.buf_attach(bufnr, { mode = "background" })
   end
 
-  if client.server_capabilities.documentSymbolProvider then
+  if client.server_capabilities.documentSymbolProvider and navic_status_ok then
     navic.attach(client, bufnr)
+  end
+
+  if lsp_inlay_ok then
+    lsp_inlayhints.on_attach(client, bufnr)
   end
 end
 
@@ -89,6 +91,16 @@ local no_format_on_attach = function(client, bufnr)
   client.server_capabilities.documentRangeFormattingProvider = false
   on_attach(client, bufnr)
 end
+
+if not cmp_nvim_lsp_status_ok then
+  return
+end
+local capabilities = cmp_nvim_lsp.default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 
 local flags = {
   allow_incremental_sync = true,
@@ -99,7 +111,7 @@ M.on_attach = on_attach
 M.lsp_mapping = lsp_mapping
 M.auto_format = auto_format
 M.no_format_on_attach = no_format_on_attach
-
+M.capabilities = capabilities
 M.flags = flags
 
 return M

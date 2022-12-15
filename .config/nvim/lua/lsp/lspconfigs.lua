@@ -1,6 +1,5 @@
 local lsp_config_status_ok, lspconfig = pcall(require, "lspconfig")
 local typescript_ok, typescript = pcall(require, "typescript")
-local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 if not lsp_config_status_ok then
   return
@@ -8,16 +7,6 @@ end
 
 local utils = require("lsp.utils")
 local root_pattern = require("lspconfig.util").root_pattern
-
-if not cmp_nvim_lsp_status_ok then
-  return
-end
-local capabilities = cmp_nvim_lsp.default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
 
 if lsp_signature_ok then
   local signature_config = {
@@ -27,7 +16,7 @@ if lsp_signature_ok then
 end
 
 local lsp_default = {
-  capabilities = capabilities,
+  capabilities = utils.capabilities,
   flags = utils.flags,
 }
 

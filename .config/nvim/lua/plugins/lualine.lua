@@ -95,10 +95,3 @@ lualine.setup({
     "man",
   },
 })
-
--- Hide Status Line, Lualine
-vim.cmd([[
-  hi StatusLine gui=NONE guifg=NONE guibg=NonText guisp=NonText
-  hi StatusLineNc gui=NONE guifg=NONE guibg=NonText guisp=NonText
-  hi WinSeparator guibg=None guifg=#393f4a
-]])

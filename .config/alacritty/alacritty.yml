@@ -69,7 +69,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 1.0
+  opacity: 0.85
 
   # Startup Mode (changes require restart)
   #
@@ -112,7 +112,7 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: Fantasquesans Mono Nerd Font Mono
+    family: FantasqueSansMono Nerd Font Mono
     style: Regular
 
   # Bold font face
@@ -136,7 +136,7 @@ font:
   # spacing.
   offset:
     x: 0
-    y: 0 
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
@@ -358,24 +358,24 @@ cursor:
     #   - | Beam
     shape: Block
 
-  # Cursor blinking state
-  #
-  # Values for `blinking`:
-  #   - Never: Prevent the cursor from ever blinking
-  #   - Off: Disable blinking by default
-  #   - On: Enable blinking by default
-  #   - Always: Force the cursor to always blink
+    # Cursor blinking state
+    #
+    # Values for `blinking`:
+    #   - Never: Prevent the cursor from ever blinking
+    #   - Off: Disable blinking by default
+    #   - On: Enable blinking by default
+    #   - Always: Force the cursor to always blink
     blinking: Always
 
-# Vi mode cursor style
-#
-# If the vi mode cursor style is `None` or not specified, it will fall back to
-# the style of the active value of the normal cursor.
-#
-# See `cursor.style` for available options.
-#vi_mode_style: None
+  # Vi mode cursor style
+  #
+  # If the vi mode cursor style is `None` or not specified, it will fall back to
+  # the style of the active value of the normal cursor.
+  #
+  # See `cursor.style` for available options.
+  #vi_mode_style: None
 
-# Cursor blinking interval in milliseconds.
+  # Cursor blinking interval in milliseconds.
   blink_interval: 1000
 
 # If this is `true`, the cursor will be rendered as a hollow box when the
@@ -405,7 +405,6 @@ shell:
     - --login
     - -c
     - "tmux attach || tmux"
-
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
@@ -418,18 +417,17 @@ shell:
 # Offer IPC using `alacritty msg` (unix only)
 #ipc_socket: true
 
-#mouse:
-# Click settings
-#
-# The `double_click` and `triple_click` settings control the time
-# alacritty should wait for accepting multiple clicks as one double
-# or triple click.
-#double_click: { threshold: 300 }
-#triple_click: { threshold: 300 }
+mouse:
+  # Click settings
+  #
+  # The `double_click` and `triple_click` settings control the time
+  # alacritty should wait for accepting multiple clicks as one double
+  # or triple click.
+  #double_click: { threshold: 300 }
+  #triple_click: { threshold: 300 }
 
-# If this is `true`, the cursor is temporarily hidden when typing.
-#hide_when_typing: false
-
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true
 # Regex hints
 #
 # Terminal hints can be used to find text in the visible part of the terminal

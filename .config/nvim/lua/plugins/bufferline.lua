@@ -20,8 +20,7 @@ bufferline.setup({
         text_align = "center",
       },
       {
-        filetype = "NvimTree",
-        text = "Nvim Tree",
+        filetype = "neo-tree",
         highlight = "Directory",
         text_align = "center",
       },

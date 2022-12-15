@@ -81,7 +81,6 @@ local handlers = {
 
 local on_attach = function(client, bufnr)
   utils.no_format_on_attach(client, bufnr)
-  require("lsp-inlayhints").on_attach(client, bufnr)
 end
 
 local settings = {

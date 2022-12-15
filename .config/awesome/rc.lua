@@ -26,6 +26,8 @@ require("core.error_handling")
 local theme = awful.util.getdir("config") .. "/theme/theme.lua"
 beautiful.init(theme)
 
+local app = require("core.app")
+
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nano"
@@ -46,12 +48,12 @@ awful.layout.layouts = {
 	-- awful.layout.suit.tile.top,
 	awful.layout.suit.floating,
 	-- awful.layout.suit.fair,
-	-- awful.layout.suit.fair.horizontal,
+	awful.layout.suit.fair.horizontal,
 	-- awful.layout.suit.spiral,
-	awful.layout.suit.spiral.dwindle,
+	-- awful.layout.suit.spiral.dwindle,
 	-- awful.layout.suit.max,
 	-- awful.layout.suit.max.fullscreen,
-	-- awful.layout.suit.magnifier,
+	awful.layout.suit.magnifier,
 	-- awful.layout.suit.corner.nw,
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
@@ -354,11 +356,11 @@ globalkeys = gears.table.join(
 
 	-- rofi
 	awful.key({ modkey }, "r", function()
-		awful.spawn("launcher_t1")
+		awful.spawn(app.defaultApp.rofi)
 	end, { description = "launch rofi", group = "launcher" }),
 	-- powermenu
 	awful.key({ modkey, "Shift" }, "Escape", function()
-		awful.spawn("powermenu_t3")
+		awful.spawn(app.defaultApp.powermenu)
 	end, { description = "launch powermenu", group = "launcher" }),
 
 	awful.key({ modkey }, "x", function()
@@ -638,7 +640,10 @@ end)
 -- }}}
 
 -- Auto Startup Program
-awful.spawn("flameshot")
-awful.spawn("copyq")
-awful.spawn.with_shell("picom &")
-awful.spawn.with_shell("libinput-gestures-setup start &")
+for _, program in ipairs(app.startUp) do
+	awful.spawn(program)
+end
+
+for _, program in ipairs(app.startUpWithShell) do
+	awful.spawn.with_shell(program)
+end

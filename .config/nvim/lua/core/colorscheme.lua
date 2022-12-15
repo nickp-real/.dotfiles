@@ -97,21 +97,21 @@ if not status_ok then
   return
 end
 
-local utils = require("onedarkpro.lib.color")
+local color = require("onedarkpro.lib.color")
+local colors = onedarkpro.get_colors("onedark")
 
 onedarkpro.setup({
-  caching = true, -- Use caching for the theme?
   colors = {
     onedark = {
-      telescope_prompt = utils.lighten(onedarkpro.get_colors("onedark").bg, 0.97),
-      telescope_results = utils.darken(onedarkpro.get_colors("onedark").bg, 0.85),
+      telescope_prompt = color.lighten(colors.bg, 0.97),
+      dark_gray = color.darken(colors.bg, 0.85),
     },
   }, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
   highlights = {
     diffAdded = { fg = "#109868" },
     TelescopeBorder = {
-      fg = "${telescope_results}",
-      bg = "${telescope_results}",
+      fg = "${dark_gray}",
+      bg = "${dark_gray}",
     },
     TelescopePromptBorder = {
       fg = "${telescope_prompt}",
@@ -128,20 +128,24 @@ onedarkpro.setup({
       bg = "${purple}",
     },
     TelescopePreviewTitle = {
-      fg = "${telescope_results}",
+      fg = "${dark_gray}",
       bg = "${green}",
     },
     TelescopeResultsTitle = {
-      fg = "${telescope_results}",
-      bg = "${telescope_results}",
+      fg = "${dark_gray}",
+      bg = "${dark_gray}",
     },
 
     TelescopeMatching = { fg = "${blue}" },
-    TelescopeNormal = { bg = "${telescope_results}" },
+    TelescopeNormal = { bg = "${dark_gray}" },
     TelescopeSelection = { bg = "${telescope_prompt}" },
 
     -- diffChanged = { fg = "e0af68" },
     -- diffRemoved = { fg = "#9a353d" },
+    AlphaHeader = { fg = "${yellow}" },
+    AlphaButtons = { fg = "${white}" },
+    AlphaShortcut = { fg = "${blue}" },
+    AlphaFooter = { fg = "${orange}" },
   },
   plugins = {
     nvim_ts_rainbow = false,
@@ -165,10 +169,10 @@ onedarkpro.setup({
     underline = true, -- Use the colorscheme's opinionated underline styles?
     undercurl = true, -- Use the colorscheme's opinionated undercurl styles?
     cursorline = true, -- Use cursorline highlighting?
-    transparency = false, -- Use a transparent background?
+    transparency = true, -- Use a transparent background?
     terminal_colors = false, -- Use the colorscheme's colors for Neovim's :terminal?
     window_unfocused_color = false, -- When the window is out of focus, change the normal background?
   },
 })
 
-vim.cmd("colorscheme onedarkpro")
+vim.cmd("colorscheme onedark")
