@@ -140,7 +140,7 @@ cmp.setup({
     --   col_offset = -3,
     --   side_padding = 0,
     -- },
-    completion = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
   formatting = {

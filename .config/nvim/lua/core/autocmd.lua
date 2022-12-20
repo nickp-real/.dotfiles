@@ -112,6 +112,23 @@ autocmd("BufNewFile", {
   end,
 })
 
+-- Save fold
+local save_fold = augroup("Remember Folds", { clear = true })
+autocmd("BufWinLeave", {
+  pattern = "*.*",
+  callback = function()
+    vim.cmd.mkview()
+  end,
+  group = save_fold,
+})
+autocmd("BufWinEnter", {
+  pattern = "*.*",
+  callback = function()
+    vim.cmd.loadview({ mods = { emsg_silent = true } })
+  end,
+  group = save_fold,
+})
+
 -- autocmd("BufNewFile", {
 --   pattern = { ".py" },
 --   callback = function()

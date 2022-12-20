@@ -3,6 +3,7 @@ local keymap_utils = require("keymap_utils")
 local nnoremap = keymap_utils.nnoremap
 local inoremap = keymap_utils.inoremap
 local vnoremap = keymap_utils.vnoremap
+local nvnoremap = keymap_utils.nvnoremap
 local xnoremap = keymap_utils.xnoremap
 local nxnoremap = keymap_utils.nxnoremap
 
@@ -27,16 +28,18 @@ nnoremap("i", function()
 end, { expr = true })
 
 -- delete a character without yank into register
-nnoremap("x", '"_x')
-nnoremap("X", '"_X')
-vnoremap("x", '"_x')
-vnoremap("X", '"_X')
+nvnoremap("x", '"_x')
+nvnoremap("X", '"_X')
 
 -- Don't yank on visual paste
 vnoremap("p", '"_dP')
 
 -- paste
 xnoremap("<leader>p", '"_dP')
+
+-- Yank to system clipboard
+nvnoremap("<leader>y", '"+y')
+nnoremap("<leader>Y", '"+Y')
 
 -- delete blank line without yank into register
 local function smart_dd()
@@ -47,14 +50,20 @@ local function smart_dd()
 end
 
 nnoremap("dd", smart_dd, { expr = true })
+-- delete without yank
+nvnoremap("<leader>d", '"_d')
 
 -- Delete buffer
-nnoremap("<C-c>", ":Bdelete<cr>")
-nnoremap("<C-q>", ":bd<cr>")
+nnoremap("<C-c>", vim.cmd.Bdelete)
+nnoremap("<C-q>", vim.cmd.bd)
 
 -- Increment/Decrement
 nnoremap("+", "<C-a>")
 nnoremap("-", "<C-x>")
+
+-- next block
+nnoremap("<down>", "}")
+nnoremap("<up>", "{")
 
 -- Ctrl-W to Alt
 nnoremap("<A-o>", "<C-w>o")
@@ -74,13 +83,6 @@ nnoremap("<A-Right>", ":vertical resize +2<cr>")
 nnoremap("<leader>te", ":tabedit<cr>")
 nnoremap("<leader>tq", ":tabclose<cr>")
 
--- Keep it center
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
-
--- Toggle the split/join the code block
-nnoremap("J", ":TSJToggle<cr>")
-
 -- Undo break points
 inoremap(",", ",<C-g>u")
 inoremap(".", ".<C-g>u")
@@ -98,6 +100,15 @@ vnoremap("K", ":m '<-2<CR>gv=gv")
 -- Select All Text
 nnoremap("<leader>a", ":keepjumps normal! ggVG<cr>")
 
+-- No Q
+nnoremap("Q", "<nop>")
+
+-- Subtitute current word
+nnoremap("<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false })
+
+-- chmod in vim
+nnoremap("<leader>x", ":!chmod +x %<cr>")
+
 -- Format Async on save
 vim.cmd([[cabbrev wq execute "lua vim.lsp.buf.format()" <bar> wq]])
 
@@ -108,8 +119,8 @@ nnoremap("]d", vim.diagnostic.goto_next)
 nnoremap("<space>q", vim.diagnostic.setloclist)
 
 -- Coderunner
-nnoremap("<leader>r", ":Run<cr>")
-nnoremap("<leader>R", ":RunUpdate<cr>")
+nnoremap("<leader>r", vim.cmd.Run)
+nnoremap("<leader>R", vim.cmd.RunUpdate)
 
 ------------
 -- Plugin --
@@ -143,6 +154,8 @@ nnoremap("s", ":HopChar1<cr>")
 nnoremap("S", ":HopWord<cr>")
 
 -- Hlslens
+nnoremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]])
+nnoremap("N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]])
 nxnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
 nxnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
 nxnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
@@ -153,6 +166,9 @@ nnoremap("zR", ":lua require('ufo').openAllFolds()<cr>")
 nnoremap("zM", ":lua require('ufo').closeAllFolds()<cr>")
 -- nnoremap("zr", ":lua require('ufo').openFoldsExceptKinds()<cr>")
 -- nnoremap("zm", ":lua require('ufo').closeFoldsWith(0)<cr>")
+
+-- Toggle the split/join the code block
+nnoremap("J", ":TSJToggle<cr>")
 
 -- ISwap
 nnoremap("<leader>sw", ":ISwap<cr>")
@@ -192,14 +208,14 @@ nnoremap("<leader>sl", ":SessionManager load_last_session<cr>")
 nnoremap("<leader>sn", ":SessionManager load_session<cr>")
 
 -- Git
-nnoremap("<leader>gs", ":Neogit<cr>")
+nnoremap("<leader>gs", vim.cmd.Neogit)
 -- nnoremap("<leader>gh" , ":diffget //2<cr>")
 -- nnoremap("<leader>gl" , ":diffget //3<cr>")
 
 -- Diffview
-nnoremap("<leader>ds", ":DiffviewOpen<cr>")
-nnoremap("<leader>df", ":DiffviewFileHistory %<cr>")
-nnoremap("<leader>dF", ":DiffviewFileHistory<cr>")
+nnoremap("<leader>gd", ":DiffviewOpen<cr>")
+nnoremap("<leader>gf", ":DiffviewFileHistory %<cr>")
+nnoremap("<leader>gF", ":DiffviewFileHistory<cr>")
 
 -- Neogen
 nnoremap("<leader>nf", ":Neogen func<cr>")
@@ -207,19 +223,18 @@ nnoremap("<leader>nc", ":Neogen class<cr>")
 nnoremap("<leader>nt", ":Neogen type<cr>")
 
 -- Bufferline
-nnoremap("<leader><Tab>", ":BufferLineMoveNext<CR>")
-nnoremap("<leader><S-Tab>", ":BufferLineMovePrev<CR>")
+nnoremap("<leader><Tab>", vim.cmd.BufferLineMoveNext)
+nnoremap("<leader><S-Tab>", vim.cmd.BufferLineMovePrev)
 
 -- SwapSplit
-nnoremap("<leader>sp", ":SwapSplit<cr>")
+nnoremap("<leader>sp", vim.cmd.SwapSplit)
 
 -- LSP line
 -- nnoremap("<Leader>l", ": lua require('lsp_lines').toggle<cr>")
 
 -- Duck
-local duck = require("duck")
-nnoremap("<leader>dd", duck.hatch)
-nnoremap("<leader>dk", duck.cook)
+nnoremap("<leader>mm", ":lua require('duck').hatch()<cr>")
+nnoremap("<leader>mk", ":lua require('duck').cook()<cr>")
 
 -- Dap
 local dap = require("dap")
@@ -231,3 +246,6 @@ nnoremap("<leader>b", dap.toggle_breakpoint)
 nnoremap("<leader>B", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
 nnoremap("<leader>lp", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
 nnoremap("<leader>dr", dap.repl.open)
+
+-- UndoTree
+nnoremap("<leader>u", vim.cmd.UndotreeToggle)

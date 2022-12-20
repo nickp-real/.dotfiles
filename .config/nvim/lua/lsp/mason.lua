@@ -5,8 +5,7 @@ end
 
 mason.setup({
   ui = {
-
-    border = "rounded",
+    -- border = "rounded",
     icons = {
       package_installed = "",
       package_pending = "",

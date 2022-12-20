@@ -4,17 +4,29 @@ if not status_ok then
 end
 
 local onedark = {
-  bg = "#2c323c",
   fg = "#abb2bf",
-  yellow = "#e5c07b",
-  cyan = "#56b6c2",
-  darkblue = "#528bff",
+  bg = "#282c34",
   green = "#98c379",
+  yellow = "#e5c07b",
+  purple = "#c678dd",
   orange = "#d19a66",
-  violet = "#b294bb",
-  magenta = "#ff80ff",
-  blue = "#61afef",
-  red = "#e88388",
+  peanut = "#f6d5a4",
+  red = "#e06c75",
+  aqua = "#61afef",
+  darkblue = "#22252C",
+  dark_red = "#f75f5f",
+  cyan = "#56b6c2",
+}
+
+local vi_mode_colors = {
+  NORMAL = "green",
+  OP = "green",
+  INSERT = "yellow",
+  VISUAL = "purple",
+  LINES = "orange",
+  BLOCK = "dark_red",
+  REPLACE = "red",
+  COMMAND = "aqua",
 }
 
 local c = {
@@ -81,7 +93,7 @@ local c = {
     provider = {
       name = "file_info",
       opts = {
-        type = "relative-short",
+        type = "base-only",
       },
     },
     hl = {
@@ -105,22 +117,28 @@ local c = {
   diagnostic_hints = {
     provider = "diagnostic_hints",
     hl = {
-      fg = "aqua",
+      fg = "cyan",
+    },
+    icon = {
+      str = " ",
     },
   },
   diagnostic_info = {
     provider = "diagnostic_info",
-  },
-  lsp_client_names = {
-    provider = "lsp_client_names",
     hl = {
-      fg = "purple",
-      bg = "darkblue",
-      style = "bold",
+      fg = "aqua",
     },
-    left_sep = "left_filled",
-    right_sep = "block",
   },
+  -- lsp_client_names = {
+  --   provider = "lsp_client_names",
+  --   hl = {
+  --     fg = "purple",
+  --     bg = "darkblue",
+  --     style = "bold",
+  --   },
+  --   left_sep = "left_filled",
+  --   right_sep = "block",
+  -- },
   file_type = {
     provider = {
       name = "file_type",
@@ -134,7 +152,7 @@ local c = {
       bg = "darkblue",
       style = "bold",
     },
-    left_sep = "block",
+    left_sep = "left_filled",
     right_sep = "block",
   },
   file_encoding = {
@@ -194,7 +212,7 @@ local middle = {
 }
 
 local right = {
-  c.lsp_client_names,
+  -- c.lsp_client_names,
   c.file_type,
   c.file_encoding,
   c.position,
@@ -216,8 +234,7 @@ local components = {
 }
 
 feline.setup({
-  -- components = components,
+  components = components,
   theme = onedark,
+  vi_mode_colors = vi_mode_colors,
 })
-
--- feline.winbar.setup()

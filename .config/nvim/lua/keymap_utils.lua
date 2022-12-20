@@ -13,6 +13,7 @@ local nnoremap = bind("n")
 local vnoremap = bind("v")
 local xnoremap = bind("x")
 local inoremap = bind("i")
+local nvnoremap = bind({ "n", "v" })
 local nxnoremap = bind({ "n", "x" })
 local nxonoremap = bind({ "n", "x", "o" })
 
@@ -22,6 +23,7 @@ M.nnoremap = nnoremap
 M.vnoremap = vnoremap
 M.xnoremap = xnoremap
 M.inoremap = inoremap
+M.nvnoremap = nvnoremap
 M.nxnoremap = nxnoremap
 M.nxonoremap = nxonoremap
 

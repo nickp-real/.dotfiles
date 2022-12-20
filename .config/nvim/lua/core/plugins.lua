@@ -301,10 +301,10 @@ return packer.startup({
         event = "BufRead",
         module = "lspconfig",
         requires = {
-          "b0o/SchemaStore.nvim",
-          "jose-elias-alvarez/typescript.nvim",
           "ray-x/lsp_signature.nvim",
           "mrshmllow/document-color.nvim",
+          "b0o/SchemaStore.nvim",
+          "jose-elias-alvarez/typescript.nvim",
           {
             "SmiteshP/nvim-navic",
             requires = "neovim/nvim-lspconfig",
@@ -550,6 +550,8 @@ return packer.startup({
       end,
     })
 
+    use({ "mbbill/undotree", cmd = "UndotreeToggle" })
+
     ---------
     -- Git --
     ---------
@@ -557,7 +559,8 @@ return packer.startup({
     use({
       "TimUntersberger/neogit",
       requires = "nvim-lua/plenary.nvim",
-      event = "CursorHold",
+      -- event = "CursorHold",
+      cmd = "Neogit",
       config = function()
         require("plugins.neogit")
       end,
@@ -672,13 +675,12 @@ return packer.startup({
     })
 
     -- Search
-    use({ "haya14busa/vim-asterisk", event = "CursorHold" })
+    use({ "haya14busa/vim-asterisk", key = { "*", "#", "g*", "g#" } })
 
     -- for highlight
     use({
       "kevinhwang91/nvim-hlslens",
-      after = "vim-asterisk",
-      event = "CursorHold",
+      key = { "n", "N", "/", "?" },
       config = function()
         require("plugins.hlslens")
       end,
@@ -699,6 +701,7 @@ return packer.startup({
     -- Duck over your code!
     use({
       "tamton-aquib/duck.nvim",
+      module = "duck",
     })
 
     if PACKER_BOOSTRAP then

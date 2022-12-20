@@ -17,6 +17,9 @@ M.settings = {
       enable = true,
       setType = true,
     },
+    completion = {
+      callSnippet = "Replace",
+    },
   },
 }
 

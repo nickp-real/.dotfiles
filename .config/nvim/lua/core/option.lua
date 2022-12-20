@@ -17,6 +17,7 @@ opt.swapfile = false
 opt.title = true
 opt.wildoptions = "pum"
 opt.winfixwidth = true
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
 
 -- UI
@@ -56,7 +57,7 @@ opt.inccommand = "split"
 
 -- text thing
 opt.linebreak = true
-opt.textwidth = 80
+opt.wrap = true
 opt.whichwrap:append("<,>,[,],h,l")
 
 -- Performance
@@ -84,7 +85,7 @@ g.clipboard = {
   },
   cache_enabled = 0,
 }
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 
 -- Cursor Line on each window
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })

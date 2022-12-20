@@ -4,5 +4,5 @@ if not status_ok then
 end
 
 treesj.setup({
-  use_default_keymap = false,
+  use_default_keymaps = false,
 })

@@ -16,10 +16,10 @@ tmux.setup({
     enable_default_keybindings = false,
 
     -- sets resize steps for x axis
-    resize_step_x = 5,
+    resize_step_x = 10,
 
     -- sets resize steps for y axis
-    resize_step_y = 5,
+    resize_step_y = 10,
   },
 })
 
