@@ -112,7 +112,7 @@ autocmd("BufNewFile", {
   end,
 })
 
--- Save fold
+-- Persistent folds
 local save_fold = augroup("Remember Folds", { clear = true })
 autocmd("BufWinLeave", {
   pattern = "*.*",

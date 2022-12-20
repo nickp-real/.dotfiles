@@ -99,6 +99,8 @@ case ${chosen} in
 			betterlockscreen -l
 		elif [[ -x '/usr/bin/i3lock' ]]; then
 			i3lock
+		elif [[ -x '/usr/bin/slock' ]]; then
+      slock
 		fi
         ;;
     $suspend)
