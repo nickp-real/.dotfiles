@@ -86,7 +86,6 @@ return packer.startup({
       -- Bufferline
       {
         "akinsho/bufferline.nvim",
-        tag = "v2.*",
         requires = "nvim-web-devicons",
         after = "theme",
         config = function()
@@ -308,6 +307,7 @@ return packer.startup({
           {
             "SmiteshP/nvim-navic",
             requires = "neovim/nvim-lspconfig",
+            module = "nvim-navic",
             config = function()
               require("plugins.nvim-navic")
             end,

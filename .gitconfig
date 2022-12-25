@@ -6,6 +6,7 @@
 [core]
 	autocrlf = input
 	editor = nvim
+  pager = delta
 # define command which will be used when "nvim" is set as a merge tool
 [mergetool "nvim"]
   cmd = nvim -f -c \"DiffviewOpen\" 
@@ -24,3 +25,13 @@
 	ui = true
 [advice]
   addIgnoredFile = false
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[diff]
+    colorMoved = default

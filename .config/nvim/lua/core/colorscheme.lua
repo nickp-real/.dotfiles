@@ -150,6 +150,8 @@ onedarkpro.setup({
     NormalFloat = { bg = "${dark_gray}" },
     FloatBorder = { bg = "${dark_gray}", fg = "${gray}" },
 
+    NavicText = { fg = "${fg}" },
+
     -- rainbowcol1 = { fg = "#abb2bf" }, -- bright white
     -- rainbowcol2 = { fg = "#c678dd" }, -- purple
     -- rainbowcol3 = { fg = "#61afef" }, -- blue

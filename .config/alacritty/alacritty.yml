@@ -69,7 +69,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.8
+  opacity: 0.65
 
   # Startup Mode (changes require restart)
   #
@@ -112,8 +112,8 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: FantasqueSansMono Nerd Font Mono
-    style: Regular
+    family: Iosevka Nerd Font Mono
+    style: Medium
 
   # Bold font face
   bold:
@@ -121,7 +121,7 @@ font:
 
   # Italic font face
   italic:
-    style: Italic
+    style: Medium Italic
 
   # Bold italic font face
   bold_italic:

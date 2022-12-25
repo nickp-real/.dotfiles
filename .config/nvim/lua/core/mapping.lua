@@ -109,9 +109,6 @@ nnoremap("<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { 
 -- chmod in vim
 nnoremap("<leader>x", ":!chmod +x %<cr>")
 
--- Format Async on save
-vim.cmd([[cabbrev wq execute "lua vim.lsp.buf.format()" <bar> wq]])
-
 -- LSP
 nnoremap("<space>e", vim.diagnostic.open_float)
 nnoremap("[d", vim.diagnostic.goto_prev)

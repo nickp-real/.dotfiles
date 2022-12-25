@@ -16,6 +16,7 @@ local onedark = {
   darkblue = "#22252C",
   dark_red = "#f75f5f",
   cyan = "#56b6c2",
+  none = "NONE",
 }
 
 local vi_mode_colors = {
@@ -120,7 +121,7 @@ local c = {
       fg = "cyan",
     },
     icon = {
-      str = " ",
+      str = "  ",
     },
   },
   diagnostic_info = {
@@ -233,8 +234,52 @@ local components = {
   },
 }
 
+local wc = {
+  navic = {
+    provider = function()
+      return require("nvim-navic").get_location()
+    end,
+    enabled = function()
+      return require("nvim-navic").is_available()
+    end,
+    left_sep = "   ",
+  },
+}
+
+local winbar_components = {
+  active = {
+    { wc.navic, {}, {} },
+  },
+}
+
 feline.setup({
   components = components,
   theme = onedark,
   vi_mode_colors = vi_mode_colors,
+
+  filetypes = {
+    "^NvimTree$",
+    "^packer$",
+    "^startify$",
+    "^fugitive$",
+    "^fugitiveblame$",
+    "^qf$",
+    "^help$",
+    "^alpha$",
+  },
 })
+
+-- feline.winbar.setup({
+--   components = winbar_components,
+
+--   filetypes = {
+--     "^NvimTree$",
+--     "^packer$",
+--     "^startify$",
+--     "^fugitive$",
+--     "^fugitiveblame$",
+--     "^qf$",
+--     "^help$",
+--     "^alpha$",
+--   },
+-- })

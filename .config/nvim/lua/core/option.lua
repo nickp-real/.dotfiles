@@ -1,5 +1,4 @@
 local opt = vim.opt
-local opt_local = vim.opt_local
 local g = vim.g
 
 -- Config
@@ -86,22 +85,6 @@ g.clipboard = {
   cache_enabled = 0,
 }
 -- opt.clipboard = "unnamedplus"
-
--- Cursor Line on each window
-local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
-local set_cursorline = function(event, value, pattern)
-  vim.api.nvim_create_autocmd(event, {
-    group = group,
-    pattern = pattern,
-    callback = function()
-      opt_local.cursorline = value
-    end,
-  })
-end
-local no_cursor = { "TelescopePrompt", "alpha" }
-set_cursorline("WinLeave", false, no_cursor)
-set_cursorline("WinEnter", true, no_cursor)
-set_cursorline("FileType", false, no_cursor)
 
 -- Border and hide STL
 opt.fillchars = {

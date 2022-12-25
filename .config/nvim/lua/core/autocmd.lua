@@ -112,8 +112,8 @@ autocmd("BufNewFile", {
   end,
 })
 
--- Persistent folds
-local save_fold = augroup("Remember Folds", { clear = true })
+-- Persistent Folds
+local save_fold = augroup("Persistent Folds", { clear = true })
 autocmd("BufWinLeave", {
   pattern = "*.*",
   callback = function()
@@ -129,13 +129,20 @@ autocmd("BufWinEnter", {
   group = save_fold,
 })
 
--- autocmd("BufNewFile", {
---   pattern = { ".py" },
---   callback = function()
---     vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env python3" })
---     appendLine()
---   end,
--- })
+-- Cursor Line on each window
+local cursorline = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
+local set_cursorline = function(event, value, pattern)
+  vim.api.nvim_create_autocmd(event, {
+    group = cursorline,
+    pattern = pattern,
+    callback = function()
+      vim.opt_local.cursorline = value
+    end,
+  })
+end
+set_cursorline("WinLeave", false)
+set_cursorline("WinEnter", true)
+set_cursorline("FileType", false, { "TelescopePrompt", "alpha" })
 
 -- autocmd({ "VimLeave" }, {
 --   callback = function()

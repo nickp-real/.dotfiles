@@ -7,7 +7,7 @@ local lsp_inlay_ok, lsp_inlayhints = pcall(require, "lsp-inlayhints")
 local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
 local auto_format = function(client, bufnr)
-  local group = vim.api.nvim_create_augroup("format_on_save", { clear = false })
+  local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
   vim.api.nvim_create_autocmd("BufWritePre", {
     buffer = bufnr,
     callback = function()

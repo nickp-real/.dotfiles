@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 navic.setup({
-  highlight = false,
+  highlight = true,
   separator = " > ",
   depth_limit = 0,
   depth_limit_indicator = "..",
