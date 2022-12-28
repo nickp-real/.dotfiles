@@ -5,7 +5,6 @@ local inoremap = keymap_utils.inoremap
 local vnoremap = keymap_utils.vnoremap
 local nvnoremap = keymap_utils.nvnoremap
 local xnoremap = keymap_utils.xnoremap
-local nxnoremap = keymap_utils.nxnoremap
 
 -- Spacebar to nothing
 nnoremap("<Space>", "<Nop>")
@@ -64,6 +63,10 @@ nnoremap("-", "<C-x>")
 -- next block
 nnoremap("<down>", "}")
 nnoremap("<up>", "{")
+
+-- keep cursor at the middle while searching
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
 
 -- Ctrl-W to Alt
 nnoremap("<A-o>", "<C-w>o")
@@ -150,14 +153,6 @@ nnoremap("<S-Tab>", ":BufferLineCyclePrev<CR>")
 nnoremap("s", ":HopChar1<cr>")
 nnoremap("S", ":HopWord<cr>")
 
--- Hlslens
-nnoremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]])
-nnoremap("N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]])
-nxnoremap("*", [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]])
-nxnoremap("#", [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]])
-nxnoremap("g*", [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]])
-nxnoremap("g#", [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]])
-
 -- UFO
 nnoremap("zR", ":lua require('ufo').openAllFolds()<cr>")
 nnoremap("zM", ":lua require('ufo').closeAllFolds()<cr>")
@@ -204,11 +199,6 @@ nnoremap("<leader>so", ":SymbolsOutline<cr>")
 nnoremap("<leader>sl", ":SessionManager load_last_session<cr>")
 nnoremap("<leader>sn", ":SessionManager load_session<cr>")
 
--- Git
-nnoremap("<leader>gs", vim.cmd.Neogit)
--- nnoremap("<leader>gh" , ":diffget //2<cr>")
--- nnoremap("<leader>gl" , ":diffget //3<cr>")
-
 -- Diffview
 nnoremap("<leader>gd", ":DiffviewOpen<cr>")
 nnoremap("<leader>gf", ":DiffviewFileHistory %<cr>")
@@ -232,17 +222,6 @@ nnoremap("<leader>sp", vim.cmd.SwapSplit)
 -- Duck
 nnoremap("<leader>mm", ":lua require('duck').hatch()<cr>")
 nnoremap("<leader>mk", ":lua require('duck').cook()<cr>")
-
--- Dap
-local dap = require("dap")
-nnoremap("<F5>", dap.continue)
-nnoremap("<F10>", dap.step_over)
-nnoremap("<F11>", dap.step_into)
-nnoremap("<F12>", dap.step_out)
-nnoremap("<leader>b", dap.toggle_breakpoint)
-nnoremap("<leader>B", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
-nnoremap("<leader>lp", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
-nnoremap("<leader>dr", dap.repl.open)
 
 -- UndoTree
 nnoremap("<leader>u", vim.cmd.UndotreeToggle)

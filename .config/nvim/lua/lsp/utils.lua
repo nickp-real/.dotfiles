@@ -1,11 +1,5 @@
 local M = {}
 
--- addon
-local doc_color_status_ok, doc_color = pcall(require, "document-color")
-local navic_status_ok, navic = pcall(require, "nvim-navic")
-local lsp_inlay_ok, lsp_inlayhints = pcall(require, "lsp-inlayhints")
-local cmp_nvim_lsp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-
 local auto_format = function(client, bufnr)
   local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
   vim.api.nvim_create_autocmd("BufWritePre", {
@@ -73,17 +67,15 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  if client.server_capabilities.colorProvider and doc_color_status_ok then
-    doc_color.buf_attach(bufnr, { mode = "background" })
+  if client.server_capabilities.colorProvider then
+    require("document-color").buf_attach(bufnr, { mode = "background" })
   end
 
-  if client.server_capabilities.documentSymbolProvider and navic_status_ok then
-    navic.attach(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
   end
 
-  if lsp_inlay_ok then
-    lsp_inlayhints.on_attach(client, bufnr)
-  end
+  require("lsp-inlayhints").on_attach(client, bufnr)
 end
 
 local no_format_on_attach = function(client, bufnr)
@@ -92,10 +84,8 @@ local no_format_on_attach = function(client, bufnr)
   on_attach(client, bufnr)
 end
 
-if not cmp_nvim_lsp_status_ok then
-  return
-end
-local capabilities = cmp_nvim_lsp.default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
@@ -115,22 +105,3 @@ M.capabilities = capabilities
 M.flags = flags
 
 return M
-
--- Deprecated
--- M.custom_diagnostic_hide = function(bufnr)
---   local diag_group = vim.api.nvim_create_augroup("null-ls diagnostics", { clear = false })
---   vim.api.nvim_create_autocmd("InsertCharPre", {
---     buffer = bufnr,
---     callback = function()
---       vim.diagnostic.hide(nil, bufnr)
---     end,
---     group = diag_group,
---   })
---   vim.api.nvim_create_autocmd("InsertLeavePre", {
---     buffer = bufnr,
---     callback = function()
---       vim.diagnostic.show(nil, bufnr)
---     end,
---     group = diag_group,
---   })
--- end

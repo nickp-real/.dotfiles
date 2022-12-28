@@ -91,27 +91,6 @@ autocmd("FileType", {
   end,
 })
 
--- Add shebang add the top of the .sh, .py file
-local appendLine = function()
-  vim.fn.append(1, "")
-  vim.fn.append(2, "")
-  vim.fn.cursor(3, 0)
-end
-
-local cmd = {
-  ["sh"] = "bash",
-  ["bash"] = "bash",
-  ["py"] = "python3",
-}
-
-autocmd("BufNewFile", {
-  pattern = { "*.sh", "*.bash", "*.py" },
-  callback = function()
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "#!/usr/bin/env " .. cmd[vim.fn.expand("%:e")] })
-    appendLine()
-  end,
-})
-
 -- Persistent Folds
 local save_fold = augroup("Persistent Folds", { clear = true })
 autocmd("BufWinLeave", {

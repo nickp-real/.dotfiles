@@ -1,9 +1,9 @@
-local status_ok, tabout = pcall(require, "tabout")
-if not status_ok then
-  return
-end
+local M = {
+  "abecodes/tabout.nvim",
+  keys = { { "<Tab>", mode = "i" }, { "<S-Tab>", mode = "i" } },
+}
 
-tabout.setup({
+M.config = {
   act_as_shift_tab = true,
   tabouts = {
     { open = "'", close = "'" },
@@ -14,4 +14,6 @@ tabout.setup({
     { open = "{", close = "}" },
     { open = '["', close = '"]' },
   },
-})
+}
+
+return M

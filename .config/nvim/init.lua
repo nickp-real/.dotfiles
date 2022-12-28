@@ -1,14 +1,14 @@
--- Fast Startup
-require("plugins.impatient")
-
 -- Core
-require("core.disable_builtin")
 require("core.option")
-require("core.plugins")
-require("core.mapping")
-require("core.colorscheme")
+require("core.lazy")
 require("core.autocmd")
-require("core.user_cmd")
-vim.schedule(function()
-  require("core.coderunner")
-end)
+require("util.auto_shebang")
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    require("core.mapping")
+    require("core.user_cmd")
+    require("util.coderunner")
+  end,
+})

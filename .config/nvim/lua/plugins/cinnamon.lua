@@ -1,10 +1,12 @@
-local status_ok, cinnamon = pcall(require, "cinnamon")
-if not status_ok then
-  return
-end
+local M = {
+  "declancm/cinnamon.nvim",
+  event = "BufReadPost",
+}
 
-cinnamon.setup({
+M.config = {
   extra_keymap = true,
   exteded_keymap = true,
   -- override_keymap = true,
-})
+}
+
+return M

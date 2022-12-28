@@ -1,9 +1,12 @@
-local status_ok, fidget = pcall(require, "fidget")
-if not status_ok then
-  return
-end
-fidget.setup({
+local M = {
+  "j-hui/fidget.nvim",
+  event = "BufReadPre",
+}
+
+M.config = {
   window = {
     blend = 0,
   },
-})
+}
+
+return M

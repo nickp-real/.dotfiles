@@ -1,9 +1,9 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
-  return
-end
+local M = {
+  "akinsho/bufferline.nvim",
+  event = "BufReadPre",
+}
 
-bufferline.setup({
+M.config = {
   options = {
     diagnostics = "nvim_lsp",
     diagnostics_update_in_insert = false,
@@ -31,4 +31,6 @@ bufferline.setup({
       fg = "#61afef",
     },
   },
-})
+}
+
+return M

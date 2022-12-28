@@ -1,50 +1,39 @@
-local status_ok, colorizer = pcall(require, "colorizer")
-if not status_ok then
-  return
-end
+local M = {
+  "NvChad/nvim-colorizer.lua",
+  event = "BufReadPre",
+}
 
--- Attach to certain Filetypes, add special configuration for `html`
--- Use `background` for everything else.
-colorizer.setup({
-  "*",
-  "!css",
-  "!html",
-  "!tsx",
-  "!typescriptreact",
-  "!jsx",
-  "!javascriptreact",
-  "!dart",
-  "!packer",
-  "!TelescopePrompt",
-  "!NvimTree",
-}, {
-  css = true,
-  names = false,
-})
+M.config = {
+  filetypes = {
+    "*",
+    "!css",
+    "!html",
+    "!tsx",
+    "!typescriptreact",
+    "!jsx",
+    "!javascriptreact",
+    "!dart",
+    "!packer",
+    "!lazy",
+    "!TelescopePrompt",
+    "!NvimTree",
+  },
+  buftype = { "*", "!prompt", "!nofile" },
+  user_default_options = {
+    RGB = true, -- #RGB hex codes
+    RRGGBB = true, -- #RRGGBB hex codes
+    names = false, -- "Name" codes like Blue
+    RRGGBBAA = true, -- #RRGGBBAA hex codes
+    AARRGGBB = false, -- 0xAARRGGBB hex codes
+    rgb_fn = true, -- CSS rgb() and rgba() functions
+    hsl_fn = true, -- CSS hsl() and hsla() functions
+    css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+    css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+    -- Available modes: foreground, background
+    -- Available modes for `mode`: foreground, background,  virtualtext
+    mode = "background", -- Set the display mode.
+    virtualtext = "■",
+  },
+}
 
--- Use the `default_options` as the second parameter, which uses
--- `foreground` for every mode. This is the inverse of the previous
--- setup configuration.
--- colorizer.setup({
---   'css';
---   'javascript';
---   html = { mode = 'background' };
--- }, { mode = 'foreground' })
-
--- Use the `default_options` as the second parameter, which uses
--- `foreground` for every mode. This is the inverse of the previous
--- setup configuration.
--- colorizer.setup({
--- 	"*", -- Highlight all files, but customize some others.
--- 	"!dart",
--- 	css = { rgb_fn = true }, -- Enable parsing rgb(...) functions in css.
--- 	html = { names = false }, -- Disable parsing "names" like Blue or Gray
--- })
-
--- Exclude some filetypes from highlighting by using `!`
--- colorizer.setup({
--- 	"*", -- Highlight all files, but customize some others.
--- 	"!vim", -- Exclude vim from highlighting.
--- 	"!dart",
--- 	-- Exclusion Only makes sense if '*' is specified!
--- })
+return M

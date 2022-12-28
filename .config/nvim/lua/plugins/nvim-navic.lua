@@ -1,11 +1,12 @@
-local status_ok, navic = pcall(require, "nvim-navic")
-if not status_ok then
-  return
-end
+local M = {
+  "SmiteshP/nvim-navic",
+}
 
-navic.setup({
+M.config = {
   highlight = true,
   separator = " > ",
   depth_limit = 0,
   depth_limit_indicator = "..",
-})
+}
+
+return M

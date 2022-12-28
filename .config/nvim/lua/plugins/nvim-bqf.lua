@@ -1,11 +1,13 @@
-local status_ok, bqf = pcall(require, "bqf")
-if not status_ok then
-  return
-end
+local M = {
+  "kevinhwang91/nvim-bqf",
+  ft = "qf",
+}
 
-bqf.setup({
+M.config = {
   func_map = {
     open = "",
-    openc = "<cr>",
+    openc = "<CR>",
   },
-})
+}
+
+return M

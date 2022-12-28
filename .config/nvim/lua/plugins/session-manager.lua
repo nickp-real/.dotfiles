@@ -1,7 +1,10 @@
-local status_ok, session_manager = pcall(require, "session_manager")
-if not status_ok then
-  return
-end
+local M = {
+    "Shatur/neovim-session-manager",
+    cmd = "SessionManager",
+  }
+
+function M.config()
+local session_manager = require("session_manager")
 
 local Path = require("plenary.path")
 session_manager.setup({
@@ -16,3 +19,6 @@ session_manager.setup({
   },
   autosave_only_in_session = true, -- Always autosaves session. If true, only autosaves after a session is active.
 })
+end
+
+return M

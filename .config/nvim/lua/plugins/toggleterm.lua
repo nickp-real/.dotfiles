@@ -1,9 +1,9 @@
-local status_ok, toggle_term = pcall(require, "toggleterm")
-if not status_ok then
-  return
-end
+local M = {
+  "akinsho/toggleterm.nvim",
+  event = "VeryLazy",
+}
 
-toggle_term.setup({
+M.config = {
   -- size can be a number or function which is passed the current terminal
   size = function(term) -- size = 20,
     if term.direction == "horizontal" then
@@ -41,4 +41,6 @@ toggle_term.setup({
       background = "Normal",
     },
   },
-})
+}
+
+return M

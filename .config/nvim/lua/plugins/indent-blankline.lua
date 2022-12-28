@@ -1,9 +1,9 @@
-local status_ok, indent_blankline = pcall(require, "indent_blankline")
-if not status_ok then
-  return
-end
+local M = {
+  "lukas-reineke/indent-blankline.nvim",
+  event = "BufReadPre",
+}
 
-indent_blankline.setup({
+M.config = {
   char = "▎",
   context_char = "▎",
   show_current_context = true,
@@ -24,4 +24,6 @@ indent_blankline.setup({
   },
   show_trailing_blankline_indent = false,
   show_first_indent_level = false,
-})
+}
+
+return M

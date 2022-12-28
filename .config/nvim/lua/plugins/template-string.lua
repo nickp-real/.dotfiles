@@ -1,13 +1,16 @@
-local status_ok, template_string = pcall(require, "template-string")
-if not status_ok then
-  return
-end
+local M = {
+  "axelvc/template-string.nvim",
+  keys = "$",
+  ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+}
 
-template_string.setup({
+M.config = {
   remove_template_string = true, -- remove backticks when there are no template string
   restore_quotes = {
     -- quotes used when "remove_template_string" option is enabled
     normal = [["]],
     jsx = [["]],
   },
-})
+}
+
+return M

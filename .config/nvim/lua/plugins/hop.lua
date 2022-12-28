@@ -1,7 +1,13 @@
-local status_ok, hop = pcall(require, "hop")
-if not status_ok then
-  return
+local M = {
+  "phaazon/hop.nvim",
+  branch = "v2", -- optional but strongly recommended
+  cmd = { "HopChar1", "HopWord" },
+}
+
+function M.init()
+  -- TODO: add init cmd key
 end
 
--- you can configure Hop the way you like here; see :h hop-config
-hop.setup({ keys = "etovxqpdygfblzhckisuran" })
+M.config = { keys = "etovxqpdygfblzhckisuran" }
+
+return M
