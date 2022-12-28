@@ -26,7 +26,7 @@ function M.config()
     },
   })
 
-  local keymap_utils = require("keymap_utils")
+  local keymap_utils = require("utils.keymap_utils")
   local nnoremap = keymap_utils.nnoremap
 
   -- navigation

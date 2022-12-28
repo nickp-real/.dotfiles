@@ -1,5 +1,5 @@
 -- Var
-local keymap_utils = require("keymap_utils")
+local keymap_utils = require("utils.keymap_utils")
 local nnoremap = keymap_utils.nnoremap
 local inoremap = keymap_utils.inoremap
 local vnoremap = keymap_utils.vnoremap

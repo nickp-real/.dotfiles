@@ -1,4 +1,4 @@
-local cmd = require("util.coderunner.command")
+local cmd = require("utils.coderunner.command")
 local utils = require("utils")
 
 -- Run on save

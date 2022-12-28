@@ -1,6 +1,6 @@
 local M = {
   "monaqa/dial.nvim",
-  keys = {"<C-a>", "<C-x>"}
+  keys = { "<C-a>", "<C-x>" },
 }
 
 function M.config()
@@ -15,7 +15,7 @@ function M.config()
     },
   })
 
-  local keymap_utils = require("keymap_utils")
+  local keymap_utils = require("utils.keymap_utils")
   local nnoremap = keymap_utils.nnoremap
   local vnoremap = keymap_utils.vnoremap
 
