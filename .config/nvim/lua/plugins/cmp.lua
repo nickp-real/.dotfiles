@@ -1,6 +1,6 @@
 local M = {
   "hrsh7th/nvim-cmp",
-  event = { "InsertEnter", "CmdLineEnter" },
+  event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     "lukas-reineke/cmp-under-comparator",
     "saadparwaiz1/cmp_luasnip",
@@ -210,7 +210,6 @@ function M.config()
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = "path" },
-    }, {
       { name = "cmdline" },
     }),
   })

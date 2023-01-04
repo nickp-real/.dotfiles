@@ -6,17 +6,8 @@ local M = {
 M.config = {
   filetypes = {
     "*",
-    "!css",
-    "!html",
-    "!tsx",
-    "!typescriptreact",
-    "!jsx",
-    "!javascriptreact",
-    "!dart",
     "!packer",
     "!lazy",
-    "!TelescopePrompt",
-    "!NvimTree",
   },
   buftype = { "*", "!prompt", "!nofile" },
   user_default_options = {

@@ -30,6 +30,7 @@ function M.config()
     ensure_installed = "all",
     highlight = {
       enable = true,
+      disable = { "latex" },
       additional_vim_regex_highlighting = false,
     },
     indent = {

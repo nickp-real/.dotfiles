@@ -21,6 +21,7 @@ M.config = {
       },
       {
         filetype = "neo-tree",
+        text = "Neo Tree",
         highlight = "Directory",
         text_align = "center",
       },

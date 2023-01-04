@@ -12,7 +12,7 @@ autocmd("TextYankPost", {
 
 -- Format Option
 local format_options = augroup("Format Options", { clear = true })
-autocmd("FileType", {
+autocmd("BufReadPost", {
   callback = function()
     vim.opt_local.formatoptions = vim.opt_local.formatoptions
       - "a" -- Auto formatting is BAD.
@@ -38,7 +38,7 @@ autocmd("TermOpen", {
 })
 
 autocmd("FileType", {
-  pattern = { "html", "markdown", "text" },
+  pattern = { "markdown", "text" },
   callback = function()
     vim.opt_local.spell = true
   end,
@@ -108,10 +108,21 @@ autocmd("BufWinEnter", {
   group = save_fold,
 })
 
+-- Persistent Cursor
+autocmd("BufReadPost", {
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
 -- Cursor Line on each window
-local cursorline = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
+local cursorline = augroup("CursorLineControl", { clear = true })
 local set_cursorline = function(event, value, pattern)
-  vim.api.nvim_create_autocmd(event, {
+  autocmd(event, {
     group = cursorline,
     pattern = pattern,
     callback = function()

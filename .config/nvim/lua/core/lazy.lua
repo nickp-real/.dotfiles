@@ -4,12 +4,12 @@ if not vim.loop.fs_stat(lazypath) then
     "git",
     "clone",
     "--filter=blob:none",
-    "--single-branch",
     "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
     lazypath,
   })
 end
-vim.opt.runtimepath:prepend(lazypath)
+vim.opt.rtp:prepend(lazypath)
 
 local default_plugins = {
   "2html_plugin",
@@ -42,7 +42,8 @@ local default_plugins = {
   "tohtml",
 }
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+  spec = "plugins",
   defaults = {
     lazy = true,
   },

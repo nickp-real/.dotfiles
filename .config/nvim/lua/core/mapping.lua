@@ -182,6 +182,7 @@ nnoremap("<leader>fo", ":Telescope oldfiles<cr>")
 nnoremap("<leader>fn", ":Telescope file_browser<cr>")
 nnoremap("<leader>fN", ":Telescope file_browser path=%:p:h<cr>")
 nnoremap("<leader>fk", ":Telescope keymaps<cr>")
+nnoremap("<leader>fm", ":Telescope media_files<cr>")
 
 -- Trouble
 nnoremap("<leader>xx", ":TroubleToggle<cr>")

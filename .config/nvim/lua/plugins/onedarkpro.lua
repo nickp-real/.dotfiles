@@ -7,15 +7,10 @@ local M = {
 function M.config()
   local onedarkpro = require("onedarkpro")
 
-  local color = require("onedarkpro.lib.color")
-  local colors = onedarkpro.get_colors("onedark")
-
   onedarkpro.setup({
     colors = {
-      onedark = {
-        telescope_prompt = color.lighten(colors.bg, 0.97),
-        dark_gray = color.darken(colors.bg, 0.85),
-      },
+      telescope_prompt = "require('onedarkpro.helpers').lighten('bg', 2.25, 'onedark')",
+      dark_gray = "require('onedarkpro.helpers').darken('bg', 2.7, 'onedark')",
     }, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
     highlights = {
       diffAdded = { fg = "#109868" },

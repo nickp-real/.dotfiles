@@ -104,6 +104,15 @@ return {
     end,
   },
 
+  -- LaTex
+  {
+    "lervag/vimtex",
+    lazy = false,
+    config = function()
+      vim.cmd([[let g:vimtex_view_method = 'zathura']])
+    end,
+  },
+
   -------------
   -- Utility --
   -------------
