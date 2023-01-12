@@ -3,7 +3,7 @@ local M = {
   ft = "qf",
 }
 
-M.config = {
+M.opts = {
   func_map = {
     open = "",
     openc = "<CR>",

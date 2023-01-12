@@ -3,7 +3,7 @@ local M = {
   event = "BufReadPre",
 }
 
-M.config = {
+M.opts = {
   char = "▎",
   context_char = "▎",
   show_current_context = true,
@@ -21,6 +21,8 @@ M.config = {
     "log",
     "Outline",
     "Trouble",
+    "lazy",
+    "neo-tree",
   },
   show_trailing_blankline_indent = false,
   show_first_indent_level = false,

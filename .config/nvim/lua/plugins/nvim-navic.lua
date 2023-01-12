@@ -2,7 +2,7 @@ local M = {
   "SmiteshP/nvim-navic",
 }
 
-M.config = {
+M.opts = {
   highlight = true,
   separator = " > ",
   depth_limit = 0,

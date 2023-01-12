@@ -3,6 +3,16 @@ local M = {
   event = "VeryLazy",
 }
 
+M.keys = {
+  {
+    "<leader>nd",
+    function()
+      require("notify").dismiss({ silent = true, pending = true })
+    end,
+    desc = "Delete all Notifications",
+  },
+}
+
 function M.config()
   local notify = require("notify")
 

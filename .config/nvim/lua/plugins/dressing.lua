@@ -1,12 +1,22 @@
 local M = {
   "stevearc/dressing.nvim",
-  event = "VeryLazy",
 }
 
-function M.config()
-  local dressing = require("dressing")
+function M.init()
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.ui.select = function(...)
+    require("lazy").load({ plugins = { "dressing.nvim" } })
+    return vim.ui.select(...)
+  end
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.ui.input = function(...)
+    require("lazy").load({ plugins = { "dressing.nvim" } })
+    return vim.ui.input(...)
+  end
+end
 
-  dressing.setup({
+function M.opts()
+  return {
     input = {
       -- Set to false to disable the vim.ui.input implementation
       enabled = true,
@@ -122,7 +132,7 @@ function M.config()
       -- see :help dressing_get_config
       get_config = nil,
     },
-  })
+  }
 end
 
 return M

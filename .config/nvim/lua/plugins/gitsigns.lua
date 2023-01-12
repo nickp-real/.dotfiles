@@ -3,7 +3,7 @@ local M = {
   event = "BufReadPre",
 }
 
-M.config = {
+M.opts = {
   signs = {
     add = { text = "▌" },
     change = { text = "▌" },

@@ -1,13 +1,21 @@
 local M = {
   "akinsho/bufferline.nvim",
-  event = "BufReadPre",
+  event = "VeryLazy",
 }
 
-M.config = {
+M.keys = {
+  { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+  { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+  { "<leader><Tab>", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Next" },
+  { "<leader><S-Tab>", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Prev" },
+}
+
+M.opts = {
   options = {
     diagnostics = "nvim_lsp",
     diagnostics_update_in_insert = false,
     close_command = "Bdelete! %d",
+    always_show_bufferline = false,
     indicator = {
       icon = "▌",
       style = "icon",

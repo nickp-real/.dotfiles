@@ -71,8 +71,6 @@ set -gx VISUAL $EDITOR
 set -gx SUDO_EDITOR $EDITOR 
 set -gx CLICOLOR 1
 set -gx LS_COLORS "ow=1;102;90"
-set -gx LC_ALL en_US.UTF-8
-set -gx LANG en_US.UTF-8
 set -gx LESS '-R --use-color -Dd+r$Du+b'
 set -gx MANPAGER 'nvim +Man!'
 
@@ -91,7 +89,7 @@ set -gx FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#a
 
 # qt5
 set -gx QT_QPA_PLATFORMTHEME qt5ct
-#
+
 # STARSHIP INIT
 starship init fish | source
 

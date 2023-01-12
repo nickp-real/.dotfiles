@@ -14,7 +14,7 @@ local M = {
   },
 }
 
-function M.config()
+function M.opts()
   local cmp = require("cmp")
   local compare = cmp.config.compare
 
@@ -59,11 +59,6 @@ function M.config()
     return info
   end
 
-  local check_backspace = function()
-    local col = vim.fn.col(".") - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-  end
-
   local buffer_option = {
     -- Complete from all visible buffers (splits)
     get_bufnrs = function()
@@ -86,7 +81,38 @@ function M.config()
     end
   end
 
-  cmp.setup({
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "buffer" },
+    },
+  })
+
+  -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = "path" },
+    }, {
+      { name = "cmdline" },
+    }),
+  })
+
+  cmp.setup.filetype("TelescopePrompt", {
+    enabled = false,
+  })
+
+  cmp.setup.filetype("fish", {
+    sources = cmp.config.sources({
+      { name = "luasnip", priority = 7 },
+      { name = "fish", priority = 6 },
+      { name = "path", priority = 6 },
+      { name = "buffer", Keyword_length = 5, priority = 5 },
+    }),
+  })
+
+  return {
     enabled = function()
       -- disable completion in comments
       local context = require("cmp.config.context")
@@ -104,11 +130,6 @@ function M.config()
         require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
-    -- confirm_opts = {
-    --   behavior = cmp.ConfirmBehavior.Replace,
-    --   select = false,
-    -- },
-
     mapping = cmp.mapping.preset.insert({
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -124,11 +145,9 @@ function M.config()
         if cmp.visible() then
           cmp.select_next_item()
         elseif require("luasnip").expand_or_locally_jumpable() then
-          require("luasnip").expand_or_jump()
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
         elseif require("neogen").jumpable() then
           require("neogen").jump_next()
-          -- elseif check_backspace() then
-          --   cmp.complete()
         else
           fallback()
         end
@@ -138,11 +157,9 @@ function M.config()
         if cmp.visible() then
           cmp.select_prev_item()
         elseif require("luasnip").jumpable(-1) and require("luasnip").expand_or_locally_jumpable() then
-          require("luasnip").jump(-1)
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
         elseif require("neogen").jumpable(true) then
           require("neogen").jump_prev()
-        elseif check_backspace() then
-          fallback()
         else
           fallback()
         end
@@ -195,37 +212,7 @@ function M.config()
         -- cmp.config.compare.order,
       },
     },
-  })
-
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = "buffer" },
-    },
-  })
-
-  -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = "path" },
-      { name = "cmdline" },
-    }),
-  })
-
-  cmp.setup.filetype("TelescopePrompt", {
-    enabled = false,
-  })
-
-  cmp.setup.filetype("fish", {
-    sources = cmp.config.sources({
-      { name = "luasnip", priority = 7 },
-      { name = "fish", priority = 6 },
-      { name = "path", priority = 6 },
-      { name = "buffer", Keyword_length = 5, priority = 5 },
-    }),
-  })
+  }
 end
 
 return M

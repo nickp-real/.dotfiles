@@ -3,15 +3,14 @@ local M = {
   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
 }
 
-function M.config()
-  local diffview = require("diffview")
-  diffview.setup({
-    view = {
-      merge_tool = {
-        layout = "diff3_mixed",
-      },
-    },
-  })
+M.keys = {
+  { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview" },
+  { "<leader>gF", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File History (cwd)" },
+  { "<leader>gf", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview File History (root dir)" },
+}
+
+function M.config(_, opts)
+  require("diffview").setup(opts)
 
   -- DiffviewOpen and Close in one command
   vim.api.nvim_create_user_command("DiffviewToggle", function(e)
@@ -24,5 +23,13 @@ function M.config()
     end
   end, { nargs = "*" })
 end
+
+M.opts = {
+  view = {
+    merge_tool = {
+      layout = "diff3_mixed",
+    },
+  },
+}
 
 return M

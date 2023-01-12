@@ -1,6 +1,6 @@
 local M = {
   "feline-nvim/feline.nvim",
-  event = "BufReadPre",
+  event = "VeryLazy",
 }
 
 function M.config()

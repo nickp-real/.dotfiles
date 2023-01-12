@@ -1,9 +1,13 @@
 local M = {
   "NvChad/nvim-colorizer.lua",
-  event = "BufReadPre",
+  cmd = "Colorizer",
 }
 
-M.config = {
+M.keys = {
+  { "<leader>tc", vim.cmd.ColorizerToggle, desc = "Toggle Colorizer" },
+}
+
+M.opts = {
   filetypes = {
     "*",
     "!packer",

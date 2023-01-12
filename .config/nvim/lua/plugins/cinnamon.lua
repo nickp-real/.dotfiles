@@ -3,7 +3,7 @@ local M = {
   event = "BufReadPost",
 }
 
-M.config = {
+M.opts = {
   extra_keymap = true,
   exteded_keymap = true,
   -- override_keymap = true,

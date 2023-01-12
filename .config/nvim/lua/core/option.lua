@@ -3,7 +3,7 @@ local g = vim.g
 
 -- Config
 opt.autowriteall = true
-opt.completeopt = { "menuone", "noselect" }
+opt.completeopt = "menu,menuone,noselect"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.mouse = "a"
 opt.scrolloff = 8

@@ -4,8 +4,6 @@ local M = {
 }
 
 function M.config()
-  local alpha = require("alpha")
-  -- local dashboard = require("alpha.themes.dashboard")
   local function footer()
     local version = vim.version()
     local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch
@@ -70,12 +68,12 @@ function M.config()
     buttons = {
       type = "group",
       val = {
-        button("e", "  New File", "<cmd>ene <CR>"),
-        button("SPC f f", "  Find File"),
+        button("e", "  New File", "<cmd>ene<bar>startinsert<CR>"),
+        button("SPC f f", "  Find File", "<cmd>Telescope find_files<CR>"),
         button("SPC f n", "  File Browser"),
         button("SPC f o", "  Recently Opened Files"),
         -- button("SPC f r", "  Frecency/MRU"),
-        button("SPC f g", "  Find Word"),
+        button("SPC f g", "  Find Word", "<cmd>Telescope live_grep<cr>"),
         button("SPC f m", "  Jump to Bookmarks"),
         button("SPC s l", "  Open Last Session"),
         button("v", "  Neovim Config", "<cmd>e ~/.config/nvim/init.lua<CR>"),
@@ -99,7 +97,7 @@ function M.config()
     },
   }
 
-  alpha.setup({
+  require("alpha").setup({
     layout = {
       options.headerPaddingTop,
       options.header,

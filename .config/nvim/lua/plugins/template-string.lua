@@ -4,7 +4,7 @@ local M = {
   ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 }
 
-M.config = {
+M.opts = {
   remove_template_string = true, -- remove backticks when there are no template string
   restore_quotes = {
     -- quotes used when "remove_template_string" option is enabled

@@ -1,9 +1,10 @@
 local M = {
   "jose-elias-alvarez/null-ls.nvim",
+  dependencies = { "mason.nvim" },
   event = "BufReadPre",
 }
 
-function M.config()
+function M.opts()
   local null_ls = require("null-ls")
 
   local formatting = null_ls.builtins.formatting
@@ -58,7 +59,7 @@ function M.config()
 
   local utils = require("lsp.utils")
 
-  null_ls.setup({
+  return {
     sources = sources,
     on_attach = function(client, bufnr)
       if client.server_capabilities.documentFormattingProvider then
@@ -67,7 +68,7 @@ function M.config()
     end,
     update_in_insert = false,
     debounce = 150,
-  })
+  }
 end
 
 return M

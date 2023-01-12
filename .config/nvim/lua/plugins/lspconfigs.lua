@@ -1,12 +1,10 @@
 local M = {
   "neovim/nvim-lspconfig",
   event = "BufReadPre",
-  dependencies = { "hrsh7th/cmp-nvim-lsp" },
+  dependencies = { "hrsh7th/cmp-nvim-lsp", "mason.nvim" },
 }
 
 function M.config()
-  require("mason")
-
   require("lsp.config")
   local lspconfig = require("lspconfig")
 

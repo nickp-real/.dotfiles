@@ -3,7 +3,7 @@ local M = {
   event = "BufReadPre",
 }
 
-M.config = {
+M.opts = {
   window = {
     blend = 0,
   },

@@ -1,9 +1,10 @@
 local M = {
   "abecodes/tabout.nvim",
-  keys = { { "<Tab>", mode = "i" }, { "<S-Tab>", mode = "i" } },
 }
 
-M.config = {
+M.keys = { { "<Tab>", mode = "i" }, { "<S-Tab>", mode = "i" } }
+
+M.opts = {
   act_as_shift_tab = true,
   tabouts = {
     { open = "'", close = "'" },

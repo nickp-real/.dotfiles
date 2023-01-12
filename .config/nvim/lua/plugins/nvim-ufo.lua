@@ -4,7 +4,12 @@ local M = {
   dependencies = "kevinhwang91/promise-async",
 }
 
-function M.config()
+M.keys = {
+  { "zR", ":lua require('ufo').openAllFolds()<cr>", desc = "Open All Folds" },
+  { "zM", ":lua require('ufo').closeAllFolds()<cr>", desc = "Close All Folds" },
+}
+
+function M.opts()
   local ufo = require("ufo")
   local promise = require("promise")
 
@@ -60,8 +65,7 @@ function M.config()
         return handleFallbackException(err, "indent")
       end)
   end
-
-  ufo.setup({
+  return {
     provider_selector = function(bufnr, filetype, buftype)
       return ftMap[filetype] or customizeSelector
     end,
@@ -69,7 +73,7 @@ function M.config()
     --   return { "treesitter", "indent" }
     -- end,
     fold_virt_text_handler = handler,
-  })
+  }
 end
 
 return M

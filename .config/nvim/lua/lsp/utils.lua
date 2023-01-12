@@ -84,8 +84,7 @@ local no_format_on_attach = function(client, bufnr)
   on_attach(client, bufnr)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,

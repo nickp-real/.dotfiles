@@ -3,7 +3,24 @@ local M = {
   event = "VeryLazy",
 }
 
-M.config = {
+function M.init()
+  vim.api.nvim_create_autocmd("TermOpen", {
+    -- pattern = "term://*toggleterm#*",
+    callback = function()
+      local opts = { noremap = true, silent = true }
+      vim.schedule(function()
+        vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
+      end)
+    end,
+  })
+end
+
+M.opts = {
   -- size can be a number or function which is passed the current terminal
   size = function(term) -- size = 20,
     if term.direction == "horizontal" then

@@ -4,10 +4,11 @@ local M = {
   cmd = { "HopChar1", "HopWord" },
 }
 
-function M.init()
-  -- TODO: add init cmd key
-end
+M.keys = {
+  { "s", ":HopChar1<cr>", desc = "Hop 1 Char" },
+  { "S", ":HopWord<cr>", desc = "Hop word" },
+}
 
-M.config = { keys = "etovxqpdygfblzhckisuran" }
+M.opts = { keys = "etovxqpdygfblzhckisuran" }
 
 return M

@@ -20,7 +20,7 @@ return {
   {
     "m-demare/hlargs.nvim",
     event = "BufReadPre",
-    config = { color = "#e59b4e" },
+    opts = { color = "#e59b4e" },
   },
 
   ---------
@@ -46,6 +46,15 @@ return {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
     config = true,
+    keys = {
+      { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Trouble Toggle" },
+      { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Trouble Workspace" },
+      { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Trouble Document" },
+      { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Trouble Quickfix" },
+      { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Trouble Loclist" },
+      { "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Trouble LSP" },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Trouble Todo" },
+    },
   },
   -- ({
   --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -61,24 +70,33 @@ return {
   {
     "danymat/neogen",
     cmd = "Neogen",
-    config = { snippet_engine = "luasnip" },
+    keys = { "<leader>n", "<cmd>Neogen<cr>", desc = "Neogen" },
+    opts = { snippet_engine = "luasnip" },
   },
   {
     "kylechui/nvim-surround",
-    keys = { "cs", "ds", "ys", "yS", "ySS", { "S", mode = "x" }, { "gS", mode = "x" } },
+    keys = { "cs", "ds", "ys", "yS", "yS", { "S", mode = "x" }, { "gS", mode = "x" } },
     config = true,
   },
   {
     "mizlan/iswap.nvim",
     cmd = "ISwap",
-    config = { autoswap = true },
+    keys = { { "<leader>sw", ":ISwap<cr>", desc = "Swap Param" } },
+    opts = { autoswap = true },
   },
   {
     "Wansmer/treesj",
     cmd = "TSJToggle",
-    config = { use_default_keymaps = false },
+    keys = { "J", "<cmd>TSJToggle<cr>", "Split & Join" },
+    opts = { use_default_keymaps = false },
   },
-  { "mbbill/undotree", cmd = "UndotreeToggle" },
+  {
+    "mbbill/undotree",
+    cmd = "UndotreeToggle",
+    keys = {
+      { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" },
+    },
+  },
 
   ---------------
   -- Previewer --
@@ -99,7 +117,7 @@ return {
     "turbio/bracey.vim",
     ft = "html",
     build = "npm install --prefix server",
-    config = function()
+    init = function()
       vim.g.bracey_refresh_on_save = 1
     end,
   },
@@ -108,8 +126,8 @@ return {
   {
     "lervag/vimtex",
     lazy = false,
-    config = function()
-      vim.cmd([[let g:vimtex_view_method = 'zathura']])
+    init = function()
+      vim.g.vimtex_view_method = "zathura"
     end,
   },
 
@@ -122,6 +140,9 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
+    keys = {
+      { "<leader>so", "<cmd>SymbolsOutline<cr>", desc = "Symbol Outline" },
+    },
     config = true,
   },
   -- Startuptime
@@ -139,7 +160,17 @@ return {
   },
 
   -- Swap the split
-  { "xorid/swap-split.nvim", cmd = "SwapSplit" },
+  {
+    "xorid/swap-split.nvim",
+    cmd = "SwapSplit",
+    keys = { "<leader>sp", "<cmd>SwapSplit<cr>", desc = "Swap Split" },
+  },
   -- Duck over your code!
-  "tamton-aquib/duck.nvim",
+  {
+    "tamton-aquib/duck.nvim",
+    keys = {
+      { "<leader>mm", "<cmd>lua require('duck').hatch()<cr>", desc = "Summon Duck" },
+      { "<leader>mk", "<cmd>lua require('duck').cook()<cr>", desc = "Kill Duck" },
+    },
+  },
 }

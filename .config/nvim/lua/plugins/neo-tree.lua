@@ -4,11 +4,22 @@ local M = {
   cmd = "Neotree",
 }
 
-function M.config()
-  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-  local neotree = require("neo-tree")
+M.keys = {
+  { "<C-n>", "<cmd>Neotree reveal toggle<cr>", desc = "Neo-tree" },
+}
 
-  neotree.setup({
+function M.init()
+  vim.g.neo_tree_remove_legacy_commands = 1
+  if vim.fn.argc() == 1 then
+    local stat = vim.loop.fs_stat(vim.fn.argv(0))
+    if stat and stat.type == "directory" then
+      require("neo-tree")
+    end
+  end
+end
+
+function M.opts()
+  return {
     filesystem = {
       hijack_netrw_behavior = "open_current",
       follow_current_file = true,
@@ -19,11 +30,11 @@ function M.config()
         event = "file_opened",
         handler = function(file_path)
           --auto close
-          neotree.close_all()
+          require("neo-tree").close_all()
         end,
       },
     },
-  })
+  }
 end
 
 return M

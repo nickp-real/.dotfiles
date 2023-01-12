@@ -8,16 +8,10 @@ local M = {
   },
 }
 
-function M.config()
+function M.config(_, opts)
   local luasnip = require("luasnip")
 
-  luasnip.config.setup({
-    history = true,
-    update_events = "InsertLeave,TextChanged,TextChangedI",
-    region_check_events = "CursorHold,InsertLeave,InsertEnter",
-    delete_check_events = "TextChanged,InsertEnter",
-    enable_autosnippets = true,
-  })
+  luasnip.setup(opts)
 
   luasnip.snippets = {
     all = {},
@@ -31,5 +25,13 @@ function M.config()
   luasnip.filetype_extend("dart", { "flutter" })
   luasnip.add_snippets("cpp", require("snippet.cpp"))
 end
+
+M.opts = {
+  history = true,
+  update_events = "InsertLeave,TextChanged,TextChangedI",
+  region_check_events = "CursorHold,InsertLeave,InsertEnter",
+  delete_check_events = "TextChanged,InsertEnter",
+  enable_autosnippets = true,
+}
 
 return M

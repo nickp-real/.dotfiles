@@ -112,7 +112,7 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: Iosevka Nerd Font Mono
+    family: Iosevka Term
     style: Medium
 
   # Bold font face
@@ -338,13 +338,13 @@ font:
 #
 #command: None
 
-#selection:
-# This string contains all characters that are used as separators for
-# "semantic words" in Alacritty.
-#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+selection:
+  # This string contains all characters that are used as separators for
+  # "semantic words" in Alacritty.
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
-# When set to `true`, selected text will be copied to the primary clipboard.
-#save_to_clipboard: false
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
 
 cursor:
   # Cursor style

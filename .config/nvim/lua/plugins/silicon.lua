@@ -5,10 +5,12 @@ local M = {
   cmd = "Silicon",
 }
 
-function M.config()
-  require("silicon").setup({
-    font = "FantasqueSansMono Nerd Font=14",
-  })
+function M.config(_, opts)
+  require("silicon").setup(opts)
 end
+
+M.opts = {
+  font = "Roboto Mono=14",
+}
 
 return M
