@@ -53,7 +53,6 @@ nnoremap("dd", smart_dd, { expr = true })
 nvnoremap("<leader>d", '"_d')
 
 -- Delete buffer
-nnoremap("<C-c>", vim.cmd.Bdelete)
 nnoremap("<C-q>", vim.cmd.bd)
 
 -- Increment/Decrement
@@ -64,17 +63,13 @@ nnoremap("-", "<C-x>")
 nnoremap("<down>", "}")
 nnoremap("<up>", "{")
 
--- keep cursor at the middle while searching
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
-
 -- Ctrl-W to Alt
 nnoremap("<A-o>", "<C-w>o")
 nnoremap("<A-w>", "<C-w>w")
 
 -- Split
-nnoremap("<leader>ss", ":split<cr><C-w>w")
-nnoremap("<leader>sv", ":vsplit<cr><C-w>w")
+nnoremap("\\", ":split<cr><C-w>w")
+nnoremap("|", ":vsplit<cr><C-w>w")
 
 -- Split resize
 nnoremap("<A-Up>", ":resize +2<cr>")
@@ -100,14 +95,21 @@ inoremap("<C-k>", "<Esc>:m .-2<CR>==gi")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
+-- Better up down
+nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 -- Select All Text
 nnoremap("<leader>a", ":keepjumps normal! ggVG<cr>")
 
 -- No Q
 nnoremap("Q", "<nop>")
 
+-- Quit
+nnoremap("<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+
 -- Subtitute current word
-nnoremap("<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false })
+nnoremap("<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false })
 
 -- chmod in vim
 nnoremap("<leader>x", ":!chmod +x %<cr>")

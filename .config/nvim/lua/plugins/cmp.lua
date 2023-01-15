@@ -10,77 +10,12 @@ local M = {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     { "mtoohey31/cmp-fish", ft = "fish" },
-    --  "hrsh7th/cmp-nvim-lsp-signature-help"
+    "hrsh7th/cmp-nvim-lsp-signature-help",
   },
 }
 
-function M.opts()
+function M.config(_, opts)
   local cmp = require("cmp")
-  local compare = cmp.config.compare
-
-  -- Autopairs
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-  local kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-  }
-
-  local cmp_window = require("cmp.utils.window")
-
-  cmp_window.info_ = cmp_window.info
-  cmp_window.info = function(self)
-    local info = self:info_()
-    info.scrollable = false
-    return info
-  end
-
-  local buffer_option = {
-    -- Complete from all visible buffers (splits)
-    get_bufnrs = function()
-      local bufs = {}
-      for _, win in ipairs(vim.api.nvim_list_wins()) do
-        bufs[vim.api.nvim_win_get_buf(win)] = true
-      end
-      return vim.tbl_keys(bufs)
-    end,
-  }
-
-  local types = require("cmp.types")
-
-  local function deprioritize_snippet(entry1, entry2)
-    if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
-      return false
-    end
-    if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
-      return true
-    end
-  end
-
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
@@ -111,6 +46,81 @@ function M.opts()
       { name = "buffer", Keyword_length = 5, priority = 5 },
     }),
   })
+
+  cmp.setup(opts)
+end
+
+function M.opts()
+  local cmp = require("cmp")
+  local compare = cmp.config.compare
+
+  -- Autopairs
+  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+  local kind_icons = {
+    Text = "",
+    Method = "m",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+  }
+
+  local cmp_window = require("cmp.utils.window")
+
+  cmp_window.info_ = cmp_window.info
+  cmp_window.info = function(self)
+    local info = self:info_()
+    info.scrollable = false
+    return info
+  end
+
+  local check_backspace = function()
+    local col = vim.fn.col(".") - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+  end
+
+  local buffer_option = {
+    -- Complete from all visible buffers (splits)
+    get_bufnrs = function()
+      local bufs = {}
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        bufs[vim.api.nvim_win_get_buf(win)] = true
+      end
+      return vim.tbl_keys(bufs)
+    end,
+  }
+
+  local types = require("cmp.types")
+
+  local function deprioritize_snippet(entry1, entry2)
+    if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
+      return false
+    end
+    if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
+      return true
+    end
+  end
 
   return {
     enabled = function()
@@ -148,6 +158,8 @@ function M.opts()
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
         elseif require("neogen").jumpable() then
           require("neogen").jump_next()
+        elseif check_backspace() then
+          fallback()
         else
           fallback()
         end
@@ -176,16 +188,22 @@ function M.opts()
     },
     formatting = {
       fields = { "kind", "abbr", "menu" },
-      format = function(_, vim_item)
-        vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-        local strings = vim.split(vim_item.kind, "%s", { trimepty = true })
-        vim_item.kind = strings[1]
-        vim_item.menu = "  (" .. strings[2] .. ")"
+      format = function(entry, vim_item)
+        -- Kind icons
+        vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+        -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+        vim_item.menu = ({
+          nvim_lsp = "[LSP]",
+          luasnip = "[Snippet]",
+          buffer = "[Buffer]",
+          nvim_lua = "[Nvim_lua]",
+          path = "[Path]",
+        })[entry.source.name]
         return vim_item
       end,
     },
     sources = cmp.config.sources({
-      -- { name = "nvim_lsp_signature_help", priority = 8 },
+      { name = "nvim_lsp_signature_help", priority = 8 },
       { name = "nvim_lsp", max_item_count = 25, priority = 8 },
       { name = "luasnip", priority = 7, max_item_count = 8 },
       { name = "buffer", Keyword_length = 5, priority = 7, option = buffer_option, max_item_count = 8 },

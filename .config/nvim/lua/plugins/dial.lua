@@ -1,12 +1,19 @@
 local M = {
   "monaqa/dial.nvim",
-  keys = { "<C-a>", "<C-x>" },
+}
+
+M.keys = {
+  { "<C-a>", '<cmd>require("dial.map").inc_normal()<cr>', desc = "Normal Increment" },
+  { "<C-x>", '<cmd>require("dial.map").dec_normal()<cr>', desc = "Normal Decrement" },
+  { "<C-a>", '<cmd>require("dial.map").inc_visual()<cr>', desc = "Visual Increment" },
+  { "<C-x>", '<cmd>require("dial.map").dec_visual()<cr>', desc = "Visual Decrement" },
+  { "g<C-a>", '<cmd>require("dial.map").inc_gvisual()<cr>', desc = "Gvisual Increment" },
+  { "g<C-x>", '<cmd>require("dial.map").dec_gvisual()<cr>', desc = "Gvisual Decrement" },
 }
 
 function M.config()
-  local dial_config = require("dial.config")
   local augend = require("dial.augend")
-  dial_config.augends:register_group({
+  require("dial.config").augends:register_group({
     default = {
       augend.integer.alias.decimal,
       augend.integer.alias.hex,
@@ -14,18 +21,6 @@ function M.config()
       augend.constant.alias.bool,
     },
   })
-
-  local keymap_utils = require("utils.keymap_utils")
-  local nnoremap = keymap_utils.nnoremap
-  local vnoremap = keymap_utils.vnoremap
-
-  -- Keymap
-  nnoremap("<C-a>", require("dial.map").inc_normal())
-  nnoremap("<C-x>", require("dial.map").dec_normal())
-  vnoremap("<C-a>", require("dial.map").inc_visual())
-  vnoremap("<C-x>", require("dial.map").dec_visual())
-  vnoremap("g<C-a>", require("dial.map").inc_gvisual())
-  vnoremap("g<C-x>", require("dial.map").dec_gvisual())
 end
 
 return M

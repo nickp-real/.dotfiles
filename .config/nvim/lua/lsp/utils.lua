@@ -1,6 +1,6 @@
 local M = {}
 
-local auto_format = function(client, bufnr)
+M.auto_format = function(client, bufnr)
   local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
   vim.api.nvim_create_autocmd("BufWritePre", {
     buffer = bufnr,
@@ -11,7 +11,7 @@ local auto_format = function(client, bufnr)
   })
 end
 
-local lsp_mapping = function(bufnr)
+M.lsp_mapping = function(bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { silent = true, buffer = bufnr }
@@ -34,7 +34,7 @@ local lsp_mapping = function(bufnr)
   end, bufopts)
 end
 
-local on_attach = function(client, bufnr)
+M.on_attach = function(client, bufnr)
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
@@ -42,10 +42,10 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  lsp_mapping(bufnr)
+  M.lsp_mapping(bufnr)
 
   if client.server_capabilities.documentFormattingProvider then
-    auto_format(client, bufnr)
+    M.auto_format(client, bufnr)
   end
 
   if client.server_capabilities.documentHighlightProvider then
@@ -78,10 +78,10 @@ local on_attach = function(client, bufnr)
   require("lsp-inlayhints").on_attach(client, bufnr)
 end
 
-local no_format_on_attach = function(client, bufnr)
+M.no_format_on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
-  on_attach(client, bufnr)
+  M.on_attach(client, bufnr)
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -91,16 +91,11 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true,
 }
 
-local flags = {
+M.capabilities = capabilities
+
+M.flags = {
   allow_incremental_sync = true,
   debounce_text_changes = 150,
 }
-
-M.on_attach = on_attach
-M.lsp_mapping = lsp_mapping
-M.auto_format = auto_format
-M.no_format_on_attach = no_format_on_attach
-M.capabilities = capabilities
-M.flags = flags
 
 return M

@@ -16,6 +16,25 @@ return {
     "folke/todo-comments.nvim",
     event = "BufReadPre",
     config = true,
+    keys = {
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next todo comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous todo comment",
+      },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
+      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
+      { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
+    },
   },
   {
     "m-demare/hlargs.nvim",
@@ -26,7 +45,7 @@ return {
   ---------
   -- LSP --
   ---------
-  "ray-x/lsp_signature.nvim",
+  -- "ray-x/lsp_signature.nvim",
   "mrshmllow/document-color.nvim",
   "b0o/SchemaStore.nvim",
   "jose-elias-alvarez/typescript.nvim",
@@ -53,7 +72,6 @@ return {
       { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Trouble Quickfix" },
       { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Trouble Loclist" },
       { "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Trouble LSP" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Trouble Todo" },
     },
   },
   -- ({
@@ -69,25 +87,26 @@ return {
   -------------
   {
     "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
     cmd = "Neogen",
-    keys = { "<leader>n", "<cmd>Neogen<cr>", desc = "Neogen" },
+    keys = { { "<leader>n", "<cmd>Neogen<cr>", desc = "Neogen" } },
     opts = { snippet_engine = "luasnip" },
   },
   {
     "kylechui/nvim-surround",
-    keys = { "cs", "ds", "ys", "yS", "yS", { "S", mode = "x" }, { "gS", mode = "x" } },
+    keys = { "cs", "ds", "ys", "yS", { "S", mode = "x" }, { "gS", mode = "x" } },
     config = true,
   },
   {
     "mizlan/iswap.nvim",
     cmd = "ISwap",
-    keys = { { "<leader>sw", ":ISwap<cr>", desc = "Swap Param" } },
+    keys = { { "<leader>sw", "<cmd>ISwap<cr>", desc = "Swap Param" } },
     opts = { autoswap = true },
   },
   {
     "Wansmer/treesj",
     cmd = "TSJToggle",
-    keys = { "J", "<cmd>TSJToggle<cr>", "Split & Join" },
+    keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Split & Join" } },
     opts = { use_default_keymaps = false },
   },
   {
@@ -103,8 +122,6 @@ return {
   ---------------
 
   -- Markdown
-
-  { "ellisonleao/glow.nvim", ft = "markdown" },
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
@@ -148,7 +165,7 @@ return {
   -- Startuptime
   { "dstein64/vim-startuptime", cmd = "StartupTime" },
 
-  { "famiu/bufdelete.nvim", cmd = "Bdelete" },
+  { "famiu/bufdelete.nvim", cmd = "Bdelete", keys = { { "<C-c>", "<cmd>Bdelete<cr>" } } },
   {
     "kwkarlwang/bufresize.nvim",
     event = "BufReadPost",
@@ -163,7 +180,7 @@ return {
   {
     "xorid/swap-split.nvim",
     cmd = "SwapSplit",
-    keys = { "<leader>sp", "<cmd>SwapSplit<cr>", desc = "Swap Split" },
+    keys = { { "<leader>sp", "<cmd>SwapSplit<cr>", desc = "Swap Split" } },
   },
   -- Duck over your code!
   {
@@ -171,6 +188,28 @@ return {
     keys = {
       { "<leader>mm", "<cmd>lua require('duck').hatch()<cr>", desc = "Summon Duck" },
       { "<leader>mk", "<cmd>lua require('duck').cook()<cr>", desc = "Kill Duck" },
+    },
+  },
+  -- At import cost on your js, jsx, ts, tsx file
+  {
+    "barrett-ruth/import-cost.nvim",
+    build = "sh install.sh npm",
+    config = true,
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  },
+  -- Auto nohl
+  {
+    "asiryk/auto-hlsearch.nvim",
+    keys = {
+      "/",
+      "?",
+      "*",
+      "#",
+      { "n", "nzzzv<cmd>lua require('auto-hlsearch').activate()<cr>" },
+      { "N", "Nzzzv<cmd>lua require('auto-hlsearch').activate()<cr>" },
+    },
+    opts = {
+      remap_keys = { "/", "?", "*", "#" },
     },
   },
 }

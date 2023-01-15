@@ -11,10 +11,10 @@ function M.config()
   local utils = require("lsp.utils")
   local root_pattern = require("lspconfig.util").root_pattern
 
-  local signature_config = {
-    hint_enable = false,
-  }
-  require("lsp_signature").setup(signature_config)
+  -- local signature_config = {
+  --   hint_enable = false,
+  -- }
+  -- require("lsp_signature").setup(signature_config)
 
   local lsp_default = {
     capabilities = utils.capabilities,

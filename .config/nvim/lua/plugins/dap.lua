@@ -10,36 +10,15 @@ local M = {
   },
 }
 
-function M.init()
-  local nnoremap = require("utils.keymap_utils").nnoremap
-  nnoremap("<leader>db", function()
-    require("dap").toggle_breakpoint()
-  end, { desc = "Toggle Breakpoint" })
-
-  nnoremap("<leader>dc", function()
-    require("dap").continue()
-  end, { desc = "Continue" })
-
-  nnoremap("<leader>do", function()
-    require("dap").step_over()
-  end, { desc = "Step Over" })
-
-  nnoremap("<leader>di", function()
-    require("dap").step_into()
-  end, { desc = "Step Into" })
-
-  nnoremap("<leader>dw", function()
-    require("dap.ui.widgets").hover()
-  end, { desc = "Widgets" })
-
-  nnoremap("<leader>dr", function()
-    require("dap").repl.open()
-  end, { desc = "Repl" })
-
-  nnoremap("<leader>du", function()
-    require("dapui").toggle({})
-  end, { desc = "Dap UI" })
-end
+M.keys = {
+  { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Toggle Breakpoint" },
+  { "<leader>dc", '<cmd>require("dap").continue()<cr>', desc = "Continue" },
+  { "<leader>do", '<cmd>require("dap").step_over()<cr>', desc = "Step Over" },
+  { "<leader>di", '<cmd>require("dap").step_into()<cr>', desc = "Step Into" },
+  { "<leader>dw", '<cmd>require("dap.ui.widgets").hover()<cr>', desc = "Widgets" },
+  { "<leader>dr", '<cmd>require("dap").repl.open()<cr>', desc = "Repl" },
+  { "<leader>du", '<cmd>require("dapui").toggle({})<cr>', desc = "Dap UI" },
+}
 
 function M.config()
   local dap = require("dap")

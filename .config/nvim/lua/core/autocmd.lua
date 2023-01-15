@@ -37,13 +37,6 @@ autocmd("TermOpen", {
   end,
 })
 
-autocmd("FileType", {
-  pattern = { "markdown", "text" },
-  callback = function()
-    vim.opt_local.spell = true
-  end,
-})
-
 -- Alpha Disable Bufferline
 local disable_bufferline = augroup("Disable Bufferline", { clear = true })
 autocmd("FileType", {
@@ -71,23 +64,16 @@ autocmd("FileType", {
     "help",
     "man",
     "lspinfo",
-    "spectre_panel",
-    "lir",
-    "startuptime",
     "trouble",
     "null-ls-info",
+    "qf",
+    "help",
+    "notify",
+    "startuptime",
   },
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "q", ":q<cr>", { silent = true })
-    vim.bo.buflisted = false
-  end,
-})
-
-autocmd("FileType", {
-  pattern = "qf",
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "q", ":cclose<cr>", { silent = true })
-    vim.bo.buflisted = false
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
 
@@ -134,8 +120,10 @@ set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)
 set_cursorline("FileType", false, { "TelescopePrompt", "alpha" })
 
--- autocmd({ "VimLeave" }, {
---   callback = function()
---     vim.api.nvim_exec("!~/.local/share/nvim/mason/bin/eslint_d stop", {})
---   end,
--- })
+-- Textfile spell
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "gitcommit", "markdown", "text" },
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})

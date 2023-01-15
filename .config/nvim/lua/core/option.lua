@@ -7,6 +7,7 @@ opt.completeopt = "menu,menuone,noselect"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.mouse = "a"
 opt.scrolloff = 8
+opt.sidescrolloff = 8
 opt.shell = "fish"
 opt.showbreak = string.rep(" ", 3)
 opt.shortmess:append("c")
@@ -21,6 +22,7 @@ opt.undofile = true
 
 -- UI
 -- opt.cmdheight = 0
+opt.conceallevel = 3
 opt.cursorline = true
 -- opt.foldcolumn = "1"
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -39,31 +41,38 @@ opt.ruler = false
 opt.showmode = false
 opt.signcolumn = "yes"
 opt.termguicolors = true
+opt.winminwidth = 10
 
 -- Indenting
 opt.breakindent = true
 opt.smartindent = true
 opt.expandtab = true
+opt.shiftround = true
 opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.tabstop = 2
 
+-- fix markdown indent
+g.markdown_recommended_style = 0
+
 -- Search
--- opt.hlsearch = false
 opt.ignorecase = true
 opt.smartcase = true
 opt.inccommand = "split"
 
--- text thing
+-- Text Thing
 opt.linebreak = true
-opt.wrap = true
 opt.whichwrap:append("<,>,[,],h,l")
 
 -- Performance
 opt.redrawtime = 1500
-opt.timeoutlen = 500
+opt.timeoutlen = 300
 opt.ttimeoutlen = 25
-opt.updatetime = 500
+opt.updatetime = 200
+
+-- grep
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
 
 -- Session
 g.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
@@ -106,6 +115,3 @@ opt.fillchars = {
 
 -- env
 g.python3_host_prog = "/usr/bin/python3"
-
--- Neotree
-g.neo_tree_remove_legacy_commands = 1

@@ -1,15 +1,17 @@
 local M = {
   "numToStr/Comment.nvim",
-  keys = { "gcc", "gbc", { "gc", mode = { "n", "x" } }, { "gb", mode = "x" } },
+  keys = { { "gc", mode = { "n", "x" } }, { "gb", mode = { "n", "x" } } },
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
 }
 
-function M.config()
-  local comment = require("Comment")
+function M.config(_, opts)
+  require("Comment").setup(opts)
+end
 
-  comment.setup({
+function M.opts()
+  return {
     pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
     ignore = "^$",
     toggler = {
@@ -18,7 +20,7 @@ function M.config()
       ---Block-comment toggle keymap
       block = "gbc",
     },
-  })
+  }
 end
 
 return M

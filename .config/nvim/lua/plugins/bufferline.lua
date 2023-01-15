@@ -1,14 +1,42 @@
 local M = {
   "akinsho/bufferline.nvim",
+  dependencies = {
+    "roobert/bufferline-cycle-windowless.nvim",
+  },
   event = "VeryLazy",
 }
 
-M.keys = {
-  { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-  { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-  { "<leader><Tab>", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Next" },
-  { "<leader><S-Tab>", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Prev" },
-}
+function M.keys()
+  function ChangeTab(motion)
+    local last_buffer_id = vim.fn.bufnr()
+    local last_buffer_name = vim.fn.expand("%")
+
+    if motion == "next" then
+      vim.cmd.BufferLineCycleWindowlessNext()
+    elseif motion == "prev" then
+      vim.cmd.BufferLineCycleWindowlessPrev()
+    else
+      error("Invalid motion: " .. motion)
+      return
+    end
+
+    if last_buffer_name == "" then
+      vim.cmd("Bdelete " .. last_buffer_id)
+    end
+  end
+
+  return {
+    { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+    { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+    { "<leader><Tab>", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Next" },
+    { "<leader><S-Tab>", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Prev" },
+  }
+end
+
+function M.opts(_, opts)
+  require("bufferline").setup(opts)
+  require("bufferline-cycle-windowless").setup({ default_enabled = true })
+end
 
 M.opts = {
   options = {
