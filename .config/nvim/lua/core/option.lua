@@ -22,7 +22,6 @@ opt.undofile = true
 
 -- UI
 -- opt.cmdheight = 0
-opt.conceallevel = 3
 opt.cursorline = true
 -- opt.foldcolumn = "1"
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"

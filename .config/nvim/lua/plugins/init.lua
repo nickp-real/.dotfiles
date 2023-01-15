@@ -87,7 +87,6 @@ return {
   -------------
   {
     "danymat/neogen",
-    dependencies = "nvim-treesitter/nvim-treesitter",
     cmd = "Neogen",
     keys = { { "<leader>n", "<cmd>Neogen<cr>", desc = "Neogen" } },
     opts = { snippet_engine = "luasnip" },

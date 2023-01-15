@@ -4,7 +4,7 @@ local utils = require("utils")
 -- To run file run :Run or just press <F5>
 function _G.run_code()
   if cmd.run_command_table[vim.bo.filetype] then
-    vim.cmd("2TermExec cmd='" .. cmd.run_command_table[vim.bo.filetype] .. "' direction='float'")
+    require("FTerm").run(cmd.run_command_table[vim.bo.filetype])
   else
     print("\nFileType not supported\n")
   end

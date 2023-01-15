@@ -40,10 +40,10 @@ M.opts = {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "gni",
-      scope_incremental = "gnc",
-      node_decremental = "gnm",
+      init_selection = "<cr>",
+      node_incremental = "<cr>",
+      scope_incremental = "<S-CR>",
+      node_decremental = "<bs>",
     },
   },
   autotag = {

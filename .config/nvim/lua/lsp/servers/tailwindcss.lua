@@ -49,7 +49,7 @@ local settings = {
   },
 }
 
-local root_dir = { "tailwind.config.js", "tailwind.config.ts" }
+local root_dir = { "tailwind.config.js", "tailwind.config.ts", "tailwind.config.cjs" }
 
 M.filetypes = filetypes
 M.capabilities = capabilities

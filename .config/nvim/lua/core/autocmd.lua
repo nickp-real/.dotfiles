@@ -28,15 +28,6 @@ autocmd("BufReadPost", {
   group = format_options,
 })
 
--- Spell
--- disable spell for filetype
-autocmd("TermOpen", {
-  pattern = "term://*toggleterm#*",
-  callback = function()
-    vim.opt_local.spell = false
-  end,
-})
-
 -- Alpha Disable Bufferline
 local disable_bufferline = augroup("Disable Bufferline", { clear = true })
 autocmd("FileType", {

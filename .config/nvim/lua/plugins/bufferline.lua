@@ -1,7 +1,7 @@
 local M = {
   "akinsho/bufferline.nvim",
   dependencies = {
-    "roobert/bufferline-cycle-windowless.nvim",
+    { "roobert/bufferline-cycle-windowless.nvim", opts = { default_enabled = true } },
   },
   event = "VeryLazy",
 }
@@ -26,16 +26,11 @@ function M.keys()
   end
 
   return {
-    { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-    { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+    { "<Tab>", "<cmd>lua ChangeTab('next')<cr>", desc = "Next Buffer" },
+    { "<S-Tab>", "<cmd>lua ChangeTab('prev')<cr>", desc = "Prev Buffer" },
     { "<leader><Tab>", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Next" },
     { "<leader><S-Tab>", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Prev" },
   }
-end
-
-function M.opts(_, opts)
-  require("bufferline").setup(opts)
-  require("bufferline-cycle-windowless").setup({ default_enabled = true })
 end
 
 M.opts = {

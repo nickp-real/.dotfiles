@@ -3,11 +3,9 @@ local M = {
   ft = { "flutter", "dart" },
 }
 
-function M.config()
-  local flutter_tools = require("flutter-tools")
+function M.opts()
   local utils = require("lsp.utils")
-
-  flutter_tools.setup({
+  return {
     ui = {
       -- the border type to use for all floating windows, the same options/formats
       -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
@@ -83,7 +81,7 @@ function M.config()
         completeFunctionCalls = true,
       },
     },
-  })
+  }
 end
 
 return M
