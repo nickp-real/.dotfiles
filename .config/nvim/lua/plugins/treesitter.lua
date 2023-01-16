@@ -35,7 +35,7 @@ M.opts = {
   },
   indent = {
     enable = true,
-    disable = { "python", "dart" },
+    disable = { "python", "dart", "svelte" },
   },
   incremental_selection = {
     enable = true,

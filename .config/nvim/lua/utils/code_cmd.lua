@@ -12,6 +12,7 @@ M.run_command_table = {
   ["go"] = "go run %",
   ["javascript"] = "node %",
   ["dart"] = "dart run %",
+  ["bash"] = "bash %",
 }
 
 M.pattern_table = {
@@ -26,6 +27,7 @@ M.pattern_table = {
   ["go"] = "*.go",
   ["javascript"] = "*.js",
   ["dart"] = "*.dart",
+  ["bash"] = "*.bash",
 }
 
 return M

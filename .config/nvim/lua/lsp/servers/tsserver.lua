@@ -2,12 +2,7 @@ local utils = require("lsp.utils")
 
 local M = {}
 
-local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_nvim_lsp_ok then
-  return
-end
-
-local capabilities = cmp_nvim_lsp.default_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
 capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
@@ -44,6 +39,8 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true,
 }
 
+M.capabilities = capabilities
+
 local function filter(arr, fn)
   if type(arr) ~= "table" then
     return arr
@@ -68,7 +65,7 @@ local function filterReactDTS(value)
   end
 end
 
-local handlers = {
+M.handlers = {
   ["textDocument/definition"] = function(err, result, method, ...)
     if vim.tbl_islist(result) and #result > 1 then
       local filtered_result = filter(result, filterReactDTS)
@@ -79,11 +76,11 @@ local handlers = {
   end,
 }
 
-local on_attach = function(client, bufnr)
+M.on_attach = function(client, bufnr)
   utils.no_format_on_attach(client, bufnr)
 end
 
-local settings = {
+M.settings = {
   javascript = {
     inlayHints = {
       includeInlayParameterNameHints = "all",
@@ -113,10 +110,5 @@ local settings = {
     },
   },
 }
-
-M.capabilities = capabilities
-M.on_attach = on_attach
-M.handlers = handlers
-M.settings = settings
 
 return M

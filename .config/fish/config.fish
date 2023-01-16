@@ -36,7 +36,7 @@ alias pac_autoremove "sudo pacman -Rcs $(pacman -Qdtq)"
 fish_add_path ~/.cargo/bin 
 fish_add_path ~/.local/bin 
 fish_add_path $HOME/.pub-cache/bin 
-fish_add_path ~/.nvm/versions/node/v16.15.1/bin 
+fish_add_path ~/.nvm/versions/node/v18.13.0/bin 
 
 # pnpm
 set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"

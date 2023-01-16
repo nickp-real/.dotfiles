@@ -2,7 +2,7 @@
 require("core.option")
 require("core.lazy")
 require("core.autocmd")
-require("utils.auto_shebang")
+require("utils.auto_shebang").setup()
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",

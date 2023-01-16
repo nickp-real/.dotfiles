@@ -71,12 +71,6 @@ nnoremap("<A-w>", "<C-w>w")
 nnoremap("\\", ":split<cr><C-w>w")
 nnoremap("|", ":vsplit<cr><C-w>w")
 
--- Split resize
-nnoremap("<A-Up>", ":resize +2<cr>")
-nnoremap("<A-Down>", ":resize -2<cr>")
-nnoremap("<A-Left>", ":vertical resize -2<cr>")
-nnoremap("<A-Right>", ":vertical resize +2<cr>")
-
 -- Tab
 nnoremap("<leader>te", ":tabedit<cr>")
 nnoremap("<leader>tq", ":tabclose<cr>")

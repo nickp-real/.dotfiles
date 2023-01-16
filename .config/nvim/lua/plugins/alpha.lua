@@ -40,7 +40,7 @@ function M.config()
   end
 
   local fn = vim.fn
-  local marginTopPercent = 0.1
+  local marginTopPercent = 0.15
   local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
 
   local options = {

@@ -1,2 +1,2 @@
-require("utils.coderunner.autorun")
-require("utils.coderunner.coderunner")
+require("utils.coderunner.autorun").setup()
+require("utils.coderunner.coderunner").setup()

@@ -28,7 +28,7 @@ function M.opts()
     --     PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
     --   },
     -- }),
-    formatting.prettierd,
+    formatting.prettierd.with({ extra_filetypes = { "svelte", "toml" } }),
 
     -- go
     formatting.golines,

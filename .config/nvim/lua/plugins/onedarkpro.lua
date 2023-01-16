@@ -15,7 +15,6 @@ M.opts = {
     dark_gray = "require('onedarkpro.helpers').darken('bg', 2.7, 'onedark')",
   }, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
   highlights = {
-    diffAdded = { fg = "#109868" },
     TelescopeBorder = {
       fg = "${dark_gray}",
       bg = "${dark_gray}",

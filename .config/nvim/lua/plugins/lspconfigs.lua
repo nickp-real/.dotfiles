@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-  require("lsp.config")
+  require("lsp.config").setup()
   local lspconfig = require("lspconfig")
 
   local utils = require("lsp.utils")
@@ -70,6 +70,13 @@ function M.config()
           handlers = require("lsp.servers.tsserver").handlers,
           single_file_support = true,
         },
+      })
+    end,
+
+    ["svelte"] = function()
+      lspconfig.svelte.setup({
+        on_attach = require("lsp.servers.svelte").on_attach,
+        settings = require("lsp.servers.svelte").settings,
       })
     end,
 

@@ -1,6 +1,6 @@
 local M = {}
 
-local bind = function(op, outer_opts)
+M.bind = function(op, outer_opts)
   outer_opts = vim.tbl_extend("force", { silent = true }, outer_opts or {})
   return function(lhs, rhs, opts)
     opts = vim.tbl_extend("force", outer_opts, opts or {})
@@ -8,23 +8,13 @@ local bind = function(op, outer_opts)
   end
 end
 
-local nmap = bind("n", { noremap = false })
-local nnoremap = bind("n")
-local vnoremap = bind("v")
-local xnoremap = bind("x")
-local inoremap = bind("i")
-local nvnoremap = bind({ "n", "v" })
-local nxnoremap = bind({ "n", "x" })
-local nxonoremap = bind({ "n", "x", "o" })
-
-M.bind = bind
-M.nmap = nmap
-M.nnoremap = nnoremap
-M.vnoremap = vnoremap
-M.xnoremap = xnoremap
-M.inoremap = inoremap
-M.nvnoremap = nvnoremap
-M.nxnoremap = nxnoremap
-M.nxonoremap = nxonoremap
+M.nmap = M.bind("n", { noremap = false })
+M.nnoremap = M.bind("n")
+M.vnoremap = M.bind("v")
+M.xnoremap = M.bind("x")
+M.inoremap = M.bind("i")
+M.nvnoremap = M.bind({ "n", "v" })
+M.nxnoremap = M.bind({ "n", "x" })
+M.nxonoremap = M.bind({ "n", "x", "o" })
 
 return M

@@ -3,6 +3,7 @@ local M = {}
 M.auto_format = function(client, bufnr)
   local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
   vim.api.nvim_create_autocmd("BufWritePre", {
+    desc = client.name,
     buffer = bufnr,
     callback = function()
       vim.lsp.buf.format({ bufnr = bufnr })
