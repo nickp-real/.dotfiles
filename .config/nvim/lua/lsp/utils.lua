@@ -1,7 +1,16 @@
 local M = {}
 
-M.auto_format = function(client, bufnr)
-  local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
+M.auto_format = function(client, bufnr, group)
+  -- -- if there's eslint, format prettier by eslint call instead
+  if client.name == "null-ls" then
+    local lsp_list = vim.lsp.get_active_clients({ buffer = bufnr })
+    for _, value in ipairs(lsp_list) do
+      if value.name == "eslint" then
+        return
+      end
+    end
+  end
+  group = group or vim.api.nvim_create_augroup("Format On Save", { clear = false })
   vim.api.nvim_create_autocmd("BufWritePre", {
     desc = client.name,
     buffer = bufnr,

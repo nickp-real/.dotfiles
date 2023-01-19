@@ -62,8 +62,9 @@ function M.opts()
   return {
     sources = sources,
     on_attach = function(client, bufnr)
+      local group = vim.api.nvim_create_augroup("Format On Save [null-ls]", { clear = false })
       if client.server_capabilities.documentFormattingProvider then
-        utils.auto_format(client, bufnr)
+        utils.auto_format(client, bufnr, group)
       end
     end,
     update_in_insert = false,

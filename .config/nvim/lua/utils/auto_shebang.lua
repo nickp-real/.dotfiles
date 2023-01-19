@@ -10,7 +10,7 @@ function M.setup()
 
   local insert = function()
     local filetype = vim.bo.filetype
-    local str_split = require("utils").str_split
+    local str_split = require("utils").strsplit
     vim.api.nvim_buf_set_lines(
       0,
       0,

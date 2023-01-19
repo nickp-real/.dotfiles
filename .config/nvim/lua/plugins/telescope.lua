@@ -25,7 +25,7 @@ M.keys = {
   { "<leader>fa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
   { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands" },
   { "<leader>fv", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-  { "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Telescope" },
+  { "<leader>f<space>", "<cmd>Telescope builtin<cr>", desc = "Telescope" },
   { "<leader>fH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
   { "<leader>fG", require("utils").telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
   { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },

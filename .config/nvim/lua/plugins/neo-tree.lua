@@ -20,6 +20,7 @@ end
 
 function M.opts()
   return {
+    use_popups_for_input = false,
     filesystem = {
       hijack_netrw_behavior = "open_current",
       follow_current_file = true,

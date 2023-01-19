@@ -22,7 +22,7 @@ function M.setup_codelens_refresh(client, bufnr)
     return client.supports_method("textDocument/codeLens")
   end)
 
-  if not status_ok then
+  if not status_ok or not codelens_supported then
     return
   end
 

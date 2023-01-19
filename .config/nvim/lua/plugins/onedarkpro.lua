@@ -11,13 +11,17 @@ end
 
 M.opts = {
   colors = {
-    telescope_prompt = "require('onedarkpro.helpers').lighten('bg', 2.25, 'onedark')",
-    dark_gray = "require('onedarkpro.helpers').darken('bg', 2.7, 'onedark')",
+    dark = {
+      telescope_prompt = "require('onedarkpro.helpers').darken('bg', 1, 'onedark')",
+      telescope_results = "require('onedarkpro.helpers').darken('bg', 4, 'onedark')", -- dark gray
+      telescope_preview = "require('onedarkpro.helpers').darken('bg', 6, 'onedark')",
+      telescope_selection = "require('onedarkpro.helpers').darken('bg', 8, 'onedark')",
+    },
   }, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
   highlights = {
     TelescopeBorder = {
-      fg = "${dark_gray}",
-      bg = "${dark_gray}",
+      fg = "${telescope_results}",
+      bg = "${telescope_results}",
     },
     TelescopePromptBorder = {
       fg = "${telescope_prompt}",
@@ -34,17 +38,18 @@ M.opts = {
       bg = "${purple}",
     },
     TelescopePreviewTitle = {
-      fg = "${dark_gray}",
+      fg = "${telescope_results}",
       bg = "${green}",
     },
     TelescopeResultsTitle = {
-      fg = "${dark_gray}",
-      bg = "${dark_gray}",
+      fg = "${telescope_results}",
+      bg = "${telescope_results}",
     },
-
     TelescopeMatching = { fg = "${blue}" },
-    TelescopeNormal = { bg = "${dark_gray}" },
-    TelescopeSelection = { bg = "${telescope_prompt}" },
+    TelescopeNormal = { bg = "${telescope_results}" },
+    TelescopeSelection = { bg = "${telescope_selection}" },
+    TelescopePreviewNormal = { bg = "${telescope_preview}" },
+    TelescopePreviewBorder = { fg = "${telescope_preview}", bg = "${telescope_preview}" },
 
     -- diffChanged = { fg = "e0af68" },
     -- diffRemoved = { fg = "#9a353d" },
@@ -53,8 +58,8 @@ M.opts = {
     AlphaShortcut = { fg = "${blue}" },
     AlphaFooter = { fg = "${orange}" },
 
-    NormalFloat = { bg = "${dark_gray}" },
-    FloatBorder = { bg = "${dark_gray}", fg = "${gray}" },
+    NormalFloat = { bg = "${telescope_results}" },
+    FloatBorder = { bg = "${telescope_results}", fg = "${gray}" },
 
     NavicText = { fg = "${fg}" },
 
