@@ -2,12 +2,6 @@
 local M = {}
 
 function M.setup()
-  local appendLine = function()
-    vim.fn.append(1, "")
-    vim.fn.append(2, "")
-    vim.fn.cursor(3, 0)
-  end
-
   local insert = function()
     local filetype = vim.bo.filetype
     local str_split = require("utils").strsplit
@@ -18,7 +12,8 @@ function M.setup()
       false,
       { "#!/usr/bin/env " .. str_split(require("utils.code_cmd").run_command_table[filetype])[1] }
     )
-    appendLine()
+    vim.cmd("call append(line('.'), repeat([''], 2))")
+    vim.fn.cursor(3, 0)
   end
 
   local group = vim.api.nvim_create_augroup("Auto Shebang", { clear = true })

@@ -93,6 +93,10 @@ vnoremap("K", ":m '<-2<CR>gv=gv")
 nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- Newline without exit normal
+nnoremap("go", "<cmd>call append(line('.'), repeat([''], v:count1))<cr>")
+nnoremap("gO", "<cmd>call append(line('.')-1, repeat([''], v:count1))<cr>")
+
 -- Select All Text
 nnoremap("<leader>a", ":keepjumps normal! ggVG<cr>")
 
@@ -107,12 +111,6 @@ nnoremap("<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
 
 -- chmod in vim
 nnoremap("<leader>x", ":!chmod +x %<cr>")
-
--- LSP
-nnoremap("<space>e", vim.diagnostic.open_float)
-nnoremap("[d", vim.diagnostic.goto_prev)
-nnoremap("]d", vim.diagnostic.goto_next)
-nnoremap("<space>q", vim.diagnostic.setloclist)
 
 -- Coderunner
 nnoremap("<leader>r", vim.cmd.Run)

@@ -1,6 +1,6 @@
 local M = {}
 
-local settings = {
+M.settings = {
   css = {
     lint = {
       unknownAtRules = "ignore",
@@ -12,7 +12,5 @@ local settings = {
     },
   },
 }
-
-M.settings = settings
 
 return M

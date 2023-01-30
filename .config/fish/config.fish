@@ -75,7 +75,7 @@ set -gx LESS '-R --use-color -Dd+r$Du+b'
 set -gx MANPAGER 'nvim +Man!'
 
 # fish var
-set -g fish_term24bit 1
+# set -g fish_term24bit 1
 set -g fish_color_command green 
 set -g fish_color_normal brwhite
 set -g fish_color_option blue

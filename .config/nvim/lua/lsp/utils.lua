@@ -1,16 +1,7 @@
 local M = {}
 
-M.auto_format = function(client, bufnr, group)
-  -- -- if there's eslint, format prettier by eslint call instead
-  if client.name == "null-ls" then
-    local lsp_list = vim.lsp.get_active_clients({ buffer = bufnr })
-    for _, value in ipairs(lsp_list) do
-      if value.name == "eslint" then
-        return
-      end
-    end
-  end
-  group = group or vim.api.nvim_create_augroup("Format On Save", { clear = false })
+M.auto_format = function(client, bufnr)
+  local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
   vim.api.nvim_create_autocmd("BufWritePre", {
     desc = client.name,
     buffer = bufnr,
@@ -25,23 +16,41 @@ M.lsp_mapping = function(bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { silent = true, buffer = bufnr }
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set("n", "<space>wl", function()
+  local nnoremap = require("utils.keymap_utils").nnoremap
+
+  local function diagnostic_goto(next, severity)
+    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+    severity = severity and vim.diagnostic.severity[severity] or nil
+    return function()
+      go({ severity = severity })
+    end
+  end
+
+  nnoremap("gD", vim.lsp.buf.declaration, bufopts)
+  nnoremap("gd", vim.lsp.buf.definition, bufopts)
+  nnoremap("K", vim.lsp.buf.hover, bufopts)
+  nnoremap("gi", vim.lsp.buf.implementation, bufopts)
+  nnoremap("<C-k>", vim.lsp.buf.signature_help, bufopts)
+  nnoremap("<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+  nnoremap("<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+  nnoremap("<space>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<space>f", function()
+  nnoremap("<space>D", vim.lsp.buf.type_definition, bufopts)
+  nnoremap("<space>rn", vim.lsp.buf.rename, bufopts)
+  nnoremap("<space>ca", vim.lsp.buf.code_action, bufopts)
+  nnoremap("gr", vim.lsp.buf.references, bufopts)
+  nnoremap("<space>f", function()
     vim.lsp.buf.format({ bufnr = bufnr })
   end, bufopts)
+  nnoremap("]e", diagnostic_goto(true, "ERROR"), bufopts)
+  nnoremap("[e", diagnostic_goto(false, "ERROR"), bufopts)
+  nnoremap("]w", diagnostic_goto(true, "WARN"), bufopts)
+  nnoremap("[w", diagnostic_goto(false, "WARN"), bufopts)
+  nnoremap("[d", diagnostic_goto(false), bufopts)
+  nnoremap("]d", diagnostic_goto(true), bufopts)
+  nnoremap("<space>e", vim.diagnostic.open_float, bufopts)
+  nnoremap("<space>q", vim.diagnostic.setloclist, bufopts)
 end
 
 M.on_attach = function(client, bufnr)

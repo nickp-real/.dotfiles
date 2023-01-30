@@ -12,12 +12,12 @@ local M = {
 
 M.keys = {
   { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Toggle Breakpoint" },
-  { "<leader>dc", '<cmd>require("dap").continue()<cr>', desc = "Continue" },
-  { "<leader>do", '<cmd>require("dap").step_over()<cr>', desc = "Step Over" },
-  { "<leader>di", '<cmd>require("dap").step_into()<cr>', desc = "Step Into" },
-  { "<leader>dw", '<cmd>require("dap.ui.widgets").hover()<cr>', desc = "Widgets" },
-  { "<leader>dr", '<cmd>require("dap").repl.open()<cr>', desc = "Repl" },
-  { "<leader>du", '<cmd>require("dapui").toggle({})<cr>', desc = "Dap UI" },
+  { "<leader>dc", '<cmd>lua require("dap").continue()<cr>', desc = "Continue" },
+  { "<leader>do", '<cmd>lua require("dap").step_over()<cr>', desc = "Step Over" },
+  { "<leader>di", '<cmd>lua require("dap").step_into()<cr>', desc = "Step Into" },
+  { "<leader>dw", '<cmd>lua require("dap.ui.widgets").hover()<cr>', desc = "Widgets" },
+  { "<leader>dr", '<cmd>lua require("dap").repl.open()<cr>', desc = "Repl" },
+  { "<leader>du", '<cmd>lua require("dapui").toggle({})<cr>', desc = "Dap UI" },
 }
 
 function M.config()

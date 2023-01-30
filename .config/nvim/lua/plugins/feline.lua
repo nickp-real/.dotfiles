@@ -4,8 +4,6 @@ local M = {
 }
 
 function M.config()
-  local feline = require("feline")
-
   local onedark = {
     fg = "#abb2bf",
     bg = "#282c34",
@@ -245,47 +243,76 @@ function M.config()
       enabled = function()
         return require("nvim-navic").is_available()
       end,
-      left_sep = "   ",
+      hl = {
+        bg = "none",
+      },
+    },
+    filepath = {
+      provider = {
+        name = "file_info",
+        opts = {
+          type = "relative-short",
+          file_modified_icon = "",
+          file_readonly_icon = "",
+        },
+      },
+      hl = {
+        bg = "none",
+      },
+    },
+    separator = {
+      provider = ": ",
+      hl = {
+        bg = "none",
+      },
     },
   }
 
   local winbar_components = {
     active = {
-      { wc.navic, {}, {} },
+      { wc.filepath, wc.separator, wc.navic },
+    },
+    inactive = {
+      { wc.filepath, wc.separator, wc.navic },
     },
   }
+  local feline = require("feline")
 
   feline.setup({
     components = components,
     theme = onedark,
     vi_mode_colors = vi_mode_colors,
-
-    filetypes = {
-      "^NvimTree$",
-      "^packer$",
-      "^startify$",
-      "^fugitive$",
-      "^fugitiveblame$",
-      "^qf$",
-      "^help$",
-      "^alpha$",
+    disable = {
+      filetypes = {
+        "^NvimTree$",
+        "^packer$",
+        "^startify$",
+        "^fugitive$",
+        "^fugitiveblame$",
+        "^qf$",
+        "^help$",
+        "^alpha$",
+        "^man$",
+      },
     },
   })
 
-  -- feline.winbar.setup({
-  --   components = winbar_components,
-
-  --   filetypes = {
-  --     "^NvimTree$",
-  --     "^packer$",
-  --     "^startify$",
-  --     "^fugitive$",
-  --     "^fugitiveblame$",
-  --     "^qf$",
-  --     "^help$",
-  --     "^alpha$",
-  --   },
-  -- })
+  feline.winbar.setup({
+    components = winbar_components,
+    disable = {
+      filetypes = {
+        "^NvimTree$",
+        "^packer$",
+        "^startify$",
+        "^fugitive$",
+        "^fugitiveblame$",
+        "^qf$",
+        "^help$",
+        "^alpha$",
+        "^man$",
+      },
+    },
+  })
 end
 
 return M

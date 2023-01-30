@@ -2,14 +2,46 @@ local M = {
   "monaqa/dial.nvim",
 }
 
-M.keys = {
-  { "<C-a>", '<cmd>require("dial.map").inc_normal()<cr>', desc = "Normal Increment" },
-  { "<C-x>", '<cmd>require("dial.map").dec_normal()<cr>', desc = "Normal Decrement" },
-  { "<C-a>", '<cmd>require("dial.map").inc_visual()<cr>', desc = "Visual Increment" },
-  { "<C-x>", '<cmd>require("dial.map").dec_visual()<cr>', desc = "Visual Decrement" },
-  { "g<C-a>", '<cmd>require("dial.map").inc_gvisual()<cr>', desc = "Gvisual Increment" },
-  { "g<C-x>", '<cmd>require("dial.map").dec_gvisual()<cr>', desc = "Gvisual Decrement" },
-}
+function M.keys()
+  return {
+    {
+      "<C-a>",
+      function()
+        return require("dial.map").inc_normal()
+      end,
+      desc = "Increment",
+      expr = true,
+      mode = { "n", "v" },
+    },
+    {
+      "<C-x>",
+      function()
+        return require("dial.map").dec_normal()
+      end,
+      desc = "Decrement",
+      expr = true,
+      mode = { "n", "v" },
+    },
+    {
+      "g<C-a>",
+      function()
+        return require("dial.map").inc_gvisual()
+      end,
+      desc = "Gvisual Increment",
+      expr = true,
+      mode = "v",
+    },
+    {
+      "g<C-x>",
+      function()
+        return require("dial.map").dec_gvisual()
+      end,
+      desc = "Gvisual Decrement",
+      expr = true,
+      mode = "v",
+    },
+  }
+end
 
 function M.config()
   local augend = require("dial.augend")

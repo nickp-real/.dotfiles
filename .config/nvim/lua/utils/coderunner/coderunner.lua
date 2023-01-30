@@ -42,8 +42,8 @@ function M.setup()
   end
 
   -- Normal run code, output through terminal
-  vim.api.nvim_create_user_command("Run", "lua run_code()", {})
-  vim.api.nvim_create_user_command("RunUpdate", "lua update_command_table(<f-args>)", {})
+  vim.api.nvim_create_user_command("Run", "lua RunCode()", {})
+  vim.api.nvim_create_user_command("RunUpdate", "lua UpdateCommandTable(<f-args>)", {})
   -- vim.cmd("command! -nargs=* RunUpdate :lua update_command_table(<f-args>)")
 end
 

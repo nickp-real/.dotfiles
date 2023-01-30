@@ -581,7 +581,7 @@ client.connect_signal("manage", function(c)
 		if c.fullscreen or c.maximized then
 			gears.shape.rectangle(cr, width, height)
 		else
-			gears.shape.rounded_rect(cr, width, height, dpi(10))
+			gears.shape.rounded_rect(cr, width, height, dpi(15))
 		end
 	end
 end)

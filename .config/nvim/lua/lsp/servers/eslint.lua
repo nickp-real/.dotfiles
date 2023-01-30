@@ -2,43 +2,40 @@ local M = {}
 
 local utils = require("lsp.utils")
 
-local on_attach = function(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = true
-  client.server_capabilities.documentRangeFormattingProvider = true
-
+M.on_attach = function(client, bufnr)
   utils.on_attach(client, bufnr)
 end
 
-local settings = {
-  codeAction = {
-    disableRuleComment = {
-      enable = true,
-      location = "separateLine",
+M.settings = {
+  eslint = {
+    autoFixOnSave = true,
+    codeAction = {
+      disableRuleComment = {
+        enable = true,
+        location = "separateLine",
+      },
+      showDocumentation = {
+        enable = true,
+      },
     },
-    showDocumentation = {
-      enable = true,
+    codeActionOnSave = {
+      enable = false,
+      mode = "all",
     },
-  },
-  codeActionOnSave = {
-    enable = false,
-    mode = "all",
-  },
-  format = true,
-  nodePath = "",
-  onIgnoredFiles = "off",
-  packageManager = "pnpm",
-  quiet = false,
-  rulesCustomizations = {},
-  provideLintTask = true,
-  run = "onType",
-  useESLintClass = false,
-  validate = "on",
-  workingDirectory = {
-    mode = "location",
+    format = false,
+    nodePath = "",
+    onIgnoredFiles = "off",
+    packageManager = "pnpm",
+    quiet = false,
+    rulesCustomizations = {},
+    provideLintTask = true,
+    run = "onType",
+    useESLintClass = false,
+    validate = "on",
+    workingDirectory = {
+      mode = "location",
+    },
   },
 }
-
-M.settings = settings
-M.on_attach = on_attach
 
 return M

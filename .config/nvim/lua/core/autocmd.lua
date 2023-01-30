@@ -28,27 +28,6 @@ autocmd("BufReadPost", {
   group = format_options,
 })
 
--- Alpha Disable Bufferline
-local disable_bufferline = augroup("Disable Bufferline", { clear = true })
-autocmd("FileType", {
-  pattern = { "man", "alpha" },
-  callback = function()
-    local old_laststatus = vim.opt.laststatus
-    local old_tabline = vim.opt.showtabline
-    autocmd("BufUnload", {
-      buffer = 0,
-      callback = function()
-        vim.opt.laststatus = old_laststatus
-        vim.opt.showtabline = old_tabline
-      end,
-      group = disable_bufferline,
-    })
-    vim.opt.laststatus = 0
-    vim.opt.showtabline = 0
-  end,
-  group = disable_bufferline,
-})
-
 -- Use 'q' to quit from common plugins
 autocmd("FileType", {
   pattern = {
@@ -63,6 +42,7 @@ autocmd("FileType", {
     "startuptime",
   },
   callback = function(event)
+    vim.opt_local.wrap = false
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
