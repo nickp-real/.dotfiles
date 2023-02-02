@@ -57,6 +57,9 @@ require("lazy").setup({
       disabled_plugins = default_plugins,
     },
   },
+  dev = {
+    path = "~/Coding/nvim_plugin",
+  },
 })
 
 local default_providers = {
