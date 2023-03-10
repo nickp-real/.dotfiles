@@ -12,7 +12,7 @@ return {
         vim.g.matchup_matchparen_offscreen = { method = "popup", border = "rounded" }
       end,
     },
-    "p00f/nvim-ts-rainbow",
+    "HiPhish/nvim-ts-rainbow2",
     {
       "nvim-treesitter/nvim-treesitter-context",
       config = function()
@@ -32,7 +32,7 @@ return {
     },
     indent = {
       enable = true,
-      disable = { "python", "dart", "svelte" },
+      disable = { "python", "svelte" },
     },
     incremental_selection = {
       enable = true,
@@ -43,38 +43,17 @@ return {
         node_decremental = "<bs>",
       },
     },
-    autotag = {
-      enable = true,
-    },
+    autotag = { enable = true },
     rainbow = {
-      enable = true,
-      extended_mode = false,
-      max_file_lines = nil,
-      colors = {
-        "#abb2bf", -- bright white
-        "#c678dd", -- purple
-        -- "#528bff", -- bright blue
-        "#61afef", -- blue
-        "#98c379", -- green
-        "#e5c07b", -- bright yellow
-        "#d19a66", -- bright orange
-        "#e86671", -- bright red
-
-        -- "#798294", -- white
-        -- "#c678dd", -- purple
-        -- "#61afef", -- blue
-        -- "#98c379", -- green
-        -- "#ebd09c", -- yellow
-        -- "#e59b4e", -- orange
-        -- "#e06c75", --red,
-
-        -- "#e06c75", - red
-        -- "#ebd09c", -- yellow
-        -- "#e59b4e", -- orange
-        -- "#98c379", -- green
-        -- "#61afef", -- blue
-        -- "#56b6c2", -- cyan
-        -- "#c678dd", -- purple
+      hlgroups = {
+        "TSRainbowWhite",
+        "TSRainbowPurple",
+        "TSRainbowBlue",
+        "TSRainbowGreen",
+        "TSRainbowYellow",
+        "TSRainbowOrange",
+        "TSRainbowRed",
+        "TSRainbowCyan",
       },
     },
     textobjects = {
@@ -144,12 +123,7 @@ return {
         ["i;"] = "textsubjects-container-inner",
       },
     },
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
-    matchup = {
-      enable = true,
-    },
+    context_commentstring = { enable = true, enable_autocmd = false },
+    matchup = { enable = true },
   },
 }

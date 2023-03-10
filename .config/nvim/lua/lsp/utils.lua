@@ -50,7 +50,7 @@ M.lsp_mapping = function(bufnr)
   nnoremap("[d", diagnostic_goto(false), bufopts)
   nnoremap("]d", diagnostic_goto(true), bufopts)
   nnoremap("<space>e", vim.diagnostic.open_float, bufopts)
-  nnoremap("<space>q", vim.diagnostic.setloclist, bufopts)
+  nnoremap("<C-q>", vim.diagnostic.setloclist, bufopts)
 end
 
 M.on_attach = function(client, bufnr)
@@ -86,10 +86,6 @@ M.on_attach = function(client, bufnr)
     })
   end
 
-  if client.server_capabilities.colorProvider then
-    require("document-color").buf_attach(bufnr, { mode = "background" })
-  end
-
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
@@ -103,14 +99,12 @@ M.no_format_on_attach = function(client, bufnr)
   M.on_attach(client, bufnr)
 end
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.foldingRange = {
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true,
 }
-
-M.capabilities = capabilities
 
 M.flags = {
   allow_incremental_sync = true,

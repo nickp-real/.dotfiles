@@ -241,7 +241,7 @@ awful.screen.connect_for_each_screen(function(s)
 		position = "top",
 		screen = s,
 		height = dpi(30),
-		margins = { top = dpi(10), bottom = 0, left = dpi(10), right = dpi(10) },
+		margins = { top = dpi(5), bottom = dpi(3), left = dpi(5), right = dpi(5) },
 		shape = gears.shape.rounded_rect,
 	})
 

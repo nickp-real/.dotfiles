@@ -22,7 +22,7 @@ return {
       luasnip.filetype_extend("javascriptreact", { "html" })
       luasnip.filetype_extend("typescriptreact", { "html" })
 
-      luasnip.filetype_extend("dart", { "flutter" })
+      -- luasnip.filetype_extend("dart", { "flutter" })
       luasnip.add_snippets("cpp", require("snippet.cpp"))
     end,
     opts = {
@@ -47,6 +47,7 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       { "mtoohey31/cmp-fish", ft = "fish" },
+      { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function(_, opts)
@@ -167,7 +168,6 @@ return {
             return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
           end
         end,
-
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
@@ -175,8 +175,6 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
-          ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -233,18 +231,24 @@ return {
               nvim_lua = "[Nvim_lua]",
               path = "[Path]",
             })[entry.source.name]
-            return vim_item
+            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
           end,
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp_signature_help", priority = 8 },
           { name = "nvim_lsp", max_item_count = 25, priority = 8 },
           { name = "luasnip", priority = 7, max_item_count = 8 },
-          { name = "buffer", Keyword_length = 5, priority = 7, option = buffer_option, max_item_count = 8 },
+          {
+            name = "buffer",
+            Keyword_length = 5,
+            priority = 7,
+            option = buffer_option,
+            max_item_count = 8,
+          },
           { name = "nvim_lua", priority = 5 },
           { name = "path", priority = 4 },
         }),
-        preselete = cmp.PreselectMode.None,
+        preselect = cmp.PreselectMode.None,
         sorting = {
           priority_weight = 1.0,
           comparators = {

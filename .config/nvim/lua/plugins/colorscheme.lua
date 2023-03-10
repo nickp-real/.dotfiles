@@ -60,13 +60,14 @@ return {
 
       NavicText = { fg = "${fg}" },
 
-      -- rainbowcol1 = { fg = "#abb2bf" }, -- bright white
-      -- rainbowcol2 = { fg = "#c678dd" }, -- purple
-      -- rainbowcol3 = { fg = "#61afef" }, -- blue
-      -- rainbowcol4 = { fg = "#98c379" }, -- green
-      -- rainbowcol5 = { fg = "#e5c07b" }, -- bright yellow
-      -- rainbowcol6 = { fg = "#d19a66" }, -- bright orange
-      -- rainbowcol7 = { fg = "#e86671" }, -- bright red
+      TSRainbowWhite = { fg = "${white}" },
+      TSRainbowPurple = { fg = "${orange}" },
+      TSRainbowBlue = { fg = "${blue}" },
+      TSRainbowGreen = { fg = "${green}" },
+      TSRainbowYellow = { fg = "${yellow}" }, -- purple
+      TSRainbowOrange = { fg = "${orange}" },
+      TSRainbowCyan = { fg = "${cyan}" },
+      TSRainbowRed = { fg = "${red}" }, -- white,
     },
     plugins = {
       nvim_ts_rainbow = false,

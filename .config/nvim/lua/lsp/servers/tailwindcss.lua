@@ -1,14 +1,13 @@
 local M = {}
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.colorProvider = { dynamicRegistration = true }
-capabilities.textDocument.foldingRange = {
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true,
 }
 
-M.filetypes = { "html", "css", "mdx", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
+M.filetypes = { "html", "css", "mdx", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte", "eruby" }
 
 M.init_options = {
   userLanguages = {
@@ -46,8 +45,6 @@ M.settings = {
   },
 }
 
-M.root_dir = { "tailwind.config.js", "tailwind.config.ts", "tailwind.config.cjs" }
-
-M.capabilities = capabilities
+M.root_dir = { "tailwind.config.js", "tailwind.config.ts", "tailwind.config.cjs", "./config/tailwind.config.js" }
 
 return M

@@ -62,7 +62,7 @@ return {
       end
 
       local fn = vim.fn
-      local marginTopPercent = 0.1
+      local marginTopPercent = 0.15
       local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
 
       local options = {
@@ -249,11 +249,11 @@ return {
   {
     "utilyre/barbecue.nvim",
     dependencies = { "SmiteshP/nvim-navic" },
+    event = "VeryLazy",
     opts = {
       attach_navic = false,
-      exclude_filetypes = { "gitcommit", "toggleterm", "Trouble", "alpha", "FTerm" },
+      exclude_filetypes = { "gitcommit", "Trouble", "alpha", "FTerm" },
     },
-    event = "VeryLazy",
   },
 
   -- statusline
@@ -463,7 +463,7 @@ return {
       }
 
       local middle = {
-        c.fileinfo,
+        -- c.fileinfo,
         c.diagnostic_errors,
         c.diagnostic_warnings,
         c.diagnostic_info,

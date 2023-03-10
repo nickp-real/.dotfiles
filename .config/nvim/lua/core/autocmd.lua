@@ -77,19 +77,24 @@ autocmd("BufReadPost", {
 })
 
 -- Cursor Line on each window
-local cursorline = augroup("CursorLineControl", { clear = true })
-local set_cursorline = function(event, value, pattern)
-  autocmd(event, {
-    group = cursorline,
-    pattern = pattern,
-    callback = function()
-      vim.opt_local.cursorline = value
-    end,
-  })
-end
-set_cursorline("WinLeave", false)
-set_cursorline("WinEnter", true)
-set_cursorline("FileType", false, { "TelescopePrompt", "alpha" })
+autocmd({ "InsertLeave", "WinEnter" }, {
+  callback = function()
+    local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
+    if ok and cl then
+      vim.wo.cursorline = true
+      vim.api.nvim_win_del_var(0, "auto-cursorline")
+    end
+  end,
+})
+autocmd({ "InsertEnter", "WinLeave" }, {
+  callback = function()
+    local cl = vim.wo.cursorline
+    if cl then
+      vim.api.nvim_win_set_var(0, "auto-cursorline", cl)
+      vim.wo.cursorline = false
+    end
+  end,
+})
 
 -- Textfile spell
 vim.api.nvim_create_autocmd("FileType", {

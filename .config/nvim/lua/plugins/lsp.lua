@@ -8,7 +8,6 @@ return {
       "mason.nvim",
       "fidget.nvim",
       "mason-lspconfig.nvim",
-      "mrshmllow/document-color.nvim",
       { "lvimuser/lsp-inlayhints.nvim", config = true },
     },
     config = function()
@@ -37,28 +36,24 @@ return {
             })
           end
         end,
-
-        ["sumneko_lua"] = function()
-          lspconfig.sumneko_lua.setup({
-            on_attach = require("lsp.servers.sumneko_lua").on_attach,
-            settings = require("lsp.servers.sumneko_lua").settings,
+        ["lua_ls"] = function()
+          lspconfig.lua_ls.setup({
+            on_attach = require("lsp.servers.lua_ls").on_attach,
+            settings = require("lsp.servers.lua_ls").settings,
           })
         end,
-
         ["pyright"] = function()
           lspconfig.pyright.setup({
             on_attach = utils.no_format_on_attach,
             settings = require("lsp.servers.pyright").settings,
           })
         end,
-
         ["jsonls"] = function()
           lspconfig.jsonls.setup({
             on_attach = utils.no_format_on_attach,
             settings = require("lsp.servers.jsonls").settings,
           })
         end,
-
         ["tsserver"] = function()
           require("typescript").setup({
             disable_commands = false, -- prevent the plugin from creating Vim commands
@@ -74,21 +69,18 @@ return {
             },
           })
         end,
-
         ["svelte"] = function()
           lspconfig.svelte.setup({
             on_attach = require("lsp.servers.svelte").on_attach,
             settings = require("lsp.servers.svelte").settings,
           })
         end,
-
         ["eslint"] = function()
           lspconfig.eslint.setup({
             on_attach = require("lsp.servers.eslint").on_attach,
             settings = require("lsp.servers.eslint").settings,
           })
         end,
-
         ["tailwindcss"] = function()
           lspconfig.tailwindcss.setup({
             capabilities = require("lsp.servers.tailwindcss").capabilities,
@@ -99,14 +91,13 @@ return {
             root_dir = root_pattern(unpack(require("lsp.servers.tailwindcss").root_dir)),
           })
         end,
-
         ["html"] = function()
           lspconfig.html.setup({
             on_attach = utils.on_attach,
+            filetypes = require("lsp.servers.html").filetypes,
             settings = require("lsp.servers.html").settings,
           })
         end,
-
         ["cssls"] = function()
           lspconfig.cssls.setup({
             on_attach = utils.no_format_on_attach,
@@ -141,12 +132,10 @@ return {
         formatting.black.with({ extra_args = { "--fast" } }),
 
         -- front-end
-        -- formatting.prettierd.with({
-        --   env = {
-        --     PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
-        --   },
-        -- }),
         formatting.prettierd.with({ extra_filetypes = { "svelte", "toml" } }),
+        -- formatting.prettierd.with({ extra_filetypes = { "svelte", "toml" }, condition = function (utils)
+        --   return utils.has_file({".prettierrc.js"})
+        -- end }),
 
         -- go
         formatting.golines,
@@ -300,7 +289,7 @@ return {
         "cssls",
         "html",
         "jsonls",
-        "sumneko_lua",
+        "lua_ls",
         "tailwindcss",
         "tsserver",
         "clangd",

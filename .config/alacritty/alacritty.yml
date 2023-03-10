@@ -72,7 +72,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.7
+  opacity: 0.2
 
   # Startup Mode (changes require restart)
   #
@@ -115,8 +115,8 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: Iosevka Term Nerd Font
-    style: Medium
+    family: FantasqueSans Mono Nerd Font
+    style: Regular
 
   # Bold font face
   bold:
@@ -124,7 +124,7 @@ font:
 
   # Italic font face
   italic:
-    style: Medium Italic
+    style: Italic
 
   # Bold italic font face
   bold_italic:
@@ -147,12 +147,35 @@ font:
     x: 0
     y: 0
 
+  # normal:
+  #   family: Iosevka Term Nerd Font
+  #   style: Medium
+
+  # bold:
+  #   style: Bold
+
+  # italic:
+  #   style: Medium Italic
+
+  # bold_italic:
+  #   style: Bold Italic
+
+  # size: 12
+
+  # offset:
+  #   x: 0
+  #   y: 0
+
+  # glyph_offset:
+  #   x: 0
+  #   y: 0
+
   # Use built-in font for box drawing characters.
   #
   # If `true`, Alacritty will use a custom built-in font for box drawing
   # characters (Unicode points 2500 - 259f).
 
-  # builtin_box_drawing: false
+  builtin_box_drawing: false
 
   # If `true`, bold text is drawn using the bright color variants.
   draw_bold_text_with_bright_colors: true

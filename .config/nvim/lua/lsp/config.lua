@@ -17,6 +17,7 @@ M.diagnostic_config = {
     M.setup_codelens_refresh(_)
   end,
 }
+
 function M.setup_codelens_refresh(client, bufnr)
   local status_ok, codelens_supported = pcall(function()
     return client.supports_method("textDocument/codeLens")

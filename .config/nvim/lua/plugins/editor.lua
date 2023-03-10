@@ -211,7 +211,7 @@ return {
       { "<leader>fB", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
       { "<leader>fh", "<cmd>Telescope command_history<cr>", desc = "Command History" },
       { "<leader>fg", require("utils").telescope("live_grep"), desc = "Grep (root dir)" },
-      { "<leader>fV", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+      { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
       { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
       { "<leader>fn", "<cmd>Telescope file_browser<cr>", desc = "File Browser" },
       {
@@ -245,6 +245,15 @@ return {
         pickers = {
           find_files = {
             find_command = { "fd", "--hidden", "--glob", "" },
+          },
+          buffers = {
+            show_all_buffers = true,
+            sort_mru = true,
+            mapping = {
+              i = {
+                ["<c-d>"] = "delete_buffer",
+              },
+            },
           },
         },
         prompt_prefix = "   ",

@@ -1,6 +1,6 @@
 local M = {}
 
-local settings = {
+M.settings = {
   html = {
     format = {
       indentHandlebars = true,
@@ -10,6 +10,6 @@ local settings = {
   },
 }
 
-M.settings = settings
+M.filetypes = { "html", "eruby" }
 
 return M

@@ -62,6 +62,9 @@ fish_add_path $ANDROID_HOME/tools
 set -x FLUTTER_ROOT $HOME/Dev-tools/flutter
 fish_add_path $FLUTTER_ROOT/bin 
 
+# Firebase cli
+fish_add_path $HOME/.pub-cache/bin
+
 # Rofi
 fish_add_path $HOME/.config/rofi/scripts 
 
@@ -95,6 +98,9 @@ starship init fish | source
 
 # The Fuck INIT
 thefuck --alias | source
+
+# RUBY ENV INIT
+status --is-interactive; and rbenv init - fish | source
 
 # Start X at login
 if status is-login

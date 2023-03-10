@@ -4,6 +4,7 @@ local utils = require("lsp.utils")
 
 M.on_attach = function(client, bufnr)
   utils.on_attach(client, bufnr)
+  vim.api.nvim_create_autocmd("BufWritePre", { buffer = bufnr, command = "EslintFixAll" })
 end
 
 M.settings = {

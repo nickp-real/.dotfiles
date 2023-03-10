@@ -19,8 +19,10 @@ vnoremap("<", "<gv")
 
 -- Better enter insert mode on blank line
 nnoremap("i", function()
-  return string.match(vim.api.nvim_get_current_line(), "%g") == nil
-      and vim.bo.filetype ~= "toggleterm"
+  local current_line = vim.api.nvim_get_current_line()
+  return current_line:match("^%s*$")
+      and string.match(current_line, "%g") == nil
+      and vim.bo.filetype ~= "FTerm"
       and vim.bo.filetype ~= "TelescopePrompt"
       and "cc"
     or "i"
@@ -31,7 +33,7 @@ nvnoremap("x", '"_x')
 nvnoremap("X", '"_X')
 
 -- Don't yank on visual paste
-vnoremap("p", '"_dP')
+xnoremap("p", '"_dP')
 
 -- paste
 xnoremap("<leader>p", '"_dP')
@@ -53,7 +55,7 @@ nnoremap("dd", smart_dd, { expr = true })
 nvnoremap("<leader>d", '"_d')
 
 -- Delete buffer
-nnoremap("<C-q>", vim.cmd.bd)
+nnoremap("<leader>0", "<cmd>bd|e#|bd#<cr>", { desc = "Close all buffers except current" })
 
 -- Increment/Decrement
 nnoremap("+", "<C-a>")
@@ -104,7 +106,7 @@ nnoremap("<leader>a", ":keepjumps normal! ggVG<cr>")
 nnoremap("Q", "<nop>")
 
 -- Quit
-nnoremap("<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+nnoremap("<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
 
 -- Subtitute current word
 nnoremap("<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false })

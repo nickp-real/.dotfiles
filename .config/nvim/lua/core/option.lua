@@ -2,7 +2,6 @@ local opt = vim.opt
 local g = vim.g
 
 -- Config
-opt.autowriteall = true
 opt.completeopt = "menu,menuone,noselect"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.mouse = "a"
@@ -22,7 +21,6 @@ opt.undofile = true
 
 -- UI
 -- opt.cmdheight = 0
-opt.cursorline = true
 -- opt.foldcolumn = "1"
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldenable = true
@@ -65,16 +63,15 @@ opt.whichwrap:append("<,>,[,],h,l")
 
 -- Performance
 opt.redrawtime = 1500
-opt.timeoutlen = 300
-opt.ttimeoutlen = 25
-opt.updatetime = 200
+opt.timeoutlen = 400
+opt.updatetime = 250
 
 -- grep
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 
 -- Session
-g.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+g.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize,terminal"
 
 -- Leader key
 g.mapleader = " "

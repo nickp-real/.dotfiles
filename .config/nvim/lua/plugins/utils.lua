@@ -29,7 +29,7 @@ return {
     },
     opts = {
       copy_sync = {
-        sync_clipboard = true,
+        sync_clipboard = false,
       },
       navigation = {
         -- enables default keybindings (C-hjkl) for normal mode
@@ -65,29 +65,30 @@ return {
   -- Color Toggle
   {
     "NvChad/nvim-colorizer.lua",
+    event = "BufReadPost",
     cmd = "Colorizer",
     keys = { { "<leader>tc", vim.cmd.ColorizerToggle, desc = "Toggle Colorizer" } },
+    -- config = function(_, opts)
+    --   require("colorizer").setup(opts)
+    --   if vim.bo.bt ~= "terminal" then
+    --     require("colorizer").attach_to_buffer(0)
+    --   end
+    -- end,
     opts = {
       filetypes = {
         "*",
         "!packer",
         "!lazy",
+        "!log",
       },
-      buftype = { "*", "!prompt", "!nofile" },
+      buftypes = { "*", "!prompt", "!nofile", "!terminal" },
       user_default_options = {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        names = false, -- "Name" codes like Blue
+        names = false,
         RRGGBBAA = true, -- #RRGGBBAA hex codes
-        AARRGGBB = false, -- 0xAARRGGBB hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-        -- Available modes: foreground, background
-        -- Available modes for `mode`: foreground, background,  virtualtext
-        mode = "background", -- Set the display mode.
-        virtualtext = "■",
+        AARRGGBB = true, -- 0xAARRGGBB hex codes
+        rgb_fn = true,
+        hsl_fn = true,
+        tailwind = "both",
       },
     },
   },
@@ -140,7 +141,11 @@ return {
   { "dstein64/vim-startuptime", cmd = "StartupTime" },
 
   -- Better bd
-  { "famiu/bufdelete.nvim", cmd = "Bdelete", keys = { { "<C-c>", "<cmd>Bdelete<cr>" } } },
+  {
+    "famiu/bufdelete.nvim",
+    cmd = "Bdelete",
+    keys = { { "<leader>q", "<cmd>Bdelete<cr>", desc = "Delete Buffer" } },
+  },
 
   -- Resize buffer
   { "kwkarlwang/bufresize.nvim", event = "BufReadPost", config = true },
@@ -187,4 +192,20 @@ return {
 
   "nvim-lua/plenary.nvim",
   "nvim-lua/popup.nvim",
+
+  -- Self plugins
+  -- Auto insert shebang
+  {
+    dir = "~/.config/nvim/lua/utils/auto_shebang.nvim",
+    ft = { "sh", "bash", "python" },
+    config = true,
+  },
+
+  -- Code Runner
+  {
+    dir = "~/.config/nvim/lua/utils/coderunner.nvim",
+    dependencies = { "FTerm.nvim" },
+    cmd = { "Run", "RunUpdate", "AutoRun", "AutoRunCP", "AutoRunClear" },
+    config = true,
+  },
 }
