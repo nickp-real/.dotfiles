@@ -61,17 +61,8 @@ return {
       NavicText = { fg = "${fg}" },
 
       TSRainbowWhite = { fg = "${white}" },
-      TSRainbowPurple = { fg = "${orange}" },
-      TSRainbowBlue = { fg = "${blue}" },
-      TSRainbowGreen = { fg = "${green}" },
-      TSRainbowYellow = { fg = "${yellow}" }, -- purple
-      TSRainbowOrange = { fg = "${orange}" },
-      TSRainbowCyan = { fg = "${cyan}" },
-      TSRainbowRed = { fg = "${red}" }, -- white,
     },
-    plugins = {
-      nvim_ts_rainbow = false,
-    },
+    plugins = {},
     styles = {
       types = "NONE",
       methods = "bold",

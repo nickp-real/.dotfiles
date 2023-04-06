@@ -45,6 +45,7 @@ return {
     },
     autotag = { enable = true },
     rainbow = {
+      enable = true,
       hlgroups = {
         "TSRainbowWhite",
         "TSRainbowPurple",

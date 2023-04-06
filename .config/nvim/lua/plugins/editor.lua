@@ -262,7 +262,7 @@ return {
           treesitter = true,
         },
         color_devicons = true,
-        initial_mode = "insert",
+        initial_mode = "normal",
         selection_strategy = "reset",
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",

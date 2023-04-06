@@ -107,6 +107,7 @@ nnoremap("Q", "<nop>")
 
 -- Quit
 nnoremap("<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
+nnoremap("<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 
 -- Subtitute current word
 nnoremap("<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false })
