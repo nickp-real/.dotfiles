@@ -1,5 +1,4 @@
-local M = {}
-M.label = {
+local label = {
   n = "NORMAL",
   op = "OP",
   v = "VISUAL",
@@ -18,7 +17,7 @@ M.label = {
   t = "TERMINAL",
 }
 
-M.display = {
+return {
   init = function(self)
     self.mode = vim.fn.mode(1) -- :h mode()
   end,
@@ -76,12 +75,12 @@ M.display = {
     },
   },
   provider = function(self)
-    return "%2(" .. M.label[self.mode_names[self.mode]] .. "%)"
+    return "%2(" .. label[self.mode_names[self.mode]] .. "%)"
   end,
   -- Same goes for the highlight. Now the foreground will change according to the current mode.
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
-    return { fg = self.mode_colors[mode], bold = true }
+    return { fg = self.mode_colors[mode], bold = true, bg = "bg_statusline" }
   end,
   -- Re-evaluate the component only on ModeChanged event!
   -- Also allows the statusline to be re-evaluated when entering operator-pending mode
@@ -93,5 +92,3 @@ M.display = {
     end),
   },
 }
-
-return M

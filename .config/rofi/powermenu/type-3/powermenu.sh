@@ -16,7 +16,7 @@ theme='style-1'
 # CMDs
 uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
-screen_width=$(xrandr | rg "DP-3 connected")
+screen_width=$(xrandr | rg "5360")
 
 if [ "$screen_width" ]; then
     theme='style-1-wide'

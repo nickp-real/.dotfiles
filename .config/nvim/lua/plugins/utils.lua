@@ -208,4 +208,7 @@ return {
     cmd = { "Run", "RunUpdate", "AutoRun", "AutoRunCP", "AutoRunClear" },
     config = true,
   },
+
+  -- Wakatime
+  { "wakatime/vim-wakatime", event = "VeryLazy" },
 }

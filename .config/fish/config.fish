@@ -13,6 +13,7 @@ alias mv "mv -v"
 alias cp "cp -v"
 alias rm "rm -v"
 alias du "du -chsh"
+alias cls "clear"
 # alias cmd "cmd.exe"
 # alias pwsh "pwsh.exe"
 # alias open "wslview"
@@ -40,7 +41,7 @@ fish_add_path ~/.nvm/versions/node/v18.13.0/bin
 
 # pnpm
 set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"
-fish_add_path "$PNPM_HOME" 
+set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 
 # Go path
@@ -103,8 +104,8 @@ thefuck --alias | source
 status --is-interactive; and rbenv init - fish | source
 
 # Start X at login
-if status is-login
-    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-        exec startx -- -keeptty
-    end
-end
+# if status is-login
+#     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+#         exec startx -- -keeptty
+#     end
+# end

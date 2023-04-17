@@ -23,10 +23,10 @@ env:
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
   TERM: alacritty
-  TERMINFO: /usr/share/terminfo
-  TERMINFO_DIRS: /usr/share/terminfo
-  COLORTERM: truecolor
-  WINIT_X11_SCALE_FACTOR: "1"
+  # TERMINFO: /usr/share/terminfo
+  # TERMINFO_DIRS: /usr/share/terminfo
+  # COLORTERM: truecolor
+  # WINIT_X11_SCALE_FACTOR: "1"
 
 window:
   # Window dimensions (changes require restart)
@@ -72,7 +72,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.2
+  opacity: 0.75
 
   # Startup Mode (changes require restart)
   #
