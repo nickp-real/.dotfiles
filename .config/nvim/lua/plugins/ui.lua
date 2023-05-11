@@ -28,7 +28,7 @@ return {
     opts = function()
       local function footer()
         local version = vim.version()
-        local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch
+        local nvim_version_info = "  󰀨 v" .. version.major .. "." .. version.minor .. "." .. version.patch
         return nvim_version_info
       end
 
@@ -91,16 +91,16 @@ return {
           type = "group",
           val = {
             button("e", "  New File", "<cmd>ene<bar>startinsert<CR>"),
-            button("SPC f f", "  Find File", "<cmd>Telescope find_files<CR>"),
+            button("SPC f f", "󰍉  Find File", "<cmd>Telescope find_files<CR>"),
             button("SPC f n", "  File Browser"),
-            button("SPC f o", "  Recently Opened Files"),
+            button("SPC f o", "󰈢  Recently Opened Files"),
             -- button("SPC f r", "  Frecency/MRU"),
-            button("SPC f g", "  Find Word", "<cmd>Telescope live_grep<cr>"),
+            button("SPC f g", "󰈬  Find Word", "<cmd>Telescope live_grep<cr>"),
             button("SPC f m", "  Jump to Bookmarks"),
-            button("SPC s l", "  Open Last Session"),
+            button("SPC s l", "󰁯  Open Last Session"),
             button("v", "  Neovim Config", "<cmd>e ~/.config/nvim/init.lua<CR>"),
             -- button("p", "  Plugin Config", "<cmd>e ~/.config/nvim/after/plugin/<CR>"),
-            -- button("t", "  Theme Config", "<cmd>e ~/.config/nvim/plugin/theme.lua<CR>"),
+            -- button("t", "󰃣  Theme Config", "<cmd>e ~/.config/nvim/plugin/theme.lua<CR>"),
             button("q", "  Quit NVIM", "<cmd>qa<CR>"),
           },
           opts = {
@@ -302,12 +302,16 @@ return {
       },
     },
 
-    config = function()
+    config = function(_, opts)
       local notify = require("notify")
-
+      notify.setup(opts)
+      vim.notify = function(message, level, opts)
+        return notify(message, level, opts)
+      end
+    end,
+    opts = function()
       local stages_util = require("notify.stages.util")
-
-      notify.setup({
+      return {
         fps = 60,
         stages = {
           function(state)
@@ -362,9 +366,7 @@ return {
             }
           end,
         },
-      })
-
-      vim.notify = notify
+      }
     end,
   },
 

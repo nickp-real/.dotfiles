@@ -72,7 +72,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.75
+  opacity: 0.3
 
   # Startup Mode (changes require restart)
   #
@@ -115,7 +115,8 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: FantasqueSans Mono Nerd Font
+    # family: FantasqueSansM Nerd Font
+    family: ComicShannsMono Nerd Font
     style: Regular
 
   # Bold font face
@@ -131,7 +132,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 12
+  size: 11
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -175,7 +176,7 @@ font:
   # If `true`, Alacritty will use a custom built-in font for box drawing
   # characters (Unicode points 2500 - 259f).
 
-  builtin_box_drawing: false
+  # builtin_box_drawing: false
 
   # If `true`, bold text is drawn using the bright color variants.
   draw_bold_text_with_bright_colors: true

@@ -1,0 +1,83 @@
+* {
+  font-family: RobotoMono Nerd Font, sans-serif;
+  font-size: 13px;
+}
+
+window#waybar {
+  background: rgba(40, 44, 52, 0.5);
+  padding: 5px 5px;
+  color: rgba(171, 178, 191, 1);
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+tooltip {
+  background: rgba(43, 48, 59, 0.5);
+  border: 1px solid rgba(100, 114, 125, 0.5);
+}
+tooltip label {
+  color: rgba(171, 178, 191, 1);
+}
+
+#workspaces button,
+#clock {
+  background: rgba(40, 44, 52, 1);
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+#workspaces button {
+  padding: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#workspaces button.active {
+  color: rgba(97, 175, 239, 1);
+}
+
+#mode,
+#battery {
+  padding: 0 10px;
+  background: rgba(171, 178, 191, 1);
+}
+
+#mode {
+  background: #64727d;
+  border-bottom: 3px solid rgba(171, 178, 191, 1);
+}
+
+#clock {
+  margin-right: 5px;
+}
+
+#battery {
+  background-color: #ffffff;
+  color: black;
+}
+
+#battery.charging {
+  color: rgba(171, 178, 191, 1);
+  background-color: #26a65b;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: black;
+  }
+}
+
+#battery.warning:not(.charging) {
+  background: #f53c3c;
+  color: rgba(171, 178, 191, 1);
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}

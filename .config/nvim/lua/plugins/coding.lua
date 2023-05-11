@@ -24,6 +24,20 @@ return {
 
       -- luasnip.filetype_extend("dart", { "flutter" })
       luasnip.add_snippets("cpp", require("snippet.cpp"))
+
+      local luasnip_fix_group = vim.api.nvim_create_augroup("LuaSnipHistory", { clear = true })
+      vim.api.nvim_create_autocmd("ModeChanged", {
+        callback = function()
+          if
+            ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
+            and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not luasnip.session.jump_active
+          then
+            luasnip.unlink_current()
+          end
+        end,
+        group = luasnip_fix_group,
+      })
     end,
     opts = {
       history = true,
@@ -49,6 +63,7 @@ return {
       { "mtoohey31/cmp-fish", ft = "fish" },
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "hrsh7th/cmp-nvim-lsp-signature-help",
+      "tabout.nvim",
     },
     config = function(_, opts)
       local cmp = require("cmp")
@@ -94,31 +109,31 @@ return {
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       local kind_icons = {
-        Text = "",
+        Text = "󰉿",
         Method = "m",
-        Function = "",
+        Function = "󰊕",
         Constructor = "",
         Field = "",
-        Variable = "",
-        Class = "",
+        Variable = "󰆧",
+        Class = "󰌗",
         Interface = "",
         Module = "",
         Property = "",
         Unit = "",
-        Value = "",
+        Value = "󰎠",
         Enum = "",
-        Keyword = "",
+        Keyword = "󰌋",
         Snippet = "",
-        Color = "",
-        File = "",
+        Color = "󰏘",
+        File = "󰈙",
         Reference = "",
-        Folder = "",
+        Folder = "󰉋",
         EnumMember = "",
-        Constant = "",
+        Constant = "󰇽",
         Struct = "",
         Event = "",
-        Operator = "",
-        TypeParameter = "",
+        Operator = "󰆕",
+        TypeParameter = "󰊄",
       }
 
       local cmp_window = require("cmp.utils.window")
@@ -379,7 +394,6 @@ return {
   -- Tabout
   {
     "abecodes/tabout.nvim",
-    keys = { { "<Tab>", mode = "i" }, { "<S-Tab>", mode = "i" } },
     opts = {
       act_as_shift_tab = true,
       tabouts = {

@@ -68,6 +68,7 @@ return {
               single_file_support = true,
             },
           })
+          require("tsc").setup()
         end,
         ["svelte"] = function()
           lspconfig.svelte.setup({
@@ -331,6 +332,7 @@ return {
 
   -- Typescript
   "jose-elias-alvarez/typescript.nvim",
+  "dmmulroy/tsc.nvim",
 
   -- Java
   { "mfussenegger/nvim-jdtls", ft = "java" },

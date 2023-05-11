@@ -1,0 +1,62 @@
+{
+  "layer": "top",
+  // "position": "top",
+  "height": 30,
+  "spacing": 4,
+  "modules-left": ["wlr/workspaces"],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "wireplumber",
+    "network",
+    "keyboard-state",
+    "hyprland/language",
+    "cpu",
+    "memory",
+    "temperature",
+    "clock"
+  ],
+
+  // "wlr/workspaces":{
+  //
+  // },
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%) {icon}",
+    "format-ethernet": "{essid}",
+    "format-disconnected": ""
+  },
+
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": {
+      "numlock": "N {icon}",
+      "capslock": "C {icon}"
+    },
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+
+  "hyprland/language": {
+    "format": "{}",
+    "format-ru": "ru",
+    "format-us": "us",
+    "format-en": "us",
+    "keyboard-name": "at-translated-set-2-keyboard"
+  },
+
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false
+  },
+
+  "memory": {
+    "format": "{}% 󰍛"
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p}"
+  }
+}

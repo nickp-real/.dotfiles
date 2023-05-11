@@ -1,6 +1,6 @@
 local M = {}
 
-M.signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+M.signs = { Error = "󰅙 ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
 
 M.diagnostic_config = {
   update_in_insert = false,

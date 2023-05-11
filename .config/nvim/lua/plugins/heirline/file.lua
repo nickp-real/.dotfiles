@@ -36,14 +36,14 @@ local flags = {
     condition = function()
       return vim.bo.modified
     end,
-    provider = "[+]",
+    provider = " [+]",
     hl = { fg = "green" },
   },
   {
     condition = function()
       return not vim.bo.modifiable or vim.bo.readonly
     end,
-    provider = "",
+    provider = " ",
     hl = { fg = "orange" },
   },
 }

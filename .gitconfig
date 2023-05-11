@@ -35,3 +35,21 @@
 
 [diff]
     colorMoved = default
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+# personal account
+[url "git@github.com-NickP-real:NickP-real"]
+  insteadOf = git@github.com:NickP-real
+  pushInsteadOf = git@github.com:NickP-real
+# office account
+[url "git@github.com-nickp-ss:SmartSoftAsia"]
+  insteadOf = git@github.com:SmartSoftAsia
+  pushInsteadOf = git@github.com:SmartSoftAsia
+[alias]
+  config-ssa = !git config user.name nickp-ss && git config user.email nick@smartsoftasia.com
+  adog = log --all --decorate --oneline --graph
+  adogs = log --all --decorate --oneline --graph --stat

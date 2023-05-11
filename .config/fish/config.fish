@@ -22,12 +22,16 @@ alias vim "nvim"
 alias battery "cat /sys/class/power_supply/BAT0/capacity"
 
 # Docker
-alias docker-start "systemctl start docker.service"
-alias docker-stop "systemctl stop docker.service"
+alias start-docker "systemctl start docker.service"
+alias stop-docker "systemctl stop docker.service"
 
 # MongoDB
-alias mongo-start "systemctl start mongodb.service"
-alias mongo-stop "systemctl stop mongodb.service"
+alias start-mongo "systemctl start mongodb.service"
+alias stop-mongo "systemctl stop mongodb.service"
+
+# Postgresql
+alias start-postgresql "systemctl start postgresql.service"
+alias stop-postgresql "systemctl stop postgresql.service" 
 
 # Arch
 alias pac "sudo pacman -S"
@@ -37,7 +41,7 @@ alias pac_autoremove "sudo pacman -Rcs $(pacman -Qdtq)"
 fish_add_path ~/.cargo/bin 
 fish_add_path ~/.local/bin 
 fish_add_path $HOME/.pub-cache/bin 
-fish_add_path ~/.nvm/versions/node/v18.13.0/bin 
+# fish_add_path ~/.nvm/versions/node/v18.16.0/bin 
 
 # pnpm
 set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"

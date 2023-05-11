@@ -69,6 +69,38 @@ return {
             end,
           },
         },
+        default_component_configs = {
+          icon = {
+            folder_empty = "󰜌",
+            folder_empty_open = "󰜌",
+          },
+          git_status = {
+            symbols = {
+              renamed = "󰁕",
+              unstaged = "󰄱",
+            },
+          },
+        },
+        document_symbols = {
+          kinds = {
+            File = { icon = "󰈙", hl = "Tag" },
+            Namespace = { icon = "󰌗", hl = "Include" },
+            Package = { icon = "󰏖", hl = "Label" },
+            Class = { icon = "󰌗", hl = "Include" },
+            Property = { icon = "󰆧", hl = "@property" },
+            Enum = { icon = "󰒻", hl = "@number" },
+            Function = { icon = "󰊕", hl = "Function" },
+            String = { icon = "󰀬", hl = "String" },
+            Number = { icon = "󰎠", hl = "Number" },
+            Array = { icon = "󰅪", hl = "Type" },
+            Object = { icon = "󰅩", hl = "Type" },
+            Key = { icon = "󰌋", hl = "" },
+            Struct = { icon = "󰌗", hl = "Type" },
+            Operator = { icon = "󰆕", hl = "Operator" },
+            TypeParameter = { icon = "󰊄", hl = "Type" },
+            StaticMethod = { icon = "󰠄 ", hl = "Function" },
+          },
+        },
       }
     end,
   },
@@ -88,7 +120,7 @@ return {
 
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
-        local suffix = ("  %d "):format(endLnum - lnum)
+        local suffix = (" 󰁂 %d "):format(endLnum - lnum)
         local sufWidth = vim.fn.strdisplaywidth(suffix)
         local targetWidth = width - sufWidth
         local curWidth = 0
@@ -183,40 +215,25 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        build = "make",
       },
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-media-files.nvim",
     },
     cmd = "Telescope",
-    keys = {
-      { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-      { "<leader>/", require("utils").telescope("live_grep"), desc = "Find in Files (Grep)" },
-      { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader><space>", require("utils").telescope("files"), desc = "Find Files (root dir)" },
-      { "<leader>fF", require("utils").telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>ff", require("utils").telescope("files"), desc = "Find Files (root dir)" },
-      { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-      { "<leader>fc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-      { "<leader>fs", "<cmd>Telescope git_status<CR>", desc = "status" },
-      { "<leader>fa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-      { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-      { "<leader>fv", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-      { "<leader>f<space>", "<cmd>Telescope builtin<cr>", desc = "Telescope" },
-      { "<leader>fH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-      { "<leader>fG", require("utils").telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-      { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-      { "<leader>fM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-      { "<leader>fB", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
-      { "<leader>fh", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader>fg", require("utils").telescope("live_grep"), desc = "Grep (root dir)" },
-      { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-      { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
-      { "<leader>fn", "<cmd>Telescope file_browser<cr>", desc = "File Browser" },
-      {
-        "<leader>fl",
-        require("utils").telescope("lsp_document_symbols", {
+    keys = function()
+      local find_files = function(opts)
+        opts = opts or {} -- define here if you want to define something
+        vim.fn.system("git rev-parse --is-inside-work-tree")
+        if vim.v.shell_error == 0 then
+          require("telescope.builtin").git_files(vim.tbl_deep_extend("force", { show_untracked = true }, opts))
+        else
+          require("telescope.builtin").find_files(opts)
+        end
+      end
+
+      local find_lsp = function()
+        require("telescope.builtin").lsp_document_symbols({
           symbols = {
             "Class",
             "Function",
@@ -229,10 +246,48 @@ return {
             "Field",
             "Property",
           },
-        }),
-        desc = "Goto Symbol",
-      },
-    },
+        })
+      end
+      return {
+        { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
+        { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        {
+          "<leader><space>",
+          function()
+            require("telescope.builtin").find_files({ cwd = vim.loop.cwd() })
+          end,
+          desc = "Find Files (cwd)",
+        },
+        { "<leader>ff", find_files, desc = "Find Files" },
+        {
+          "<leader>fg",
+          function()
+            require("telescope.builtin").live_grep({ cwd = vim.loop.cwd() })
+          end,
+          desc = "Find in Files (Grep, CWD)",
+        },
+        { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+        { "<leader>fc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
+        { "<leader>fs", "<cmd>Telescope git_status<CR>", desc = "status" },
+        { "<leader>fa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
+        { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+        { "<leader>fv", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+        { "<leader>fH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+        { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+        { "<leader>fM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+        { "<leader>fB", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
+        { "<leader>fh", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+        { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+        { "<leader>fn", "<cmd>Telescope file_browser<cr>", desc = "File Browser" },
+        {
+          "<leader>fl",
+          find_lsp,
+          desc = "Goto Symbol",
+        },
+      }
+    end,
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
@@ -368,4 +423,6 @@ return {
     cmd = "UndotreeToggle",
     keys = { { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" } },
   },
+
+  { "chentoast/marks.nvim", event = "CursorHold" },
 }

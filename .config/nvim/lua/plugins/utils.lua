@@ -34,6 +34,7 @@ return {
       navigation = {
         -- enables default keybindings (C-hjkl) for normal mode
         enable_default_keybindings = false,
+        persist_zoom = true,
       },
       resize = {
         -- enables default keybindings (A-hjkl) for normal mode
@@ -149,9 +150,6 @@ return {
 
   -- Resize buffer
   { "kwkarlwang/bufresize.nvim", event = "BufReadPost", config = true },
-
-  -- mkdir when not available
-  { "jghauser/mkdir.nvim", event = "BufRead" },
 
   -- Swap the split
   {

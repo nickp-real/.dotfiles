@@ -1,15 +1,42 @@
 local M = {}
 
+M.auto_format_enable = true
+
+M.toggle_auto_format = function()
+  if vim.b.auto_format_enable == false then
+    vim.b.auto_format_enable = nil
+    M.auto_format_enable = true
+  else
+    M.auto_format_enable = not M.auto_format_enable
+  end
+  if M.auto_format_enable then
+    require("utils").notify("Enabled format on save", "Format")
+  else
+    require("utils").notify("Disabled format on save", "Format")
+  end
+end
+
 M.auto_format = function(client, bufnr)
-  local group = vim.api.nvim_create_augroup("Format On Save", { clear = false })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    desc = client.name,
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.buf.format({ bufnr = bufnr })
-    end,
-    group = group,
-  })
+  if
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
+  then
+    return
+  end
+
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      desc = client.name,
+      buffer = bufnr,
+      callback = function()
+        if M.auto_format_enable then
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end
+      end,
+      group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
+    })
+  end
 end
 
 M.lsp_mapping = function(bufnr)
@@ -43,6 +70,7 @@ M.lsp_mapping = function(bufnr)
   nnoremap("<space>f", function()
     vim.lsp.buf.format({ bufnr = bufnr })
   end, bufopts)
+  nnoremap("<space>fe", M.toggle_auto_format, bufopts)
   nnoremap("]e", diagnostic_goto(true, "ERROR"), bufopts)
   nnoremap("[e", diagnostic_goto(false, "ERROR"), bufopts)
   nnoremap("]w", diagnostic_goto(true, "WARN"), bufopts)
@@ -63,9 +91,7 @@ M.on_attach = function(client, bufnr)
 
   M.lsp_mapping(bufnr)
 
-  if client.server_capabilities.documentFormattingProvider then
-    M.auto_format(client, bufnr)
-  end
+  M.auto_format(client, bufnr)
 
   if client.server_capabilities.documentHighlightProvider then
     local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })

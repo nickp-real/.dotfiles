@@ -77,18 +77,6 @@ g.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize,termina
 g.mapleader = " "
 
 -- Clipboard
-g.clipboard = {
-  name = "xsel",
-  copy = {
-    ["+"] = "xsel -i -b",
-    ["*"] = "xsel -i -p",
-  },
-  paste = {
-    ["+"] = "xsel -o -b",
-    ["*"] = "xsel -o -p",
-  },
-  cache_enabled = 0,
-}
 -- opt.clipboard = "unnamedplus"
 
 -- Border and hide STL
