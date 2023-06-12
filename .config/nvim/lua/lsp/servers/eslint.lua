@@ -23,7 +23,7 @@ M.settings = {
       enable = false,
       mode = "all",
     },
-    format = false,
+    format = { enable = false },
     nodePath = "",
     onIgnoredFiles = "off",
     packageManager = "pnpm",

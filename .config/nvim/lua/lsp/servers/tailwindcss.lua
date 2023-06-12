@@ -37,14 +37,18 @@ M.settings = {
         { "clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
         { "classnames\\(([^)]*)\\)", "'([^']*)'" },
         "cva\\(([^)]*)\\)",
-        "[\"'`]([^\"'`]*).*?[\"'`]",
+        -- "[\"'`]([^\"'`]*).*?[\"'`]",
       },
     },
-    codeActions = true,
-    validate = true,
   },
 }
 
-M.root_dir = { "tailwind.config.js", "tailwind.config.ts", "tailwind.config.cjs", "./config/tailwind.config.js" }
+M.root_dir = {
+  "tailwind.config.js",
+  "tailwind.config.ts",
+  "tailwind.config.cjs",
+  "./config/tailwind.config.js",
+  "tailwind.config.mjs",
+}
 
 return M

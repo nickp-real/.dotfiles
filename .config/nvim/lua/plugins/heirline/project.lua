@@ -16,6 +16,4 @@ local name = {
   hl = { fg = utils.get_highlight("Directory").fg, bg = "bg_statusline" },
 }
 
-return {
-  name,
-}
+return name

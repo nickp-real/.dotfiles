@@ -1,11 +1,14 @@
 * {
-  font-family: RobotoMono Nerd Font, sans-serif;
-  font-size: 13px;
+  font-family: "RobotoMono Nerd Font";
+  font-size: 12px;
+  border: none;
+  border-radius: 0px;
+  /* font-weight: bold; */
+  min-height: 0px;
 }
 
 window#waybar {
-  background: rgba(40, 44, 52, 0.5);
-  padding: 5px 5px;
+  background: rgba(34, 38, 45, 1);
   color: rgba(171, 178, 191, 1);
   transition-property: background-color;
   transition-duration: 0.5s;
@@ -15,6 +18,7 @@ tooltip {
   background: rgba(43, 48, 59, 0.5);
   border: 1px solid rgba(100, 114, 125, 0.5);
 }
+
 tooltip label {
   color: rgba(171, 178, 191, 1);
 }
@@ -23,17 +27,13 @@ tooltip label {
 #clock {
   background: rgba(40, 44, 52, 1);
   padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px 0px;
   border: 1px solid transparent;
   border-radius: 5px;
 }
 
 #workspaces button {
-  padding: 5px;
   margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 #workspaces button.active {

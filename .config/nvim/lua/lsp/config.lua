@@ -4,11 +4,11 @@ M.signs = { Error = "󰅙 ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
 
 M.diagnostic_config = {
   update_in_insert = false,
-  virtual_text = true,
+  virtual_text = { prefix = "" },
   signs = { active = M.signs },
   severity_sort = true,
   float = {
-    focusable = false,
+    focusable = true,
     style = "minimal",
     border = "rounded",
     source = "always",
@@ -54,6 +54,7 @@ function M.setup()
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
+    silent = true,
   })
 
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {

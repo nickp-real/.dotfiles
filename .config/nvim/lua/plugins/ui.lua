@@ -410,11 +410,11 @@ return {
   },
 
   -- highlight argument
-  {
-    "m-demare/hlargs.nvim",
-    event = "BufReadPost",
-    opts = { color = "#e59b4e" },
-  },
+  -- {
+  --   "m-demare/hlargs.nvim",
+  --   event = "BufReadPost",
+  --   opts = { color = "#e59b4e" },
+  -- },
 
   -- Log Highlight
   { "MTDL9/vim-log-highlighting", ft = "log" },

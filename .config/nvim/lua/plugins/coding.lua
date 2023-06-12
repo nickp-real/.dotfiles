@@ -190,6 +190,8 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -234,18 +236,18 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         formatting = {
-          fields = { "kind", "abbr", "menu" },
+          fields = { "kind", "abbr" },
           format = function(entry, vim_item)
             -- Kind icons
             vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
             -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-            vim_item.menu = ({
-              nvim_lsp = "[LSP]",
-              luasnip = "[Snippet]",
-              buffer = "[Buffer]",
-              nvim_lua = "[Nvim_lua]",
-              path = "[Path]",
-            })[entry.source.name]
+            -- vim_item.menu = ({
+            --   nvim_lsp = "[LSP]",
+            --   luasnip = "[Snippet]",
+            --   buffer = "[Buffer]",
+            --   nvim_lua = "[Nvim_lua]",
+            --   path = "[Path]",
+            -- })[entry.source.name]
             return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
           end,
         },

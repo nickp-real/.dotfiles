@@ -18,6 +18,7 @@ alias cls "clear"
 # alias pwsh "pwsh.exe"
 # alias open "wslview"
 alias vim "nvim"
+alias nv "nvim"
 # alias v "nvim"
 alias battery "cat /sys/class/power_supply/BAT0/capacity"
 
@@ -81,6 +82,7 @@ set -gx CLICOLOR 1
 set -gx LS_COLORS "ow=1;102;90"
 set -gx LESS '-R --use-color -Dd+r$Du+b'
 set -gx MANPAGER 'nvim +Man!'
+set -gx GRIMBLAST_EDITOR 'swappy -f'
 
 # fish var
 # set -g fish_term24bit 1

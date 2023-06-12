@@ -16,6 +16,7 @@ return {
 
       local utils = require("lsp.utils")
       local root_pattern = require("lspconfig.util").root_pattern
+      utils.lsp_mapping()
 
       local lsp_default = {
         capabilities = utils.capabilities,
@@ -68,7 +69,7 @@ return {
               single_file_support = true,
             },
           })
-          require("tsc").setup()
+          require("tsc")
         end,
         ["svelte"] = function()
           lspconfig.svelte.setup({
@@ -91,6 +92,7 @@ return {
             settings = require("lsp.servers.tailwindcss").settings,
             root_dir = root_pattern(unpack(require("lsp.servers.tailwindcss").root_dir)),
           })
+          require("tailwind-sorter")
         end,
         ["html"] = function()
           lspconfig.html.setup({
@@ -133,7 +135,22 @@ return {
         formatting.black.with({ extra_args = { "--fast" } }),
 
         -- front-end
-        formatting.prettierd.with({ extra_filetypes = { "svelte", "toml" } }),
+        formatting.prettierd.with({
+          extra_filetypes = { "svelte", "toml" },
+          -- condition = function(utils)
+          --   return utils.has_file({
+          --     ".prettierrc.js",
+          --     ".prettierrc.cjs",
+          --     "prettier.config.js",
+          --     "prettier.config.cjs",
+          --     ".prettierrc",
+          --     ".prettierrc.json",
+          --     ".prettierrc.yml",
+          --     ".prettierrc.yaml",
+          --     ".prettierrc.json5",
+          --   })
+          -- end,
+        }),
         -- formatting.prettierd.with({ extra_filetypes = { "svelte", "toml" }, condition = function (utils)
         --   return utils.has_file({".prettierrc.js"})
         -- end }),
@@ -332,8 +349,18 @@ return {
 
   -- Typescript
   "jose-elias-alvarez/typescript.nvim",
-  "dmmulroy/tsc.nvim",
+  { "dmmulroy/tsc.nvim", config = true },
 
   -- Java
   { "mfussenegger/nvim-jdtls", ft = "java" },
+
+  -- Tailwind CSS
+  {
+    "laytan/tailwind-sorter.nvim",
+    build = "cd formatter && npm i && npm run build",
+    opts = { on_save_enabled = true },
+  },
+
+  -- Utils
+  "KostkaBrukowa/definition-or-references.nvim",
 }
