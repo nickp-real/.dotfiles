@@ -1,117 +1,72 @@
-# ALIAS
-alias python "python3.10"
-alias ls "exa --icons"
-alias ll "exa -l -g --icons"
-alias lla "ll -a"
-alias llt "ll -T"
-alias t "exa --tree"
-alias diff 'diff --color=auto'
-alias grep 'grep --color=auto'
-alias ip 'ip -color=auto'
-alias pip_update 'pip list | cut -d" " -f1 | tail -n+3 | xargs pip install --upgrade'
-alias mv "mv -v"
-alias cp "cp -v"
-alias rm "rm -v"
-alias du "du -chsh"
-alias cls "clear"
-# alias cmd "cmd.exe"
-# alias pwsh "pwsh.exe"
-# alias open "wslview"
-alias vim "nvim"
-alias nv "nvim"
-# alias v "nvim"
-alias battery "cat /sys/class/power_supply/BAT0/capacity"
+# run when login
+if status --is-login
+  # SET PATH
+  fish_add_path ~/.cargo/bin
+  fish_add_path ~/.local/bin
+  fish_add_path $HOME/.pub-cache/bin
 
-# Docker
-alias start-docker "systemctl start docker.service"
-alias stop-docker "systemctl stop docker.service"
+  # pnpm
+  set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"
+  if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+  end
+  # pnpm end
 
-# MongoDB
-alias start-mongo "systemctl start mongodb.service"
-alias stop-mongo "systemctl stop mongodb.service"
+  # Go path
+  set -gx GOPATH $HOME/go
+  fish_add_path $GOPATH/bin
 
-# Postgresql
-alias start-postgresql "systemctl start postgresql.service"
-alias stop-postgresql "systemctl stop postgresql.service" 
+  # JAVA_HOME
+  set -gx JAVA_HOME /usr/lib/jvm/java-19-openjdk
+  fish_add_path $JAVA_HOME/bin
 
-# Arch
-alias pac "sudo pacman -S"
-alias pac_autoremove "sudo pacman -Rcs $(pacman -Qdtq)"
+  # ANDROID_HOME
+  set -gx ANDROID_HOME $HOME/Android/Sdk
+  fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
+  fish_add_path $ANDROID_HOME/platform-tools
+  fish_add_path $ANDROID_HOME/emulator
+  fish_add_path $ANDROID_HOME/tools
 
-# SET PATH
-fish_add_path ~/.cargo/bin 
-fish_add_path ~/.local/bin 
-fish_add_path $HOME/.pub-cache/bin 
-# fish_add_path ~/.nvm/versions/node/v18.16.0/bin 
+  # FLUTTER_ROOT
+  set -x FLUTTER_ROOT $HOME/Dev-tools/flutter
+  fish_add_path $FLUTTER_ROOT/bin
 
-# pnpm
-set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"
-set -gx PATH "$PNPM_HOME" $PATH
-# pnpm end
+  # Firebase cli
+  fish_add_path $HOME/.pub-cache/bin
 
-# Go path
-set -gx GOPATH $HOME/go
-fish_add_path $GOPATH/bin 
+  # Rofi
+  fish_add_path $HOME/.config/rofi/scripts
 
-# JAVA_HOME
-set -gx JAVA_HOME /usr/lib/jvm/java-19-openjdk
-fish_add_path $JAVA_HOME/bin 
-
-# ANDROID_HOME
-set -gx ANDROID_HOME $HOME/Android/Sdk
-fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin 
-fish_add_path $ANDROID_HOME/platform-tools 
-fish_add_path $ANDROID_HOME/emulator 
-fish_add_path $ANDROID_HOME/tools 
-
-# FLUTTER_ROOT
-set -x FLUTTER_ROOT $HOME/Dev-tools/flutter
-fish_add_path $FLUTTER_ROOT/bin 
-
-# Firebase cli
-fish_add_path $HOME/.pub-cache/bin
-
-# Rofi
-fish_add_path $HOME/.config/rofi/scripts 
-
-# SET VAR
-set -gx EDITOR nvim
-set -gx VISUAL $EDITOR
-set -gx SUDO_EDITOR $EDITOR 
-set -gx CLICOLOR 1
-set -gx LS_COLORS "ow=1;102;90"
-set -gx LESS '-R --use-color -Dd+r$Du+b'
-set -gx MANPAGER 'nvim +Man!'
-set -gx GRIMBLAST_EDITOR 'swappy -f'
+  # SET VAR
+  set -gx EDITOR nvim
+  set -gx VISUAL $EDITOR
+  set -gx SUDO_EDITOR $EDITOR
+  set -gx CLICOLOR 1
+  set -gx LS_COLORS "ow=1;102;90"
+  set -gx LESS '-R --use-color -Dd+r$Du+b'
+  set -gx MANPAGER 'nvim +Man!'
+  set -gx GRIMBLAST_EDITOR 'swappy -f'
 
 # fish var
-# set -g fish_term24bit 1
-set -g fish_color_command green 
-set -g fish_color_normal brwhite
-set -g fish_color_option blue
-set -g fish_color_param blue 
-set -g async_prompt_on_variable fish_bind_mode PWD
+  set -g fish_color_command green
+  set -g fish_color_normal brwhite
+  set -g fish_color_option blue
+  set -g fish_color_param blue
 
-# fzf
-set -gx fzf_preview_dir_cmd exa --all --color=always
-# set fzf_fd_opts --hidden --exclude=.git
-set -gx FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
-
-# qt5
-set -gx QT_QPA_PLATFORMTHEME qt5ct
-
-# STARSHIP INIT
-starship init fish | source
-
-# The Fuck INIT
-thefuck --alias | source
+  # fzf
+  set -gx fzf_preview_dir_cmd exa --all --color=always
+  # set fzf_fd_opts --hidden --exclude=.git
+  set -gx FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
+end
 
 # RUBY ENV INIT
 status --is-interactive; and rbenv init - fish | source
 
-# Start X at login
-# if status is-login
-#     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-#         exec startx -- -keeptty
-#     end
-# end
+# Zoxide Init
+zoxide init fish | source
+
+# DIRENV INIT
+direnv hook fish | source
+
+# STARSHIP INIT
+starship init fish | source

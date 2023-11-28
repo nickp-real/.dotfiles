@@ -1,83 +1,173 @@
 * {
-  font-family: "RobotoMono Nerd Font";
+  font-family: Google Sans, "Font Awesome 6 Brands", "Font Awesome 6 Free",
+    Symbols Nerd Font;
   font-size: 12px;
+  font-style: normal;
   border: none;
-  border-radius: 0px;
-  /* font-weight: bold; */
-  min-height: 0px;
+  border-radius: 0;
+  font-weight: normal;
+  min-height: 0;
 }
 
 window#waybar {
-  background: rgba(34, 38, 45, 1);
-  color: rgba(171, 178, 191, 1);
+  background-color: transparent;
+  color: #abb2bf;
   transition-property: background-color;
   transition-duration: 0.5s;
+  border-radius: 5px;
 }
 
+.modules-left,
+/* .modules-center, */
+.modules-right {
+  /* background-color: rgba(43, 48, 59, 0.5); */
+  /* padding: 5px; */
+  /* border-radius: 10px; */
+}
+
+#workspaces,
+#tray,
+#wireplumber,
+#language,
+#cpu,
+#memory,
+#temperature,
+#clock {
+  background-color: #282c34;
+  padding: 5px 10px;
+}
+
+/*
+████████╗ ██████╗  ██████╗ ██╗  ████████╗██╗██████╗
+╚══██╔══╝██╔═══██╗██╔═══██╗██║  ╚══██╔══╝██║██╔══██╗
+   ██║   ██║   ██║██║   ██║██║     ██║   ██║██████╔╝
+   ██║   ██║   ██║██║   ██║██║     ██║   ██║██╔═══╝
+   ██║   ╚██████╔╝╚██████╔╝███████╗██║   ██║██║
+   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚═╝   ╚═╝╚═╝
+*/
 tooltip {
-  background: rgba(43, 48, 59, 0.5);
+  background-color: rgba(43, 48, 59, 0.9);
   border: 1px solid rgba(100, 114, 125, 0.5);
 }
 
 tooltip label {
-  color: rgba(171, 178, 191, 1);
+  color: #abb2bf;
 }
 
-#workspaces button,
-#clock {
-  background: rgba(40, 44, 52, 1);
-  padding: 5px;
-  margin: 5px 0px;
-  border: 1px solid transparent;
+/*
+██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗  █████╗  ██████╗███████╗███████╗
+██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝
+██║ █╗ ██║██║   ██║██████╔╝█████╔╝ ███████╗██████╔╝███████║██║     █████╗  ███████╗
+██║███╗██║██║   ██║██╔══██╗██╔═██╗ ╚════██║██╔═══╝ ██╔══██║██║     ██╔══╝  ╚════██║
+╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗███████║██║     ██║  ██║╚██████╗███████╗███████║
+ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝╚══════╝
+*/
+#workspaces {
+  padding: 2px 7px;
   border-radius: 5px;
 }
 
 #workspaces button {
+  padding: 3px;
   margin-left: 5px;
+  border-width: 2px;
+  border-style: hidden hidden solid hidden;
+  border-color: transparent;
+}
+
+#workspaces button:nth-child(1) {
+  margin-left: 0;
 }
 
 #workspaces button.active {
-  color: rgba(97, 175, 239, 1);
+  color: #61afef;
+  border-bottom-color: #61afef;
 }
 
-#mode,
-#battery {
-  padding: 0 10px;
-  background: rgba(171, 178, 191, 1);
+/*
+██╗███╗   ██╗███████╗ ██████╗
+██║████╗  ██║██╔════╝██╔═══██╗
+██║██╔██╗ ██║█████╗  ██║   ██║
+██║██║╚██╗██║██╔══╝  ██║   ██║
+██║██║ ╚████║██║     ╚██████╔╝
+╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝
+*/
+#tray {
+  border-radius: 5px 0 0 5px;
+}
+#wireplumber {
+}
+#language {
+  font-family: Google Sans, "Font Awesome 6 Free Solid";
+  border-radius: 0 5px 5px 0;
 }
 
-#mode {
-  background: #64727d;
-  border-bottom: 3px solid rgba(171, 178, 191, 1);
+/*
+ ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗
+██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗
+██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝
+██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗
+╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║
+ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
+*/
+#memory {
+  margin-left: 5px;
+  border-radius: 5px 0 0 5px;
+}
+#cpu {
+}
+#temperature {
+  border-radius: 0 5px 5px 0;
 }
 
+/*
+ ██████╗██╗      ██████╗  ██████╗██╗  ██╗
+██╔════╝██║     ██╔═══██╗██╔════╝██║ ██╔╝
+██║     ██║     ██║   ██║██║     █████╔╝
+██║     ██║     ██║   ██║██║     ██╔═██╗
+╚██████╗███████╗╚██████╔╝╚██████╗██║  ██╗
+ ╚═════╝╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝
+*/
 #clock {
-  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  color: #98c379;
 }
 
-#battery {
-  background-color: #ffffff;
-  color: black;
-}
+/* #mode, */
+/* #battery { */
+/*   padding: 0 10px; */
+/*   background: rgba(171, 178, 191, 1); */
+/* } */
 
-#battery.charging {
-  color: rgba(171, 178, 191, 1);
-  background-color: #26a65b;
-}
+/* #mode { */
+/*   background: #64727d; */
+/*   border-bottom: 3px solid rgba(171, 178, 191, 1); */
+/* } */
 
-@keyframes blink {
-  to {
-    background-color: #ffffff;
-    color: black;
-  }
-}
+/* #battery { */
+/*   background-color: #ffffff; */
+/*   color: black; */
+/* } */
 
-#battery.warning:not(.charging) {
-  background: #f53c3c;
-  color: rgba(171, 178, 191, 1);
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
+/* #battery.charging { */
+/*   color: rgba(171, 178, 191, 1); */
+/*   background-color: #26a65b; */
+/* } */
+
+/* @keyframes blink { */
+/*   to { */
+/*     background-color: #ffffff; */
+/*     color: black; */
+/*   } */
+/* } */
+
+/* #battery.warning:not(.charging) { */
+/*   background: #f53c3c; */
+/*   color: rgba(171, 178, 191, 1); */
+/*   animation-name: blink; */
+/*   animation-duration: 0.5s; */
+/*   animation-timing-function: linear; */
+/*   animation-iteration-count: infinite; */
+/*   animation-direction: alternate; */
+/* } */

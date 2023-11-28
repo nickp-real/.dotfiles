@@ -9,8 +9,7 @@ $time\
 $line_break\
 $character
 """
-command_timeout = 1500
-
+command_timeout = 2000
 
 [fill]
 symbol = " "
@@ -23,74 +22,74 @@ disabled = false
 format = '🕙 [\[$time\]]($style) '
 time_format = "%r"
 
-[aws]
-symbol = "  "
+# [aws]
+# symbol = "  "
 
-[conda]
-symbol = " "
+# [conda]
+# symbol = " "
 
-[dart]
-symbol = " "
+# [dart]
+# symbol = " "
 
-[directory]
-read_only = " "
+# [directory]
+# read_only = " 󰌾"
 
-[docker_context]
-symbol = " "
+# [docker_context]
+# symbol = " "
 
-[elixir]
-symbol = " "
+# [elixir]
+# symbol = " "
 
-[elm]
-symbol = " "
+# [elm]
+# symbol = " "
 
-[git_branch]
-symbol = " "
+# [git_branch]
+# symbol = " "
 
-[golang]
-symbol = " "
+# [golang]
+# symbol = " "
 
-[hg_branch]
-symbol = " "
+# [hg_branch]
+# symbol = " "
 
-[java]
-symbol = " "
+# [java]
+# symbol = " "
 
-[julia]
-symbol = " "
+# [julia]
+# symbol = " "
 
-[memory_usage]
-symbol = " "
+# [memory_usage]
+# symbol = "󰍛 "
 
-[nim]
-symbol = " "
+# [nim]
+# symbol = "󰆥 "
 
-[nix_shell]
-symbol = " "
+# [nix_shell]
+# symbol = " "
 
-[package]
-symbol = " "
+# [package]
+# symbol = "󰏗 "
 
-[perl]
-symbol = " "
+# [perl]
+# symbol = " "
 
-[php]
-symbol = " "
+# [php]
+# symbol = " "
 
-[python]
-symbol = " "
+# [python]
+# symbol = " "
 
-[ruby]
-symbol = " "
+# [ruby]
+# symbol = " "
 
-[rust]
-symbol = " "
+# [rust]
+# symbol = " "
 
-[scala]
-symbol = " "
+# [scala]
+# symbol = " "
 
-[shlvl]
-symbol = " "
+# [shlvl]
+# symbol = " "
 
-[swift]
-symbol = "ﯣ "
+# [swift]
+# symbol = " "

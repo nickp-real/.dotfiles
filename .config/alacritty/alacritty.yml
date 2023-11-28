@@ -90,7 +90,6 @@ window:
 
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: false
-
   # Window class (Linux/BSD only):
   #class:
   # Application instance name
@@ -116,7 +115,9 @@ scrolling:
 font:
   normal:
     # family: FantasqueSansM Nerd Font
-    family: ComicShannsMono Nerd Font
+    # family: ComicShannsMono Nerd Font
+    family: Maple Mono NF
+    # family: GeistMono NF
     style: Regular
 
   # Bold font face
@@ -132,14 +133,14 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 11
+  size: 10
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
   offset:
     x: 0
-    y: 1
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
@@ -147,29 +148,6 @@ font:
   glyph_offset:
     x: 0
     y: 0
-
-  # normal:
-  #   family: Iosevka Term Nerd Font
-  #   style: Medium
-
-  # bold:
-  #   style: Bold
-
-  # italic:
-  #   style: Medium Italic
-
-  # bold_italic:
-  #   style: Bold Italic
-
-  # size: 12
-
-  # offset:
-  #   x: 0
-  #   y: 0
-
-  # glyph_offset:
-  #   x: 0
-  #   y: 0
 
   # Use built-in font for box drawing characters.
   #
@@ -427,21 +405,21 @@ cursor:
 #   - (Windows) powershell
 shell:
   program: /usr/bin/fish
-  args:
-    - --login
-    - -c
-    - "tmux attach || tmux"
-# Startup directory
-#
-# Directory the shell is started in. If this is unset, or `None`, the working
-# directory of the parent process will be used.
-#working_directory: None
+  # args:
+  #   - --login
+  #   - -c
+  #   - "tmux attach || tmux"
+  # Startup directory
+  #
+  # Directory the shell is started in. If this is unset, or `None`, the working
+  # directory of the parent process will be used.
+  #working_directory: None
 
-# Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
+  # Send ESC (\x1b) before characters when alt is pressed.
+  #alt_send_esc: true
 
-# Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
+  # Offer IPC using `alacritty msg` (unix only)
+  #ipc_socket: true
 
 mouse:
   # Click settings
@@ -454,6 +432,7 @@ mouse:
 
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: true
+
 # Regex hints
 #
 # Terminal hints can be used to find text in the visible part of the terminal

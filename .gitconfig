@@ -7,20 +7,13 @@
 	autocrlf = input
 	editor = nvim
   pager = delta
-# define command which will be used when "nvim" is set as a merge tool
-[mergetool "nvim"]
-  cmd = nvim -f -c \"DiffviewOpen\" 
-    ; \"$MERGED\"
-# set "nvim" as tool for merging
-[merge]
-  tool = nvim
-	conflictstyle = diff3
 # automatically launch merge tool without displaying a prompt
 [mergetool]
   prompt = false
 	keepBackup = false
 [safe]
 	directory = *
+	directory = /home/nickp_real/.cache/yay/auto-cpufreq/src/opt/auto-cpufreq/
 [color]
 	ui = true
 [advice]
@@ -45,11 +38,11 @@
 [url "git@github.com-NickP-real:NickP-real"]
   insteadOf = git@github.com:NickP-real
   pushInsteadOf = git@github.com:NickP-real
-# office account
-[url "git@github.com-nickp-ss:SmartSoftAsia"]
-  insteadOf = git@github.com:SmartSoftAsia
-  pushInsteadOf = git@github.com:SmartSoftAsia
+
+[includeIf "hasconfig:remote.*.url:git@github.com:SmartSoftAsia/**"]
+  path = ~/.work.gitconfig
+
 [alias]
-  config-ssa = !git config user.name nickp-ss && git config user.email nick@smartsoftasia.com
   adog = log --all --decorate --oneline --graph
   adogs = log --all --decorate --oneline --graph --stat
+  mergetool = "!nvim -c DiffviewOpen"

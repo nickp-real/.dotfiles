@@ -48,8 +48,6 @@ return {
       TelescopePreviewNormal = { bg = "${telescope_preview}" },
       TelescopePreviewBorder = { fg = "${telescope_preview}", bg = "${telescope_preview}" },
 
-      -- diffChanged = { fg = "e0af68" },
-      -- diffRemoved = { fg = "#9a353d" },
       AlphaHeader = { fg = "${yellow}" },
       AlphaButtons = { fg = "${white}" },
       AlphaShortcut = { fg = "${blue}" },
@@ -60,9 +58,16 @@ return {
 
       NavicText = { fg = "${fg}" },
 
-      TSRainbowWhite = { fg = "${white}" },
+      RainbowWhite = { fg = "${white}" },
+      RainbowViolet = { fg = "${purple}" },
+      RainbowBlue = { fg = "${blue}" },
+      RainbowGreen = { fg = "${green}" },
+      RainbowYellow = { fg = "${yellow}" },
+      RainbowOrange = { fg = "${orange}" },
+      RainbowRed = { fg = "${red}" },
+      RainbowCyan = { fg = "${cyan}" },
     },
-    plugins = {},
+    -- plugins = {},
     styles = {
       types = "NONE",
       methods = "bold",

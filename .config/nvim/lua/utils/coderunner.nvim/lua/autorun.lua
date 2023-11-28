@@ -39,9 +39,10 @@ function M.setup()
 
       if not resultBufnr then
         utils.notify("AutoRun Starts Now!", "AutoRun")
-        vim.api.nvim_command("vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile")
+        vim.cmd.vnew()
+        vim.cmd.setlocal("nobuflisted buftype=nofile bufhidden=wipe noswapfile")
         resultBufnr = vim.api.nvim_get_current_buf()
-        vim.api.nvim_command("wincmd p")
+        vim.cmd.wincmd("p")
       else
         vim.api.nvim_del_augroup_by_name("AutoRun")
         utils.notify("AutoRun Command Changed!", "AutoRun")
@@ -63,11 +64,13 @@ function M.setup()
       end
       if not (resultBufnr and inputBufnr) then
         utils.notify("AutoRunCP Starts Now!", "AutoRunCP")
-        vim.api.nvim_command("vnew input.txt | setlocal nobuflisted noswapfile")
+        vim.cmd.vnew("input.txt")
+        vim.cmd.setlocal("nobuflisted noswapfile")
         inputBufnr = vim.api.nvim_get_current_buf()
-        vim.api.nvim_command("new | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile")
+        vim.cmd.new()
+        vim.cmd.setlocal("nobuflisted buftype=nofile bufhidden=wipe noswapfile")
         resultBufnr = vim.api.nvim_get_current_buf()
-        vim.api.nvim_command("wincmd h")
+        vim.cmd.wincmd("h")
       else
         vim.api.nvim_del_augroup_by_name("AutoRun")
         utils.notify("AutoRunCP Command Changed!", "AutoRunCP")

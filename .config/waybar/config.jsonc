@@ -1,66 +1,99 @@
 {
   "layer": "top",
-  // "position": "top",
-  // "height": 30,
-  "spacing": 4,
-  "modules-left": ["wlr/workspaces"],
+  "position": "top",
+  "height": 14,
+  "margin": "10, 10, 0, 10",
+  "spacing": 0,
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
   "modules-center": [],
   "modules-right": [
     "tray",
     "wireplumber",
-    "network",
-    "keyboard-state",
     "hyprland/language",
-    "cpu",
     "memory",
+    "cpu",
     "temperature",
     "clock"
   ],
-
-  // "wlr/workspaces":{
-  //
-  // },
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-click": "activate"
+    // "persistent_workspaces": {
+    //   "1": [],
+    //   "2": [],
+    //   "3": [],
+    //   "4": [],
+    //   "5": []
+    // }
+  },
   "tray": {
     "spacing": 5
   },
-
-  "network": {
-    "format-wifi": "{essid} ({signalStrength}%) {icon}",
-    "format-ethernet": "{essid}",
-    "format-disconnected": ""
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "on-click": "pavucontrol",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
   },
-
-  "keyboard-state": {
-    "numlock": true,
-    "capslock": true,
-    "format": {
-      "numlock": "N {icon}",
-      "capslock": "C {icon}"
-    },
-    "format-icons": {
-      "locked": "",
-      "unlocked": ""
-    }
-  },
-
   "hyprland/language": {
-    "format": "{}",
-    "format-ru": "ru",
+    "format": " {}",
     "format-us": "us",
     "format-en": "us",
+    "format-th": "th",
     "keyboard-name": "at-translated-set-2-keyboard"
   },
-
-  "cpu": {
-    "format": "{usage}% ",
-    "tooltip": false
-  },
-
   "memory": {
-    "format": "{}% 󰍛"
+    "format": " {}%",
+    "tooltip": true
   },
-
+  "cpu": {
+    "format": " {usage}%",
+    "tooltip": true
+  },
+  "temperature": {
+    "critical-threshold": 90,
+    "format-critical": " {temperatureC}°C",
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
   "clock": {
-    "format": "{:%I:%M %p}"
+    "format": "  {:%a %d %b, %I:%M %p}",
+    "timezone": "Asia/Bangkok",
+    // "tooltip-format": "<small>{calendar}</small>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
   }
 }

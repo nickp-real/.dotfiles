@@ -1,30 +1,20 @@
+local indent_highlight = {
+  "RainbowWhite",
+  "RainbowViolet",
+  "RainbowBlue",
+  "RainbowGreen",
+  "RainbowYellow",
+  "RainbowOrange",
+  "RainbowRed",
+  "RainbowCyan",
+}
+
 return {
   -- dashboard
   {
     "goolord/alpha-nvim",
     event = "VimEnter",
-    init = function()
-      -- TODO: waiting for hide winbar api
-      local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "man", "alpha" },
-        callback = function()
-          local old_laststatus = vim.opt.laststatus
-          local old_tabline = vim.opt.showtabline
-          vim.api.nvim_create_autocmd("BufUnload", {
-            buffer = 0,
-            callback = function()
-              vim.opt.laststatus = old_laststatus
-              vim.opt.showtabline = old_tabline
-            end,
-            group = disable_bufferline,
-          })
-          vim.opt.laststatus = 0
-          vim.opt.showtabline = 0
-        end,
-        group = disable_bufferline,
-      })
-    end,
+    init = false,
     opts = function()
       local function footer()
         local version = vim.version()
@@ -46,9 +36,7 @@ return {
           hl_shortcut = "AlphaShortcut",
         }
 
-        if keybind then
-          opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
-        end
+        if keybind then opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } } end
 
         return {
           type = "button",
@@ -136,12 +124,10 @@ return {
   {
     "stevearc/dressing.nvim",
     init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.select = function(...)
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.select(...)
       end
-      ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.input = function(...)
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.input(...)
@@ -152,6 +138,7 @@ return {
         input = {
           default_prompt = "➤ ",
           insert_only = false,
+          border = require("core.styles").border,
           win_options = {
             winblend = 0,
           },
@@ -179,8 +166,6 @@ return {
     end,
   },
 
-  -- statusline
-  "heirline.nvim",
   -- bufferline
   {
     "akinsho/bufferline.nvim",
@@ -202,55 +187,77 @@ return {
           return
         end
 
-        if last_buffer_name == "" then
-          vim.cmd("Bdelete " .. last_buffer_id)
-        end
+        if last_buffer_name == "" then vim.cmd("Bdelete " .. last_buffer_id) end
       end
 
       return {
-        { "<Tab>", "<cmd>lua ChangeTab('next')<cr>", desc = "Next Buffer" },
-        { "<S-Tab>", "<cmd>lua ChangeTab('prev')<cr>", desc = "Prev Buffer" },
+        { "<Tab>", function() ChangeTab("next") end, desc = "Next Buffer" },
+        { "<S-Tab>", function() ChangeTab("prev") end, desc = "Prev Buffer" },
         { "<leader><Tab>", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Next" },
         { "<leader><S-Tab>", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Prev" },
       }
     end,
-    opts = {
-      options = {
-        diagnostics = "nvim_lsp",
-        diagnostics_update_in_insert = false,
-        close_command = "Bdelete! %d",
-        always_show_bufferline = false,
-        indicator = {
-          icon = "▌",
-          style = "icon",
-        },
-        offsets = {
-          {
-            filetype = "Outline",
-            text = "Symbols Outline",
-            highlight = "Directory",
-            text_align = "center",
+    opts = function()
+      -- local Offset = require("bufferline.offset")
+      -- if not Offset.edgy then
+      --   local get = Offset.get
+      --   Offset.get = function()
+      --     if package.loaded.edgy then
+      --       local layout = require("edgy.config").layout
+      --       local ret = { left = "", left_size = 0, right = "", right_size = 0 }
+      --       for _, pos in ipairs({ "left", "right" }) do
+      --         local sb = layout[pos]
+      --         if sb and #sb.wins > 0 then
+      --           local title = " Sidebar" .. string.rep(" ", sb.bounds.width - 8)
+      --           ret[pos] = "%#EdgyTitle#" .. title .. "%*" .. "%#WinSeparator#│%*"
+      --           ret[pos .. "_size"] = sb.bounds.width
+      --         end
+      --       end
+      --       ret.total_size = ret.left_size + ret.right_size
+      --       if ret.total_size > 0 then return ret end
+      --     end
+      --     return get()
+      --   end
+      --   Offset.edgy = true
+      return {
+        options = {
+          diagnostics = "nvim_lsp",
+          diagnostics_update_in_insert = false,
+          close_command = "Bdelete! %d",
+          always_show_bufferline = false,
+          indicator = {
+            icon = "▌",
+            style = "icon",
           },
-          {
-            filetype = "neo-tree",
-            text = "Neo Tree",
-            highlight = "Directory",
-            text_align = "center",
+          offsets = {
+            {
+              filetype = "Outline",
+              text = "Symbols Outline",
+              highlight = "Directory",
+              text_align = "center",
+            },
+            {
+              filetype = "neo-tree",
+              text = "Neo Tree",
+              highlight = "Directory",
+              text_align = "center",
+            },
           },
         },
-      },
-      highlights = {
-        indicator_selected = {
-          fg = "#61afef",
+        highlights = {
+          indicator_selected = {
+            fg = "#61afef",
+          },
         },
-      },
-    },
+      }
+      -- end
+    end,
   },
 
   -- winbar
   {
     "utilyre/barbecue.nvim",
-    dependencies = { "SmiteshP/nvim-navic" },
+    dependencies = { "SmiteshP/nvim-navic", init = function() vim.g.navic_silence = true end },
     event = "VeryLazy",
     opts = {
       attach_navic = false,
@@ -261,30 +268,34 @@ return {
   -- indent guides
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
+    dependencies = {
+      "HiPhish/rainbow-delimiters.nvim",
+      config = function(_, opts) require("rainbow-delimiters.setup").setup(opts) end,
+      opts = { highlight = indent_highlight },
+    },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    main = "ibl",
+    config = function(_, opts)
+      require("ibl").setup(opts)
+      local hooks = require("ibl.hooks")
+      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    end,
     opts = {
-      char = "▎",
-      context_char = "▎",
-      show_current_context = true,
-      -- show_current_context_start = true,
-      use_treesitter = true,
-      buftype_exclude = { "terminal", "help", "nofile", "prompt", "popup" },
-      filetype_exclude = {
-        "alpha",
-        "packer",
-        "TelescopePrompt",
-        "TelescopeResults",
-        "terminal",
-        "help",
-        "lsp-installer",
-        "log",
-        "Outline",
-        "Trouble",
-        "lazy",
-        "neo-tree",
+      scope = { highlight = indent_highlight },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
       },
-      show_trailing_blankline_indent = false,
-      show_first_indent_level = false,
     },
   },
 
@@ -295,9 +306,7 @@ return {
     keys = {
       {
         "<leader>nd",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
+        function() require("notify").dismiss({ silent = true, pending = true }) end,
         desc = "Delete all Notifications",
       },
     },
@@ -305,22 +314,19 @@ return {
     config = function(_, opts)
       local notify = require("notify")
       notify.setup(opts)
-      vim.notify = function(message, level, opts)
-        return notify(message, level, opts)
-      end
+      vim.notify = function(message, level, notify_opts) return notify(message, level, notify_opts) end
     end,
     opts = function()
       local stages_util = require("notify.stages.util")
+      local direction = stages_util.DIRECTION.BOTTOM_UP
       return {
         fps = 60,
+        top_down = false,
         stages = {
           function(state)
             local next_height = state.message.height + 2
-            local next_row =
-              stages_util.available_slot(state.open_windows, next_height, stages_util.DIRECTION.BOTTOM_UP)
-            if not next_row then
-              return nil
-            end
+            local next_row = stages_util.available_slot(state.open_windows, next_height, direction)
+            if not next_row then return nil end
             return {
               relative = "editor",
               anchor = "NE",
@@ -328,47 +334,113 @@ return {
               height = state.message.height,
               col = vim.opt.columns:get(),
               row = next_row,
-              border = "rounded",
+              border = require("core.styles").border,
               style = "minimal",
               opacity = 0,
             }
           end,
-          function()
+          function(state, win)
             return {
               opacity = { 100 },
               col = { vim.opt.columns:get() },
+              row = {
+                stages_util.slot_after_previous(win, state.open_windows, direction),
+                frequency = 3,
+                complete = function() return true end,
+              },
             }
           end,
-          function()
+          function(state, win)
             return {
               col = { vim.opt.columns:get() },
               time = true,
+              row = {
+                stages_util.slot_after_previous(win, state.open_windows, direction),
+                frequency = 3,
+                complete = function() return true end,
+              },
             }
           end,
-          function()
+          function(state, win)
             return {
               width = {
                 1,
                 frequency = 2.5,
                 damping = 0.9,
-                complete = function(cur_width)
-                  return cur_width < 3
-                end,
+                complete = function(cur_width) return cur_width < 3 end,
               },
               opacity = {
                 0,
                 frequency = 2,
-                complete = function(cur_opacity)
-                  return cur_opacity <= 4
-                end,
+                complete = function(cur_opacity) return cur_opacity <= 4 end,
               },
               col = { vim.opt.columns:get() },
+              row = {
+                stages_util.slot_after_previous(win, state.open_windows, direction),
+                frequency = 3,
+                complete = function() return true end,
+              },
             }
           end,
         },
       }
     end,
   },
+
+  -- edgy
+  -- {
+  --   "folke/edgy.nvim",
+  --   event = "VeryLazy",
+  --   keys = {
+  --     { "<C-n>", '<cmd>lua require("edgy").toggle()<cr>', desc = "Edgy Toggle" },
+  --     -- { "<C-N>", '<cmd>lua require("edgy").select()<cr>', desc = "Edgy Select Window" },
+  --   },
+  --   opts = {
+  --     bottom = {
+  --       "Trouble",
+  --       { ft = "qf", title = "QuickFix" },
+  --       {
+  --         ft = "help",
+  --         size = { height = 20 },
+  --         -- don't open help files in edgy that we're editing
+  --         filter = function(buf) return vim.bo[buf].buftype == "help" end,
+  --       },
+  --       { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
+  --     },
+  --     left = {
+  --       -- Neo-tree filesystem always takes half the screen height
+  --       {
+  --         title = "Neo-Tree",
+  --         ft = "neo-tree",
+  --         filter = function(buf) return vim.b[buf].neo_tree_source == "filesystem" end,
+  --         pinned = true,
+  --         open = "Neotree",
+  --         size = { height = 0.5 },
+  --       },
+  --       {
+  --         title = "Neo-Tree Git",
+  --         ft = "neo-tree",
+  --         filter = function(buf) return vim.b[buf].neo_tree_source == "git_status" end,
+  --         pinned = true,
+  --         open = "Neotree position=right git_status",
+  --       },
+  --       {
+  --         title = "Neo-Tree Buffers",
+  --         ft = "neo-tree",
+  --         filter = function(buf) return vim.b[buf].neo_tree_source == "buffers" end,
+  --         pinned = true,
+  --         open = "Neotree position=top buffers",
+  --       },
+  --       {
+  --         ft = "Outline",
+  --         pinned = true,
+  --         open = "SymbolsOutline",
+  --       },
+  --       -- any other neo-tree windows
+  --       "neo-tree",
+  --     },
+  --   },
+  -- },
 
   -- better quickfix
   {
@@ -381,40 +453,6 @@ return {
       },
     },
   },
-
-  -- TODO comments
-  {
-    "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
-    event = "BufReadPost",
-    config = true,
-    keys = {
-      {
-        "]t",
-        function()
-          require("todo-comments").jump_next()
-        end,
-        desc = "Next todo comment",
-      },
-      {
-        "[t",
-        function()
-          require("todo-comments").jump_prev()
-        end,
-        desc = "Previous todo comment",
-      },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
-      { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
-    },
-  },
-
-  -- highlight argument
-  -- {
-  --   "m-demare/hlargs.nvim",
-  --   event = "BufReadPost",
-  --   opts = { color = "#e59b4e" },
-  -- },
 
   -- Log Highlight
   { "MTDL9/vim-log-highlighting", ft = "log" },

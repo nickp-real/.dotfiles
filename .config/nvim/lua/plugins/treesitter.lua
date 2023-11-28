@@ -1,7 +1,21 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = "BufReadPost",
+  event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
   build = ":TSUpdate",
+  keys = {
+    {
+      ";",
+      mode = { "n", "x", "o" },
+      function() require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_next() end,
+      desc = "TS Repeat Last Move",
+    },
+    {
+      ",",
+      mode = { "n", "x", "o" },
+      function() require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_previous() end,
+      desc = "TS Repeat Last Move",
+    },
+  },
   dependencies = {
     "windwp/nvim-ts-autotag",
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -9,20 +23,12 @@ return {
     {
       "andymass/vim-matchup",
       init = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup", border = "rounded" }
+        vim.g.matchup_matchparen_offscreen = { method = "popup", border = require("core.styles").border }
       end,
     },
-    "HiPhish/nvim-ts-rainbow2",
-    {
-      "nvim-treesitter/nvim-treesitter-context",
-      config = function()
-        require("treesitter-context").setup()
-      end,
-    },
+    { "nvim-treesitter/nvim-treesitter-context", opts = { max_lines = 3 } },
   },
-  config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
-  end,
+  config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   opts = {
     ensure_installed = "all",
     highlight = {
@@ -32,7 +38,7 @@ return {
     },
     indent = {
       enable = true,
-      disable = { "python", "svelte" },
+      disable = { "python" },
     },
     incremental_selection = {
       enable = true,
@@ -44,19 +50,6 @@ return {
       },
     },
     autotag = { enable = true },
-    rainbow = {
-      enable = true,
-      hlgroups = {
-        "TSRainbowWhite",
-        "TSRainbowPurple",
-        "TSRainbowBlue",
-        "TSRainbowGreen",
-        "TSRainbowYellow",
-        "TSRainbowOrange",
-        "TSRainbowRed",
-        "TSRainbowCyan",
-      },
-    },
     textobjects = {
       select = {
         enable = true,
@@ -74,20 +67,19 @@ return {
           ["il"] = "@loop.inner",
           ["aa"] = "@parameter.outer",
           ["ia"] = "@parameter.inner",
-          ["uc"] = "@comment.outer",
+          ["ai"] = "@conditional.outer",
+          ["ii"] = "@conditional.inner",
+          ["at"] = "@comment.outer",
+          ["it"] = "@comment.inter",
         },
       },
       swap = {
         enable = true,
         swap_next = {
-          ["<leader>sa"] = "@parameter.inner",
-          ["<leader>sf"] = "@function.outer",
-          ["<leader>se"] = "@element",
+          ["<leader>a"] = "@parameter.inner",
         },
         swap_previous = {
-          ["<leader>sA"] = "@parameter.inner",
-          ["<leader>sF"] = "@function.outer",
-          ["<leader>sE"] = "@element",
+          ["<leader>A"] = "@parameter.inner",
         },
       },
       move = {
@@ -97,6 +89,7 @@ return {
           ["]f"] = "@function.outer",
           ["]c"] = "@class.outer",
           ["]a"] = "@parameter.outer",
+          ["]o"] = "@loop.*",
         },
         goto_next_end = {
           ["]F"] = "@function.outer",
@@ -113,6 +106,21 @@ return {
           ["[C"] = "@class.outer",
           ["[A"] = "@parameter.outer",
         },
+        goto_next = {
+          ["]i"] = "@conditional.outer",
+        },
+        goto_previous = {
+          ["[i"] = "@conditional.outer",
+        },
+      },
+      lsp_interop = {
+        enable = true,
+        border = require("core.styles").border,
+        floating_preview_opts = {},
+        peek_definition_code = {
+          ["<leader>df"] = "@function.outer",
+          ["<leader>dF"] = "@class.outer",
+        },
       },
     },
     textsubjects = {
@@ -124,7 +132,6 @@ return {
         ["i;"] = "textsubjects-container-inner",
       },
     },
-    context_commentstring = { enable = true, enable_autocmd = false },
-    matchup = { enable = true },
+    matchup = { enable = true, enable_quotes = true },
   },
 }
