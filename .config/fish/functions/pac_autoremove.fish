@@ -1,4 +1,4 @@
-function pac_autoremove --wraps=sudo\ pacman\ -Rcs\ appstream-glib\nasciidoc\nblueprint-compiler\nboost\ncatch2\nchrpath\ncmark\ncython\ndejagnu\ndmraid\ndoxygen\ndpkg\ndvisvgm\nelectron\nelectron22\nextra-cmake-modules\nffnvcodec-headers\nfontforge\ngn\ngperf\ngptfdisk\nhelp2man\nhttpdirfs\nhttpfs2-2gbplus\ninetutils\ninkscape\njava-environment-common\njre-openjdk-headless\nkpipewire\nlibindicator-gtk3\nlibmfx\nliborcus\nlibxcrypt-compat\nlld\nlua-lgi\nlua-lpeg\nmeson\nopencv\nostree\np7zip\npython-backcall\npython-exceptiongroup\npython-fixtures\npython-flask-compress\npython-flask-gravatar\npython-flask-migrate\npython-flask-paranoid\npython-flask-security-too\npython-flit-core\npython-gssapi\npython-hurry-filesize\npython-jaraco.test\npython-ldap3\npython-mock\npython-poetry-dynamic-versioning\npython-rapidfuzz-capi\npython-rfc3986\npython-scikit-build\npython-setuptools-scm\npython-simplejson\npython-sshtunnel\npython-testpath\npython-testtools\npython-toml\npython-xlib\nrpcsvc-proto\nrustup\nscdoc\nsysfsutils\ntinycompress\ntllist\nvala\nvulkan-validation-layers\nwlroots\nxtrans --description alias\ pac_autoremove\ sudo\ pacman\ -Rcs\ appstream-glib\nasciidoc\nblueprint-compiler\nboost\ncatch2\nchrpath\ncmark\ncython\ndejagnu\ndmraid\ndoxygen\ndpkg\ndvisvgm\nelectron\nelectron22\nextra-cmake-modules\nffnvcodec-headers\nfontforge\ngn\ngperf\ngptfdisk\nhelp2man\nhttpdirfs\nhttpfs2-2gbplus\ninetutils\ninkscape\njava-environment-common\njre-openjdk-headless\nkpipewire\nlibindicator-gtk3\nlibmfx\nliborcus\nlibxcrypt-compat\nlld\nlua-lgi\nlua-lpeg\nmeson\nopencv\nostree\np7zip\npython-backcall\npython-exceptiongroup\npython-fixtures\npython-flask-compress\npython-flask-gravatar\npython-flask-migrate\npython-flask-paranoid\npython-flask-security-too\npython-flit-core\npython-gssapi\npython-hurry-filesize\npython-jaraco.test\npython-ldap3\npython-mock\npython-poetry-dynamic-versioning\npython-rapidfuzz-capi\npython-rfc3986\npython-scikit-build\npython-setuptools-scm\npython-simplejson\npython-sshtunnel\npython-testpath\npython-testtools\npython-toml\npython-xlib\nrpcsvc-proto\nrustup\nscdoc\nsysfsutils\ntinycompress\ntllist\nvala\nvulkan-validation-layers\nwlroots\nxtrans
+function pac_autoremove --wraps=sudo\ pacman\ -Rcs\ appstream-glib\nasciidoc\nblueprint-compiler\nboost\ncatch2\nchrpath\ncmark\ncython\ndejagnu\ndmraid\ndoxygen\ndpkg\ndvisvgm\nelectron\nelectron22\nelectron25\nffnvcodec-headers\nfontforge\ngn\ngperf\ngptfdisk\nhelp2man\nhttpdirfs\nhttpfs2-2gbplus\ninetutils\ninkscape\njava-environment-common\njre-openjdk-headless\nlibical\nlibindicator-gtk3\nlibmfx\nlibxcrypt-compat\nlld\nllvm15-libs\nlua-lgi\nlua-lpeg\nmeson\nopencv\nostree\np7zip\npython-backcall\npython-exceptiongroup\npython-fixtures\npython-flask-compress\npython-flask-gravatar\npython-flask-migrate\npython-flask-paranoid\npython-flask-security-too\npython-flit-core\npython-gssapi\npython-hurry-filesize\npython-jaraco.test\npython-ldap3\npython-mock\npython-poetry-dynamic-versioning\npython-pytzdata\npython-rapidfuzz-capi\npython-rfc3986\npython-scikit-build\npython-setuptools-scm\npython-simplejson\npython-sphinx\npython-testpath\npython-testtools\npython-toml\npython-xlib\nrpcsvc-proto\nrustup\nscdoc\nsysfsutils\ntinycompress\ntllist\ntypescript\nvala\nvulkan-validation-layers\nxtrans --description alias\ pac_autoremove\ sudo\ pacman\ -Rcs\ appstream-glib\nasciidoc\nblueprint-compiler\nboost\ncatch2\nchrpath\ncmark\ncython\ndejagnu\ndmraid\ndoxygen\ndpkg\ndvisvgm\nelectron\nelectron22\nelectron25\nffnvcodec-headers\nfontforge\ngn\ngperf\ngptfdisk\nhelp2man\nhttpdirfs\nhttpfs2-2gbplus\ninetutils\ninkscape\njava-environment-common\njre-openjdk-headless\nlibical\nlibindicator-gtk3\nlibmfx\nlibxcrypt-compat\nlld\nllvm15-libs\nlua-lgi\nlua-lpeg\nmeson\nopencv\nostree\np7zip\npython-backcall\npython-exceptiongroup\npython-fixtures\npython-flask-compress\npython-flask-gravatar\npython-flask-migrate\npython-flask-paranoid\npython-flask-security-too\npython-flit-core\npython-gssapi\npython-hurry-filesize\npython-jaraco.test\npython-ldap3\npython-mock\npython-poetry-dynamic-versioning\npython-pytzdata\npython-rapidfuzz-capi\npython-rfc3986\npython-scikit-build\npython-setuptools-scm\npython-simplejson\npython-sphinx\npython-testpath\npython-testtools\npython-toml\npython-xlib\nrpcsvc-proto\nrustup\nscdoc\nsysfsutils\ntinycompress\ntllist\ntypescript\nvala\nvulkan-validation-layers\nxtrans
   sudo pacman -Rcs appstream-glib
 asciidoc
 blueprint-compiler
@@ -14,7 +14,7 @@ dpkg
 dvisvgm
 electron
 electron22
-extra-cmake-modules
+electron25
 ffnvcodec-headers
 fontforge
 gn
@@ -27,12 +27,12 @@ inetutils
 inkscape
 java-environment-common
 jre-openjdk-headless
-kpipewire
+libical
 libindicator-gtk3
 libmfx
-liborcus
 libxcrypt-compat
 lld
+llvm15-libs
 lua-lgi
 lua-lpeg
 meson
@@ -54,12 +54,13 @@ python-jaraco.test
 python-ldap3
 python-mock
 python-poetry-dynamic-versioning
+python-pytzdata
 python-rapidfuzz-capi
 python-rfc3986
 python-scikit-build
 python-setuptools-scm
 python-simplejson
-python-sshtunnel
+python-sphinx
 python-testpath
 python-testtools
 python-toml
@@ -70,9 +71,9 @@ scdoc
 sysfsutils
 tinycompress
 tllist
+typescript
 vala
 vulkan-validation-layers
-wlroots
 xtrans $argv
         
 end

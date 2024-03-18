@@ -32,76 +32,62 @@ M.toggle_auto_format = function()
   end
 end
 
+local highlightSetup = function(client, bufnr)
+  if client.server_capabilities.documentHighlightProvider then
+    local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
+
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      buffer = bufnr,
+      group = group,
+      callback = vim.lsp.buf.document_highlight,
+    })
+
+    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+      buffer = bufnr,
+      group = group,
+      callback = function() vim.lsp.buf.clear_references() end,
+    })
+  end
+end
+
 local mapping = function(bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local nnoremap = require("utils.keymap_utils").nnoremap
-  local inoremap = require("utils.keymap_utils").inoremap
-  local nvnoremap = require("utils.keymap_utils").nvnoremap
 
-  local function diagnostic_goto(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    severity = severity and vim.diagnostic.severity[severity] or nil
-    return function() go({ severity = severity }) end
-  end
-
-  local bufopts = { silent = true, buffer = bufnr }
+  local map = function(keys, func, desc) nnoremap(keys, func, { silent = true, buffer = bufnr, desc = "LSP:" .. desc }) end
 
   vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  nnoremap("gD", vim.lsp.buf.declaration, bufopts)
-  nnoremap("gd", vim.lsp.buf.definition, bufopts)
-  nnoremap("gr", vim.lsp.buf.references, bufopts)
-  nnoremap("K", vim.lsp.buf.hover, bufopts)
-  nnoremap("gi", vim.lsp.buf.implementation, bufopts)
-  nnoremap("gK", vim.lsp.buf.signature_help, bufopts)
-  -- inoremap("<C-k>", vim.lsp.buf.signature_help, bufopts)
-  nnoremap("<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-  nnoremap("<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-  nnoremap("<space>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, bufopts)
-  nnoremap("<space>D", vim.lsp.buf.type_definition, bufopts)
-  nnoremap("<space>rn", vim.lsp.buf.rename, bufopts)
-  nvnoremap("<space>ca", vim.lsp.buf.code_action, bufopts)
-  -- nnoremap("<space>f", function()
-  --   vim.lsp.buf.format({ bufnr = bufnr })
-  -- end, bufopts)
-  nnoremap("<space>f", function() require("conform").format({ lsp_fallback = true, timeout_ms = 500 }) end, bufopts)
-  nnoremap("<space>fe", M.toggle_auto_format, vim.tbl_deep_extend("force", bufopts, { expr = true }))
-  nnoremap("]e", diagnostic_goto(true, "ERROR"), bufopts)
-  nnoremap("[e", diagnostic_goto(false, "ERROR"), bufopts)
-  nnoremap("]w", diagnostic_goto(true, "WARN"), bufopts)
-  nnoremap("[w", diagnostic_goto(false, "WARN"), bufopts)
-  nnoremap("[d", diagnostic_goto(false), bufopts)
-  nnoremap("]d", diagnostic_goto(true), bufopts)
-  nnoremap("<space>e", vim.diagnostic.open_float, bufopts)
-  nnoremap("<C-q>", vim.diagnostic.setloclist, bufopts)
+  map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+  map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]ifinition")
+  map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+  map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+  map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+  map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+  map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+  map("K", vim.lsp.buf.hover, "Hover Documentation")
+  map("gK", vim.lsp.buf.signature_help, "[G]oto (K hover but signature)")
+  map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+  map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 end
 
 M.attach = function()
   vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LspConfig", {}),
+    group = vim.api.nvim_create_augroup("LspConfig", { clear = false }),
     callback = function(args)
       local bufnr = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       assert(client ~= nil)
 
+      -- client.server_capabilities.documentFormattingProvider = false
+      -- client.server_capabilities.documentRangeFormattingProvider = false
+
       mapping(bufnr)
       autoformat_setup()
-
-      if client.server_capabilities.documentHighlightProvider then
-        local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-          buffer = bufnr,
-          group = group,
-          callback = function() vim.lsp.buf.document_highlight() end,
-        })
-
-        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-          buffer = bufnr,
-          group = group,
-          callback = function() vim.lsp.buf.clear_references() end,
-        })
-      end
+      highlightSetup(client, bufnr)
 
       if client.server_capabilities.documentSymbolProvider then require("nvim-navic").attach(client, bufnr) end
 
@@ -110,15 +96,8 @@ M.attach = function()
   })
 end
 
-M.capabilities = vim.tbl_deep_extend(
-  "force",
-  {},
-  vim.lsp.protocol.make_client_capabilities(),
-  require("cmp_nvim_lsp").default_capabilities(),
-  { textDocument = { foldingRange = { dynamicRegistration = false, lineFoldingOnly = true } } }
-)
-
--- { workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } }
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities = vim.tbl_deep_extend("force", M.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 M.flags = {
   allow_incremental_sync = true,

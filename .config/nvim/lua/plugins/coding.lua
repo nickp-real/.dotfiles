@@ -40,6 +40,7 @@ return {
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "tabout.nvim",
+      "chrisgrieser/cmp_yanky",
     },
     config = function(_, opts)
       for _, source in ipairs(opts.sources) do
@@ -132,16 +133,16 @@ return {
       }
 
       return {
-        enabled = function()
-          -- disable completion in comments
-          local context = require("cmp.config.context")
-          -- keep command mode completion enabled when cursor is in a comment
-          if vim.api.nvim_get_mode().mode == "c" then
-            return true
-          else
-            return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
-          end
-        end,
+        -- enabled = function()
+        --   -- disable completion in comments
+        --   local context = require("cmp.config.context")
+        --   -- keep command mode completion enabled when cursor is in a comment
+        --   if vim.api.nvim_get_mode().mode == "c" then
+        --     return true
+        --   else
+        --     return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+        --   end
+        -- end,
         preselect = cmp.PreselectMode.None,
         snippet = {
           -- REQUIRED - you must specify a snippet engine
@@ -163,7 +164,7 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = false }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.select_next_item()
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
             elseif require("luasnip").expand_or_locally_jumpable() then
               vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
             elseif require("neogen").jumpable() then
@@ -177,7 +178,7 @@ return {
 
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.select_prev_item()
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
             elseif require("luasnip").jumpable(-1) and require("luasnip").expand_or_locally_jumpable() then
               vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
             elseif require("neogen").jumpable(true) then
@@ -188,15 +189,16 @@ return {
           end, { "i", "s" }),
         }),
         window = {
-          -- completion = cmp.config.window.bordered(),
-          documentation = vim.tbl_deep_extend(
-            "force",
-            require("cmp.config.default")().window.documentation,
-            { border = styles.border }
-          ),
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+          -- documentation = vim.tbl_deep_extend(
+          --   "force",
+          --   require("cmp.config.default")().window.documentation,
+          --   { border = styles.border }
+          -- ),
         },
         formatting = {
-          fields = { "kind", "abbr" },
+          fields = { "kind", "abbr", "menu" },
           format = function(entry, vim_item)
             -- Kind icons
             vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
@@ -212,18 +214,56 @@ return {
           end,
         },
         sources = cmp.config.sources({
-          { name = "nvim_lsp_signature_help", priority = 1250 },
-          { name = "nvim_lsp", priority = 1000 },
-          { name = "nvim_lua", priority = 1000 },
-          { name = "luasnip", priority = 750 },
+          { name = "nvim_lsp_signature_help" },
+          { name = "nvim_lsp" },
+          { name = "async_path" },
           {
             name = "buffer",
-            priority = 500,
             Keyword_length = 5,
             option = buffer_option,
           },
-          { name = "async_path", priority = 250 },
+          { name = "luasnip" },
+          { name = "nvim_lua" },
+          { name = "cmp_yanky" },
         }),
+        comparators = {
+          function(entry1, entry2)
+            local kind1 = entry1:get_kind()
+            local kind2 = entry2:get_kind()
+            kind1 = kind1 == cmp.types.lsp.CompletionItemKind.Text and 100 or kind1
+            kind2 = kind2 == cmp.types.lsp.CompletionItemKind.Text and 100 or kind2
+            if kind1 ~= kind2 then
+              if kind1 == cmp.types.lsp.CompletionItemKind.Snippet then return false end
+              if kind2 == cmp.types.lsp.CompletionItemKind.Snippet then return true end
+              local diff = kind1 - kind2
+              if diff < 0 then
+                return true
+              elseif diff > 0 then
+                return false
+              end
+            end
+            return nil
+          end,
+          function(entry1, entry2)
+            local _, entry1_under = entry1.completion_item.label:find("^_+")
+            local _, entry2_under = entry2.completion_item.label:find("^_+")
+            entry1_under = entry1_under or 0
+            entry2_under = entry2_under or 0
+            if entry1_under > entry2_under then
+              return false
+            elseif entry1_under < entry2_under then
+              return true
+            end
+          end,
+          -- cmp.config.compare.kind,
+          cmp.config.compare.score,
+          cmp.config.compare.scopes,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.exact,
+          cmp.config.compare.offset,
+          cmp.config.compare.locality,
+        },
       }
     end,
   },
@@ -347,9 +387,8 @@ return {
   -- Template string for js, jsx, ts, tsx
   {
     "axelvc/template-string.nvim",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "astro" },
+    ft = { "html", "typescript", "javascript", "typescriptreact", "javascriptreact", "vue", "svelte", "python" },
     opts = {
-      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "astro" },
       remove_template_string = true, -- remove backticks when there are no template string
       restore_quotes = {
         -- quotes used when "remove_template_string" option is enabled

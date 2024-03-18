@@ -7,9 +7,6 @@ local vnoremap = keymap_utils.vnoremap
 local nvnoremap = keymap_utils.nvnoremap
 local xnoremap = keymap_utils.xnoremap
 
--- Spacebar to nothing
-nnoremap("<Space>", "<Nop>")
-
 -- Visual indent
 vnoremap(">", ">gv")
 vnoremap("<", "<gv")
@@ -41,9 +38,7 @@ nnoremap("<leader>Y", '"+Y')
 
 -- delete blank line without yank into register
 local function smart_dd()
-  if vim.api.nvim_get_current_line():match("^%s*$") then
-    return '"_dd'
-  end
+  if vim.api.nvim_get_current_line():match("^%s*$") then return '"_dd' end
   return "dd"
 end
 
@@ -129,3 +124,18 @@ nnoremap("<leader>R", vim.cmd.RunUpdate)
 
 -- LSP line
 -- nnoremap("<Leader>l", "<cmd> lua require('lsp_lines').toggle<cr>")
+
+-- LSP
+local function diagnostic_goto(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function() go({ severity = severity }) end
+end
+nnoremap("]e", diagnostic_goto(true, "ERROR"), { desc = "Go to next [E]rror message" })
+nnoremap("[e", diagnostic_goto(false, "ERROR"), { desc = "Go to previous [E]rror message" })
+nnoremap("]w", diagnostic_goto(true, "WARN"), { desc = "Go to next [W]arning message" })
+nnoremap("[w", diagnostic_goto(false, "WARN"), { desc = "Go to previous [W]arning message" })
+nnoremap("]d", diagnostic_goto(true), { desc = "Go to next [D]iagnostic message" })
+nnoremap("[d", diagnostic_goto(false), { desc = "Go to previous [D]iagnostic message" })
+nnoremap("<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+nnoremap("<C-q>", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uicfix list" })

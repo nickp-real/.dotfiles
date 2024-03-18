@@ -8,7 +8,6 @@ opt.mouse = "a"
 opt.scrolloff = 8
 opt.sidescrolloff = 8
 opt.shell = "fish"
-opt.showbreak = ">  "
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.splitbelow = true
 opt.splitright = true
@@ -20,8 +19,6 @@ opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
 
 -- UI
--- opt.cmdheight = 0
-opt.guicursor:append({ "n-i:blinkon1" })
 opt.laststatus = 3
 opt.number = true
 opt.numberwidth = 4
@@ -49,11 +46,12 @@ opt.inccommand = "split"
 
 -- Text Thing
 opt.linebreak = true
-opt.whichwrap = vim.opt.whichwrap:append("<,>,[,],h,l")
+opt.whichwrap = opt.whichwrap:append("<,>,[,],h,l")
+opt.virtualedit = "block"
+opt.wrap = false
 
 -- Performance
-opt.redrawtime = 1500
-opt.timeoutlen = 400
+opt.timeoutlen = 300
 opt.updatetime = 250
 
 -- grep
@@ -84,10 +82,11 @@ opt.fillchars = {
 g.markdown_recommended_style = 0
 
 -- Session
-g.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize,terminal"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals"
 
 -- Leader key
 g.mapleader = " "
+g.maplocalleader = " "
 
 -- env
 g.python3_host_prog = "/usr/bin/python3"

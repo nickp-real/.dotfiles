@@ -2,6 +2,7 @@ return {
   -- File Tree
   {
     "nvim-neo-tree/neo-tree.nvim",
+    dependencies = { "antosha417/nvim-lsp-file-operations" },
     branch = "v3.x",
     cmd = "Neotree",
     keys = { { "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Neo Tree" } },
@@ -13,6 +14,10 @@ return {
       end
     end,
     deactivate = function() vim.cmd.Neotree("close") end,
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+      require("lsp-file-operations").setup()
+    end,
     opts = function()
       return {
         open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy", "Outline" },
@@ -52,155 +57,118 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
-      "nvim-telescope/telescope-file-browser.nvim",
-      "nvim-telescope/telescope-media-files.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     cmd = "Telescope",
     keys = function()
-      local find_files = function(opts)
-        opts = opts or {} -- define here if you want to define something
-        vim.fn.system("git rev-parse --is-inside-work-tree")
-        if vim.v.shell_error == 0 then
-          require("telescope.builtin").git_files(vim.tbl_deep_extend("force", { show_untracked = true }, opts))
-        else
-          require("telescope.builtin").find_files(opts)
-        end
-      end
-
-      local find_lsp = function()
-        require("telescope.builtin").lsp_document_symbols({
-          symbols = {
-            "Class",
-            "Function",
-            "Method",
-            "Constructor",
-            "Interface",
-            "Module",
-            "Struct",
-            "Trait",
-            "Field",
-            "Property",
-          },
-        })
-      end
+      local builtin = require("telescope.builtin")
       return {
-        { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
-        { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        { "<leader>fh", builtin.help_tags, desc = "[F]ind [H]elp" },
+        { "<leader>fk", builtin.keymaps, desc = "[F]ind [K]eymaps" },
+        { "<leader>ff", builtin.find_files, desc = "[F]ind [F]iles" },
+        { "<leader>fs", builtin.builtin, desc = "[F]ind [S]elect Telescope" },
+        { "<leader>fw", builtin.grep_string, desc = "[F]ind current [W]ord" },
+        { "<leader>fg", builtin.live_grep, desc = "[F]ind by [G]rep" },
+        { "<leader>fd", builtin.diagnostics, desc = "[F]ind [D]iagnostics" },
+        { "<leader>fr", builtin.resume, desc = "[F]ind [R]esume" },
+        { "<leader>f.", builtin.oldfiles, desc = "[F]ind Recent Files ('.' for repeat)" },
+        { "<leader><leader>", builtin.buffers, desc = "[ ] Find existing buffers" },
         {
-          "<leader><space>",
-          function() require("telescope.builtin").find_files({ cwd = vim.loop.cwd() }) end,
-          desc = "Find Files (cwd)",
+          "<leader>/",
+          function()
+            builtin.current_buffer_fuzzy_find({
+              previewer = false,
+              layout_config = {
+                width = 0.87,
+                height = 0.80,
+              },
+            })
+          end,
+          desc = "[/] Fuzzily searchin current buffer",
         },
-        { "<leader>ff", find_files, desc = "Find Files" },
         {
-          "<leader>fg",
-          function() require("telescope.builtin").live_grep({ cwd = vim.loop.cwd() }) end,
-          desc = "Find in Files (Grep, CWD)",
+          "<leader>f/",
+          function() builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" }) end,
+          desc = "[F]ind [/] in Open Files",
         },
-        { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-        { "<leader>fc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-        { "<leader>fs", "<cmd>Telescope git_status<CR>", desc = "status" },
-        { "<leader>fa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-        { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-        { "<leader>fv", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-        { "<leader>fH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-        { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-        { "<leader>fM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-        { "<leader>fB", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "FzF Current Buffer" },
-        { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-        { "<leader>fh", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-        { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-        { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
-        { "<leader>fn", "<cmd>Telescope file_browser<cr>", desc = "File Browser" },
-        {
-          "<leader>fl",
-          find_lsp,
-          desc = "Goto Symbol",
-        },
+        { "<leader>fn", function() builtin.find_files({ cwd = vim.fn.stdpath("config") }) end },
+        desc = "[F]ind [N]eovim files",
       }
     end,
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
-      telescope.load_extension("file_browser")
-      telescope.load_extension("media_files")
+      telescope.load_extension("ui-select")
     end,
-    opts = {
-      defaults = {
-        pickers = {
-          find_files = {
-            find_command = { "fd", "--hidden", "--glob", "" },
-          },
-          buffers = {
-            show_all_buffers = true,
-            sort_mru = true,
-            mapping = {
-              i = {
-                ["<c-d>"] = "delete_buffer",
-              },
+    opts = function()
+      return {
+        defaults = {
+          pickers = {
+            find_files = { find_command = { "fd", "--hidden", "--glob", "" } },
+            buffers = {
+              show_all_buffers = true,
+              sort_mru = true,
+              mapping = { i = { ["<c-d>"] = "delete_buffer" } },
             },
           },
-        },
-        prompt_prefix = "   ",
-        path_display = { "smart" },
-        preview = {
-          treesitter = true,
-        },
-        color_devicons = true,
-        initial_mode = "normal",
-        selection_strategy = "reset",
-        sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
-        layout_config = {
-          horizontal = {
-            prompt_position = "top",
-            preview_width = 0.6,
-            results_width = 0.4,
+          prompt_prefix = "   ",
+          path_display = { "smart" },
+          preview = { treesitter = true },
+          color_devicons = true,
+          initial_mode = "normal",
+          selection_strategy = "reset",
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+              preview_width = 0.6,
+              results_width = 0.4,
+            },
+            vertical = { mirror = false },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
           },
-          vertical = {
-            mirror = false,
-          },
-          width = 0.87,
-          height = 0.80,
-          preview_cutoff = 120,
+          file_ignore_patterns = { ".git/", "node_modules" },
+          get_selection_window = function()
+            local wins = vim.api.nvim_list_wins()
+            table.insert(wins, 1, vim.api.nvim_get_current_win())
+            for _, win in ipairs(wins) do
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].buftype == "" then return win end
+            end
+            return 0
+          end,
+          mappings = { i = { ["<C-u>"] = false } },
         },
-        file_ignore_patterns = { ".git/", "node_modules" },
-        get_selection_window = function()
-          local wins = vim.api.nvim_list_wins()
-          table.insert(wins, 1, vim.api.nvim_get_current_win())
-          for _, win in ipairs(wins) do
-            local buf = vim.api.nvim_win_get_buf(win)
-            if vim.bo[buf].buftype == "" then return win end
-          end
-          return 0
-        end,
-        mappings = {
-          i = {
-            ["<C-u>"] = false,
+        extensions = {
+          ["ui-select"] = {
+            layout_config = { height = 0.25, width = 0.60 },
           },
         },
-      },
-    },
+      }
+    end,
   },
 
   -- Jump in buffer
   {
     "folke/flash.nvim",
+    event = "VeryLazy",
     keys = {
-      { "f", "F", "t", "T", ";", "," },
+      -- { "f", "F", "t", "T", ";", "," },
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
-    opts = { jump = { nohlsearch = true } },
+    opts = {
+      jump = { nohlsearch = true },
+      modes = { char = { autohide = true } },
+    },
   },
 
   -- pane

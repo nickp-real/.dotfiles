@@ -50,7 +50,7 @@ return {
       end
 
       local fn = vim.fn
-      local marginTopPercent = 0.15
+      local marginTopPercent = 0.125
       local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
 
       local options = {
@@ -124,10 +124,10 @@ return {
   {
     "stevearc/dressing.nvim",
     init = function()
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
+      -- vim.ui.select = function(...)
+      --   require("lazy").load({ plugins = { "dressing.nvim" } })
+      --   return vim.ui.select(...)
+      -- end
       vim.ui.input = function(...)
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.input(...)
@@ -198,27 +198,6 @@ return {
       }
     end,
     opts = function()
-      -- local Offset = require("bufferline.offset")
-      -- if not Offset.edgy then
-      --   local get = Offset.get
-      --   Offset.get = function()
-      --     if package.loaded.edgy then
-      --       local layout = require("edgy.config").layout
-      --       local ret = { left = "", left_size = 0, right = "", right_size = 0 }
-      --       for _, pos in ipairs({ "left", "right" }) do
-      --         local sb = layout[pos]
-      --         if sb and #sb.wins > 0 then
-      --           local title = " Sidebar" .. string.rep(" ", sb.bounds.width - 8)
-      --           ret[pos] = "%#EdgyTitle#" .. title .. "%*" .. "%#WinSeparator#│%*"
-      --           ret[pos .. "_size"] = sb.bounds.width
-      --         end
-      --       end
-      --       ret.total_size = ret.left_size + ret.right_size
-      --       if ret.total_size > 0 then return ret end
-      --     end
-      --     return get()
-      --   end
-      --   Offset.edgy = true
       return {
         options = {
           diagnostics = "nvim_lsp",
@@ -250,11 +229,10 @@ return {
           },
         },
       }
-      -- end
     end,
   },
 
-  -- winbar
+  -- Winbar
   {
     "utilyre/barbecue.nvim",
     dependencies = { "SmiteshP/nvim-navic", init = function() vim.g.navic_silence = true end },
@@ -386,61 +364,6 @@ return {
       }
     end,
   },
-
-  -- edgy
-  -- {
-  --   "folke/edgy.nvim",
-  --   event = "VeryLazy",
-  --   keys = {
-  --     { "<C-n>", '<cmd>lua require("edgy").toggle()<cr>', desc = "Edgy Toggle" },
-  --     -- { "<C-N>", '<cmd>lua require("edgy").select()<cr>', desc = "Edgy Select Window" },
-  --   },
-  --   opts = {
-  --     bottom = {
-  --       "Trouble",
-  --       { ft = "qf", title = "QuickFix" },
-  --       {
-  --         ft = "help",
-  --         size = { height = 20 },
-  --         -- don't open help files in edgy that we're editing
-  --         filter = function(buf) return vim.bo[buf].buftype == "help" end,
-  --       },
-  --       { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
-  --     },
-  --     left = {
-  --       -- Neo-tree filesystem always takes half the screen height
-  --       {
-  --         title = "Neo-Tree",
-  --         ft = "neo-tree",
-  --         filter = function(buf) return vim.b[buf].neo_tree_source == "filesystem" end,
-  --         pinned = true,
-  --         open = "Neotree",
-  --         size = { height = 0.5 },
-  --       },
-  --       {
-  --         title = "Neo-Tree Git",
-  --         ft = "neo-tree",
-  --         filter = function(buf) return vim.b[buf].neo_tree_source == "git_status" end,
-  --         pinned = true,
-  --         open = "Neotree position=right git_status",
-  --       },
-  --       {
-  --         title = "Neo-Tree Buffers",
-  --         ft = "neo-tree",
-  --         filter = function(buf) return vim.b[buf].neo_tree_source == "buffers" end,
-  --         pinned = true,
-  --         open = "Neotree position=top buffers",
-  --       },
-  --       {
-  --         ft = "Outline",
-  --         pinned = true,
-  --         open = "SymbolsOutline",
-  --       },
-  --       -- any other neo-tree windows
-  --       "neo-tree",
-  --     },
-  --   },
-  -- },
 
   -- better quickfix
   {

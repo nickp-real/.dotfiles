@@ -54,3 +54,7 @@ alias -s battery "cat /sys/class/power_supply/BAT0/capacity"
 # Lazy thingy
 alias -s lzg lazygit
 alias -s lzd lazydocker
+
+# Node Package Manager
+alias -s pn "pnpm"
+alias -s px "pnpx"

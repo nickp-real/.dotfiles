@@ -1,45 +1,33 @@
 local lspconfig = require("lspconfig")
-local root_pattern = require("lspconfig.util").root_pattern
+local capabilities = require("plugins.lsp.config").capabilities
+local servers = {}
+local ignore_servers = { "tsserver" }
 
 local M = {
-  function(server_name) lspconfig[server_name].setup({}) end,
+  function(server_name)
+    for _, v in pairs(ignore_servers) do
+      if server_name == v then return end
+    end
+
+    local server = servers[server_name] or {}
+    server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+    lspconfig[server_name].setup(server)
+  end,
 }
 
-M.lua_ls = function()
-  local lua_ls = require("plugins.lsp.servers.lua_ls")
-  lspconfig.lua_ls.setup({
-    settings = lua_ls.settings,
-  })
-end
-
-M.pyright = function()
-  local pyright = require("plugins.lsp.servers.pyright")
-  lspconfig.pyright.setup({
-    settings = pyright.settings,
-  })
-end
-
-M.jsonls = function()
-  local jsonls = require("plugins.lsp.servers.jsonls")
-  lspconfig.jsonls.setup({
-    on_new_config = jsonls.on_new_config,
-  })
-end
-
-M.yamlls = function()
-  local yamlls = require("plugins.lsp.servers.yamlls")
-  lspconfig.yamlls.setup({
-    on_new_config = yamlls.on_new_config,
-    settings = yamlls.settings,
-  })
-end
-
-M.marksman = function()
-  local marksman = require("plugins.lsp.servers.marksman")
-  lspconfig.marksman.setup({
-    filetypes = marksman.filetypes,
-  })
-end
+servers.lua_ls = require("plugins.lsp.servers.lua_ls")
+servers.pyright = require("plugins.lsp.servers.pyright")
+servers.jsonls = require("plugins.lsp.servers.jsonls")
+servers.yamlls = require("plugins.lsp.servers.yamlls")
+servers.marksman = require("plugins.lsp.servers.marksman")
+servers.svelte = require("plugins.lsp.servers.svelte")
+servers.eslint = require("plugins.lsp.servers.eslint")
+servers.tailwindcss = require("plugins.lsp.servers.tailwindcss")
+servers.html = require("plugins.lsp.servers.html")
+servers.cssls = require("plugins.lsp.servers.cssls")
+servers.emmet = require("plugins.lsp.servers.emmet")
+servers.volar = require("plugins.lsp.servers.volar")
+servers.astro = require("plugins.lsp.servers.astro")
 
 M.tsserver = function()
   local tsserver = require("plugins.lsp.servers.tsserver")
@@ -64,54 +52,10 @@ M.tsserver = function()
       tsserver_file_preferences = tsserver.file_preferences,
       -- tsserver_path = tsserver_path .. "/node_modules/typescript/lib/tsserver.js",
       -- expose_as_code_action = "all",
+      implicitProjectConfiguration = {
+        checkJs = tsserver.settings.implicitProjectConfiguration.checkJs,
+      },
     },
-  })
-end
-
-M.svelte = function()
-  local svelte = require("plugins.lsp.servers.svelte")
-  lspconfig.svelte.setup({
-    settings = svelte.settings,
-  })
-end
-
-M.eslint = function()
-  local eslint = require("plugins.lsp.servers.eslint")
-  lspconfig.eslint.setup({
-    on_attach = eslint.on_attach,
-    settings = eslint.settings,
-  })
-end
-
-M.tailwindcss = function()
-  local tailwindcss = require("plugins.lsp.servers.tailwindcss")
-  lspconfig.tailwindcss.setup({
-    on_attach = tailwindcss.on_attach,
-    init_options = tailwindcss.options,
-    settings = tailwindcss.settings,
-    root_dir = root_pattern(unpack(tailwindcss.root_dir)),
-  })
-end
-
-M.html = function()
-  local html = require("plugins.lsp.servers.html")
-  lspconfig.html.setup({
-    filetypes = html.filetypes,
-    settings = html.settings,
-  })
-end
-
-M.cssls = function()
-  local cssls = require("plugins.lsp.servers.cssls")
-  lspconfig.cssls.setup({
-    settings = cssls.settings,
-  })
-end
-
-M.volar = function()
-  local volar = require("plugins.lsp.servers.volar")
-  lspconfig.volar.setup({
-    init_options = volar.init_options,
   })
 end
 

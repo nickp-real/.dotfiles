@@ -53,8 +53,8 @@ return {
       AlphaShortcut = { fg = "${blue}" },
       AlphaFooter = { fg = "${orange}" },
 
-      NormalFloat = { bg = "${telescope_results}" },
-      FloatBorder = { bg = "${telescope_results}", fg = "${gray}" },
+      -- NormalFloat = { bg = "${telescope_results}" },
+      -- FloatBorder = { bg = "${telescope_results}", fg = "${gray}" },
 
       NavicText = { fg = "${fg}" },
 
@@ -66,6 +66,10 @@ return {
       RainbowOrange = { fg = "${orange}" },
       RainbowRed = { fg = "${red}" },
       RainbowCyan = { fg = "${cyan}" },
+
+      MasonNormal = { bg = "${telescope_results}" },
+      LazyNormal = { bg = "${telescope_results}" },
+      TreesitterContext = { bg = "${telescope_results}" },
     },
     -- plugins = {},
     styles = {
@@ -79,7 +83,7 @@ return {
       functions = "bold",
       operators = "NONE",
       variables = "NONE",
-      parameters = "italic",
+      parameters = "NONE",
       conditionals = "italic",
       virtual_text = "NONE",
     },

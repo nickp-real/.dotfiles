@@ -1,41 +1,23 @@
 # run when login
-if status --is-login
-  # SET PATH
-  fish_add_path ~/.cargo/bin
-  fish_add_path ~/.local/bin
-  fish_add_path $HOME/.pub-cache/bin
+if status is-login
+  # launch Hyprland on tty
+  set -l TTY1 (tty)
+  [ "$TTY1" = "/dev/tty1" ] && exec Hyprland
 
   # pnpm
   set -gx PNPM_HOME "/home/nickp_real/.local/share/pnpm"
-  if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
-  end
-  # pnpm end
 
   # Go path
   set -gx GOPATH $HOME/go
-  fish_add_path $GOPATH/bin
 
   # JAVA_HOME
-  set -gx JAVA_HOME /usr/lib/jvm/java-19-openjdk
-  fish_add_path $JAVA_HOME/bin
+  set -gx JAVA_HOME /usr/lib/jvm/java-21-openjdk
 
   # ANDROID_HOME
   set -gx ANDROID_HOME $HOME/Android/Sdk
-  fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
-  fish_add_path $ANDROID_HOME/platform-tools
-  fish_add_path $ANDROID_HOME/emulator
-  fish_add_path $ANDROID_HOME/tools
 
   # FLUTTER_ROOT
   set -x FLUTTER_ROOT $HOME/Dev-tools/flutter
-  fish_add_path $FLUTTER_ROOT/bin
-
-  # Firebase cli
-  fish_add_path $HOME/.pub-cache/bin
-
-  # Rofi
-  fish_add_path $HOME/.config/rofi/scripts
 
   # SET VAR
   set -gx EDITOR nvim
@@ -47,7 +29,7 @@ if status --is-login
   set -gx MANPAGER 'nvim +Man!'
   set -gx GRIMBLAST_EDITOR 'swappy -f'
 
-# fish var
+  # fish var
   set -g fish_color_command green
   set -g fish_color_normal brwhite
   set -g fish_color_option blue
@@ -59,14 +41,20 @@ if status --is-login
   set -gx FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
 end
 
-# RUBY ENV INIT
-status --is-interactive; and rbenv init - fish | source
+if status --is-interactive
+  # tabtab source for packages
+  # uninstall by removing these lines
+  [ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true
 
-# Zoxide Init
-zoxide init fish | source
+  # RUBY ENV INIT
+  rbenv init - fish | source
 
-# DIRENV INIT
-direnv hook fish | source
+  # Zoxide Init
+  zoxide init fish | source
 
-# STARSHIP INIT
-starship init fish | source
+  # DIRENV INIT
+  direnv hook fish | source
+
+  # STARSHIP INIT
+  starship init fish | source
+end

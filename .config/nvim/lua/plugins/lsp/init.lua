@@ -7,12 +7,15 @@ return {
       "fidget.nvim",
       "williamboman/mason-lspconfig.nvim",
       { "lvimuser/lsp-inlayhints.nvim", config = true },
+      {
+        "SmiteshP/nvim-navbuddy",
+        keys = { { "<leader>n", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
+        opts = { lsp = { auto_attach = true } },
+      },
     },
     config = function()
       local config = require("plugins.lsp.config")
-      local lspconfig = require("lspconfig")
 
-      lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, config.default)
       config.setup()
       require("mason-lspconfig").setup_handlers(require("plugins.lsp.servers"))
       require("ufo")
@@ -39,6 +42,12 @@ return {
         mode = "",
         desc = "Format Buffer",
       },
+      {
+        "<leader>f",
+        function() require("conform").format({ lsp_fallback = true, timeout_ms = 500 }) end,
+        desc = "[F]ormat",
+      },
+      { "<leader>fe", require("plugins.lsp.config").toggle_auto_format, expr = true, desc = "[F]ormat [E]nable/Disable" },
     },
     init = function() vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()" end,
     opts = {
@@ -50,8 +59,11 @@ return {
         javascriptreact = { "prettierd" },
         typescriptreact = { "prettierd" },
         vue = { "prettierd" },
+        astro = { "prettierd" },
+        markdown = { "prettierd" },
         go = { "gofumpt", "goimports-reviser", "golines" },
         bash = { "shfmt" },
+        json = { "jq" },
         -- Use the "*" filetype to run formatters on all filetypes.
         -- ["*"] = { "codespell" },
         -- Use the "_" filetype to run formatters on filetypes that don't
@@ -65,6 +77,11 @@ return {
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
         return { lsp_fallback = true, timeout_ms = 500 }
       end,
+      formatters = {
+        jq = {
+          prepend_args = { "--sort-keys" },
+        },
+      },
     },
   },
 
@@ -181,13 +198,6 @@ return {
   {
     "j-hui/fidget.nvim",
     opts = { notification = { window = { winblend = 0 } } },
-  },
-
-  -- Code Action Bulb
-  {
-    "kosayoda/nvim-lightbulb",
-    event = "LspAttach",
-    opts = { autocmd = { enabled = true } },
   },
 
   -- Json Schema

@@ -5,4 +5,11 @@ M.on_new_config = function(new_config)
   vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
 end
 
+M.settings = {
+  json = {
+    format = { enable = false },
+    validate = { enable = true },
+  },
+}
+
 return M

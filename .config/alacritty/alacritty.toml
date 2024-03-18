@@ -1,0 +1,49 @@
+import = [
+  "/home/nickp_real/.config/alacritty/keys.toml",
+  "/home/nickp_real/.config/alacritty/theme.toml",
+]
+
+[cursor]
+blink_interval = 1000
+blink_timeout = 0
+
+[cursor.style]
+blinking = "Always"
+shape = "Block"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 10
+normal = { family = "Maple Mono NF", style = "Regular" }
+# normal = { family = "ComicShannsMono Nerd Font", style = "Regular" }
+bold.style = "Bold"
+italic.style = "Italic"
+bold_italic.style = "Bold Italic"
+offset = { x = 0, y = 4 }
+glyph_offset = { x = 0, y = 2 }
+
+[mouse]
+hide_when_typing = true
+
+[scrolling]
+history = 10000
+multiplier = 8
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[shell]
+program = "/usr/bin/fish"
+args = ["-i", "-c", "tmux attach || tmux"]
+
+[window]
+dynamic_padding = true
+dynamic_title = false
+opacity = 0.75
+
+[window.padding]
+x = 10
+y = 10

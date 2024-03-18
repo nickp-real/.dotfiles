@@ -1,3 +1,6 @@
+local js_based_languages =
+  { "typescript", "javascript", "typescriptreact", "javascriptreact", "vue", "svelte", "astro" }
+
 return {
   -- Debug Adaptor Protocol
   {
@@ -20,6 +23,8 @@ return {
         end,
       },
       { "theHamsta/nvim-dap-virtual-text", config = true },
+      "mxsdev/nvim-dap-vscode-js",
+      { "Joakker/lua-json5", run = "./install.sh" },
     },
     keys = {
       {
@@ -28,7 +33,22 @@ return {
         desc = "Breakpoint Condition",
       },
       { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+      {
+        "<leader>dc",
+        function()
+          if vim.fn.filereadable(".vscode/launch.json") then
+            local dap_vscode = require("dap.ext.vscode")
+            dap_vscode.load_launchjs(nil, {
+              ["pwa-node"] = js_based_languages,
+              ["node"] = js_based_languages,
+              ["chrome"] = js_based_languages,
+              ["pwa-chrome"] = js_based_languages,
+            })
+          end
+          require("dap").continue()
+        end,
+        desc = "Continue",
+      },
       { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
       { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
       { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
@@ -45,39 +65,93 @@ return {
       { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle Repl" },
     },
     config = function()
+      -- debugger_path = require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+      -- .. "/js-debug/src/dapDebugServer.js",
       local dap = require("dap")
+      require("dap-vscode-js").setup({
+        debugger_path = require("mason-registry").get_package("js-debug-adapter"):get_install_path(),
+        adapters = {
+          "chrome",
+          "pwa-node",
+          "pwa-chrome",
+          "pwa-msedge",
+          "pwa-extensionHost",
+          "node-terminal",
+          "node",
+        },
+      })
 
-      if not dap.adapters["pwa-node"] then
-        require("dap").adapters["pwa-node"] = {
-          type = "server",
-          host = "localhost",
-          port = "${port}",
-          executable = {
-            command = "node",
-            args = {
-              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
-              "${port}",
-            },
-          },
-        }
-      end
-      for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+      for _, language in ipairs(js_based_languages) do
         if not dap.configurations[language] then
           dap.configurations[language] = {
+            -- Debug single nodejs file
             {
               type = "pwa-node",
               request = "launch",
               name = "Launch file",
               program = "${file}",
               cwd = "${workspaceFolder}",
+              sourceMaps = true,
             },
+            -- Debug nodejs processes
             {
               type = "pwa-node",
               request = "attach",
               name = "Attach",
               processId = require("dap.utils").pick_process,
               cwd = "${workspaceFolder}",
+              sourceMaps = true,
+            },
+            -- Debug web application (clietn side)
+            {
+              type = "pwa-chrome",
+              request = "launch",
+              name = "Launch & Debug Chrome",
+              url = function()
+                local co = coroutine.running()
+                return coroutine.create(function()
+                  vim.ui.input({
+                    prompt = "Enter URL: ",
+                    default = "http://localhost:3000",
+                    function(url)
+                      if url == nil or url == "" then
+                        return
+                      else
+                        coroutine.resume(co, url)
+                      end
+                    end,
+                  })
+                end)
+              end,
+              webRoot = "${workspaceFolder}",
+              skipFiles = { "<node_internals>/**/*.js" },
+              protocol = "inspector",
+              sourceMaps = true,
+              userDataDir = false,
+            },
+            -- Divider for the launch json derived configs
+            {
+              name = "----- ** launch.json configs ** -----",
+              type = "",
+              request = "launch",
+            },
+            -- Next.js Server-Side
+            {
+              name = "Next.js: debug server-side",
+              type = "pwa-node",
+              request = "launch",
+              cwd = "${workspaceFolder}",
+              runtimeExecutable = "npm",
+              runtimeArgs = { "run-script", "dev" },
+              sourceMaps = true,
+            },
+            -- Next.js Client-Side
+            {
+              name = "Next.js: debug client-side",
+              type = "pwa-chrome",
+              request = "launch",
+              url = "http://localhost:3000",
+              sourceMaps = true,
             },
           }
         end

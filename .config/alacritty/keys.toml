@@ -1,0 +1,719 @@
+[[keyboard.bindings]]
+chars = "\u001B[13;2u"
+key = "Return"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[13;5u"
+key = "Return"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0017"
+key = "Back"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[46;5u"
+key = "Period"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[44;5u"
+key = "Comma"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[59;5u"
+key = "Semicolon"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[104;5u"
+key = "H"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[105;5u"
+key = "I"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[106;5u"
+key = "J"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[109;5u"
+key = "M"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[65;6u"
+key = "A"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[68;6u"
+key = "D"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[69;6u"
+key = "E"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[71;6u"
+key = "G"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[72;6u"
+key = "H"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[73;6u"
+key = "I"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[74;6u"
+key = "J"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[75;6u"
+key = "K"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[76;6u"
+key = "L"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[77;6u"
+key = "M"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[79;6u"
+key = "O"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[80;6u"
+key = "P"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[81;6u"
+key = "Q"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[82;6u"
+key = "R"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[83;6u"
+key = "S"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[84;6u"
+key = "T"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[85;6u"
+key = "U"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[87;6u"
+key = "W"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[88;6u"
+key = "X"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[89;6u"
+key = "Y"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[90;6u"
+key = "Z"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[49;5u"
+key = "Key1"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[50;5u"
+key = "Key2"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[51;5u"
+key = "Key3"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[52;5u"
+key = "Key4"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[53;5u"
+key = "Key5"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[54;5u"
+key = "Key6"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[55;5u"
+key = "Key7"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[56;5u"
+key = "Key8"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[57;5u"
+key = "Key9"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[48;6u"
+key = "Key0"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[49;6u"
+key = "Key1"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[50;6u"
+key = "Key2"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[51;6u"
+key = "Key3"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[52;6u"
+key = "Key4"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[53;6u"
+key = "Key5"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[54;6u"
+key = "Key6"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[55;6u"
+key = "Key7"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[56;6u"
+key = "Key8"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[57;6u"
+key = "Key9"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001Ba"
+key = "A"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bb"
+key = "B"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bc"
+key = "C"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bd"
+key = "D"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Be"
+key = "E"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bf"
+key = "F"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bg"
+key = "G"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bh"
+key = "H"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bi"
+key = "I"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bj"
+key = "J"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bk"
+key = "K"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bl"
+key = "L"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bm"
+key = "M"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bn"
+key = "N"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bo"
+key = "O"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bp"
+key = "P"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bq"
+key = "Q"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Br"
+key = "R"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bs"
+key = "S"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bt"
+key = "T"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bu"
+key = "U"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bv"
+key = "V"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bw"
+key = "W"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bx"
+key = "X"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001By"
+key = "Y"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bz"
+key = "Z"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001BA"
+key = "A"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BB"
+key = "B"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BC"
+key = "C"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BD"
+key = "D"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BE"
+key = "E"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BF"
+key = "F"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BG"
+key = "G"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BH"
+key = "H"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BI"
+key = "I"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BJ"
+key = "J"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BK"
+key = "K"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BL"
+key = "L"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BM"
+key = "M"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BN"
+key = "N"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BO"
+key = "O"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BP"
+key = "P"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BQ"
+key = "Q"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BR"
+key = "R"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BS"
+key = "S"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BT"
+key = "T"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BU"
+key = "U"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BV"
+key = "V"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BW"
+key = "W"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BX"
+key = "X"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BY"
+key = "Y"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BZ"
+key = "Z"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B0"
+key = "Key0"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B1"
+key = "Key1"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B2"
+key = "Key2"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B3"
+key = "Key3"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B4"
+key = "Key4"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B5"
+key = "Key5"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B6"
+key = "Key6"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B7"
+key = "Key7"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B8"
+key = "Key8"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B9"
+key = "Key9"
+mods = "Alt"
+
+# [[keyboard.bindings]]
+# chars = "\u001B`"
+# key = "Grave"
+# mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B-"
+key = "Minus"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B="
+key = "Equals"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B["
+key = "LBracket"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B]"
+key = "RBracket"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B\\"
+key = "Backslash"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B;"
+key = "Semicolon"
+mods = "Alt"
+
+# [[keyboard.bindings]]
+# chars = "\u001B'"
+# key = "Apostrophe"
+# mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B,"
+key = "Comma"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B."
+key = "Period"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B/"
+key = "Slash"
+mods = "Alt"
+
+# [[keyboard.bindings]]
+# chars = "\u001B~"
+# key = "Grave"
+# mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B!"
+key = "Key1"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B@"
+key = "Key2"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B#"
+key = "Key3"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B$"
+key = "Key4"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B%"
+key = "Key5"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B^"
+key = "Key6"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B&"
+key = "Key7"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B*"
+key = "Key8"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B("
+key = "Key9"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B)"
+key = "Key0"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B_"
+key = "Minus"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B+"
+key = "Equals"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B{"
+key = "LBracket"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B}"
+key = "RBracket"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B|"
+key = "Backslash"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B:"
+key = "Semicolon"
+mods = "Alt|Shift"
+
+# [[keyboard.bindings]]
+# chars = "\u001B\""
+# key = "Apostrophe"
+# mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B<"
+key = "Comma"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B>"
+key = "Period"
+mods = "Alt|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B?"
+key = "Slash"
+mods = "Alt|Shift"

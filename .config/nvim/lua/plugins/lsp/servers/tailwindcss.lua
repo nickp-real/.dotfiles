@@ -1,3 +1,5 @@
+local root_pattern = require("lspconfig.util").root_pattern
+
 local M = {}
 
 M.init_options = {
@@ -34,5 +36,7 @@ M.root_dir = {
   "./config/tailwind.config.js",
   "tailwind.config.mjs",
 }
+
+M.root_dir = root_pattern(unpack(M.root_dir))
 
 return M

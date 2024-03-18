@@ -12,15 +12,33 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local default_plugins = {
-  "gzip",
-  "matchit",
-  "matchparen",
-  "netrwPlugin",
-  "rplugin",
-  "tarPlugin",
+  "2html_plugin",
   "tohtml",
-  "tutor",
+  "getscript",
+  "getscriptPlugin",
+  "gzip",
+  "logipat",
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "matchit",
+  "tar",
+  "tarPlugin",
+  "rrhelper",
+  "spellfile_plugin",
+  "vimball",
+  "vimballPlugin",
+  "zip",
   "zipPlugin",
+  "tutor",
+  "rplugin",
+  "syntax",
+  "synmenu",
+  "optwin",
+  "compiler",
+  "bugreport",
+  "ftplugin",
 }
 
 require("lazy").setup({
@@ -46,7 +64,7 @@ require("lazy").setup({
 local default_providers = {
   "node",
   "perl",
-  -- "python3",
+  "python3",
   "ruby",
 }
 

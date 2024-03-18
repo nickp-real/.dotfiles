@@ -1,5 +1,5 @@
 local M = {}
 
-M.border = "single"
+M.border = "rounded"
 
 return M

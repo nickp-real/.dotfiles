@@ -1,5 +1,5 @@
 [user]
-	name = NickP-real
+	name = nickp-real
 	email = nick_narak@rocketmail.com
 [credential]
 	helper = store
@@ -29,15 +29,15 @@
 [diff]
     colorMoved = default
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 # personal account
-[url "git@github.com-NickP-real:NickP-real"]
-  insteadOf = git@github.com:NickP-real
-  pushInsteadOf = git@github.com:NickP-real
+[url "git@github.com-nickp-real:nickp-real"]
+  insteadOf = git@github.com:nickp-real
+  pushInsteadOf = git@github.com:nickp-real
 
 [includeIf "hasconfig:remote.*.url:git@github.com:SmartSoftAsia/**"]
   path = ~/.work.gitconfig
@@ -46,3 +46,6 @@
   adog = log --all --decorate --oneline --graph
   adogs = log --all --decorate --oneline --graph --stat
   mergetool = "!nvim -c DiffviewOpen"
+
+[init]
+	defaultBranch = main

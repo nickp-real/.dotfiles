@@ -1,15 +1,11 @@
 local M = {}
 
 local function filter(arr, fn)
-  if type(arr) ~= "table" then
-    return arr
-  end
+  if type(arr) ~= "table" then return arr end
 
   local filtered = {}
   for k, v in pairs(arr) do
-    if fn(v, k, arr) then
-      table.insert(filtered, v)
-    end
+    if fn(v, k, arr) then table.insert(filtered, v) end
   end
 
   return filtered
@@ -37,9 +33,7 @@ M.handlers = {
 
 M.on_attach = function(client, bufnr)
   local nnoremap = require("utils.keymap_utils").nnoremap
-  nnoremap("gd", function()
-    vim.cmd.TSToolsGoToSourceDefinition()
-  end)
+  nnoremap("gd", function() vim.cmd.TSToolsGoToSourceDefinition() end)
 
   require("tsc")
 end
@@ -84,6 +78,7 @@ M.settings = {
       enable = false,
     },
   },
+  implicitProjectConfiguration = { checkJs = true },
 }
 
 M.before_format = function()

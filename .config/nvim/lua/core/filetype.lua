@@ -4,5 +4,6 @@ vim.filetype.add({
     -- INFO: Match filenames like - ".env.example", ".env.local" and so on
     ["%.env%.[%w_.-]+"] = "dotenv",
     ["%.[%w_.-]+%.gitconfig"] = "gitconfig",
+    [".*/hypr/.*%.conf"] = "hyprlang",
   },
 })

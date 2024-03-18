@@ -73,11 +73,11 @@ return {
     end,
   },
 
-  -- Desc generator
+  -- Description generator
   {
     "danymat/neogen",
     cmd = "Neogen",
-    keys = { { "<leader>n", "<cmd>Neogen<cr>", desc = "Neogen" } },
+    keys = { { "<leader>gd", "<cmd>Neogen<cr>", desc = "Neogen" } },
     opts = { snippet_engine = "luasnip" },
   },
 
@@ -176,9 +176,27 @@ return {
 
   -- Symbols Outline
   {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    keys = { { "<leader>so", "<cmd>SymbolsOutline<cr>", desc = "Symbol Outline" } },
-    config = true,
+    "stevearc/aerial.nvim",
+    cmd = { "AerialToggle", "AerialPrev", "AerialNext" },
+    keys = { { "<leader>N", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" } },
+    opts = {
+      attach_mode = "global",
+      backends = { "lsp", "treesitter", "markdown", "man" },
+      show_guides = true,
+      layout = {
+        resize_to_content = false,
+        win_opts = {
+          -- winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
+          signcolumn = "yes",
+          statuscolumn = " ",
+        },
+      },
+      guides = {
+        mid_item = "├╴",
+        last_item = "└╴",
+        nested_top = "│ ",
+        whitespace = "  ",
+      },
+    },
   },
 }

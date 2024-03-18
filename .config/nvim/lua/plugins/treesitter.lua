@@ -31,6 +31,7 @@ return {
   config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   opts = {
     ensure_installed = "all",
+    ignore_install = { "comment" },
     highlight = {
       enable = true,
       disable = { "latex" },
