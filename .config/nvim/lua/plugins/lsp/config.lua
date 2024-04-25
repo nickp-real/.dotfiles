@@ -98,6 +98,11 @@ end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities = vim.tbl_deep_extend("force", M.capabilities, require("cmp_nvim_lsp").default_capabilities())
+M.capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+-- M.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true -- NOTE: remove when 0.10
 
 M.flags = {
   allow_incremental_sync = true,

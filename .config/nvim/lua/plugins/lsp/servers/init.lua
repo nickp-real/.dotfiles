@@ -1,38 +1,30 @@
 local lspconfig = require("lspconfig")
 local capabilities = require("plugins.lsp.config").capabilities
 local servers = {}
-local ignore_servers = { "tsserver" }
+
+-- get all the server configs
+for filename, _ in vim.fs.dir("~/.config/nvim/lua/plugins/lsp/servers") do
+  local name = vim.fn.fnamemodify(filename, ":r")
+  if name ~= "init" then servers[name] = require("plugins.lsp.servers." .. name) end
+end
 
 local M = {
   function(server_name)
-    for _, v in pairs(ignore_servers) do
-      if server_name == v then return end
-    end
-
     local server = servers[server_name] or {}
+    local is_ignore = server.is_ignore or false
+
+    if is_ignore then return end
+
     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
     lspconfig[server_name].setup(server)
   end,
 }
 
-servers.lua_ls = require("plugins.lsp.servers.lua_ls")
-servers.pyright = require("plugins.lsp.servers.pyright")
-servers.jsonls = require("plugins.lsp.servers.jsonls")
-servers.yamlls = require("plugins.lsp.servers.yamlls")
-servers.marksman = require("plugins.lsp.servers.marksman")
-servers.svelte = require("plugins.lsp.servers.svelte")
-servers.eslint = require("plugins.lsp.servers.eslint")
-servers.tailwindcss = require("plugins.lsp.servers.tailwindcss")
-servers.html = require("plugins.lsp.servers.html")
-servers.cssls = require("plugins.lsp.servers.cssls")
-servers.emmet = require("plugins.lsp.servers.emmet")
-servers.volar = require("plugins.lsp.servers.volar")
-servers.astro = require("plugins.lsp.servers.astro")
-
 M.tsserver = function()
-  local tsserver = require("plugins.lsp.servers.tsserver")
+  local tsserver = servers.tsserver
   require("typescript-tools").setup({
     on_attach = tsserver.on_attach,
+    capabilities = capabilities,
     -- settings = require("lsp.servers.tsserver").settings,
     handlers = tsserver.handlers,
     single_file_support = true,

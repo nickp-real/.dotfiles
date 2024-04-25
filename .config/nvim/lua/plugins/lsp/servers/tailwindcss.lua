@@ -9,7 +9,7 @@ M.init_options = {
   },
 }
 
-M.on_attach = function(client, bufnr) require("tailwind-sorter") end
+M.on_attach = function(client, bufnr) end
 
 M.settings = {
   tailwindCSS = {
@@ -24,6 +24,7 @@ M.settings = {
         { "classnames\\(([^)]*)\\)", "'([^']*)'" },
         { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
         { "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+        { "tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
       },
     },
   },

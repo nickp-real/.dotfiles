@@ -1,5 +1,6 @@
 local M = {}
 
-M.border = "rounded"
+-- :h nvim_open_win border
+M.border = "single"
 
 return M

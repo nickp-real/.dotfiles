@@ -8,4 +8,8 @@ M.settings = {
 
 M.on_attach = function(client, bufnr) end
 
+M.capabilities = {
+  workspace = { didChangeWatchedFiles = { dynamicRegistration = true } },
+}
+
 return M

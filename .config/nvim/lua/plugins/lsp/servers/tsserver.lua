@@ -51,32 +51,12 @@ M.file_preferences = {
 
 M.settings = {
   javascript = {
-    inlayHints = {
-      includeInlayParameterNameHints = "all",
-      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayVariableTypeHints = false,
-      includeInlayPropertyDeclarationTypeHints = true,
-      includeInlayFunctionLikeReturnTypeHints = false,
-      includeInlayEnumMemberValueHints = true,
-    },
-    format = {
-      enable = false,
-    },
+    inlayHints = M.file_preferences,
+    format = { enable = false },
   },
   typescript = {
-    inlayHints = {
-      includeInlayParameterNameHints = "all",
-      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayVariableTypeHints = false,
-      includeInlayPropertyDeclarationTypeHints = true,
-      includeInlayFunctionLikeReturnTypeHints = false,
-      includeInlayEnumMemberValueHints = true,
-    },
-    format = {
-      enable = false,
-    },
+    inlayHints = M.file_preferences,
+    format = { enable = false },
   },
   implicitProjectConfiguration = { checkJs = true },
 }
@@ -88,5 +68,7 @@ M.before_format = function()
   vim.cmd.TSToolsOrganizeImports()
   vim.cmd.TSToolsFixAll()
 end
+
+M.is_ignore = true
 
 return M

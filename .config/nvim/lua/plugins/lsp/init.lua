@@ -2,10 +2,8 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = {
       "fidget.nvim",
-      "williamboman/mason-lspconfig.nvim",
       { "lvimuser/lsp-inlayhints.nvim", config = true },
       {
         "SmiteshP/nvim-navbuddy",
@@ -13,13 +11,7 @@ return {
         opts = { lsp = { auto_attach = true } },
       },
     },
-    config = function()
-      local config = require("plugins.lsp.config")
-
-      config.setup()
-      require("mason-lspconfig").setup_handlers(require("plugins.lsp.servers"))
-      require("ufo")
-    end,
+    config = function() require("plugins.lsp.config").setup() end,
   },
 
   -- conform
@@ -31,35 +23,54 @@ return {
       {
         "=",
         function()
-          require("conform").format({ async = true, lsp_fallback = true, timeout_ms = 500 }, function(err)
-            if not err then
-              if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)
+          local extra_lang_args = { svelte = { lsp_fallback = "always" } }
+          require("conform").format(
+            vim.tbl_deep_extend(
+              "force",
+              { async = true, lsp_fallback = true, timeout_ms = 500 },
+              extra_lang_args[vim.bo.ft] or {}
+            ),
+            function(err)
+              if not err then
+                if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)
+                end
               end
             end
-          end)
+          )
         end,
         mode = "",
         desc = "Format Buffer",
       },
       {
         "<leader>f",
-        function() require("conform").format({ lsp_fallback = true, timeout_ms = 500 }) end,
+        function()
+          local extra_lang_args = { svelte = { lsp_fallback = "always" } }
+          require("conform").format(
+            vim.tbl_deep_extend("force", { lsp_fallback = true, timeout_ms = 500 }, extra_lang_args[vim.bo.ft] or {})
+          )
+        end,
         desc = "[F]ormat",
       },
-      { "<leader>fe", require("plugins.lsp.config").toggle_auto_format, expr = true, desc = "[F]ormat [E]nable/Disable" },
+      {
+        "<leader>fe",
+        require("plugins.lsp.config").toggle_auto_format,
+        expr = true,
+        desc = "[F]ormat [E]nable/Disable",
+      },
     },
     init = function() vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()" end,
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "black" },
-        javascript = { "prettierd" },
-        typescript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescriptreact = { "prettierd" },
-        vue = { "prettierd" },
-        astro = { "prettierd" },
+        javascript = { "rustywind", "prettierd" },
+        typescript = { "rustywind", "prettierd" },
+        javascriptreact = { "rustywind", "prettierd" },
+        typescriptreact = { "rustywind", "prettierd" },
+        vue = { "rustywind", "prettierd" },
+        astro = { "rustywind", "prettierd" },
+        svelte = { "rustywind" },
         markdown = { "prettierd" },
         go = { "gofumpt", "goimports-reviser", "golines" },
         bash = { "shfmt" },
@@ -75,12 +86,11 @@ return {
       -- This can also be a function that returns the table.
       format_on_save = function(bufnr)
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-        return { lsp_fallback = true, timeout_ms = 500 }
+        local extra_lang_args = { svelte = { lsp_fallback = "always" } }
+        return vim.tbl_deep_extend("force", { lsp_fallback = true, timeout_ms = 500 }, extra_lang_args[vim.bo.ft] or {})
       end,
       formatters = {
-        jq = {
-          prepend_args = { "--sort-keys" },
-        },
+        jq = { prepend_args = { "--sort-keys" } },
       },
     },
   },
@@ -88,7 +98,7 @@ return {
   -- Flutter
   {
     "akinsho/flutter-tools.nvim",
-    ft = { "dart" },
+    ft = "dart",
     opts = function()
       local config = require("plugins.lsp.config")
       return {
@@ -194,6 +204,16 @@ return {
     },
   },
 
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    dependencies = { "mason.nvim", "nvim-lspconfig" },
+    config = function()
+      require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup_handlers(require("plugins.lsp.servers"))
+    end,
+  },
+
   -- Lsp Status
   {
     "j-hui/fidget.nvim",
@@ -210,13 +230,6 @@ return {
 
   -- Java
   { "mfussenegger/nvim-jdtls", ft = "java" },
-
-  -- Tailwind CSS
-  {
-    "laytan/tailwind-sorter.nvim",
-    build = "cd formatter && npm i && npm run build",
-    opts = { on_save_enabled = true },
-  },
 
   -- Go
   { "olexsmir/gopher.nvim", ft = "go", build = ":GoInstallDeps", config = true },

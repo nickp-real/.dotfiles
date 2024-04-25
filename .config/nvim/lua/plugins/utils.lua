@@ -72,12 +72,16 @@ return {
   -- http call
   {
     "rest-nvim/rest.nvim",
+    dependencies = {
+      { "vhyrro/luarocks.nvim", opts = {} },
+    },
     ft = "http",
     keys = {
       { "<leader>hr", "<Plug>RestNvim", desc = "Run request under cursor" },
       { "<leader>hp", "<Plug>RestNvimPreview", desc = "Preview request curl command" },
       { "<leader>hl", "<Plug>RestNvimLast", desc = "Re-run last request" },
     },
+    config = function() require("rest-nvim").setup() end,
   },
 
   -- Discord Presence

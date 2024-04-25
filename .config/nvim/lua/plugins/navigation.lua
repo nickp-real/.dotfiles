@@ -5,7 +5,7 @@ return {
     dependencies = { "antosha417/nvim-lsp-file-operations" },
     branch = "v3.x",
     cmd = "Neotree",
-    keys = { { "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Neo Tree" } },
+    keys = { { "<C-n>", "<cmd>Neotree position=right toggle=true<cr>", desc = "Neo Tree" } },
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
       if vim.fn.argc() == 1 then
@@ -25,7 +25,7 @@ return {
         filesystem = {
           hijack_netrw_behavior = "open_current",
           bind_to_cwd = false,
-          follow_current_file = { enabled = true },
+          -- follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
         },
         event_handlers = {
@@ -105,14 +105,6 @@ return {
     opts = function()
       return {
         defaults = {
-          pickers = {
-            find_files = { find_command = { "fd", "--hidden", "--glob", "" } },
-            buffers = {
-              show_all_buffers = true,
-              sort_mru = true,
-              mapping = { i = { ["<c-d>"] = "delete_buffer" } },
-            },
-          },
           prompt_prefix = "   ",
           path_display = { "smart" },
           preview = { treesitter = true },
@@ -143,6 +135,15 @@ return {
             return 0
           end,
           mappings = { i = { ["<C-u>"] = false } },
+        },
+        pickers = {
+          find_files = { find_command = { "fd", "--hidden", "--glob", "" } },
+          buffers = {
+            show_all_buffers = true,
+            sort_mru = true,
+            ignore_current_buffer = true,
+            mappings = { n = { ["dd"] = "delete_buffer" } },
+          },
         },
         extensions = {
           ["ui-select"] = {

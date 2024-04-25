@@ -9,6 +9,7 @@ return {
   opts = {
     colors = {
       dark = {
+        float_bg = "require('onedarkpro.helpers').darken('bg', 4, 'onedark')", -- dark gray
         telescope_prompt = "require('onedarkpro.helpers').darken('bg', 1, 'onedark')",
         telescope_results = "require('onedarkpro.helpers').darken('bg', 4, 'onedark')", -- dark gray
         telescope_preview = "require('onedarkpro.helpers').darken('bg', 6, 'onedark')",
@@ -53,8 +54,8 @@ return {
       AlphaShortcut = { fg = "${blue}" },
       AlphaFooter = { fg = "${orange}" },
 
-      -- NormalFloat = { bg = "${telescope_results}" },
-      -- FloatBorder = { bg = "${telescope_results}", fg = "${gray}" },
+      NormalFloat = { bg = "${float_bg}" },
+      FloatBorder = { bg = "${float_bg}", fg = "${gray}" },
 
       NavicText = { fg = "${fg}" },
 
@@ -70,6 +71,17 @@ return {
       MasonNormal = { bg = "${telescope_results}" },
       LazyNormal = { bg = "${telescope_results}" },
       TreesitterContext = { bg = "${telescope_results}" },
+
+      NotifyERRORBody = { link = "NormalFloat" },
+      NotifyWARNBody = { link = "NormalFloat" },
+      NotifyINFOBody = { link = "NormalFloat" },
+      NotifyDEBUGBody = { link = "NormalFloat" },
+      NotifyTRACEBody = { link = "NormalFloat" },
+      NotifyERRORBorder = { bg = "${float_bg}", extend = true },
+      NotifyWARNBorder = { bg = "${float_bg}", extend = true },
+      NotifyINFOBorder = { bg = "${float_bg}", extend = true },
+      NotifyDEBUGBorder = { bg = "${float_bg}", extend = true },
+      NotifyTRACEBorder = { bg = "${float_bg}", extend = true },
     },
     -- plugins = {},
     styles = {
