@@ -17,12 +17,13 @@ TERM = "alacritty"
 [font]
 size = 10
 normal = { family = "Maple Mono NF", style = "Regular" }
+# normal = { family = "GeistMono Nerd Font", style = "Regular" }
 # normal = { family = "ComicShannsMono Nerd Font", style = "Regular" }
 bold.style = "Bold"
 italic.style = "Italic"
 bold_italic.style = "Bold Italic"
-offset = { x = 0, y = 4 }
-glyph_offset = { x = 0, y = 2 }
+offset = { x = 0, y = 6 }
+glyph_offset = { x = 0, y = 3 }
 
 [mouse]
 hide_when_typing = true
@@ -42,8 +43,5 @@ args = ["-i", "-c", "tmux attach || tmux"]
 [window]
 dynamic_padding = true
 dynamic_title = false
-opacity = 0.75
-
-[window.padding]
-x = 10
-y = 10
+opacity = 0.85
+padding = { x = 10, y = 10 }

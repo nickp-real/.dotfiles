@@ -6,7 +6,6 @@ M.ruler = {
   -- %c = column number
   -- %P = percentage through file of displayed window
   provider = "%7(%l/%3L%):%2c %P",
-  hl = { bg = "bg_statusline" },
 }
 
 M.scrollBar = {
@@ -21,7 +20,7 @@ M.scrollBar = {
     local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
     return string.rep(self.sbar[i], 2)
   end,
-  hl = { fg = "blue", bg = "bg_statusline" },
+  hl = { fg = "blue" },
 }
 
 return M

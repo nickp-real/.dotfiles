@@ -54,8 +54,8 @@ return {
       AlphaShortcut = { fg = "${blue}" },
       AlphaFooter = { fg = "${orange}" },
 
-      NormalFloat = { bg = "${float_bg}" },
-      FloatBorder = { bg = "${float_bg}", fg = "${gray}" },
+      -- NormalFloat = { bg = "${float_bg}" },
+      -- FloatBorder = { bg = "${float_bg}", fg = "${gray}" },
 
       NavicText = { fg = "${fg}" },
 
@@ -68,20 +68,9 @@ return {
       RainbowRed = { fg = "${red}" },
       RainbowCyan = { fg = "${cyan}" },
 
-      MasonNormal = { bg = "${telescope_results}" },
-      LazyNormal = { bg = "${telescope_results}" },
-      TreesitterContext = { bg = "${telescope_results}" },
-
-      NotifyERRORBody = { link = "NormalFloat" },
-      NotifyWARNBody = { link = "NormalFloat" },
-      NotifyINFOBody = { link = "NormalFloat" },
-      NotifyDEBUGBody = { link = "NormalFloat" },
-      NotifyTRACEBody = { link = "NormalFloat" },
-      NotifyERRORBorder = { bg = "${float_bg}", extend = true },
-      NotifyWARNBorder = { bg = "${float_bg}", extend = true },
-      NotifyINFOBorder = { bg = "${float_bg}", extend = true },
-      NotifyDEBUGBorder = { bg = "${float_bg}", extend = true },
-      NotifyTRACEBorder = { bg = "${float_bg}", extend = true },
+      -- MasonNormal = { bg = "${float_bg}" },
+      -- LazyNormal = { bg = "${float_bg}" },
+      -- TreesitterContext = { bg = "${float_bg}" },
     },
     -- plugins = {},
     styles = {

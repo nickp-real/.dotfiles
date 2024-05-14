@@ -1,21 +1,30 @@
 [user]
 	name = nickp-real
 	email = nick_narak@rocketmail.com
+
 [credential]
 	helper = store
+
 [core]
 	autocrlf = input
 	editor = nvim
   pager = delta
+
+[merge]
+  conflictstyle = diff3
+
 # automatically launch merge tool without displaying a prompt
 [mergetool]
   prompt = false
 	keepBackup = false
+
 [safe]
 	directory = *
 	directory = /home/nickp_real/.cache/yay/auto-cpufreq/src/opt/auto-cpufreq/
+
 [color]
 	ui = true
+
 [advice]
   addIgnoredFile = false
 
@@ -25,15 +34,20 @@
 [delta]
   navigate = true    # use n and N to move between diff sections
   light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  line-numbers = true
+  side-by-side = true
 
 [diff]
     colorMoved = default
+
 [credential "https://github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential
+
 [credential "https://gist.github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential
+
 # personal account
 [url "git@github.com-nickp-real:nickp-real"]
   insteadOf = git@github.com:nickp-real
@@ -45,7 +59,8 @@
 [alias]
   adog = log --all --decorate --oneline --graph
   adogs = log --all --decorate --oneline --graph --stat
-  mergetool = "!nvim -c DiffviewOpen"
+  conf = config --global --edit
+  pr = pull --rebase
 
 [init]
 	defaultBranch = main

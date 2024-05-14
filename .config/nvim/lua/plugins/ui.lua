@@ -124,10 +124,10 @@ return {
   {
     "stevearc/dressing.nvim",
     init = function()
-      -- vim.ui.select = function(...)
-      --   require("lazy").load({ plugins = { "dressing.nvim" } })
-      --   return vim.ui.select(...)
-      -- end
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
       vim.ui.input = function(...)
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.input(...)
@@ -222,11 +222,10 @@ return {
         desc = "Delete all Notifications",
       },
     },
-
     config = function(_, opts)
       local notify = require("notify")
       notify.setup(opts)
-      vim.notify = function(message, level, notify_opts) return notify(message, level, notify_opts) end
+      vim.notify = notify
     end,
     opts = function()
       local stages_util = require("notify.stages.util")

@@ -11,7 +11,10 @@ return {
         opts = { lsp = { auto_attach = true } },
       },
     },
-    config = function() require("plugins.lsp.config").setup() end,
+    config = function()
+      require("lspconfig.ui.windows").default_options.border = require("core.styles").border
+      require("plugins.lsp.config").setup()
+    end,
   },
 
   -- conform
@@ -59,18 +62,18 @@ return {
         desc = "[F]ormat [E]nable/Disable",
       },
     },
-    init = function() vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()" end,
+    init = function() vim.o.formatexpr = "v:lua.require'conform'.formatexpr()" end,
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "black" },
-        javascript = { "rustywind", "prettierd" },
-        typescript = { "rustywind", "prettierd" },
-        javascriptreact = { "rustywind", "prettierd" },
-        typescriptreact = { "rustywind", "prettierd" },
-        vue = { "rustywind", "prettierd" },
-        astro = { "rustywind", "prettierd" },
-        svelte = { "rustywind" },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        typescriptreact = { "prettierd" },
+        vue = { "prettierd" },
+        astro = { "prettierd" },
+        -- svelte = { },
         markdown = { "prettierd" },
         go = { "gofumpt", "goimports-reviser", "golines" },
         bash = { "shfmt" },
@@ -194,7 +197,7 @@ return {
     },
     opts = {
       ui = {
-        -- border = "rounded",
+        border = require("core.styles").border,
         icons = {
           package_installed = "",
           package_pending = "",

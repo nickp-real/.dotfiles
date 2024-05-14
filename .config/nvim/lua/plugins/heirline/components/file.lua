@@ -11,14 +11,14 @@ M.name = {
     if not conditions.width_percent_below(#filename, 0.25) then filename = vim.fn.pathshorten(filename) end
     return filename
   end,
-  hl = { fg = utils.get_highlight("Directory").fg, bg = "bg_statusline" },
+  hl = { fg = utils.get_highlight("Directory").fg },
 }
 
 M.flags = {
   {
     condition = function() return vim.bo.modified end,
     provider = " [+]",
-    hl = { fg = "green", bg = "bg_statusline" },
+    hl = { fg = "green" },
   },
   {
     condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
@@ -29,7 +29,7 @@ M.flags = {
         return " "
       end
     end,
-    hl = { fg = "orange", bg = "bg_statusline" },
+    hl = { fg = "orange" },
   },
 }
 

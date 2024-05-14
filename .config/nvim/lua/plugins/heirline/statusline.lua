@@ -1,5 +1,5 @@
-local align = { provider = "%=", hl = { bg = "bg_statusline" } }
-local space = { provider = " ", hl = { bg = "bg_statusline" } }
+local align = { provider = "%=" }
+local space = { provider = " " }
 
 -- components
 local decoration = require("plugins.heirline.components.decoration")

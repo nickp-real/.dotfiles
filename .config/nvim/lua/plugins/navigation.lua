@@ -7,9 +7,8 @@ return {
     cmd = "Neotree",
     keys = { { "<C-n>", "<cmd>Neotree position=right toggle=true<cr>", desc = "Neo Tree" } },
     init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-      if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+      if vim.fn.argc(-1) == 1 then
+        local stat = vim.uv.fs_stat(vim.fn.argv(0))
         if stat and stat.type == "directory" then require("neo-tree") end
       end
     end,
@@ -25,7 +24,7 @@ return {
         filesystem = {
           hijack_netrw_behavior = "open_current",
           bind_to_cwd = false,
-          -- follow_current_file = { enabled = true },
+          follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
         },
         event_handlers = {
@@ -58,7 +57,6 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      "nvim-telescope/telescope-ui-select.nvim",
     },
     cmd = "Telescope",
     keys = function()
@@ -100,7 +98,6 @@ return {
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
-      telescope.load_extension("ui-select")
     end,
     opts = function()
       return {
@@ -145,11 +142,6 @@ return {
             mappings = { n = { ["dd"] = "delete_buffer" } },
           },
         },
-        extensions = {
-          ["ui-select"] = {
-            layout_config = { height = 0.25, width = 0.60 },
-          },
-        },
       }
     end,
   },
@@ -168,7 +160,10 @@ return {
     },
     opts = {
       jump = { nohlsearch = true },
-      modes = { char = { autohide = true } },
+      modes = {
+        char = { autohide = true },
+        search = { enabled = true },
+      },
     },
   },
 

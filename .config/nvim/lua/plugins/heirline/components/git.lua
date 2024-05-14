@@ -8,19 +8,15 @@ local git = {
     self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
   end,
 
-  hl = { fg = "purple", bg = "bg_statusline" },
+  hl = { fg = "purple" },
 
   { -- git branch name
-    provider = function(self)
-      return " " .. self.status_dict.head
-    end,
+    provider = function(self) return " " .. self.status_dict.head end,
     hl = { bold = true },
   },
   -- You could handle delimiters, icons and counts similar to Diagnostics
   {
-    condition = function(self)
-      return self.has_changes
-    end,
+    condition = function(self) return self.has_changes end,
     provider = " (",
   },
   {
@@ -45,9 +41,7 @@ local git = {
     hl = { fg = "git_change" },
   },
   {
-    condition = function(self)
-      return self.has_changes
-    end,
+    condition = function(self) return self.has_changes end,
     provider = ")",
   },
 }

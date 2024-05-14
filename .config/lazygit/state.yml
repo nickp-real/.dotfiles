@@ -1,0 +1,26 @@
+lastupdatecheck: 0
+recentrepos:
+- /home/nickp_real/.dotfiles
+- /mnt/media/Coding/SmartSoftAsia/foamtec-next
+- /mnt/media/Coding/OCampManager
+- /mnt/media/Coding/SmartSoftAsia/ai-accounting-api
+- /mnt/media/Coding/SmartSoftAsia/supernature-node
+- /mnt/media/Coding/SmartSoftAsia/supernature-vue
+- /home/nickp_real/Coding/SmartSoftAsia/supernature-vue
+- /mnt/media/Coding/khonkai-next
+- /mnt/media/Coding/graphql-workshop/itsc-article-workshop
+- /mnt/media/Coding/SmartSoftAsia/event-device-tracking-next
+- /home/nickp_real/Coding/nvim_plugin/neovim-project
+- /home/nickp_real/Coding/SmartSoftAsia/ai-accounting-api
+- /mnt/media/Coding/jongbad-bun
+startuppopupversion: 5
+lastversion: 0.41.0
+customcommandshistory:
+- q
+hidecommandlog: false
+ignorewhitespaceindiffview: false
+diffcontextsize: 3
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always

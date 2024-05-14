@@ -1,4 +1,3 @@
-local styles = require("core.styles")
 return {
   -- Snippet Engine
   {
@@ -190,13 +189,9 @@ return {
         }),
         view = { entries = { follow_cursor = true } },
         window = {
-          -- completion = cmp.config.window.bordered(),
-          -- documentation = cmp.config.window.bordered(),
-          documentation = vim.tbl_deep_extend(
-            "force",
-            require("cmp.config.default")().window.documentation,
-            { border = styles.border }
-          ),
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+          -- documentation = { border = styles.border },
         },
         formatting = {
           fields = { "kind", "abbr", "menu" },

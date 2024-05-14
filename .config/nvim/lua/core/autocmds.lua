@@ -1,9 +1,9 @@
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+local create_autocmd = vim.api.nvim_create_autocmd
+local create_augroup = vim.api.nvim_create_augroup
 
--- Format Option
-local format_options = augroup("Format Options", { clear = true })
-autocmd("FileType", {
+local format_options = create_augroup("Format Options", { clear = true })
+create_autocmd("FileType", {
+  desc = "set format options, expr",
   callback = function()
     vim.opt_local.formatoptions = vim.opt_local.formatoptions
       - "a" -- Auto formatting is BAD.
@@ -19,8 +19,8 @@ autocmd("FileType", {
   group = format_options,
 })
 
--- Use 'q' to quit from common plugins
-autocmd("FileType", {
+create_autocmd("FileType", {
+  desc = "use 'q' to quit from common plugins",
   pattern = {
     "help",
     "man",
@@ -37,8 +37,8 @@ autocmd("FileType", {
   end,
 })
 
--- Persistent Cursor
-autocmd("BufReadPost", {
+create_autocmd("BufReadPost", {
+  desc = "persistent cursor, last file position",
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -46,8 +46,8 @@ autocmd("BufReadPost", {
   end,
 })
 
--- Cursor Line on each window
-autocmd({ "InsertLeave", "WinEnter" }, {
+create_autocmd({ "InsertLeave", "WinEnter" }, {
+  desc = "show cursor line on current window",
   callback = function()
     local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
     if ok and cl then
@@ -56,7 +56,9 @@ autocmd({ "InsertLeave", "WinEnter" }, {
     end
   end,
 })
-autocmd({ "InsertEnter", "WinLeave" }, {
+
+create_autocmd({ "InsertEnter", "WinLeave" }, {
+  desc = "hide cursor line on other window",
   callback = function()
     local cl = vim.wo.cursorline
     if cl then
@@ -66,15 +68,15 @@ autocmd({ "InsertEnter", "WinLeave" }, {
   end,
 })
 
--- Textfile spell
-autocmd("FileType", {
+create_autocmd("FileType", {
+  desc = "enable spell on text file",
   pattern = { "gitcommit", "markdown", "text" },
   callback = function() vim.opt_local.spell = true end,
 })
 
--- Auto create dir when saving a file, in case some intermediate directory does not exist
-autocmd({ "BufWritePre" }, {
-  group = augroup("auto_create_dir", { clear = true }),
+create_autocmd({ "BufWritePre" }, {
+  desc = "auto create dir when saving a file, in case some intermediate directory does not exist",
+  group = create_augroup("auto_create_dir", { clear = true }),
   callback = function(event)
     if event.match:match("^%w%w+://") then return end
     local file = vim.loop.fs_realpath(event.match) or event.match
@@ -84,6 +86,7 @@ autocmd({ "BufWritePre" }, {
 
 local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
+  desc = "disable bufferline, winbar, tabline when filetype is man and alpha",
   pattern = { "man", "alpha" },
   callback = function()
     local old_laststatus = vim.opt_local.laststatus
@@ -103,4 +106,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.winbar = nil
   end,
   group = disable_bufferline,
+})
+
+create_autocmd("VimResized", {
+  desc = "auto resize splited windows",
+  pattern = "*",
+  command = "tabdo wincmd =",
 })

@@ -1,6 +1,6 @@
 local M = {}
 
-function M.strsplit(inputstr)
+M.strsplit = function(inputstr)
   local t = {}
   for str in string.gmatch(inputstr, "([^%s]+)") do
     table.insert(t, str)
@@ -8,8 +8,10 @@ function M.strsplit(inputstr)
   return t
 end
 
-function M.notify(text, title)
-  vim.notify(text, nil, { title = title })
+M.notify = function(text, title) vim.notify(text, nil, { title = title }) end
+
+M.is_plugin_loaded = function(plugin_name)
+  return vim.tbl_get(require("lazy.core.config"), "plugins", plugin_name, "_", "loaded")
 end
 
 return M

@@ -43,22 +43,15 @@ local default_plugins = {
 
 require("lazy").setup({
   spec = "plugins",
-  defaults = {
-    lazy = true,
-  },
-  install = {
-    colorscheme = { "onedark" },
-  },
+  defaults = { lazy = true },
+  install = { colorscheme = { "onedark" } },
   checker = { enabled = true },
   performance = {
     cache = { enabled = true },
-    rtp = {
-      disabled_plugins = default_plugins,
-    },
+    rtp = { disabled_plugins = default_plugins },
   },
-  dev = {
-    path = "~/Coding/nvim_plugin",
-  },
+  dev = { path = "~/Coding/nvim_plugin" },
+  ui = { border = require("core.styles").border },
 })
 
 local default_providers = {

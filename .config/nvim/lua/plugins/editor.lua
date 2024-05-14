@@ -78,7 +78,6 @@ return {
   {
     "danymat/neogen",
     cmd = "Neogen",
-    keys = { { "<leader>gd", "<cmd>Neogen<cr>", desc = "Neogen" } },
     opts = { snippet_engine = "luasnip" },
   },
 

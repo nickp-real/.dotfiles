@@ -30,9 +30,7 @@ return {
       return {
         statusline = require("plugins.heirline.statusline"),
         --  tabline = require("plugins.heirline.tabline"),
-        opts = {
-          colors = colors,
-        },
+        opts = { colors = colors },
       }
     end,
   },

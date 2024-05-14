@@ -1,5 +1,5 @@
 * {
-  font-family: Google Sans, "Font Awesome 6 Brands", "Font Awesome 6 Free",
+  font-family: Google Sans Display, "Font Awesome 6 Brands", "Font Awesome 6 Free",
     Symbols Nerd Font;
   font-size: 12px;
   font-style: normal;
@@ -95,8 +95,9 @@ tooltip label {
 #tray {
   border-radius: 5px 0 0 5px;
 }
-#wireplumber {
-}
+
+#wireplumber {}
+
 #language {
   font-family: Google Sans, "Font Awesome 6 Free Solid";
   border-radius: 0 5px 5px 0;
@@ -114,8 +115,9 @@ tooltip label {
   margin-left: 5px;
   border-radius: 5px 0 0 5px;
 }
-#cpu {
-}
+
+#cpu {}
+
 #temperature {
   border-radius: 0 5px 5px 0;
 }

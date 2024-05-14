@@ -2,7 +2,7 @@ local M = {}
 
 M.bar = {
   provider = "▌",
-  hl = { fg = "blue", bg = "bg_statusline" },
+  hl = { fg = "blue" },
 }
 
 return M

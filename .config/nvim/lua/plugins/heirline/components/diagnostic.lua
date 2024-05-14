@@ -16,7 +16,6 @@ local diagnostic = {
     self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
   update = { "DiagnosticChanged", "BufReadPre" },
-  hl = { bg = "bg_statusline" },
   {
     provider = function(self)
       -- 0 is just another output, we can decide to print it or not!
@@ -25,21 +24,15 @@ local diagnostic = {
     hl = { fg = "red" },
   },
   {
-    provider = function(self)
-      return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
-    end,
+    provider = function(self) return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ") end,
     hl = { fg = "yellow" },
   },
   {
-    provider = function(self)
-      return self.info > 0 and (self.info_icon .. self.info .. " ")
-    end,
+    provider = function(self) return self.info > 0 and (self.info_icon .. self.info .. " ") end,
     hl = { fg = "blue" },
   },
   {
-    provider = function(self)
-      return self.hints > 0 and (self.hint_icon .. self.hints)
-    end,
+    provider = function(self) return self.hints > 0 and (self.hint_icon .. self.hints) end,
     hl = { fg = "cyan" },
   },
 }
