@@ -84,9 +84,5 @@ g.markdown_recommended_style = 0
 -- Session
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals"
 
--- Leader key
-g.mapleader = " "
-g.maplocalleader = " "
-
 -- env
 g.python3_host_prog = "/usr/bin/python3"

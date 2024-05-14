@@ -1,7 +1,3 @@
-local M = {}
-
 -- :h nvim_open_win border
-M.border = "rounded"
+vim.g.border = "rounded"
 -- { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-
-return M

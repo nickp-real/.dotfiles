@@ -1,5 +1,3 @@
-local styles = require("plugin.styles")
-
 local M = {}
 
 local autoformat_setup = function()
@@ -123,7 +121,7 @@ M.diagnostic_config = {
   float = {
     focusable = true,
     style = "minimal",
-    border = styles.border,
+    border = vim.g.border,
     source = "always",
   },
   on_init_callback = function(_) M.setup_codelens_refresh(_) end,
@@ -169,12 +167,12 @@ function M.setup()
   vim.diagnostic.config(M.diagnostic_config)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = styles.border,
+    border = vim.g.border,
     silent = true,
   })
 
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = styles.border,
+    border = vim.g.border,
   })
 end
 

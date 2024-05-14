@@ -22,9 +22,7 @@ return {
     "RRethy/nvim-treesitter-textsubjects",
     {
       "andymass/vim-matchup",
-      init = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup", border = require("plugin.styles").border }
-      end,
+      init = function() vim.g.matchup_matchparen_offscreen = { method = "popup", border = vim.g.border } end,
     },
     { "nvim-treesitter/nvim-treesitter-context", opts = { max_lines = 3, separator = "━" } },
   },
@@ -116,7 +114,7 @@ return {
       },
       lsp_interop = {
         enable = true,
-        border = require("plugin.styles").border,
+        border = vim.g.border,
         floating_preview_opts = {},
         peek_definition_code = {
           ["<leader>df"] = "@function.outer",

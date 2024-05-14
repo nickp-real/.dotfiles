@@ -1,3 +1,9 @@
+if vim.loader then vim.loader.enable() end
+
+-- Leader key
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -51,7 +57,7 @@ require("lazy").setup({
     rtp = { disabled_plugins = default_plugins },
   },
   dev = { path = "~/Coding/nvim_plugin" },
-  ui = { border = require("plugin.styles").border },
+  ui = { border = vim.g.border },
 })
 
 local default_providers = {

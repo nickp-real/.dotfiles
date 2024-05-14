@@ -64,7 +64,7 @@ return {
       })
     end,
     opts = {
-      border = require("plugin.styles").border,
+      border = vim.g.border,
       hl = "NormalFloat",
     },
   },

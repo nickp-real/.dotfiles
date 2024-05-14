@@ -2,8 +2,10 @@ local lspconfig = require("lspconfig")
 local capabilities = require("plugins.lsp.config").capabilities
 local servers = {}
 
+local servers_path = vim.fn.stdpath("config") .. "/lua/plugins/lsp/servers"
+
 -- get all the server configs
-for filename, _ in vim.fs.dir("~/.config/nvim/lua/plugins/lsp/servers") do
+for filename, _ in vim.fs.dir(servers_path) do
   local name = vim.fn.fnamemodify(filename, ":r")
   if name ~= "init" then servers[name] = require("plugins.lsp.servers." .. name) end
 end
