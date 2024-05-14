@@ -3,6 +3,7 @@ if vim.loader then vim.loader.enable() end
 -- Leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.g.border = "rounded"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
