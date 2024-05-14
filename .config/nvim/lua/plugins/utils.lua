@@ -64,7 +64,7 @@ return {
       })
     end,
     opts = {
-      border = require("core.styles").border,
+      border = require("plugin.styles").border,
       hl = "NormalFloat",
     },
   },

@@ -138,7 +138,7 @@ return {
         input = {
           default_prompt = "➤ ",
           insert_only = false,
-          border = require("core.styles").border,
+          border = require("plugin.styles").border,
           win_options = {
             winblend = 0,
           },
@@ -245,7 +245,7 @@ return {
               height = state.message.height,
               col = vim.opt.columns:get(),
               row = next_row,
-              border = require("core.styles").border,
+              border = require("plugin.styles").border,
               style = "minimal",
               opacity = 0,
             }

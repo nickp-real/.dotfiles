@@ -1,4 +1,4 @@
-local styles = require("core.styles")
+local styles = require("plugin.styles")
 
 local M = {}
 

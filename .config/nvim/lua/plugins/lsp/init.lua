@@ -12,7 +12,7 @@ return {
       },
     },
     config = function()
-      require("lspconfig.ui.windows").default_options.border = require("core.styles").border
+      require("lspconfig.ui.windows").default_options.border = require("plugin.styles").border
       require("plugins.lsp.config").setup()
     end,
   },
@@ -108,7 +108,7 @@ return {
         ui = {
           -- the border type to use for all floating windows, the same options/formats
           -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
-          border = require("core.styles").border,
+          border = require("plugin.styles").border,
           notification_style = "native",
         },
         decorations = {
@@ -197,7 +197,7 @@ return {
     },
     opts = {
       ui = {
-        border = require("core.styles").border,
+        border = require("plugin.styles").border,
         icons = {
           package_installed = "",
           package_pending = "",

@@ -12,7 +12,7 @@ return {
         changedelete = { text = "▌" },
         untracked = { text = "▌" },
       },
-      preview_config = { border = require("core.styles").border },
+      preview_config = { border = require("plugin.styles").border },
       current_line_blame = true,
     },
   },
