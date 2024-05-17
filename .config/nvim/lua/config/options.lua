@@ -1,6 +1,10 @@
 local opt = vim.opt
 local g = vim.g
 
+-- Leader key
+g.mapleader = " "
+g.maplocalleader = " "
+
 -- Config
 opt.completeopt = "menu,menuone,noselect"
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }

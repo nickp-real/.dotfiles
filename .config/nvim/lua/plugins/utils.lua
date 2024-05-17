@@ -110,7 +110,7 @@ return {
   {
     "barrett-ruth/import-cost.nvim",
     build = "sh install.sh pnpm",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    -- event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "astro" },
     opts = {
       filetypes = {
