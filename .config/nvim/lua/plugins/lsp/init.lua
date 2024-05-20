@@ -4,7 +4,6 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "fidget.nvim",
-      { "lvimuser/lsp-inlayhints.nvim", config = true },
       {
         "SmiteshP/nvim-navbuddy",
         keys = { { "<leader>n", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
@@ -26,33 +25,20 @@ return {
       {
         "=",
         function()
-          local extra_lang_args = { svelte = { lsp_fallback = "always" } }
-          require("conform").format(
-            vim.tbl_deep_extend(
-              "force",
-              { async = true, lsp_fallback = true, timeout_ms = 500 },
-              extra_lang_args[vim.bo.ft] or {}
-            ),
-            function(err)
-              if not err then
-                if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
-                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)
-                end
+          require("conform").format({ async = true, lsp_fallback = true, timeout_ms = 500 }, function(err)
+            if not err then
+              if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)
               end
             end
-          )
+          end)
         end,
         mode = "",
         desc = "Format Buffer",
       },
       {
         "<leader>f",
-        function()
-          local extra_lang_args = { svelte = { lsp_fallback = "always" } }
-          require("conform").format(
-            vim.tbl_deep_extend("force", { lsp_fallback = true, timeout_ms = 500 }, extra_lang_args[vim.bo.ft] or {})
-          )
-        end,
+        function() require("conform").format({ lsp_fallback = true, timeout_ms = 500 }) end,
         desc = "[F]ormat",
       },
       {
@@ -73,7 +59,6 @@ return {
         typescriptreact = { "prettierd" },
         vue = { "prettierd" },
         astro = { "prettierd" },
-        -- svelte = { },
         markdown = { "prettierd" },
         go = { "gofumpt", "goimports-reviser", "golines" },
         bash = { "shfmt" },
@@ -227,7 +212,6 @@ return {
   "b0o/SchemaStore.nvim",
 
   -- Typescript
-  -- { "NickP-real/typescript-tools.nvim", config = true, dev = true },
   { "pmizio/typescript-tools.nvim", config = true },
   { "dmmulroy/tsc.nvim", config = true },
 

@@ -1,6 +1,12 @@
 local create_autocmd = vim.api.nvim_create_autocmd
 local create_augroup = vim.api.nvim_create_augroup
 
+create_autocmd("TextYankPost", {
+  desc = "highlight on yank",
+  group = create_augroup("highlight_yank", { clear = true }),
+  callback = function() vim.highlight.on_yank() end,
+})
+
 local format_options = create_augroup("Format Options", { clear = true })
 create_autocmd("FileType", {
   desc = "set format options, expr",

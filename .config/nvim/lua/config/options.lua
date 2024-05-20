@@ -31,7 +31,6 @@ opt.relativenumber = true
 opt.ruler = false
 opt.showmode = false
 opt.signcolumn = "yes"
-opt.termguicolors = true
 opt.winminwidth = 10
 
 -- Indenting

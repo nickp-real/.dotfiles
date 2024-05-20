@@ -41,7 +41,7 @@ end
 M.file_preferences = {
   includeInlayParameterNameHints = "all",
   includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  includeInlayFunctionParameterTypeHints = true,
+  includeInlayFunctionParameterTypeHints = false,
   includeInlayVariableTypeHints = false,
   includeInlayVariableTypeHintsWhenTypeMatchesName = true,
   includeInlayPropertyDeclarationTypeHints = true,
@@ -53,10 +53,12 @@ M.settings = {
   javascript = {
     inlayHints = M.file_preferences,
     format = { enable = false },
+    completions = { completeFunctionCalls = true },
   },
   typescript = {
     inlayHints = M.file_preferences,
     format = { enable = false },
+    completions = { completeFunctionCalls = true },
   },
   implicitProjectConfiguration = { checkJs = true },
 }

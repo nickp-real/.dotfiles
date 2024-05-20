@@ -96,7 +96,7 @@ return {
           },
         },
         headerPaddingTop = { type = "padding", val = headerPadding },
-        headerPaddingBottom = { type = "padding", val = 2 },
+        headerPaddingBottom = { type = "padding", val = 1 },
         footer = {
           type = "text",
           val = footer(),

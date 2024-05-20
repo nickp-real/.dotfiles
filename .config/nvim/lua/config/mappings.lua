@@ -129,13 +129,13 @@ nnoremap("<leader>R", vim.cmd.RunUpdate)
 local function diagnostic_goto(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() go({ severity = severity }) end
+  return function() go({ severity = severity, float = false }) end
 end
 nnoremap("]e", diagnostic_goto(true, "ERROR"), { desc = "Go to next [E]rror message" })
 nnoremap("[e", diagnostic_goto(false, "ERROR"), { desc = "Go to previous [E]rror message" })
 nnoremap("]w", diagnostic_goto(true, "WARN"), { desc = "Go to next [W]arning message" })
 nnoremap("[w", diagnostic_goto(false, "WARN"), { desc = "Go to previous [W]arning message" })
-nnoremap("]d", diagnostic_goto(true), { desc = "Go to next [D]iagnostic message" })
-nnoremap("[d", diagnostic_goto(false), { desc = "Go to previous [D]iagnostic message" })
+-- nnoremap("]d", diagnostic_goto(true), { desc = "Go to next [D]iagnostic message" })
+-- nnoremap("[d", diagnostic_goto(false), { desc = "Go to previous [D]iagnostic message" })
 nnoremap("<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 nnoremap("<C-q>", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uicfix list" })

@@ -2,6 +2,7 @@ if vim.loader then vim.loader.enable() end
 
 require("config.options")
 require("config.filetypes")
+require("config.autocmds")
 require("config.styles")
 require("config.lazy")
 
@@ -12,8 +13,6 @@ vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
     require("config.mappings")
-
-    require("config.autocmds")
     require("config.usercmds")
   end,
 })

@@ -26,26 +26,11 @@ return {
 
   -- Color Toggle
   {
-    "NvChad/nvim-colorizer.lua",
+    "brenoprata10/nvim-highlight-colors",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    cmd = "Colorizer",
-    keys = { { "<leader>tc", vim.cmd.ColorizerToggle, desc = "Toggle Colorizer" } },
     opts = {
-      filetypes = {
-        "*",
-        "!packer",
-        "!lazy",
-        "!log",
-      },
-      buftypes = { "*", "!prompt", "!terminal" },
-      user_default_options = {
-        names = false,
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        AARRGGBB = true, -- 0xAARRGGBB hex codes
-        rgb_fn = true,
-        hsl_fn = true,
-        tailwind = "both",
-      },
+      render = "background",
+      enable_tailwind = true,
     },
   },
 
