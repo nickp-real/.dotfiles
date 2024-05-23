@@ -17,7 +17,6 @@ return {
     },
   },
   dependencies = {
-    "windwp/nvim-ts-autotag",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "RRethy/nvim-treesitter-textsubjects",
     {
@@ -48,7 +47,6 @@ return {
         node_decremental = "<bs>",
       },
     },
-    autotag = { enable = true },
     textobjects = {
       select = {
         enable = true,
