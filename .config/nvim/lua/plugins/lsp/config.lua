@@ -71,7 +71,8 @@ local mapping = function(bufnr, server_capabilities)
   map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
   map("<leader>h", function()
     if server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+      vim.g.disable_inlay_hint = not vim.g.disable_inlay_hint
     else
       vim.notify("LSP not support inlay hint!", vim.log.levels.ERROR, { title = "Inlay Hint" })
     end
@@ -96,11 +97,34 @@ M.attach = function()
       highlightSetup(client, bufnr)
 
       if server_capabilities.documentSymbolProvider then require("nvim-navic").attach(client, bufnr) end
+      if server_capabilities.inlayHintProvider then
+        vim.g.disable_inlay_hint = vim.g.disable_inlay_hint or false
+        local group = vim.api.nvim_create_augroup("Inlay_Hint_on_Normal", { clear = false })
+        vim.api.nvim_create_autocmd({ "ModeChanged", "BufEnter", "CursorHold" }, {
+          desc = "Disable inlay hint on insert",
+          buffer = bufnr,
+          callback = function()
+            local mode_info = vim.api.nvim_get_mode()
+            local current_mode = mode_info.mode
+            local is_inlay_hint_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+            if (current_mode == "i" and is_inlay_hint_enabled) or vim.g.disable_inlay_hint then
+              vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+            end
+            if not is_inlay_hint_enabled and not vim.g.disable_inlay_hint then
+              vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            end
+          end,
+          group = group,
+        })
+      end
       if server_capabilities.codeLensProvider then
+        local group = vim.api.nvim_create_augroup("Codelens_refresh", { clear = false })
         vim.lsp.codelens.refresh()
         vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+          desc = "Refresh codelens",
           buffer = bufnr,
           callback = vim.lsp.codelens.refresh,
+          group = group,
         })
       end
     end,
