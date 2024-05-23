@@ -28,6 +28,25 @@ return {
   {
     "brenoprata10/nvim-highlight-colors",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    config = function(_, opts)
+      require("nvim-highlight-colors").setup(opts)
+
+      local disable_filetypes = { "lazy" }
+      vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+        desc = "Disable color highlight on filetype",
+        group = vim.api.nvim_create_augroup("Disable Color Highlight", { clear = false }),
+        callback = function()
+          local filetype = vim.bo.ft
+          for _, disable_filetype in pairs(disable_filetypes) do
+            if filetype == disable_filetype then
+              require("nvim-highlight-colors").turnOff()
+              return
+            end
+            require("nvim-highlight-colors").turnOn()
+          end
+        end,
+      })
+    end,
     opts = {
       render = "background",
       enable_tailwind = true,
