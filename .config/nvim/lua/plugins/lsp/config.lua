@@ -50,7 +50,7 @@ local highlightSetup = function(client, bufnr)
   end
 end
 
-local mapping = function(bufnr, server_capabilities)
+local mapping = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local nnoremap = require("utils.keymap_utils").nnoremap
@@ -70,11 +70,11 @@ local mapping = function(bufnr, server_capabilities)
   map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
   map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
   map("<leader>h", function()
-    if server_capabilities.inlayHintProvider then
+    if client.server_capabilities.inlayHintProvider then
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
       vim.g.disable_inlay_hint = not vim.g.disable_inlay_hint
     else
-      vim.notify("LSP not support inlay hint!", vim.log.levels.ERROR, { title = "Inlay Hint" })
+      vim.notify(client.name .. " not support inlay hint!", vim.log.levels.ERROR, { title = "Inlay Hint" })
     end
   end, "Toggle inlay [H]int")
 end
@@ -87,32 +87,35 @@ M.attach = function()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       assert(client ~= nil)
 
-      local server_capabilities = client.server_capabilities
-
       -- client.server_capabilities.documentFormattingProvider = false
       -- client.server_capabilities.documentRangeFormattingProvider = false
 
-      mapping(bufnr, server_capabilities)
+      mapping(client, bufnr)
       autoformat_setup()
       highlightSetup(client, bufnr)
 
+      local server_capabilities = client.server_capabilities
       if server_capabilities.documentSymbolProvider then require("nvim-navic").attach(client, bufnr) end
       if server_capabilities.inlayHintProvider then
         vim.g.disable_inlay_hint = vim.g.disable_inlay_hint or false
+        local mode = vim.api.nvim_get_mode().mode
+        if not vim.g.disable_inlay_hint then
+          vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr })
+        end
         local group = vim.api.nvim_create_augroup("Inlay_Hint_on_Normal", { clear = false })
-        vim.api.nvim_create_autocmd({ "ModeChanged", "BufEnter", "CursorHold" }, {
+        vim.api.nvim_create_autocmd("InsertEnter", {
           desc = "Disable inlay hint on insert",
-          buffer = bufnr,
           callback = function()
-            local mode_info = vim.api.nvim_get_mode()
-            local current_mode = mode_info.mode
-            local is_inlay_hint_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
-            if (current_mode == "i" and is_inlay_hint_enabled) or vim.g.disable_inlay_hint then
-              vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-            end
-            if not is_inlay_hint_enabled and not vim.g.disable_inlay_hint then
-              vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-            end
+            if vim.g.disable_inlay_hint then return end
+            vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+          end,
+          group = group,
+        })
+        vim.api.nvim_create_autocmd("InsertLeave", {
+          desc = "Enable inlay hint on insert",
+          callback = function()
+            if vim.g.disable_inlay_hint then return end
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
           end,
           group = group,
         })
