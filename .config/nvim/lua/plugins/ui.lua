@@ -139,10 +139,10 @@ return {
           default_prompt = "➤ ",
           insert_only = false,
           border = vim.g.border,
-          win_options = {
-            winblend = 0,
-          },
           override = function(conf)
+            local width = conf.width
+            local title_width = string.len(conf.title)
+            conf.width = math.max(width, title_width)
             conf.col = -1
             conf.row = 0
             return conf
@@ -152,12 +152,8 @@ return {
           telescope = require("telescope.themes").get_dropdown({
             layout_strategy = "horizontal",
             layout_config = {
-              horizontal = {
-                prompt_position = "top",
-              },
-              vertical = {
-                mirror = false,
-              },
+              horizontal = { prompt_position = "top" },
+              vertical = { mirror = false },
             },
             previewer = false,
           }),
