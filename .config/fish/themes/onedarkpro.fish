@@ -1,0 +1,44 @@
+# Onedarkpro Color Palette
+set -l white abb2bf
+set -l black 282c34
+set -l magenta c678dd
+set -l red e06c75
+set -l yellow e5c07b
+set -l green 98c379
+set -l cyan 56b6c2
+set -l blue 61afef
+set -l comment 5c6370
+
+# bright
+set -l brwhite c8cdd5
+set -l brblack 3e4451
+set -l brred e9969d
+set -l brgreen b3d39c
+set -l bryellow edd4a6
+set -l brblue 8fc6f4
+set -l brmagenta d7a1e7
+set -l brcyan 7bc6d0
+
+# Syntax Highlighting Colors
+set -g fish_color_normal $white
+set -g fish_color_command $green
+set -g fish_color_keyword $blue
+set -g fish_color_quote $yellow
+set -g fish_color_redirection $blue
+set -g fish_color_end $blue
+set -g fish_color_error $red
+set -g fish_color_param $blue
+set -g fish_color_option $blue
+set -g fish_color_comment $comment
+set -g fish_color_selection --background=$white
+set -g fish_color_search_match --background=$brblack
+set -g fish_color_operator $green
+set -g fish_color_escape $blue
+set -g fish_color_autosuggestion $comment
+
+# Completion Pager Colors
+set -g fish_pager_color_progress $brwhite --background=$cyan
+set -g fish_pager_color_prefix $cyan --underline
+set -g fish_pager_color_completion $white
+set -g fish_pager_color_description $yellow
+set -g fish_pager_color_selected_background --reverse

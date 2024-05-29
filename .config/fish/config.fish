@@ -29,16 +29,13 @@ if status is-login
   set -gx MANPAGER 'nvim +Man!'
   set -gx GRIMBLAST_EDITOR 'swappy -f'
 
-  # fish var
-  set -g fish_color_command green
-  set -g fish_color_normal brwhite
-  set -g fish_color_option blue
-  set -g fish_color_param blue
+  # theme
+  source ~/.config/fish/themes/onedarkpro.fish
 
   # fzf
   set -gx fzf_preview_dir_cmd exa --all --color=always
   # set fzf_fd_opts --hidden --exclude=.git
-  set -gx FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:#282c34,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
+  set -gx FZF_DEFAULT_OPTS --color=fg:#abb2bf,bg:-1,hl:#61afef --color=fg+:#abb2bf,bg+:#393f4a,hl+:#528bff --color=info:#ebd09c,prompt:#98c379,pointer:#56b6c2 --color=marker:#e06c75,spinner:#c678dd,header:#56b6c2
 end
 
 if status --is-interactive

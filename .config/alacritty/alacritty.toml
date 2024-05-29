@@ -22,8 +22,8 @@ normal = { family = "Maple Mono NF", style = "Regular" }
 bold.style = "Bold"
 italic.style = "Italic"
 bold_italic.style = "Bold Italic"
-offset = { x = 0, y = 6 }
-glyph_offset = { x = 0, y = 3 }
+offset = { x = 0, y = 10 }
+glyph_offset = { x = 0, y = 5 }
 
 [mouse]
 hide_when_typing = true
