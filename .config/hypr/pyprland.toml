@@ -1,6 +1,0 @@
-[pyprland]
-plugins = ["monitors"]
-
-[monitors.placement]
-"DP-2".leftOf = "eDP-1"
-"HDMI-A-1".rightOf = "eDP-1"
