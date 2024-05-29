@@ -37,13 +37,11 @@ return {
         group = vim.api.nvim_create_augroup("Disable Color Highlight", { clear = false }),
         callback = function()
           local filetype = vim.bo.ft
-          for _, disable_filetype in pairs(disable_filetypes) do
-            if filetype == disable_filetype then
-              require("nvim-highlight-colors").turnOff()
-              return
-            end
-            require("nvim-highlight-colors").turnOn()
+          if vim.tbl_contains(disable_filetypes, filetype) then
+            require("nvim-highlight-colors").turnOff()
+            return
           end
+          require("nvim-highlight-colors").turnOn()
         end,
       })
     end,

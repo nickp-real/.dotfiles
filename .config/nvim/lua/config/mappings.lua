@@ -137,5 +137,5 @@ nnoremap("]w", diagnostic_goto(true, "WARN"), { desc = "Go to next [W]arning mes
 nnoremap("[w", diagnostic_goto(false, "WARN"), { desc = "Go to previous [W]arning message" })
 -- nnoremap("]d", diagnostic_goto(true), { desc = "Go to next [D]iagnostic message" })
 -- nnoremap("[d", diagnostic_goto(false), { desc = "Go to previous [D]iagnostic message" })
-nnoremap("<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+-- nnoremap("<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 nnoremap("<C-q>", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uicfix list" })

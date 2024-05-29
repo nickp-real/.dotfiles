@@ -90,30 +90,6 @@ create_autocmd({ "BufWritePre" }, {
   end,
 })
 
-local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "disable bufferline, winbar, tabline when filetype is man and alpha",
-  pattern = { "man", "alpha" },
-  callback = function()
-    local old_laststatus = vim.opt_local.laststatus
-    local old_tabline = vim.opt_local.showtabline
-    local old_winbar = vim.opt_local.winbar
-    vim.api.nvim_create_autocmd("BufUnload", {
-      buffer = 0,
-      callback = function()
-        vim.opt_local.laststatus = old_laststatus
-        vim.opt_local.showtabline = old_tabline
-        vim.opt_local.winbar = old_winbar
-      end,
-      group = disable_bufferline,
-    })
-    vim.opt_local.laststatus = 0
-    vim.opt_local.showtabline = 0
-    vim.opt_local.winbar = nil
-  end,
-  group = disable_bufferline,
-})
-
 create_autocmd("VimResized", {
   desc = "auto resize splited windows",
   pattern = "*",

@@ -32,7 +32,12 @@ M.toggle_auto_format = function()
 end
 
 local inlay_hint_setup = function(client, bufnr)
-  if not client.server_capabilities.inlayHintProvider then return end
+  if
+    not client.server_capabilities.inlayHintProvider
+    or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "")
+  then
+    return
+  end
   vim.g.disable_inlay_hint = vim.g.disable_inlay_hint or false
   local mode = vim.api.nvim_get_mode().mode
   if not vim.g.disable_inlay_hint then vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr }) end
@@ -40,7 +45,9 @@ local inlay_hint_setup = function(client, bufnr)
   vim.api.nvim_create_autocmd("InsertEnter", {
     desc = "Disable inlay hint on insert",
     callback = function()
-      if vim.g.disable_inlay_hint then return end
+      if vim.g.disable_inlay_hint or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "") then
+        return
+      end
       vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
     end,
     group = group,
@@ -48,7 +55,9 @@ local inlay_hint_setup = function(client, bufnr)
   vim.api.nvim_create_autocmd("InsertLeave", {
     desc = "Enable inlay hint on insert",
     callback = function()
-      if vim.g.disable_inlay_hint then return end
+      if vim.g.disable_inlay_hint or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "") then
+        return
+      end
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end,
     group = group,
