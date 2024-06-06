@@ -370,7 +370,7 @@ return {
   -- Template string for js, jsx, ts, tsx
   {
     "axelvc/template-string.nvim",
-    ft = { "html", "typescript", "javascript", "typescriptreact", "javascriptreact", "vue", "svelte", "python" },
+    event = "TextChangedI",
     opts = {
       remove_template_string = true, -- remove backticks when there are no template string
       restore_quotes = {

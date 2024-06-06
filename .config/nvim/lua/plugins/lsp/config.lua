@@ -32,20 +32,26 @@ M.toggle_auto_format = function()
 end
 
 local inlay_hint_setup = function(client, bufnr)
+  local disabled_filetypes = { "TelescopePrompt" }
   if
     not client.server_capabilities.inlayHintProvider
     or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "")
+    or vim.tbl_contains(disabled_filetypes, vim.bo.ft)
   then
     return
   end
   vim.g.disable_inlay_hint = vim.g.disable_inlay_hint or false
   local mode = vim.api.nvim_get_mode().mode
   if not vim.g.disable_inlay_hint then vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr }) end
-  local group = vim.api.nvim_create_augroup("Inlay_Hint_on_Normal", { clear = false })
+  local group = vim.api.nvim_create_augroup("inlay_hint_on_normal", { clear = false })
   vim.api.nvim_create_autocmd("InsertEnter", {
     desc = "Disable inlay hint on insert",
     callback = function()
-      if vim.g.disable_inlay_hint or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "") then
+      if
+        vim.g.disable_inlay_hint
+        or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "")
+        or vim.tbl_contains(disabled_filetypes, vim.bo.ft)
+      then
         return
       end
       vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
@@ -55,7 +61,11 @@ local inlay_hint_setup = function(client, bufnr)
   vim.api.nvim_create_autocmd("InsertLeave", {
     desc = "Enable inlay hint on insert",
     callback = function()
-      if vim.g.disable_inlay_hint or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "") then
+      if
+        vim.g.disable_inlay_hint
+        or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "")
+        or vim.tbl_contains(disabled_filetypes, vim.bo.ft)
+      then
         return
       end
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })

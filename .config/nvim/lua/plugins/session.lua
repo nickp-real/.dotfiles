@@ -3,6 +3,7 @@ return {
   {
     "coffebar/neovim-project",
     dependencies = { "Shatur/neovim-session-manager" },
+    -- event = "VeryLazy",
     lazy = false,
     keys = {
       { "<leader>sl", "<cmd>NeovimProjectLoadRecent<cr>", desc = "Load Last Project" },

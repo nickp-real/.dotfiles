@@ -28,26 +28,11 @@ return {
   {
     "brenoprata10/nvim-highlight-colors",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    config = function(_, opts)
-      require("nvim-highlight-colors").setup(opts)
-
-      local disable_filetypes = { "lazy" }
-      vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
-        desc = "Disable color highlight on filetype",
-        group = vim.api.nvim_create_augroup("Disable Color Highlight", { clear = false }),
-        callback = function()
-          local filetype = vim.bo.ft
-          if vim.tbl_contains(disable_filetypes, filetype) then
-            require("nvim-highlight-colors").turnOff()
-            return
-          end
-          require("nvim-highlight-colors").turnOn()
-        end,
-      })
-    end,
     opts = {
       render = "background",
       enable_tailwind = true,
+      exclude_filetypes = { "lazy" },
+      exclude_buftypes = { "nofile" },
     },
   },
 
@@ -112,8 +97,7 @@ return {
   {
     "barrett-ruth/import-cost.nvim",
     build = "sh install.sh pnpm",
-    -- event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "astro" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
       filetypes = {
         "javascript",

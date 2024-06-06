@@ -1,7 +1,7 @@
 return {
   {
     "rebelot/heirline.nvim",
-    event = "VeryLazy",
+    event = "UiEnter",
     keys = {
       --      { "<Tab>", ":bn<cr>", desc = "Next Buffer" },
       --      { "<S-Tab>", ":bp<cr>", desc = "Prev Buffer" },
@@ -26,11 +26,21 @@ return {
     },
     opts = function()
       local colors = require("onedarkpro.helpers").get_colors()
+      local conditions = require("heirline.conditions")
 
       return {
         statusline = require("plugins.heirline.statusline"),
+        winbar = require("plugins.heirline.winbar"),
         --  tabline = require("plugins.heirline.tabline"),
-        opts = { colors = colors },
+        opts = {
+          colors = colors,
+          disable_winbar_cb = function(args)
+            return conditions.buffer_matches({
+              buftype = { "nofile", "prompt", "help", "quickfix" },
+              filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
+            }, args.buf)
+          end,
+        },
       }
     end,
   },
