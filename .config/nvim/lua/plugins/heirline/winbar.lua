@@ -12,8 +12,10 @@ local concat_chevron = {
 local file_status = {
   file.flags,
   utils_components.space,
-  file.icon,
-  utils.clone(file.name, { hl = { fg = utils.get_highlight("Directory").fg } }),
+  utils.clone({
+    file.icon,
+    utils.clone(file.name, { hl = { fg = utils.get_highlight("Directory").fg } }),
+  }, {}),
 }
 
 return {

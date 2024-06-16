@@ -32,7 +32,7 @@ return {
       render = "background",
       enable_tailwind = true,
       exclude_filetypes = { "lazy" },
-      exclude_buftypes = { "nofile" },
+      -- exclude_buftypes = { "nofile" },
     },
   },
 

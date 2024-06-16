@@ -212,7 +212,6 @@ return {
   "b0o/SchemaStore.nvim",
 
   -- Typescript
-  { "pmizio/typescript-tools.nvim", config = true },
   { "dmmulroy/tsc.nvim", config = true },
 
   -- Java

@@ -289,7 +289,7 @@ return {
   -- Surround pair
   {
     "kylechui/nvim-surround",
-    keys = { "cs", "ds", "ys", "yS", { "S", mode = "x" }, { "gS", mode = "x" } },
+    event = "VeryLazy",
     config = true,
   },
 
