@@ -2,6 +2,7 @@ return {
   {
     "rebelot/heirline.nvim",
     event = "UiEnter",
+    dependencies = "SmiteshP/nvim-navic",
     keys = {
       --      { "<Tab>", ":bn<cr>", desc = "Next Buffer" },
       --      { "<S-Tab>", ":bp<cr>", desc = "Prev Buffer" },

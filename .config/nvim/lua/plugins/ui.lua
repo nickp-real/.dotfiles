@@ -186,18 +186,6 @@ return {
     end,
   },
 
-  -- Winbar
-  { "SmiteshP/nvim-navic", init = function() vim.g.navic_silence = true end },
-  -- {
-  --   "utilyre/barbecue.nvim",
-  --   dependencies = { "SmiteshP/nvim-navic", init = function() vim.g.navic_silence = true end },
-  --   event = "VeryLazy",
-  --   opts = {
-  --     attach_navic = false,
-  --     exclude_filetypes = { "gitcommit", "Trouble", "alpha", "FTerm" },
-  --   },
-  -- },
-
   -- indent guides
   {
     "lukas-reineke/indent-blankline.nvim",

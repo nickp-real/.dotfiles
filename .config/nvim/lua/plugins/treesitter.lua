@@ -23,7 +23,6 @@ return {
   },
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    "RRethy/nvim-treesitter-textsubjects",
     {
       "andymass/vim-matchup",
       init = function() vim.g.matchup_matchparen_offscreen = { method = "popup", border = vim.g.border } end,
@@ -72,7 +71,7 @@ return {
           ["ai"] = "@conditional.outer",
           ["ii"] = "@conditional.inner",
           ["at"] = "@comment.outer",
-          ["it"] = "@comment.inter",
+          ["it"] = "@comment.inner",
         },
       },
       swap = {
@@ -97,16 +96,19 @@ return {
           ["]F"] = "@function.outer",
           ["]C"] = "@class.outer",
           ["]A"] = "@parameter.outer",
+          ["]O"] = "@loop.*",
         },
         goto_previous_start = {
           ["[f"] = "@function.outer",
           ["[c"] = "@class.outer",
           ["[a"] = "@parameter.outer",
+          ["[o"] = "@loop.*",
         },
         goto_previous_end = {
           ["[F"] = "@function.outer",
           ["[C"] = "@class.outer",
           ["[A"] = "@parameter.outer",
+          ["[O"] = "@loop.*",
         },
         goto_next = {
           ["]i"] = "@conditional.outer",
@@ -123,15 +125,6 @@ return {
           ["<leader>df"] = "@function.outer",
           ["<leader>dF"] = "@class.outer",
         },
-      },
-    },
-    textsubjects = {
-      enable = true,
-      prev_selection = ",", -- (Optional) keymap to select the previous selection
-      keymaps = {
-        ["."] = "textsubjects-smart",
-        [";"] = "textsubjects-container-outer",
-        ["i;"] = "textsubjects-container-inner",
       },
     },
     matchup = { enable = true, enable_quotes = true },

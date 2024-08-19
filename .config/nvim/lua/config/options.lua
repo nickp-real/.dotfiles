@@ -6,7 +6,7 @@ g.mapleader = " "
 g.maplocalleader = " "
 
 -- Config
-opt.completeopt = "menu,menuone,noselect"
+opt.completeopt = { "menu", "menuone", "noinsert" }
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.mouse = "a"
 opt.scrolloff = 8
@@ -23,6 +23,7 @@ opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
 
 -- UI
+opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait1000-blinkoff1000-blinkon1000"
 opt.laststatus = 3
 opt.number = true
 opt.numberwidth = 4
@@ -49,9 +50,10 @@ opt.inccommand = "split"
 
 -- Text Thing
 opt.linebreak = true
-opt.whichwrap = opt.whichwrap:append("<,>,[,],h,l")
+opt.whichwrap:append("<,>,[,],h,l")
 opt.virtualedit = "block"
 opt.wrap = false
+opt.smoothscroll = true
 
 -- Performance
 opt.timeoutlen = 300

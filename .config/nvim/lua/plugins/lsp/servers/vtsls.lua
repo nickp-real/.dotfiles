@@ -1,5 +1,9 @@
 local M = {}
 
+local get_pkg_path = function(lsp_name, path)
+  return require("mason-registry").get_package(lsp_name):get_install_path() .. path
+end
+
 M.on_attach = function(client, bufnr)
   -- local nnoremap = require("utils.keymap_utils").nnoremap
   -- nnoremap("gd", function() vim.cmd.TSToolsGoToSourceDefinition() end)
@@ -14,16 +18,37 @@ M.filetypes = {
   "typescript",
   "typescriptreact",
   "typescript.tsx",
+  "vue",
 }
 
 M.settings = {
-  complete_function_calls = true,
   vtsls = {
     enableMoveToFileCodeAction = true,
     autoUseWorkspaceTsdk = true,
     experimental = {
       completion = {
         enableServerSideFuzzyMatch = true,
+      },
+    },
+    tsserver = {
+      globalPlugins = {
+        {
+          name = "typescript-svelte-plugin",
+          location = get_pkg_path("svelte-language-server", "/node_modules/typescript-svelte-plugin"),
+          enableForWorkspaceTypeScriptVersions = true,
+        },
+        {
+          name = "@astrojs/ts-plugin",
+          location = get_pkg_path("astro-language-server", "/node_modules/@astrojs/ts-plugin"),
+          enableForWorkspaceTypeScriptVersions = true,
+        },
+        {
+          name = "@vue/typescript-plugin",
+          location = get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
+          languages = { "vue" },
+          configNamespace = "typescript",
+          enableForWorkspaceTypeScriptVersions = true,
+        },
       },
     },
   },
@@ -39,8 +64,8 @@ M.settings = {
       variableTypes = { enabled = false },
     },
   },
+  ["js/ts"] = { implicitProjectConfig = { checkJs = true } },
 }
-
 M.settings.javascript = M.settings.typescript
 
 return M

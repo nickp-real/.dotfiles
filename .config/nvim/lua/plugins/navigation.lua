@@ -7,10 +7,23 @@ return {
     cmd = "Neotree",
     keys = { { "<C-n>", "<cmd>Neotree position=right toggle=true<cr>", desc = "Neo Tree" } },
     init = function()
-      if vim.fn.argc(-1) == 1 then
-        local stat = vim.uv.fs_stat(vim.fn.argv(0))
-        if stat and stat.type == "directory" then require("neo-tree") end
-      end
+      vim.api.nvim_create_autocmd("BufEnter", {
+        group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
+        desc = "Start Neo-tree with directory",
+        once = true,
+        callback = function()
+          if package.loaded["neo-tree"] then
+            return
+          else
+            local stats = vim.uv.fs_stat(vim.fn.argv(0))
+            if stats and stats.type == "directory" then require("neo-tree") end
+          end
+        end,
+      })
+      -- if vim.fn.argc(-1) == 1 then
+      --   local stat = vim.uv.fs_stat(vim.fn.argv(0))
+      --   if stat and stat.type == "directory" then require("neo-tree") end
+      -- end
     end,
     deactivate = function() vim.cmd.Neotree("close") end,
     config = function(_, opts)
@@ -121,7 +134,7 @@ return {
             height = 0.80,
             preview_cutoff = 120,
           },
-          file_ignore_patterns = { ".git/", "node_modules" },
+          file_ignore_patterns = { ".git/" },
           get_selection_window = function()
             local wins = vim.api.nvim_list_wins()
             table.insert(wins, 1, vim.api.nvim_get_current_win())
@@ -134,7 +147,7 @@ return {
           mappings = { i = { ["<C-u>"] = false } },
         },
         pickers = {
-          find_files = { find_command = { "fd", "--hidden", "--glob", "" } },
+          find_files = { find_command = { "rg", "--files", "--color", "never", "-g", "!.git" } },
           buffers = {
             show_all_buffers = true,
             sort_mru = true,

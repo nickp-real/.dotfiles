@@ -85,31 +85,35 @@ local inlay_hint_setup = function(client, bufnr)
 end
 
 local highlightSetup = function(client, bufnr)
-  if client.server_capabilities.documentHighlightProvider then
-    local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
+  if not client.server_capabilities.documentHighlightProvider then return end
 
-    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+  local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
 
-    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      buffer = bufnr,
-      group = group,
-      callback = vim.lsp.buf.document_highlight,
-    })
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    buffer = bufnr,
+    group = group,
+    callback = vim.lsp.buf.document_highlight,
+  })
 
-    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-      buffer = bufnr,
-      group = group,
-      callback = vim.lsp.buf.clear_references,
-    })
-  end
+  vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+    buffer = bufnr,
+    group = group,
+    callback = vim.lsp.buf.clear_references,
+  })
+
+  vim.api.nvim_create_autocmd("LspDetach", {
+    group = vim.api.nvim_create_augroup("LSPDetatch", { clear = true }),
+    callback = function(event)
+      vim.lsp.buf.clear_references()
+      vim.api.nvim_clear_autocmds({ group = group, buffer = event.buf })
+    end,
+  })
 end
 
 local mapping = function(bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local map = function(keys, func, desc) nnoremap(keys, func, { silent = true, buffer = bufnr, desc = "LSP: " .. desc }) end
-
-  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 
   map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
   map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]ifinition")
@@ -126,9 +130,9 @@ end
 M.attach = function()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("LspConfig", { clear = false }),
-    callback = function(args)
-      local bufnr = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
+    callback = function(event)
+      local bufnr = event.buf
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
       assert(client ~= nil)
 
       -- client.server_capabilities.documentFormattingProvider = false
@@ -143,11 +147,11 @@ M.attach = function()
       if server_capabilities.documentSymbolProvider then require("nvim-navic").attach(client, bufnr) end
       if server_capabilities.codeLensProvider then
         local group = vim.api.nvim_create_augroup("Codelens_refresh", { clear = false })
-        vim.lsp.codelens.refresh()
+        vim.lsp.codelens.refresh({ bufnr = bufnr })
         vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
           desc = "Refresh codelens",
           buffer = bufnr,
-          callback = vim.lsp.codelens.refresh,
+          callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end,
           group = group,
         })
       end
@@ -183,10 +187,10 @@ M.diagnostic_config = {
   virtual_text = { prefix = "", spacing = 4 },
   severity_sort = true,
   float = {
-    focusable = true,
-    style = "minimal",
+    -- focusable = true,
+    -- style = "minimal",
     border = vim.g.border,
-    source = "always",
+    source = true,
   },
 }
 
@@ -207,6 +211,7 @@ function M.setup()
 
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = vim.g.border,
+    silent = true,
   })
 end
 

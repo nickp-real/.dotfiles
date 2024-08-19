@@ -78,7 +78,7 @@ create_autocmd("FileType", {
   callback = function() vim.opt_local.spell = true end,
 })
 
-create_autocmd({ "BufWritePre" }, {
+create_autocmd("BufWritePre", {
   desc = "auto create dir when saving a file, in case some intermediate directory does not exist",
   group = create_augroup("auto_create_dir", { clear = true }),
   callback = function(event)
@@ -93,3 +93,22 @@ create_autocmd("VimResized", {
   pattern = "*",
   command = "tabdo wincmd =",
 })
+
+create_autocmd("BufWritePost", {
+  desc = "Notify when file saved",
+  callback = function(event)
+    vim.notify(
+      vim.fn.fnamemodify(event.file, ":~:.:h") .. "/" .. vim.fn.fnamemodify(event.file, ":t") .. " has been saved.",
+      vim.log.levels.INFO,
+      { title = "File saved" }
+    )
+  end,
+})
+
+-- create_autocmd("BufWinLeave", {
+--   callback = function(event)
+--     local buffers = vim.fn.getbufinfo({ bufloaded = 1, buflisted = 1 })
+--     vim.iter(buffers):each(function(a) print(a.lastused) end)
+--     -- vim.print(buffers)
+--   end,
+-- })

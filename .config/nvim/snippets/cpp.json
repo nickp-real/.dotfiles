@@ -1,0 +1,21 @@
+{
+  "Competitive Template": {
+    "body": [
+      "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "",
+      "int main (int argc, char *argv[])",
+      "{",
+      "\tios::sync_with_stdio(false);",
+      "\tcin.tie(nullptr);",
+      "\tcout.tie(nullptr);",
+      "\t",
+      "\t${0}",
+      "\t",
+      "\treturn 0;",
+      "}"
+    ],
+    "descrition": "Competitive programming starting template",
+    "prefix": "comp"
+  }
+}

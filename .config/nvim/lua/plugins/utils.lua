@@ -1,15 +1,4 @@
 return {
-  -- Smooth Scroll
-  {
-    "declancm/cinnamon.nvim",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    opts = {
-      extra_keymap = true,
-      exteded_keymap = true,
-      -- override_keymap = true,
-    },
-  },
-
   -- Code image
   {
     "narutoxy/silicon.lua",
@@ -27,9 +16,8 @@ return {
   -- Color Toggle
   {
     "brenoprata10/nvim-highlight-colors",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
-      render = "background",
       enable_tailwind = true,
       exclude_filetypes = { "lazy" },
       -- exclude_buftypes = { "nofile" },
@@ -58,21 +46,17 @@ return {
 
   -- http call
   {
-    "rest-nvim/rest.nvim",
-    dependencies = {
-      { "vhyrro/luarocks.nvim", opts = {} },
-    },
+    "mistweaverco/kulala.nvim",
     ft = "http",
     keys = {
-      { "<leader>hr", "<Plug>RestNvim", desc = "Run request under cursor" },
-      { "<leader>hp", "<Plug>RestNvimPreview", desc = "Preview request curl command" },
-      { "<leader>hl", "<Plug>RestNvimLast", desc = "Re-run last request" },
+      { "<leader>R", "", desc = "+Rest" },
+      { "<leader>Rs", "<cmd>lua require('kulala').run()<cr>", desc = "Send the request" },
+      { "<leader>Rt", "<cmd>lua require('kulala').toggle_view()<cr>", desc = "Toggle headers/body" },
+      { "<leader>Rp", "<cmd>lua require('kulala').jump_prev()<cr>", desc = "Jump to previous request" },
+      { "<leader>Rn", "<cmd>lua require('kulala').jump_next()<cr>", desc = "Jump to next request" },
     },
-    config = function() require("rest-nvim").setup() end,
+    config = true,
   },
-
-  -- Discord Presence
-  { "andweeb/presence.nvim", event = { "BufReadPre", "BufNewFile" } },
 
   -- Startuptime
   { "dstein64/vim-startuptime", cmd = "StartupTime" },
@@ -110,11 +94,7 @@ return {
     },
   },
 
-  -- Auto nohl
-  { "nvimdev/hlsearch.nvim", event = "BufReadPost", config = true },
-
   "nvim-lua/plenary.nvim",
-  "nvim-lua/popup.nvim",
 
   -- Self plugins
   -- Auto insert shebang
@@ -131,7 +111,4 @@ return {
     cmd = { "Run", "RunUpdate", "AutoRun", "AutoRunCP", "AutoRunClear" },
     config = true,
   },
-
-  -- Wakatime
-  { "wakatime/vim-wakatime", event = { "BufReadPre", "BufNewFile" } },
 }

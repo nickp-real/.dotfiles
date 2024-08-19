@@ -2,6 +2,7 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = {
       "fidget.nvim",
       {
@@ -9,10 +10,15 @@ return {
         keys = { { "<leader>n", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
         opts = { lsp = { auto_attach = true } },
       },
+      "mason.nvim",
+      "mason-lspconfig.nvim",
     },
     config = function()
       require("lspconfig.ui.windows").default_options.border = vim.g.border
       require("plugins.lsp.config").setup()
+
+      local handlers = require("plugins.lsp.servers")
+      require("mason-lspconfig").setup_handlers(handlers)
     end,
   },
 
@@ -25,7 +31,7 @@ return {
       {
         "=",
         function()
-          require("conform").format({ async = true, lsp_fallback = true, timeout_ms = 500 }, function(err)
+          require("conform").format({ async = true, lsp_format = "fallback", timeout_ms = 500 }, function(err)
             if not err then
               if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)
@@ -38,7 +44,7 @@ return {
       },
       {
         "<leader>f",
-        function() require("conform").format({ lsp_fallback = true, timeout_ms = 500 }) end,
+        function() require("conform").format() end,
         desc = "[F]ormat",
       },
       {
@@ -59,6 +65,7 @@ return {
         typescriptreact = { "prettierd" },
         vue = { "prettierd" },
         astro = { "prettierd" },
+        svelte = { "prettierd" },
         markdown = { "prettierd" },
         go = { "gofumpt", "goimports-reviser", "golines" },
         bash = { "shfmt" },
@@ -67,15 +74,18 @@ return {
         -- ["*"] = { "codespell" },
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
-        ["_"] = { "trim_whitespace", "trim_newlines" },
+        -- ["_"] = { "trim_whitespace", "trim_newlines" },
+      },
+      default_format_opts = {
+        lsp_format = "fallback",
+        timeout_ms = 500,
       },
       -- If this is set, Conform will run the formatter on save.
       -- It will pass the table to conform.format().
       -- This can also be a function that returns the table.
       format_on_save = function(bufnr)
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-        local extra_lang_args = { svelte = { lsp_fallback = "always" } }
-        return vim.tbl_deep_extend("force", { lsp_fallback = true, timeout_ms = 500 }, extra_lang_args[vim.bo.ft] or {})
+        return { lsp_format = "fallback", timeout_ms = 500 }
       end,
       formatters = {
         jq = { prepend_args = { "--sort-keys" } },
@@ -192,15 +202,7 @@ return {
     },
   },
 
-  {
-    "williamboman/mason-lspconfig.nvim",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    dependencies = { "mason.nvim", "nvim-lspconfig" },
-    config = function()
-      require("mason-lspconfig").setup()
-      require("mason-lspconfig").setup_handlers(require("plugins.lsp.servers"))
-    end,
-  },
+  { "williamboman/mason-lspconfig.nvim", config = function() end },
 
   -- Lsp Status
   {

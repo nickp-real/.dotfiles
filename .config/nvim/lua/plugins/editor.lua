@@ -74,13 +74,6 @@ return {
     end,
   },
 
-  -- Description generator
-  {
-    "danymat/neogen",
-    cmd = "Neogen",
-    opts = { snippet_engine = "luasnip" },
-  },
-
   -- Undo Tree
   {
     "mbbill/undotree",
@@ -193,17 +186,27 @@ return {
     },
   },
 
-  -- search & replace
+  -- Search & Replace
   {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
+    "MagicDuck/grug-far.nvim",
+    opts = { headerMaxWidth = 80 },
+    cmd = "GrugFar",
     keys = {
-      { "<leader>sr", function() require("spectre").open() end, desc = "Open Spectre" },
+      {
+        "<leader>sr",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.grug_far({
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Search and Replace",
+      },
     },
-    opts = { open_cmd = "noswapfile vnew" },
-  },
-  {
-    "cshuaimin/ssr.nvim",
-    keys = { { "<leader>sR", function() require("ssr").open() end, mode = { "n", "x" }, desc = "Structural Replace" } },
   },
 }

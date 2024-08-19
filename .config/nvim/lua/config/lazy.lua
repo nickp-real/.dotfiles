@@ -51,7 +51,7 @@ require("lazy").setup({
     rtp = { disabled_plugins = default_plugins },
   },
   dev = { path = "~/Coding/nvim_plugin" },
-  ui = { border = vim.g.border },
+  ui = { border = vim.g.border, title = "💤 lazy.nvim" },
 })
 
 local default_providers = {

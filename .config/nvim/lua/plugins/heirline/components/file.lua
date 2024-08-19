@@ -1,6 +1,6 @@
 local conditions = require("heirline.conditions")
-local utils = require("heirline.utils")
 local utils_component = require("plugins.heirline.components.utils")
+local utils_function = require("plugins.heirline.utils")
 
 local M = {}
 
@@ -20,8 +20,7 @@ M.name = {
 
 M.dirname = {
   init = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
-    self.dirname = vim.fn.fnamemodify(filename, ":~:.:h")
+    self.dirname = utils_function.get_dir_name()
     if self.dirname == "." then
       self.dirname = ""
       return

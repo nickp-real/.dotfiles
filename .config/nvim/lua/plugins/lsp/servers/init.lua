@@ -1,24 +1,25 @@
 local lspconfig = require("lspconfig")
 local capabilities = require("plugins.lsp.config").capabilities
-local servers = {}
 
-local servers_path = vim.fn.stdpath("config") .. "/lua/plugins/lsp/servers"
+local server_config_path = "plugins.lsp.servers."
 
--- get all the server configs
-for filename, _ in vim.fs.dir(servers_path) do
-  local name = vim.fn.fnamemodify(filename, ":r")
-  if name ~= "init" then servers[name] = require("plugins.lsp.servers." .. name) end
+local get_server_config = function(server_name)
+  local has_config, server_config = pcall(require, server_config_path .. server_name)
+
+  if not has_config then return {} end
+
+  server_config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
+  return server_config
 end
 
 local M = {
   function(server_name)
-    local server = servers[server_name] or {}
-    local is_ignore = server.is_ignore or false
+    local server_config = get_server_config(server_name)
+    local is_ignore = server_config.is_ignore or false
 
     if is_ignore then return end
 
-    server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-    lspconfig[server_name].setup(server)
+    lspconfig[server_name].setup(server_config)
   end,
 }
 
