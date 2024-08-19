@@ -3,8 +3,8 @@ max_monitor_support=2
 monitor_count=$(hyprctl monitors -j | jq '. | length')
 
 if [[ "$monitor_count" -gt "$max_monitor_support" ]]; then
-	echo "Not supported"
-	exit
+  echo "Not supported"
+  exit
 fi
 
 # function bindws() {
@@ -44,10 +44,10 @@ fi
 monitor=$(hyprctl monitors -j | jq '.[1].name' | tr -d '"')
 
 if [[ "$monitor" == "DP-2" ]]; then
-  hyprctl dispatch moveworkspacetomonitor 1 "$monitor" > /dev/null
+  hyprctl dispatch moveworkspacetomonitor 1 "$monitor" >/dev/null
 
-  hyprctl dispatch workspace 6 > /dev/null
-  hyprctl dispatch moveworkspacetomonitor 6 eDP-1 > /dev/null
+  hyprctl dispatch workspace 6 >/dev/null
+  hyprctl dispatch moveworkspacetomonitor 6 eDP-1 >/dev/null
 
-  hyprctl dispatch workspace 1 > /dev/null
+  hyprctl dispatch workspace 1 >/dev/null
 fi

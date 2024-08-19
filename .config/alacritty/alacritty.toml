@@ -17,7 +17,9 @@ TERM = "alacritty"
 [font]
 size = 10
 normal = { family = "Maple Mono NF", style = "Regular" }
+# normal = { family = "FantasqueSansM Nerd Font", style = "Regular" }
 # normal = { family = "GeistMono Nerd Font", style = "Regular" }
+# normal = { family = "MartianMono Nerd Font", style = "Regular" }
 # normal = { family = "ComicShannsMono Nerd Font", style = "Regular" }
 bold.style = "Bold"
 italic.style = "Italic"
@@ -43,5 +45,5 @@ args = ["-i", "-c", "tmux attach || tmux"]
 [window]
 dynamic_padding = true
 dynamic_title = false
-opacity = 0.85
+opacity = 0.75
 padding = { x = 10, y = 10 }
