@@ -46,6 +46,10 @@ alias -s stop-postgresql "systemctl stop postgresql.service"
 alias -s start-mysql "systemctl start mariadb.service"
 alias -s stop-mysql "systemctl stop mariadb.service"
 
+# Redis
+alias -s start-redis "systemctl start redis.service"
+alias -s stop-redis "systemctl stop redis.service"
+
 # Arch
 alias -s pac "sudo pacman -S"
 alias -s pac_autoremove "sudo pacman -Rcs $(pacman -Qdtq)"

@@ -32,6 +32,12 @@ if status is-login
   # theme
   source ~/.config/fish/themes/onedarkpro.fish
 
+  # remove greeting
+  set -gx fish_greeting
+
+  # set cursor blink
+  set -gx fish_cursor_unknown block blink
+
   # fzf
   set -gx fzf_preview_dir_cmd exa --all --color=always
   # set fzf_fd_opts --hidden --exclude=.git

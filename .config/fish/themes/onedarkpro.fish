@@ -20,25 +20,25 @@ set -l brmagenta d7a1e7
 set -l brcyan 7bc6d0
 
 # Syntax Highlighting Colors
-set -g fish_color_normal $white
-set -g fish_color_command $green
-set -g fish_color_keyword $blue
-set -g fish_color_quote $yellow
-set -g fish_color_redirection $blue
-set -g fish_color_end $blue
-set -g fish_color_error $red
-set -g fish_color_param $blue
-set -g fish_color_option $blue
-set -g fish_color_comment $comment
-set -g fish_color_selection --background=$white
-set -g fish_color_search_match --background=$brblack
-set -g fish_color_operator $green
-set -g fish_color_escape $blue
-set -g fish_color_autosuggestion $comment
+set -gx fish_color_normal $brwhite
+set -gx fish_color_command $green
+set -gx fish_color_keyword $blue
+set -gx fish_color_quote $yellow
+set -gx fish_color_redirection $brblue
+set -gx fish_color_end $blue
+set -gx fish_color_error $red
+set -gx fish_color_param $blue
+set -gx fish_color_option $blue
+set -gx fish_color_comment $comment
+set -gx fish_color_selection --background=$white
+set -gx fish_color_search_match --background=$brblack
+set -gx fish_color_operator $blue
+set -gx fish_color_escape $blue
+set -gx fish_color_autosuggestion $comment
 
 # Completion Pager Colors
-set -g fish_pager_color_progress $brwhite --background=$cyan
-set -g fish_pager_color_prefix $cyan --underline
-set -g fish_pager_color_completion $white
-set -g fish_pager_color_description $yellow
-set -g fish_pager_color_selected_background --reverse
+set -gx fish_pager_color_progress $brwhite --background=$cyan
+set -gx fish_pager_color_prefix $cyan --underline
+set -gx fish_pager_color_completion $white
+set -gx fish_pager_color_description $yellow
+set -gx fish_pager_color_selected_background --reverse
