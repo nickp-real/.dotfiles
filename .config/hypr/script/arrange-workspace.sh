@@ -44,6 +44,9 @@ fi
 monitor=$(hyprctl monitors -j | jq '.[1].name' | tr -d '"')
 
 if [[ "$monitor" == "DP-2" ]]; then
+  hyprctl keyword workspace 1,monitor:"$monitor",default:true >/dev/null
+  hyprctl keyword workspace 6,monitor:eDP-1,default:true >/dev/null
+
   hyprctl dispatch moveworkspacetomonitor 1 "$monitor" >/dev/null
 
   hyprctl dispatch workspace 6 >/dev/null

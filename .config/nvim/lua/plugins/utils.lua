@@ -61,13 +61,6 @@ return {
   -- Startuptime
   { "dstein64/vim-startuptime", cmd = "StartupTime" },
 
-  -- Better bd
-  {
-    "famiu/bufdelete.nvim",
-    cmd = "Bdelete",
-    keys = { { "<leader>q", "<cmd>Bdelete<cr>", desc = "Delete Buffer" } },
-  },
-
   -- Duck over your code!
   {
     "tamton-aquib/duck.nvim",

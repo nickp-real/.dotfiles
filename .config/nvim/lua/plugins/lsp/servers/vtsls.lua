@@ -31,6 +31,7 @@ M.settings = {
       },
     },
     tsserver = {
+      pluginPaths = { "." },
       globalPlugins = {
         {
           name = "typescript-svelte-plugin",
@@ -55,6 +56,7 @@ M.settings = {
   typescript = {
     updateImportsOnFileMove = { enabled = "always" },
     suggest = { completeFunctionCalls = true },
+    preferences = { importModuleSpecifier = "non-relative" },
     inlayHints = {
       enumMemberValues = { enabled = true },
       functionLikeReturnTypes = { enabled = false },

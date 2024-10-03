@@ -78,8 +78,6 @@ inoremap("?", "?<C-g>u")
 -- Moving text
 nnoremap("<leader>j", ":m .+1<cr>==")
 nnoremap("<leader>k", ":m .-2<cr>==")
-inoremap("<C-j>", "<Esc>:m .+1<CR>==gi")
-inoremap("<C-k>", "<Esc>:m .-2<CR>==gi")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
@@ -117,6 +115,12 @@ nnoremap(
 
 -- Clear search with <esc>
 innoremap("<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+-- Keep screen center
+nnoremap("<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+nnoremap("<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
+nnoremap("n", "nzzzv", { desc = "Go to next search and center" })
+nnoremap("N", "Nzzzv", { desc = "Go to previous search and center" })
 
 -- Coderunner
 nnoremap("<leader>r", vim.cmd.Run)

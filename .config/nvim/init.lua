@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("User", {
   group = group,
   pattern = "VeryLazy",
   callback = function()
+    -- require("utils.cmd_ui")
     require("config.mappings")
     require("config.autocmds")
     require("config.usercmds")

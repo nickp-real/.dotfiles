@@ -40,6 +40,7 @@ return {
           follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
         },
+        window = { auto_expand_width = true },
         event_handlers = {
           {
             event = "file_opened",

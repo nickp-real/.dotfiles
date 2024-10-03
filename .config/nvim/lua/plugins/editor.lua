@@ -83,7 +83,7 @@ return {
 
   {
     "chentoast/marks.nvim",
-    event = "BufReadPost",
+    event = "VeryLazy",
     opts = {
       default_mappings = true,
       signs = true,
@@ -113,17 +113,6 @@ return {
     end,
     opts = {
       use_diagnostic_signs = true,
-      modes = {
-        qflist = {
-          mode = "qflist",
-          preview = {
-            type = "split",
-            relative = "win",
-            position = "right",
-            size = 0.5,
-          },
-        },
-      },
     },
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },

@@ -94,40 +94,41 @@ return {
         snippet = {
           expand = function(args) vim.snippet.expand(args.body) end,
         },
-        completion = { completeopt = "menu,menuone,noinsert" },
+        completion = { completeopt = "menu,menuone,noinsert,noselect" },
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif vim.snippet.active({ direction = 1 }) then
-              vim.schedule(function() vim.snippet.jump(1) end)
-            elseif require("neogen").jumpable() then
-              require("neogen").jump_next()
-            elseif check_backspace() then
-              fallback()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif vim.snippet.active({ direction = -1 }) then
-              vim.schedule(function() vim.snippet.jump(-1) end)
-            elseif require("neogen").jumpable(true) then
-              require("neogen").jump_prev()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
+          ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }, { "i", "c" }),
+          -- ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }, { "i", "c" }),
+          -- ["<Tab>"] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_next_item()
+          --   elseif vim.snippet.active({ direction = 1 }) then
+          --     vim.schedule(function() vim.snippet.jump(1) end)
+          --   elseif require("neogen").jumpable() then
+          --     require("neogen").jump_next()
+          --   elseif check_backspace() then
+          --     fallback()
+          --   else
+          --     fallback()
+          --   end
+          -- end, { "i", "s" }),
+          --
+          -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_prev_item()
+          --   elseif vim.snippet.active({ direction = -1 }) then
+          --     vim.schedule(function() vim.snippet.jump(-1) end)
+          --   elseif require("neogen").jumpable(true) then
+          --     require("neogen").jump_prev()
+          --   else
+          --     fallback()
+          --   end
+          -- end, { "i", "s" }),
         }),
         view = { entries = { follow_cursor = true } },
         window = {
@@ -170,7 +171,7 @@ return {
       local cmp = require("cmp")
       -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ "/", "?" }, {
-        completion = { completeopt = "menu,menuone,noselect" },
+        completion = { completeopt = "menu,menuone,noinsert,noselect" },
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "buffer" },
@@ -179,7 +180,7 @@ return {
 
       -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(":", {
-        completion = { completeopt = "menu,menuone,noselect" },
+        completion = { completeopt = "menu,menuone,noinsert,noselect" },
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
           { name = "async_path" },

@@ -72,6 +72,8 @@ return {
           ["ii"] = "@conditional.inner",
           ["at"] = "@comment.outer",
           ["it"] = "@comment.inner",
+          ["av"] = "@assignment.outer",
+          ["iv"] = "@assignment.inner",
         },
       },
       swap = {

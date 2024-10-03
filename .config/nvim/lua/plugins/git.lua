@@ -16,6 +16,9 @@ return {
       current_line_blame = true,
     },
   },
-
   { "akinsho/git-conflict.nvim", event = { "BufReadPost", "BufNewFile", "BufWritePre" }, config = true },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh" },
+  },
 }

@@ -10,18 +10,7 @@ create_autocmd("TextYankPost", {
 local format_options = create_augroup("Format Options", { clear = true })
 create_autocmd("FileType", {
   desc = "set format options, expr",
-  callback = function()
-    vim.opt_local.formatoptions = vim.opt_local.formatoptions
-      - "a" -- Auto formatting is BAD.
-      - "t" -- Don't auto format my code. I got linters for that.
-      + "c" -- In general, I like it when comments respect textwidth
-      + "q" -- Allow formatting comments w/ gq
-      - "o" -- O and o, don't continue comments
-      + "r" -- But do continue when pressing enter.
-      + "n" -- Indent past the formatlistpat, not underneath it.
-      + "j" -- Auto-remove comments if possible.
-      - "2" -- I'm not in gradeschool anymore
-  end,
+  callback = function() vim.opt_local.formatoptions = "jcrqln" end,
   group = format_options,
 })
 
@@ -94,16 +83,16 @@ create_autocmd("VimResized", {
   command = "tabdo wincmd =",
 })
 
-create_autocmd("BufWritePost", {
-  desc = "Notify when file saved",
-  callback = function(event)
-    vim.notify(
-      vim.fn.fnamemodify(event.file, ":~:.:h") .. "/" .. vim.fn.fnamemodify(event.file, ":t") .. " has been saved.",
-      vim.log.levels.INFO,
-      { title = "File saved" }
-    )
-  end,
-})
+-- create_autocmd("BufWritePost", {
+--   desc = "Notify when file saved",
+--   callback = function(event)
+--     vim.notify(
+--       vim.fn.fnamemodify(event.file, ":~:.:h") .. "/" .. vim.fn.fnamemodify(event.file, ":t") .. " has been saved.",
+--       vim.log.levels.INFO,
+--       { title = "File saved" }
+--     )
+--   end,
+-- })
 
 -- create_autocmd("BufWinLeave", {
 --   callback = function(event)

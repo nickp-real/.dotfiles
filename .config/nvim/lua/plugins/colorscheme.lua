@@ -71,6 +71,7 @@ return {
       -- MasonNormal = { bg = "${float_bg}" },
       -- LazyNormal = { bg = "${float_bg}" },
       -- TreesitterContext = { bg = "${float_bg}" },
+      CursorHidden = { fg = "${bg}", bg = "${bg}" },
     },
     -- plugins = {},
     styles = {
