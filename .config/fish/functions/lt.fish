@@ -1,4 +1,4 @@
-function lt --wraps='ll -T -s type' --description 'alias lt ll -T -s type'
-  ll -T -s type $argv
+function lt --wraps='ll -T' --description 'alias lt ll -T'
+  ll -T $argv
         
 end

@@ -1,4 +1,4 @@
-function t --wraps='exa --tree -s type' --description 'alias t exa --tree -s type'
-  exa --tree -s type $argv
+function t --wraps='exa -T --git --icons -s type' --description 'alias t exa -T --git --icons -s type'
+  exa -T --git --icons -s type $argv
         
 end

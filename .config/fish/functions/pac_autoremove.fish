@@ -1,15 +1,20 @@
-function pac_autoremove --wraps=sudo\ pacman\ -Rcs\ aquamarine-git-debug\nasar\nautoconf-archive\naylurs-gtk-shell-debug\ncatch2\ncheck\ncloudflared-bin-debug\ndoxygen\nelectron\nelectron28\nelectron29\nextra-cmake-modules\nffnvcodec-headers\nfswatch-debug\ngo\ngtkmm3\nhelp2man\nhttpdirfs\nhttpdirfs-debug\nhyprcursor-git-debug\nhypridle-git-debug\nhyprland-git-debug\nhyprlang-git-debug\nhyprlock-git-debug\nhyprpaper-git-debug\nhyprpicker-git-debug\nhyprutils-git-debug\nhyprwayland-scanner-git-debug\nimagemagick\niniparser\nkdoctools\nki18n5\nknotifications\nknotifications5\nkwidgetsaddons\nkwidgetsaddons5\nlazydocker-bin-debug\nlib32-vulkan-icd-loader\nlibtermkey\nlua51\nntfs-3g-system-compression-debug\np7zip\npython-clickgen\npython-importlib-metadata\npython-ply\npython-poetry-dynamic-versioning\npython-pydantic\npython-pyrsistent\nrust\nsassc\nscdoc\nslack-desktop-wayland-debug\nsmartgit-debug\ntableplus-debug\nteams-debug\ntree-sitter-bash\ntree-sitter-python\nttf-jetbrains-mono\nttf-roboto\ntypescript\nvala\nvercel-debug\nvulkan-validation-layers\nwezterm-git-debug\nwlroots\nxdg-desktop-portal-hyprland-git-debug\nxorg-xinput\nxwaylandvideobridge-git-debug\nyay-debug --description alias\ pac_autoremove\ sudo\ pacman\ -Rcs\ aquamarine-git-debug\nasar\nautoconf-archive\naylurs-gtk-shell-debug\ncatch2\ncheck\ncloudflared-bin-debug\ndoxygen\nelectron\nelectron28\nelectron29\nextra-cmake-modules\nffnvcodec-headers\nfswatch-debug\ngo\ngtkmm3\nhelp2man\nhttpdirfs\nhttpdirfs-debug\nhyprcursor-git-debug\nhypridle-git-debug\nhyprland-git-debug\nhyprlang-git-debug\nhyprlock-git-debug\nhyprpaper-git-debug\nhyprpicker-git-debug\nhyprutils-git-debug\nhyprwayland-scanner-git-debug\nimagemagick\niniparser\nkdoctools\nki18n5\nknotifications\nknotifications5\nkwidgetsaddons\nkwidgetsaddons5\nlazydocker-bin-debug\nlib32-vulkan-icd-loader\nlibtermkey\nlua51\nntfs-3g-system-compression-debug\np7zip\npython-clickgen\npython-importlib-metadata\npython-ply\npython-poetry-dynamic-versioning\npython-pydantic\npython-pyrsistent\nrust\nsassc\nscdoc\nslack-desktop-wayland-debug\nsmartgit-debug\ntableplus-debug\nteams-debug\ntree-sitter-bash\ntree-sitter-python\nttf-jetbrains-mono\nttf-roboto\ntypescript\nvala\nvercel-debug\nvulkan-validation-layers\nwezterm-git-debug\nwlroots\nxdg-desktop-portal-hyprland-git-debug\nxorg-xinput\nxwaylandvideobridge-git-debug\nyay-debug
+function pac_autoremove --wraps=sudo\ pacman\ -Rcs\ aquamarine-git-debug\nasar\nautoconf-archive\naylurs-gtk-shell-debug\naylurs-gtk-shell-git-debug\nbox2d\ncatch2\ncheck\nclipboard-debug\ncloudflared-bin-debug\ndblab-debug\ndoxygen\nelectron\nelectron28\nelectron29\nelectron31\nextra-cmake-modules\nffnvcodec-headers\nfswatch-debug\ngo\ngtkmm3\nhelp2man\nhttpdirfs\nhttpdirfs-debug\nhyprcursor-git-debug\nhypridle-git-debug\nhyprland-git-debug\nhyprlang-git-debug\nhyprlock-git-debug\nhyprpaper-git-debug\nhyprpicker-git-debug\nhyprutils-git-debug\nhyprwayland-scanner-git-debug\nimagemagick\niniparser\njs115\nkdoctools\nki18n5\nknotifications\nknotifications5\nkwidgetsaddons\nkwidgetsaddons5\nlazydocker-bin-debug\nlazysql-debug\nlib32-vulkan-icd-loader\nlibtermkey\nlua51\nmbedtls2\nntfs-3g-system-compression-debug\np7zip\npython-clickgen\npython-importlib-metadata\npython-ply\npython-poetry-dynamic-versioning\npython-pydantic\npython-pyrsistent\npython-pyrsistent-debug\nrust\nsassc\nscc-debug\nscdoc\nslack-desktop-wayland-debug\nsmartgit-debug\ntableplus-debug\nteams-debug\ntree-sitter-bash\ntree-sitter-python\nttf-jetbrains-mono\nttf-roboto\ntypescript\nvala\nvesktop-debug\nvulkan-validation-layers\nwlroots\nxdg-desktop-portal-hyprland-git-debug\nxorg-xinput\nxwaylandvideobridge-git-debug\nyay-debug --wraps='sudo pacman -Rcs $(pacman -Qdtq)' --description alias\ pac_autoremove\ sudo\ pacman\ -Rcs\ aquamarine-git-debug\nasar\nautoconf-archive\naylurs-gtk-shell-debug\naylurs-gtk-shell-git-debug\nbox2d\ncatch2\ncheck\nclipboard-debug\ncloudflared-bin-debug\ndblab-debug\ndoxygen\nelectron\nelectron28\nelectron29\nelectron31\nextra-cmake-modules\nffnvcodec-headers\nfswatch-debug\ngo\ngtkmm3\nhelp2man\nhttpdirfs\nhttpdirfs-debug\nhyprcursor-git-debug\nhypridle-git-debug\nhyprland-git-debug\nhyprlang-git-debug\nhyprlock-git-debug\nhyprpaper-git-debug\nhyprpicker-git-debug\nhyprutils-git-debug\nhyprwayland-scanner-git-debug\nimagemagick\niniparser\njs115\nkdoctools\nki18n5\nknotifications\nknotifications5\nkwidgetsaddons\nkwidgetsaddons5\nlazydocker-bin-debug\nlazysql-debug\nlib32-vulkan-icd-loader\nlibtermkey\nlua51\nmbedtls2\nntfs-3g-system-compression-debug\np7zip\npython-clickgen\npython-importlib-metadata\npython-ply\npython-poetry-dynamic-versioning\npython-pydantic\npython-pyrsistent\npython-pyrsistent-debug\nrust\nsassc\nscc-debug\nscdoc\nslack-desktop-wayland-debug\nsmartgit-debug\ntableplus-debug\nteams-debug\ntree-sitter-bash\ntree-sitter-python\nttf-jetbrains-mono\nttf-roboto\ntypescript\nvala\nvesktop-debug\nvulkan-validation-layers\nwlroots\nxdg-desktop-portal-hyprland-git-debug\nxorg-xinput\nxwaylandvideobridge-git-debug\nyay-debug
   sudo pacman -Rcs aquamarine-git-debug
 asar
 autoconf-archive
 aylurs-gtk-shell-debug
+aylurs-gtk-shell-git-debug
+box2d
 catch2
 check
+clipboard-debug
 cloudflared-bin-debug
+dblab-debug
 doxygen
 electron
 electron28
 electron29
+electron31
 extra-cmake-modules
 ffnvcodec-headers
 fswatch-debug
@@ -29,6 +34,7 @@ hyprutils-git-debug
 hyprwayland-scanner-git-debug
 imagemagick
 iniparser
+js115
 kdoctools
 ki18n5
 knotifications
@@ -36,9 +42,11 @@ knotifications5
 kwidgetsaddons
 kwidgetsaddons5
 lazydocker-bin-debug
+lazysql-debug
 lib32-vulkan-icd-loader
 libtermkey
 lua51
+mbedtls2
 ntfs-3g-system-compression-debug
 p7zip
 python-clickgen
@@ -47,8 +55,10 @@ python-ply
 python-poetry-dynamic-versioning
 python-pydantic
 python-pyrsistent
+python-pyrsistent-debug
 rust
 sassc
+scc-debug
 scdoc
 slack-desktop-wayland-debug
 smartgit-debug
@@ -60,9 +70,8 @@ ttf-jetbrains-mono
 ttf-roboto
 typescript
 vala
-vercel-debug
+vesktop-debug
 vulkan-validation-layers
-wezterm-git-debug
 wlroots
 xdg-desktop-portal-hyprland-git-debug
 xorg-xinput
