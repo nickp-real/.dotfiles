@@ -14,7 +14,6 @@ return {
       "mason-lspconfig.nvim",
     },
     config = function()
-      require("lspconfig.ui.windows").default_options.border = vim.g.border
       require("plugins.lsp.config").setup()
 
       local handlers = require("plugins.lsp.servers")

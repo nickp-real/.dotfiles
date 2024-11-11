@@ -19,7 +19,7 @@ return {
   -- Auto tag
   {
     "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
+    event = { "BufReadPre", "BufNewFile" },
     config = true,
   },
 

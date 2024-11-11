@@ -1,0 +1,13 @@
+{
+  "Array range": {
+    "body": [
+      "{Array.from(Array(${1}).keys()).map((i) => (",
+      "\t<${2} key={i}>",
+      "\t\t${0}",
+      "\t</>",
+      "))}"
+    ],
+    "description": "Range of components from array",
+    "prefix": "range"
+  }
+}

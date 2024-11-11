@@ -5,10 +5,11 @@ M.settings = {
   --   ["enable-ts-plugin"] = true,
   -- },
   typescript = {
+    preferences = { importModuleSpecifier = "non-relative" },
     inlayHints = {
       enumMemberValues = { enabled = true },
       functionLikeReturnTypes = { enabled = false },
-      parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = false },
+      parameterNames = { enabled = "literals", suppressWhenArgumentMatchesName = false },
       parameterTypes = { enabled = false },
       propertyDeclarationTypes = { enabled = true },
       variableTypes = { enabled = false, suppressWhenTypeMatchesName = true },

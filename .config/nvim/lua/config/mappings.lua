@@ -66,8 +66,8 @@ nnoremap("\\", ":split<cr><C-w>w")
 nnoremap("|", ":vsplit<cr><C-w>w")
 
 -- Tab
-nnoremap("<leader>te", ":tabedit<cr>")
-nnoremap("<leader>tq", ":tabclose<cr>")
+nnoremap("<leader>te", ":tabedit<cr>", { desc = "New tab" })
+nnoremap("<leader>tq", ":tabclose<cr>", { desc = "Close tab" })
 
 -- Undo break points
 inoremap(",", ",<C-g>u")

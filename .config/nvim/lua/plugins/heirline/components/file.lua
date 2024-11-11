@@ -53,7 +53,7 @@ M.icon = {
 M.flags = {
   {
     condition = function() return vim.bo.modified end,
-    provider = " [+]",
+    provider = " ",
     hl = { fg = "green" },
   },
   {

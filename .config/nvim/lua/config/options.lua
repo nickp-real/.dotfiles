@@ -86,6 +86,9 @@ opt.fillchars = {
 -- fix markdown indent
 g.markdown_recommended_style = 0
 
+-- spell
+opt.spelllang = "en,th"
+
 -- Session
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals"
 

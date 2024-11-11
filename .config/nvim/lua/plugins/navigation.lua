@@ -39,8 +39,10 @@ return {
           bind_to_cwd = false,
           follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
         },
-        window = { auto_expand_width = true },
+        -- window = { auto_expand_width = true },
         event_handlers = {
           {
             event = "file_opened",
@@ -78,7 +80,7 @@ return {
       return {
         { "<leader>fh", builtin.help_tags, desc = "[F]ind [H]elp" },
         { "<leader>fk", builtin.keymaps, desc = "[F]ind [K]eymaps" },
-        { "<leader>ff", builtin.find_files, desc = "[F]ind [F]iles" },
+        { "<leader>ff", function() builtin.find_files({ hidden = true }) end, desc = "[F]ind [F]iles" },
         { "<leader>fs", builtin.builtin, desc = "[F]ind [S]elect Telescope" },
         { "<leader>fw", builtin.grep_string, desc = "[F]ind current [W]ord" },
         { "<leader>fg", builtin.live_grep, desc = "[F]ind by [G]rep" },
@@ -153,7 +155,8 @@ return {
             show_all_buffers = true,
             sort_mru = true,
             ignore_current_buffer = true,
-            mappings = { n = { ["dd"] = "delete_buffer" } },
+            sort_lastused = true,
+            mappings = { n = { d = "delete_buffer", q = "close" } },
           },
         },
       }

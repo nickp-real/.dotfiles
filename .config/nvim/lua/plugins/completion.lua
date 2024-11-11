@@ -1,15 +1,19 @@
 return {
   -- Completion
   {
-    "hrsh7th/nvim-cmp",
-    commit = "b356f2c",
-    pin = true,
+    -- "hrsh7th/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
+    name = "nvim-cmp",
+    dev = true,
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
+      -- "hrsh7th/cmp-nvim-lua",
+      -- "hrsh7th/cmp-nvim-lsp",
+      -- "hrsh7th/cmp-buffer",
+      { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+      { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+      { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+      "https://codeberg.org/FelipeLema/cmp-async-path",
       "mtoohey31/cmp-fish",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "tabout.nvim",
@@ -164,7 +168,9 @@ return {
   },
 
   {
-    "hrsh7th/cmp-cmdline",
+    -- "hrsh7th/cmp-cmdline",
+    "iguanacucumber/mag-cmdline",
+    name = "cmp-cmdline",
     dependencies = "nvim-cmp",
     event = "CmdlineEnter",
     config = function()
