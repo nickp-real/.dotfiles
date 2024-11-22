@@ -5,7 +5,6 @@ local space = utils.space
 -- components
 local decoration = require("plugins.heirline.components.decoration")
 local diagnostic = require("plugins.heirline.components.diagnostic")
-local git = require("plugins.heirline.components.git")
 local project = require("plugins.heirline.components.project")
 local ruler = require("plugins.heirline.components.ruler")
 local vimode = require("plugins.heirline.components.vimode")
@@ -18,7 +17,6 @@ return {
   space,
   diagnostic,
   align,
-  git,
   space,
   ruler.ruler,
 }
