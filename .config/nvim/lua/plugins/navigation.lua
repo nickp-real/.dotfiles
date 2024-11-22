@@ -157,6 +157,7 @@ return {
             ignore_current_buffer = true,
             sort_lastused = true,
             mappings = { n = { d = "delete_buffer", q = "close" } },
+            previewer = false,
           },
         },
       }

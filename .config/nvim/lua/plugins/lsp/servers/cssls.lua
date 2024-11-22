@@ -2,15 +2,16 @@ local M = {}
 
 M.settings = {
   css = {
-    lint = {
-      unknownAtRules = "ignore",
+    format = {
+      spaceAroundSelectorSeparator = true,
     },
-  },
-  scss = {
     lint = {
       unknownAtRules = "ignore",
     },
   },
 }
+
+M.settings.scss = M.settings.css
+M.settings.less = M.settings.css
 
 return M
