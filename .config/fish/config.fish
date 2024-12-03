@@ -3,6 +3,11 @@ if status is-login
   # launch Hyprland on tty
   set -l TTY1 (tty)
   [ "$TTY1" = "/dev/tty1" ] && exec Hyprland
+  # [ "$TTY1" = "/dev/tty1" ] && exec uwsm start hyprland-uwsm.desktop
+  # if [ "$TTY1" = "/dev/tty1" ]; and uwsm check may-start
+  # exec uwsm start hyprland-uwsm.desktop
+     # exec systemd-cat -t uwsm_start uwsm start default
+  # end
 end
 
 if status --is-interactive
@@ -65,4 +70,7 @@ if status --is-interactive
   starship init fish | source
 
   source /opt/asdf-vm/asdf.fish
+
+  # gcloud cli
+  bass source /etc/profile.d/google-cloud-cli.sh
 end
