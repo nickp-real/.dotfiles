@@ -1,7 +1,21 @@
+[general]
 import = [
   "/home/nickp_real/.config/alacritty/keys.toml",
   "/home/nickp_real/.config/alacritty/theme.toml",
 ]
+
+[terminal.shell]
+program = "/usr/bin/fish"
+args = ["-i", "-c", "tmux attach || tmux"]
+
+[window]
+dynamic_padding = true
+dynamic_title = false
+opacity = 0.75
+padding = { x = 10, y = 10 }
+
+[env]
+TERM = "alacritty"
 
 [cursor]
 blink_interval = 1000
@@ -10,9 +24,6 @@ blink_timeout = 0
 [cursor.style]
 blinking = "Always"
 shape = "Block"
-
-[env]
-TERM = "alacritty"
 
 [font]
 size = 10
@@ -37,13 +48,3 @@ multiplier = 8
 [selection]
 save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
-
-[shell]
-program = "/usr/bin/fish"
-args = ["-i", "-c", "tmux attach || tmux"]
-
-[window]
-dynamic_padding = true
-dynamic_title = false
-opacity = 0.75
-padding = { x = 10, y = 10 }
