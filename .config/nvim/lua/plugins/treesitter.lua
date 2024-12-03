@@ -7,20 +7,6 @@ return {
     require("nvim-treesitter.query_predicates")
   end,
   build = ":TSUpdate",
-  keys = {
-    {
-      ";",
-      mode = { "n", "x", "o" },
-      function() require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_next() end,
-      desc = "TS Repeat Last Move",
-    },
-    {
-      ",",
-      mode = { "n", "x", "o" },
-      function() require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_previous() end,
-      desc = "TS Repeat Last Move",
-    },
-  },
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     {
@@ -52,30 +38,6 @@ return {
       },
     },
     textobjects = {
-      select = {
-        enable = true,
-
-        -- Automatically jump forward to textobj, similar to targets.vim
-        lookahead = true,
-
-        keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-          ["al"] = "@loop.outer",
-          ["il"] = "@loop.inner",
-          ["aa"] = "@parameter.outer",
-          ["ia"] = "@parameter.inner",
-          ["ai"] = "@conditional.outer",
-          ["ii"] = "@conditional.inner",
-          -- ["at"] = "@comment.outer",
-          -- ["it"] = "@comment.inner",
-          ["av"] = "@assignment.outer",
-          ["iv"] = "@assignment.inner",
-        },
-      },
       swap = {
         enable = true,
         swap_next = {
@@ -83,40 +45,6 @@ return {
         },
         swap_previous = {
           ["<leader>A"] = "@parameter.inner",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          ["]f"] = "@function.outer",
-          ["]c"] = "@class.outer",
-          ["]a"] = "@parameter.outer",
-          ["]o"] = "@loop.*",
-        },
-        goto_next_end = {
-          ["]F"] = "@function.outer",
-          ["]C"] = "@class.outer",
-          ["]A"] = "@parameter.outer",
-          ["]O"] = "@loop.*",
-        },
-        goto_previous_start = {
-          ["[f"] = "@function.outer",
-          ["[c"] = "@class.outer",
-          ["[a"] = "@parameter.outer",
-          ["[o"] = "@loop.*",
-        },
-        goto_previous_end = {
-          ["[F"] = "@function.outer",
-          ["[C"] = "@class.outer",
-          ["[A"] = "@parameter.outer",
-          ["[O"] = "@loop.*",
-        },
-        goto_next = {
-          ["]i"] = "@conditional.outer",
-        },
-        goto_previous = {
-          ["[i"] = "@conditional.outer",
         },
       },
       lsp_interop = {

@@ -3,6 +3,13 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    keys = {
+      {
+        "<leader>gb",
+        function() require("gitsigns").blame_line({ full = true }) end,
+        desc = "show current line blame",
+      },
+    },
     opts = {
       signs = {
         add = { text = "▌" },
