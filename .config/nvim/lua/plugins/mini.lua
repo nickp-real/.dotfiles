@@ -9,7 +9,7 @@ local function load_on_lazy(cb)
   })
 end
 
----@alias keyMode "v"| "n" | "i" | "x"
+---@alias keyMode "v"| "n" | "i" | "x" | "c" | "o"
 
 ---@class KeySpec
 ---@field [1] string
@@ -114,27 +114,27 @@ return {
       -- mini.surround
       load_on_key({
         keys = function(opts)
-          local modes = { "v", "n" }
+          local mode = { "v", "n" }
           return {
-            { opts.mappings.add, desc = "Add surrounding in Normal and Visual modes", modes = modes },
-            { opts.mappings.delete, desc = "Delete surrounding", modes = modes },
-            { opts.mappings.find, desc = "Find surrounding (to the right)" },
-            { opts.mappings.find_left, desc = "Find surrounding (to the left)" },
-            { opts.mappings.highlight, desc = "Highlight surrounding " },
-            { opts.mappings.replace, desc = "Replace surrounding" },
-            { opts.mappings.update_n_lines, desc = "Update `n_lines`" },
+            { opts.mappings.add, desc = "Add surrounding in Normal and Visual modes", mode = mode },
+            { opts.mappings.delete, desc = "Delete surrounding", mode = mode },
+            { opts.mappings.find, desc = "Find surrounding (to the right)", mode = mode },
+            { opts.mappings.find_left, desc = "Find surrounding (to the left)", mode = mode },
+            { opts.mappings.highlight, desc = "Highlight surrounding ", mode = mode },
+            { opts.mappings.replace, desc = "Replace surrounding", mode = mode },
+            { opts.mappings.update_n_lines, desc = "Update `n_lines`", mode = mode },
           }
         end,
         module = "mini.surround",
         opts = {
           mappings = {
-            add = "gsa",
-            delete = "gsd",
-            find = "gsf",
-            find_left = "gsF",
-            highlight = "gsh",
-            replace = "gsr",
-            update_n_lines = "gsn",
+            add = "sa",
+            delete = "sd",
+            find = "sf",
+            find_left = "sF",
+            highlight = "sh",
+            replace = "sr",
+            update_n_lines = "sn",
           },
         },
       })

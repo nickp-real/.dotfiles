@@ -29,7 +29,7 @@ return {
       disable = { "python" },
     },
     incremental_selection = {
-      enable = true,
+      enable = false,
       keymaps = {
         init_selection = "<cr>",
         node_incremental = "<cr>",
