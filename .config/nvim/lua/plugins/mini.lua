@@ -13,29 +13,37 @@ end
 
 ---@class KeySpec
 ---@field [1] string
----@field [2] string | function
+---@field [2] (string | function)?
 ---@field mode (keyMode[] | keyMode)?
 ---@field desc string?
 
 ---@class LoadOnKeyArgs
 ---@field module string
----@field opts table
----@field keys KeySpec[]
+---@field opts (table | fun(): table)?
+---@field keys KeySpec[] | fun(opts: table): KeySpec[]
 
----@param t LoadOnKeyArgs
-local function load_on_key(t)
-  local keys, module, opts = t.keys, t.module, t.opts
-  local is_loaded = false
+---@param spec LoadOnKeyArgs
+local function load_on_key(spec)
+  local keys, module, opts = spec.keys, spec.module, spec.opts
+  local resolved_opts = type(opts) == "function" and opts() or opts or {} --[[@as table]]
+  local resolved_keys = type(keys) == "function" and keys(resolved_opts) or keys --[=[@as KeySpec[]]=]
 
-  for _, key_opts in ipairs(keys) do
-    local key, mode, cb, desc = key_opts[1], key_opts.mode, key_opts[2], key_opts.desc
+  for _, key_opts in ipairs(resolved_keys) do
+    local key, mode, cb, desc = key_opts[1], key_opts.mode or "n", key_opts[2], key_opts.desc
 
-    vim.keymap.set(mode or "n", key, function()
-      if not is_loaded then
-        require(module).setup(opts)
-        is_loaded = true
+    vim.keymap.set(mode, key, function()
+      if not package.loaded[module] then
+        if not cb then vim.keymap.del(mode, key) end
+        require(module).setup(resolved_opts)
       end
-      cb()
+
+      if not cb then -- plugin handle
+        local feed = vim.api.nvim_replace_termcodes("<Ignore>" .. key, true, true, true)
+        vim.api.nvim_feedkeys(feed, "i", false)
+        print("feed")
+      else
+        cb()
+      end
     end, { desc = desc })
   end
 end
@@ -69,13 +77,67 @@ return {
         })
         -- mini.pairs
         require("mini.pairs").setup({ modes = { insert = true, command = true, terminal = false } })
-
-        load_on_key({
-          keys = { { "<leader>q", function() require("mini.bufremove").delete() end, desc = "Delete Buffer" } },
-          module = "mini.bufremove",
-          opts = { silent = true },
-        })
       end)
+
+      -- mini.bufremove
+      load_on_key({
+        keys = { { "<leader>q", function() require("mini.bufremove").delete() end, desc = "Delete Buffer" } },
+        module = "mini.bufremove",
+        opts = { silent = true },
+      })
+
+      -- mini.splitjoin
+      load_on_key({
+        keys = { { "J", function() require("mini.splitjoin").toggle() end, desc = "Split Join" } },
+        module = "mini.splitjoin",
+        opts = function()
+          local gen_hook = require("mini.splitjoin").gen_hook
+          local curly = { brackets = { "%b{}" } }
+
+          -- Add trailing comma when splitting inside curly brackets
+          local add_comma_curly = gen_hook.add_trailing_separator(curly)
+
+          -- Delete trailing comma when joining inside curly brackets
+          local del_comma_curly = gen_hook.del_trailing_separator(curly)
+
+          -- Pad curly brackets with single space after join
+          local pad_curly = gen_hook.pad_brackets(curly)
+
+          return {
+            mappings = { toggle = "" },
+            split = { hooks_post = { add_comma_curly } },
+            join = { hooks_post = { del_comma_curly, pad_curly } },
+          }
+        end,
+      })
+
+      -- mini.surround
+      load_on_key({
+        keys = function(opts)
+          local modes = { "v", "n" }
+          return {
+            { opts.mappings.add, desc = "Add surrounding in Normal and Visual modes", modes = modes },
+            { opts.mappings.delete, desc = "Delete surrounding", modes = modes },
+            { opts.mappings.find, desc = "Find surrounding (to the right)" },
+            { opts.mappings.find_left, desc = "Find surrounding (to the left)" },
+            { opts.mappings.highlight, desc = "Highlight surrounding " },
+            { opts.mappings.replace, desc = "Replace surrounding" },
+            { opts.mappings.update_n_lines, desc = "Update `n_lines`" },
+          }
+        end,
+        module = "mini.surround",
+        opts = {
+          mappings = {
+            add = "gsa",
+            delete = "gsd",
+            find = "gsf",
+            find_left = "gsF",
+            highlight = "gsh",
+            replace = "gsr",
+            update_n_lines = "gsn",
+          },
+        },
+      })
     end,
   },
 }

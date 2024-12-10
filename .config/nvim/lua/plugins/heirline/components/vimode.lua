@@ -59,7 +59,7 @@ return {
       t = "t",
     },
     mode_colors = {
-      n = "red",
+      n = "blue",
       i = "green",
       v = "cyan",
       V = "cyan",
@@ -74,7 +74,7 @@ return {
       t = "red",
     },
   },
-  provider = function(self) return "%2(" .. label[self.mode_names[self.mode]] .. "%)" end,
+  provider = function(self) return "%2( " .. label[self.mode_names[self.mode]] .. " %)" end,
   -- Same goes for the highlight. Now the foreground will change according to the current mode.
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character

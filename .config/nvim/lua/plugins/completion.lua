@@ -106,7 +106,7 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }, { "i", "c" }),
+          ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
           -- ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }, { "i", "c" }),
           -- ["<Tab>"] = cmp.mapping(function(fallback)
           --   if cmp.visible() then
@@ -155,6 +155,7 @@ return {
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp_signature_help" },
+          { name = "lazydev", group_index = 0 },
           { name = "nvim_lsp" },
           { name = "snippets" },
           { name = "nvim_lua" },
@@ -193,7 +194,6 @@ return {
         }, {
           { name = "cmdline" },
         }),
-        matching = { disallow_symbol_nonprefix_matching = false },
       })
     end,
   },

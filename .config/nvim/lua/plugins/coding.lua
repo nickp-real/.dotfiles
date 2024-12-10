@@ -23,13 +23,6 @@ return {
     config = true,
   },
 
-  -- Surround pair
-  {
-    "kylechui/nvim-surround",
-    event = "VeryLazy",
-    config = true,
-  },
-
   -- Comment
   {
     "folke/ts-comments.nvim",
@@ -215,12 +208,5 @@ return {
         jsx = [["]],
       },
     },
-  },
-
-  -- Split & Join
-  {
-    "Wansmer/treesj",
-    keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Split & Join" } },
-    opts = { use_default_keymaps = false },
   },
 }

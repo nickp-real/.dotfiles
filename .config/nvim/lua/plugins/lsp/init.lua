@@ -14,10 +14,10 @@ return {
       "mason-lspconfig.nvim",
     },
     config = function()
-      require("plugins.lsp.config").setup()
-
       local handlers = require("plugins.lsp.servers")
       require("mason-lspconfig").setup_handlers(handlers)
+
+      require("plugins.lsp.config").setup()
     end,
   },
 
