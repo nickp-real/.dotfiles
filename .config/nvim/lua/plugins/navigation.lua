@@ -2,7 +2,6 @@ return {
   -- File Tree
   {
     "nvim-neo-tree/neo-tree.nvim",
-    dependencies = { "antosha417/nvim-lsp-file-operations" },
     branch = "v3.x",
     cmd = "Neotree",
     keys = { { "<C-n>", "<cmd>Neotree position=right toggle=true<cr>", desc = "Neo Tree" } },
@@ -15,7 +14,7 @@ return {
           if package.loaded["neo-tree"] then
             return
           else
-            local stats = vim.uv.fs_stat(vim.fn.argv(0))
+            local stats = vim.uv.fs_stat(vim.fn.argv(0) --[[@as string]])
             if stats and stats.type == "directory" then require("neo-tree") end
           end
         end,
@@ -26,11 +25,13 @@ return {
       -- end
     end,
     deactivate = function() vim.cmd.Neotree("close") end,
-    config = function(_, opts)
-      require("neo-tree").setup(opts)
-      require("lsp-file-operations").setup()
-    end,
     opts = function()
+      local on_move = function(data) require("snacks").rename.on_rename_file(data.source, data.destination) end
+      local resize = function(data)
+        if data.position == "left" or data.position == "right" then vim.cmd.wincmd("=") end
+      end
+
+      local events = require("neo-tree.events")
       return {
         open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy", "Outline" },
         use_popups_for_input = false,
@@ -44,25 +45,11 @@ return {
         },
         -- window = { auto_expand_width = true },
         event_handlers = {
-          {
-            event = "file_opened",
-            handler = function(file_path)
-              --auto close
-              vim.cmd.Neotree("close")
-            end,
-          },
-          {
-            event = "neo_tree_window_after_open",
-            handler = function(args)
-              if args.position == "left" or args.position == "right" then vim.cmd.wincmd("=") end
-            end,
-          },
-          {
-            event = "neo_tree_window_after_close",
-            handler = function(args)
-              if args.position == "left" or args.position == "right" then vim.cmd.wincmd("=") end
-            end,
-          },
+          { event = events.FILE_OPENED, handler = function(file_path) vim.cmd.Neotree("close") end },
+          { event = events.NEO_TREE_WINDOW_AFTER_OPEN, handler = resize },
+          { event = events.NEO_TREE_WINDOW_AFTER_CLOSE, handler = resize },
+          { event = events.FILE_MOVED, handler = on_move },
+          { event = events.FILE_RENAMED, handler = on_move },
         },
       }
     end,
@@ -160,6 +147,7 @@ return {
             previewer = false,
           },
         },
+        extensions = { fzf = {} },
       }
     end,
   },

@@ -30,8 +30,8 @@ return {
         end
 
         -- check if the current working directory should belong to dotfiles
-        local cwd = vim.loop.cwd()
-        if vim.startswith(cwd, home .. "/.config/") or cwd == home or cwd == home .. "/.local/bin" then
+        local cwd = vim.uv.cwd()
+        if vim.startswith(cwd or "", home .. "/.config/") or cwd == home or cwd == home .. "/.local/bin" then
           if vim.env.GIT_DIR == nil then
             -- export git location into ENV
             vim.env.GIT_DIR = git_dir

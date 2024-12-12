@@ -3,7 +3,8 @@ local utils = require("heirline.utils")
 
 local name = {
   init = function(self)
-    local projectName = vim.fn.fnamemodify(vim.loop.cwd(), ":t")
+    local cwd = vim.uv.cwd()
+    local projectName = cwd and vim.fn.fnamemodify(cwd, ":t") or ""
     self.projectName = projectName
     if projectName == "" then
       self.projectName = "[No Project]"
