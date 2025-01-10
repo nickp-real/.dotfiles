@@ -167,7 +167,7 @@ return {
     opts = {
       jump = { nohlsearch = true },
       modes = {
-        char = { autohide = true },
+        char = { enabled = false },
         search = { enabled = true },
       },
     },

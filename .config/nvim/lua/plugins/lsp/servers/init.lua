@@ -1,6 +1,6 @@
 local lspconfig = require("lspconfig")
-local capabilities = require("plugins.lsp.config").capabilities
-
+local default_capabilities = require("plugins.lsp.config").capabilities
+local capabilities = require("blink.cmp").get_lsp_capabilities(default_capabilities, true)
 local server_config_path = "plugins.lsp.servers."
 
 local get_server_config = function(server_name)
@@ -8,7 +8,7 @@ local get_server_config = function(server_name)
 
   if not has_config then return {} end
 
-  server_config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
+  server_config.capabilities = vim.tbl_deep_extend("force", capabilities, server_config.capabilities or {})
   return server_config
 end
 

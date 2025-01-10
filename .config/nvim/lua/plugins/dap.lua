@@ -8,6 +8,7 @@ return {
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
         keys = {
           { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = { "n", "v" } },
           { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
@@ -23,8 +24,21 @@ return {
         end,
       },
       { "theHamsta/nvim-dap-virtual-text", config = true },
-      "mxsdev/nvim-dap-vscode-js",
       { "Joakker/lua-json5", run = "./install.sh" },
+
+      -- JS debugger
+      {
+        "microsoft/vscode-js-debug",
+        version = "1.*",
+        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+      },
+      {
+        "mxsdev/nvim-dap-vscode-js",
+        opts = {
+          debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
+          adapters = { "chrome", "pwa-node", "pwa-chrome", "pwa-msedge", "pwa-extensionHost", "node-terminal", "node" },
+        },
+      },
     },
     keys = {
       {
@@ -65,21 +79,7 @@ return {
       { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle Repl" },
     },
     config = function()
-      -- debugger_path = require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-      -- .. "/js-debug/src/dapDebugServer.js",
       local dap = require("dap")
-      require("dap-vscode-js").setup({
-        debugger_path = require("mason-registry").get_package("js-debug-adapter"):get_install_path(),
-        adapters = {
-          "chrome",
-          "pwa-node",
-          "pwa-chrome",
-          "pwa-msedge",
-          "pwa-extensionHost",
-          "node-terminal",
-          "node",
-        },
-      })
 
       for _, language in ipairs(js_based_languages) do
         if not dap.configurations[language] then

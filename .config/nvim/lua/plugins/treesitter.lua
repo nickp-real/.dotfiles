@@ -13,7 +13,7 @@ return {
       "andymass/vim-matchup",
       init = function() vim.g.matchup_matchparen_offscreen = { method = "popup", border = vim.g.border } end,
     },
-    { "nvim-treesitter/nvim-treesitter-context", opts = { max_lines = 3, separator = "━" } },
+    { "nvim-treesitter/nvim-treesitter-context", opts = { max_lines = 4, trim_scope = "inner", separator = "━" } },
   },
   config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   opts = {

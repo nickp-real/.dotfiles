@@ -1,7 +1,7 @@
 local M = {}
 
 M.init_options = {
-  showSuggestionsAsSnippet = true,
+  showSuggestionsAsSnippets = true,
 }
 
 return M

@@ -57,9 +57,9 @@ return {
     cmd = "ConformInfo",
     keys = {
       {
-        "=",
+        "==",
         function()
-          require("conform").format({ async = true }, function(err)
+          require("conform").format({ async = true, quiet = true }, function(err)
             if not err then
               if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)

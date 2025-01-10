@@ -83,6 +83,29 @@ create_autocmd("VimResized", {
   command = "tabdo wincmd =",
 })
 
+-- create_autocmd({ "BufWinEnter" }, {
+--   callback = function(event)
+--     local buf = event.buf
+--     if not vim.api.nvim_get_option_value("buflisted", { buf = buf }) then return end
+--
+--     local new_buf = vim.api.nvim_create_buf(false, true)
+--     vim.api.nvim_set_option_value("number", false, { scope = "local", win = new_buf })
+--     vim.api.nvim_set_option_value("relativenumber", false, { scope = "local", win = new_buf })
+--     vim.bo[new_buf].buftype = "nofile"
+--     vim.bo[new_buf].bufhidden = "wipe"
+--     vim.bo[new_buf].buflisted = false
+--     vim.bo[new_buf].swapfile = false
+--     -- vim.bo[new_buf].modifiable = false
+--     vim.api.nvim_buf_set_lines(new_buf, 0, -1, true, { "test" })
+--
+--     vim.api.nvim_open_win(
+--       new_buf,
+--       false,
+--       { relative = "win", row = -1, col = vim.api.nvim_win_get_width(0), width = 10, height = 1 }
+--     )
+--   end,
+-- })
+
 -- create_autocmd("BufWritePost", {
 --   desc = "Notify when file saved",
 --   callback = function(event)

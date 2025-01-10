@@ -103,7 +103,7 @@ nnoremap("<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 nnoremap("<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false })
 
 -- chmod in vim
-nnoremap("<leader>x", ":!chmod +x %<cr>")
+-- nnoremap("<leader>x", ":!chmod +x %<cr>")
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua

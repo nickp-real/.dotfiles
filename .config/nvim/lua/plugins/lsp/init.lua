@@ -5,13 +5,10 @@ return {
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = {
       "fidget.nvim",
-      {
-        "SmiteshP/nvim-navbuddy",
-        keys = { { "<leader>n", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
-        opts = { lsp = { auto_attach = true } },
-      },
+      "nvim-navbuddy",
       "mason.nvim",
       "mason-lspconfig.nvim",
+      "blink.cmp",
     },
     config = function()
       local handlers = require("plugins.lsp.servers")
@@ -129,13 +126,21 @@ return {
       },
     },
   },
-
   { "williamboman/mason-lspconfig.nvim", config = function() end },
 
   -- Lsp Status
   {
     "j-hui/fidget.nvim",
     opts = { notification = { window = { winblend = 0 } } },
+  },
+
+  {
+    "SmiteshP/nvim-navbuddy",
+    keys = { { "<leader>n", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
+    opts = {
+      lsp = { auto_attach = true },
+      window = { border = vim.g.border },
+    },
   },
 
   -- Json Schema

@@ -54,32 +54,6 @@ local inlay_hint_setup = function(client, bufnr)
   end, { silent = true, buffer = bufnr, desc = "LSP: Toggle inlay [H]int" })
 end
 
-local highlightSetup = function(client, bufnr)
-  if not client.server_capabilities.documentHighlightProvider then return end
-
-  local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
-
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    buffer = bufnr,
-    group = group,
-    callback = vim.lsp.buf.document_highlight,
-  })
-
-  vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    buffer = bufnr,
-    group = group,
-    callback = vim.lsp.buf.clear_references,
-  })
-
-  vim.api.nvim_create_autocmd("LspDetach", {
-    group = vim.api.nvim_create_augroup("LSPDetatch", { clear = true }),
-    callback = function(event)
-      vim.lsp.buf.clear_references()
-      vim.api.nvim_clear_autocmds({ group = group, buffer = event.buf })
-    end,
-  })
-end
-
 local mapping = function(bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -109,10 +83,11 @@ M.on_attach = function()
       -- client.server_capabilities.documentRangeFormattingProvider = false
 
       mapping(bufnr)
-      highlightSetup(client, bufnr)
       inlay_hint_setup(client, bufnr)
 
       local server_capabilities = client.server_capabilities
+      if not server_capabilities then return end
+
       if server_capabilities.documentSymbolProvider then require("nvim-navic").attach(client, bufnr) end
       if server_capabilities.codeLensProvider then
         local group = vim.api.nvim_create_augroup("Codelens_refresh", { clear = false })
@@ -128,14 +103,13 @@ M.on_attach = function()
   })
 end
 
-M.capabilities = vim.tbl_deep_extend(
-  "force",
-  vim.lsp.protocol.make_client_capabilities(),
-  require("cmp_nvim_lsp").default_capabilities()
-)
-M.capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
+M.capabilities = {
+  textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    },
+  },
 }
 -- M.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true -- NOTE: remove when 0.10
 

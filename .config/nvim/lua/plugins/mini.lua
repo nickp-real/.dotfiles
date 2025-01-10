@@ -43,11 +43,13 @@ local function load_on_key(spec)
   local setup = function()
     if not package.loaded[module] then
       -- delete all trigger only keys before load the setup keymap from module
-      for _, key_opts in
-        ipairs(trigger_only_keys --[=[@as KeySpec[]]=])
-      do
-        local key, mode = key_opts[1], key_opts.mode or "n"
-        vim.keymap.del(mode, key)
+      if #trigger_only_keys > 0 then
+        for _, key_opts in
+          ipairs(trigger_only_keys --[=[@as KeySpec[]]=])
+        do
+          local key, mode = key_opts[1], key_opts.mode or "n"
+          vim.keymap.del(mode, key)
+        end
       end
 
       require(module).setup(opts)
@@ -78,13 +80,13 @@ local function load_on_key(spec)
   keymap_setup(trigger_only_keys, function(key)
     local feed = vim.api.nvim_replace_termcodes("<Ignore>" .. key, true, true, true)
     vim.api.nvim_feedkeys(feed, "i", false)
-    print("feed")
   end)
 end
 
 return {
   "echasnovski/mini.nvim",
   lazy = false,
+  priority = 200,
   config = function()
     load_on_lazy(function()
       -- mini.ai
@@ -160,6 +162,7 @@ return {
       end,
       module = "mini.surround",
       opts = {
+        n_lines = 500,
         mappings = {
           add = "sa",
           delete = "sd",

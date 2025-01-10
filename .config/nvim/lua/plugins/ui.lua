@@ -1,19 +1,9 @@
-local indent_highlight = {
-  "RainbowWhite",
-  "RainbowViolet",
-  "RainbowBlue",
-  "RainbowGreen",
-  "RainbowYellow",
-  "RainbowOrange",
-  "RainbowRed",
-  "RainbowCyan",
-}
-
 return {
   -- dashboard
   {
     "goolord/alpha-nvim",
     event = "VimEnter",
+    enabled = false,
     init = function()
       local disable_bufferline = vim.api.nvim_create_augroup("Disable Bufferline", { clear = true })
       vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
@@ -186,38 +176,11 @@ return {
     end,
   },
 
-  -- indent guides
   {
-    "lukas-reineke/indent-blankline.nvim",
-    dependencies = {
-      "HiPhish/rainbow-delimiters.nvim",
-      config = function(_, opts) require("rainbow-delimiters.setup").setup(opts) end,
-      opts = { highlight = indent_highlight },
-    },
+    "HiPhish/rainbow-delimiters.nvim",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    main = "ibl",
-    config = function(_, opts)
-      require("ibl").setup(opts)
-      local hooks = require("ibl.hooks")
-      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-    end,
-    opts = {
-      scope = { highlight = indent_highlight },
-      exclude = {
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-      },
-    },
+    config = function(_, opts) require("rainbow-delimiters.setup").setup(opts) end,
+    opts = { highlight = vim.g.indent_highlights },
   },
 
   -- notify
