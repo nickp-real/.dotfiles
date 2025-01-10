@@ -69,7 +69,7 @@ if status --is-interactive
   # STARSHIP INIT
   starship init fish | source
 
-  source /opt/asdf-vm/asdf.fish
+  mise activate fish | source
 
   # gcloud cli
   bass source /etc/profile.d/google-cloud-cli.sh

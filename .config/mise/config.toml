@@ -1,0 +1,14 @@
+[tools]
+bun = "latest"
+"go:github.com/air-verse/air" = "latest"
+"go:github.com/google/wire/cmd/wire" = "latest"
+"npm:@antfu/ni" = "latest"
+"npm:npkill" = "latest"
+"npm:taze" = "latest"
+"npm:vercel" = "latest"
+pnpm = "latest"
+usage = "latest"
+
+[settings]
+npm.bun = true
+experimental = true
