@@ -134,48 +134,6 @@ return {
     end,
   },
 
-  -- better ui
-  {
-    "stevearc/dressing.nvim",
-    init = function()
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
-    opts = function()
-      return {
-        input = {
-          default_prompt = "➤ ",
-          insert_only = false,
-          border = vim.g.border,
-          override = function(conf)
-            local width = conf.width
-            local title_width = string.len(conf.title)
-            conf.width = math.max(width, title_width)
-            conf.col = -1
-            conf.row = 0
-            return conf
-          end,
-        },
-        select = {
-          telescope = require("telescope.themes").get_dropdown({
-            layout_strategy = "horizontal",
-            layout_config = {
-              horizontal = { prompt_position = "top" },
-              vertical = { mirror = false },
-            },
-            previewer = false,
-          }),
-        },
-      }
-    end,
-  },
-
   {
     "HiPhish/rainbow-delimiters.nvim",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },

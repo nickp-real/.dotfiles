@@ -19,10 +19,6 @@ return {
           end
         end,
       })
-      -- if vim.fn.argc(-1) == 1 then
-      --   local stat = vim.uv.fs_stat(vim.fn.argv(0))
-      --   if stat and stat.type == "directory" then require("neo-tree") end
-      -- end
     end,
     deactivate = function() vim.cmd.Neotree("close") end,
     opts = function()
@@ -51,103 +47,6 @@ return {
           { event = events.FILE_MOVED, handler = on_move },
           { event = events.FILE_RENAMED, handler = on_move },
         },
-      }
-    end,
-  },
-
-  -- Telescope, File browser
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    },
-    cmd = "Telescope",
-    keys = function()
-      local builtin = require("telescope.builtin")
-      return {
-        { "<leader>fh", builtin.help_tags, desc = "[F]ind [H]elp" },
-        { "<leader>fk", builtin.keymaps, desc = "[F]ind [K]eymaps" },
-        { "<leader>ff", function() builtin.find_files({ hidden = true }) end, desc = "[F]ind [F]iles" },
-        { "<leader>fs", builtin.builtin, desc = "[F]ind [S]elect Telescope" },
-        { "<leader>fw", builtin.grep_string, desc = "[F]ind current [W]ord" },
-        { "<leader>fg", builtin.live_grep, desc = "[F]ind by [G]rep" },
-        { "<leader>fd", builtin.diagnostics, desc = "[F]ind [D]iagnostics" },
-        { "<leader>fr", builtin.resume, desc = "[F]ind [R]esume" },
-        { "<leader>f.", builtin.oldfiles, desc = "[F]ind Recent Files ('.' for repeat)" },
-        { "<leader><leader>", builtin.buffers, desc = "[ ] Find existing buffers" },
-        {
-          "<leader>/",
-          function()
-            builtin.current_buffer_fuzzy_find({
-              previewer = false,
-              layout_config = {
-                width = 0.87,
-                height = 0.80,
-              },
-            })
-          end,
-          desc = "[/] Fuzzily searchin current buffer",
-        },
-        {
-          "<leader>f/",
-          function() builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" }) end,
-          desc = "[F]ind [/] in Open Files",
-        },
-        { "<leader>fn", function() builtin.find_files({ cwd = vim.fn.stdpath("config") }) end },
-        desc = "[F]ind [N]eovim files",
-      }
-    end,
-    config = function(_, opts)
-      local telescope = require("telescope")
-      telescope.setup(opts)
-      telescope.load_extension("fzf")
-    end,
-    opts = function()
-      return {
-        defaults = {
-          prompt_prefix = "   ",
-          path_display = { "smart" },
-          preview = { treesitter = true },
-          color_devicons = true,
-          initial_mode = "normal",
-          selection_strategy = "reset",
-          sorting_strategy = "ascending",
-          layout_strategy = "horizontal",
-          layout_config = {
-            horizontal = {
-              prompt_position = "top",
-              preview_width = 0.6,
-              results_width = 0.4,
-            },
-            vertical = { mirror = false },
-            width = 0.87,
-            height = 0.80,
-            preview_cutoff = 120,
-          },
-          file_ignore_patterns = { ".git/" },
-          get_selection_window = function()
-            local wins = vim.api.nvim_list_wins()
-            table.insert(wins, 1, vim.api.nvim_get_current_win())
-            for _, win in ipairs(wins) do
-              local buf = vim.api.nvim_win_get_buf(win)
-              if vim.bo[buf].buftype == "" then return win end
-            end
-            return 0
-          end,
-          mappings = { i = { ["<C-u>"] = false } },
-        },
-        pickers = {
-          find_files = { find_command = { "rg", "--files", "--color", "never", "-g", "!.git" } },
-          buffers = {
-            show_all_buffers = true,
-            sort_mru = true,
-            ignore_current_buffer = true,
-            sort_lastused = true,
-            mappings = { n = { d = "delete_buffer", q = "close" } },
-            previewer = false,
-          },
-        },
-        extensions = { fzf = {} },
       }
     end,
   },

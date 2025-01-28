@@ -72,6 +72,8 @@ return {
       -- LazyNormal = { bg = "${float_bg}" },
       -- TreesitterContext = { bg = "${float_bg}" },
       CursorHidden = { fg = "${bg}", bg = "${bg}" },
+
+      Pmenu = { bg = "NONE" },
     },
     -- plugins = {},
     styles = {

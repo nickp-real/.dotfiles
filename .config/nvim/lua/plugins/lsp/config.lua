@@ -60,12 +60,16 @@ local mapping = function(bufnr)
   local map = function(keys, func, desc) nnoremap(keys, func, { silent = true, buffer = bufnr, desc = "LSP: " .. desc }) end
 
   map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]ifinition")
-  map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-  map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-  map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-  map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-  map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+  map("gd", function() require("snacks").picker.lsp_definitions() end, "[G]oto [D]ifinition")
+  map("gr", function() require("snacks").picker.lsp_references() end, "[G]oto [R]eferences")
+  map("gI", function() require("snacks").picker.lsp_implementations() end, "[G]oto [I]mplementation")
+  map("<leader>D", function() require("snacks").picker.lsp_type_definitions() end, "Type [D]efinition")
+  map("<leader>ds", function() require("snacks").picker.lsp_symbols() end, "[D]ocument [S]ymbols")
+  map(
+    "<leader>ws",
+    function() require("snacks").picker.pick("lsp_symbols", { workspace = true }) end,
+    "[W]orkspace [S]ymbols"
+  )
   map("gK", vim.lsp.buf.signature_help, "[G]oto (K hover but signature)")
   map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
   map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")

@@ -13,6 +13,7 @@ M.on_attach = function(client, bufnr) end
 
 M.settings = {
   tailwindCSS = {
+    emmetCompletions = true,
     experimental = {
       classRegex = {
         { "tw`([^`]*)", 'tw="([^"]*)', 'tw={"([^"}]*)', "tw\\.\\w+`([^`]*)", "tw\\(.*?\\)`([^`]*)" },

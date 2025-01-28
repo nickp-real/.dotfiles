@@ -14,7 +14,6 @@ return {
     quickfile = { enabled = true },
     rename = { enabled = true },
     words = { enabled = true },
-    ---@type snacks.indent.Config
     indent = {
       indent = {
         char = "▎",
@@ -45,7 +44,8 @@ return {
         return vim.g.snack_indent ~= false and vim.b[buf].snack_indent ~= false and vim.bo[buf].buftype == ""
       end,
     },
-    -- @type snacks.dashboard.Config
+    scope = { enabled = true },
+    input = { enabled = true },
     dashboard = {
       preset = {
         header = [[
@@ -82,9 +82,20 @@ return {
         { align = "center", text = { nvim_version(), hl = "footer" } },
       },
     },
-    -- input = { enabled = true },
+    picker = {
+      on_show = function() vim.cmd.stopinsert() end,
+    },
+    styles = {
+      input = {
+        relative = "cursor",
+        row = -3,
+        border = vim.g.border,
+        on_win = function() vim.schedule(vim.cmd.stopinsert) end,
+      },
+    },
   },
   keys = {
+    -- words
     {
       "]]",
       function() require("snacks").words.jump(vim.v.count1) end,
@@ -96,6 +107,48 @@ return {
       function() require("snacks").words.jump(-vim.v.count1) end,
       desc = "Prev Reference",
       mode = { "n", "t" },
+    },
+    -- picker
+    { "<leader>fh", function() require("snacks").picker.help() end, desc = "[F]ind [H]elp" },
+    { "<leader>fk", function() require("snacks").picker.keymaps() end, desc = "[F]ind [K]eymaps" },
+    {
+      "<leader>ff",
+      function() require("snacks").picker.pick("files", { hidden = true }) end,
+      desc = "[F]ind [F]iles",
+    },
+    { "<leader>fs", function() require("snacks").picker.pickers() end, desc = "[F]ind [S]elect Telescope" },
+    { "<leader>fw", function() require("snacks").picker.grep_word() end, desc = "[F]ind current [W]ord" },
+    { "<leader>fg", function() require("snacks").picker.grep() end, desc = "[F]ind by [G]rep" },
+    { "<leader>fd", function() require("snacks").picker.diagnostics() end, desc = "[F]ind [D]iagnostics" },
+    { "<leader>fr", function() require("snacks").picker.resume() end, desc = "[F]ind [R]esume" },
+    {
+      "<leader>f.",
+      function() require("snacks").picker.recent() end,
+      desc = "[F]ind Recent Files ('.' for repeat)",
+    },
+    {
+      "<leader><leader>",
+      function() require("snacks").picker.buffers() end,
+      desc = "[ ] Find existing buffers",
+    },
+    {
+      "<leader>/",
+      function() require("snacks").picker.pick("grep_buffers", { layout = { preset = "ivy", preview = false } }) end,
+      desc = "[/] Fuzzily searchin current buffer",
+    },
+    {
+      "<leader>fl",
+      function() require("snacks").picker.pick("lines", { layout = { preview = false } }) end,
+      desc = "[F]inding [L]ine",
+    },
+    {
+      "<leader>fn",
+      function()
+        require("snacks").picker.pick("files", {
+          cwd = vim.fn.stdpath("config") --[[@as string]],
+        })
+      end,
+      desc = "[F]ind [N]eovim files",
     },
   },
 }
