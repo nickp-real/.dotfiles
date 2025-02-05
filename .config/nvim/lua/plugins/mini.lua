@@ -86,7 +86,7 @@ end
 return {
   "echasnovski/mini.nvim",
   lazy = false,
-  priority = 200,
+  priority = 1200,
   config = function()
     load_on_lazy(function()
       -- mini.ai

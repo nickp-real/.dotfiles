@@ -7,7 +7,7 @@ end
 return {
   "folke/snacks.nvim",
   lazy = false,
-  priority = 200,
+  priority = 1200,
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
@@ -106,6 +106,9 @@ return {
         row = -3,
         border = vim.g.border,
         on_win = function() vim.schedule(vim.cmd.stopinsert) end,
+        keys = {
+          n_cr = { "<cr>", { "confirm" }, mode = "n" },
+        },
       },
     },
   },
@@ -131,7 +134,7 @@ return {
       function() require("snacks").picker.pick("files", { hidden = true }) end,
       desc = "[F]ind [F]iles",
     },
-    { "<leader>fs", function() require("snacks").picker.pickers() end, desc = "[F]ind [S]elect Telescope" },
+    { "<leader>fs", function() require("snacks").picker.pickers() end, desc = "[F]ind [S]elect Picker" },
     { "<leader>fw", function() require("snacks").picker.grep_word() end, desc = "[F]ind current [W]ord" },
     { "<leader>fg", function() require("snacks").picker.grep() end, desc = "[F]ind by [G]rep" },
     { "<leader>fd", function() require("snacks").picker.diagnostics() end, desc = "[F]ind [D]iagnostics" },
@@ -143,7 +146,7 @@ return {
     },
     {
       "<leader><leader>",
-      function() require("snacks").picker.buffers() end,
+      function() require("snacks").picker.pick("buffers", { current = false }) end,
       desc = "[ ] Find existing buffers",
     },
     {

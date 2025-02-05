@@ -2,7 +2,7 @@ return {
   -- Discord
   {
     "vyfor/cord.nvim",
-    build = "./build",
+    build = ":Cord update",
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },

@@ -24,26 +24,6 @@ return {
     },
   },
 
-  -- Float Terminal
-  -- TODO: change FTerm.nvim to require("lazy.util").float_term({cmd}, {opts, border = "rounded"})
-  {
-    "numToStr/FTerm.nvim",
-    keys = {
-      -- { "<C-_>", "<cmd>lua require('FTerm').toggle()<cr>", desc = "Open Float Terminal" },
-      { "<C-_>", "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>", mode = "t", desc = "Open Float Terminal" },
-    },
-    init = function()
-      vim.api.nvim_create_autocmd("TermOpen", {
-        pattern = "FTerm",
-        callback = function() vim.opt_local.spell = false end,
-      })
-    end,
-    opts = {
-      border = vim.g.border,
-      hl = "NormalFloat",
-    },
-  },
-
   -- http call
   {
     "mistweaverco/kulala.nvim",
