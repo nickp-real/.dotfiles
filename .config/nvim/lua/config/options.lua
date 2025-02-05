@@ -7,7 +7,7 @@ g.maplocalleader = " "
 
 -- Config
 opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
-opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
+opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:histogram" }
 opt.mouse = "a"
 opt.scrolloff = 8
 opt.sidescrolloff = 8

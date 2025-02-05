@@ -10,15 +10,24 @@
 	editor = nvim
   pager = delta
 
-[merge]
+[diff]
+  algorithm = histogram
+  indentHeuristic = true
   tool = nvimdiff
+
+[difftool "nvimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE -c 'wincmd w' -c 'wincmd L'
+
+[merge]
+  tool = nvimdiff4
+  autoStash = true
 
 [mergetool]
   prompt = false
   keepBackup = false
 
-[mergetool "nvimdiff"]
-  layout = "LOCAL,BASE,REMOTE / MERGED"
+[mergetool "nvimdiff4"]
+  cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
 
 [safe]
 	directory = *
@@ -65,6 +74,9 @@
 
 [init]
   defaultBranch = main
+
+[rebase]
+  autoStash = true
 
 ; [gc]
 ; 	autoDetach = false
