@@ -64,7 +64,15 @@ local mapping = function(bufnr)
   map("gr", function() require("snacks").picker.lsp_references() end, "[G]oto [R]eferences")
   map("gI", function() require("snacks").picker.lsp_implementations() end, "[G]oto [I]mplementation")
   map("<leader>D", function() require("snacks").picker.lsp_type_definitions() end, "Type [D]efinition")
-  map("<leader>ds", function() require("snacks").picker.lsp_symbols() end, "[D]ocument [S]ymbols")
+  map(
+    "<leader>ds",
+    function()
+      require("snacks").picker.lsp_symbols({
+        layout = { preset = "dropdown", preview = "main" },
+      })
+    end,
+    "[D]ocument [S]ymbols"
+  )
   map(
     "<leader>ws",
     function() require("snacks").picker.pick("lsp_symbols", { workspace = true }) end,

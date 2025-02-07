@@ -111,7 +111,7 @@ return {
         },
       })
       -- mini.pairs
-      require("mini.pairs").setup({ modes = { insert = true, command = true, terminal = false } })
+      -- require("mini.pairs").setup({ modes = { insert = true, command = true, terminal = false } })
     end)
 
     -- mini.bufremove

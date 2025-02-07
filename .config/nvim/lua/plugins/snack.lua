@@ -66,7 +66,7 @@ return {
             icon = "󰍉",
             key = "f",
             desc = "Find File",
-            action = function() require("snacks").picker.pick("files", { hidden = true }) end,
+            action = function() require("snacks").picker.files({ hidden = true }) end,
           },
           -- { icon = "", key = "n",  desc = "File Browser", action = "<cmd>Telescope <cr>" },
           {
@@ -99,6 +99,13 @@ return {
     },
     picker = {
       on_show = function() vim.cmd.stopinsert() end,
+      win = {
+        preview = {
+          wo = {
+            winbar = "",
+          },
+        },
+      },
     },
     styles = {
       input = {
@@ -131,7 +138,7 @@ return {
     { "<leader>fk", function() require("snacks").picker.keymaps() end, desc = "[F]ind [K]eymaps" },
     {
       "<leader>ff",
-      function() require("snacks").picker.pick("files", { hidden = true }) end,
+      function() require("snacks").picker.files({ hidden = true }) end,
       desc = "[F]ind [F]iles",
     },
     { "<leader>fs", function() require("snacks").picker.pickers() end, desc = "[F]ind [S]elect Picker" },
@@ -146,23 +153,23 @@ return {
     },
     {
       "<leader><leader>",
-      function() require("snacks").picker.pick("buffers", { current = false }) end,
+      function() require("snacks").picker.buffers({ current = false }) end,
       desc = "[ ] Find existing buffers",
     },
     {
       "<leader>/",
-      function() require("snacks").picker.pick("grep_buffers", { layout = { preset = "ivy", preview = false } }) end,
+      function() require("snacks").picker.grep_buffers({ layout = { preset = "ivy", preview = false } }) end,
       desc = "[/] Fuzzily searchin current buffer",
     },
     {
       "<leader>fl",
-      function() require("snacks").picker.pick("lines", { layout = { preview = false } }) end,
+      function() require("snacks").picker.lines({ layout = { preview = false } }) end,
       desc = "[F]inding [L]ine",
     },
     {
       "<leader>fn",
       function()
-        require("snacks").picker.pick("files", {
+        require("snacks").picker.files({
           cwd = vim.fn.stdpath("config") --[[@as string]],
         })
       end,
