@@ -9,6 +9,17 @@ local function load_on_lazy(cb)
   })
 end
 
+---@param cb function
+---@param pattern? string | string[]
+local function load_on_files(cb, pattern)
+  vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    desc = "Load mini plugins on files",
+    pattern = pattern,
+    group = group,
+    callback = cb,
+  })
+end
+
 ---@alias keyMode "v"| "n" | "i" | "x" | "c" | "o"
 
 ---@class KeySpec
@@ -90,6 +101,10 @@ return {
   lazy = false,
   priority = 1200,
   config = function()
+    -- mini.icons
+    require("mini.icons").setup()
+    require("mini.icons").mock_nvim_web_devicons()
+
     load_on_lazy(function()
       -- mini.ai
       local ai = require("mini.ai")
@@ -115,6 +130,11 @@ return {
       -- mini.pairs
       -- require("mini.pairs").setup({ modes = { insert = true, command = true, terminal = false } })
     end)
+
+    -- load_on_files(function()
+    --   -- mini.hipatterns
+    --   local hi = require("mini.hipatterns")
+    -- end)
 
     -- mini.bufremove
     load_on_key({

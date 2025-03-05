@@ -35,33 +35,6 @@ return {
       return {
         appearance = {
           nerd_font_variant = "mono",
-          kind_icons = {
-            Text = "󰉿",
-            Method = "m",
-            Function = "󰊕",
-            Constructor = "",
-            Field = "",
-            Variable = "󰆧",
-            Class = "󰌗",
-            Interface = "",
-            Module = "",
-            Property = "",
-            Unit = "",
-            Value = "󰎠",
-            Enum = "",
-            Keyword = "󰌋",
-            Snippet = "",
-            Color = "■",
-            File = "󰈙",
-            Reference = "",
-            Folder = "󰉋",
-            EnumMember = "",
-            Constant = "󰇽",
-            Struct = "",
-            Event = "",
-            Operator = "󰆕",
-            TypeParameter = "󰊄",
-          },
         },
         signature = {
           enabled = true,
@@ -87,6 +60,14 @@ return {
                   text = require("colorful-menu").blink_components_text,
                   highlight = require("colorful-menu").blink_components_highlight,
                 },
+                kind_icons = {
+                  ellipsis = false,
+                  text = function(ctx)
+                    local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                    vim.print(kind_icon)
+                    return kind_icon
+                  end,
+                },
               },
             },
           },
@@ -95,6 +76,13 @@ return {
             auto_show_delay_ms = 200,
             window = {
               border = vim.g.border,
+            },
+          },
+        },
+        cmdline = {
+          completion = {
+            menu = {
+              auto_show = true,
             },
           },
         },
@@ -128,8 +116,8 @@ return {
           providers = {
             -- dont show LuaLS require statements when lazydev has items
             lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
-            lsp = { fallbacks = { "snippets", "buffer" } },
-            path = { fallbacks = { "snippets", "buffer" } },
+            lsp = { fallbacks = { "buffer" } },
+            path = { fallbacks = { "buffer" } },
             buffer = { min_keyword_length = 4 },
           },
         },
