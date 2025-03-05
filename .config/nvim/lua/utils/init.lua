@@ -8,8 +8,6 @@ M.strsplit = function(inputstr)
   return t
 end
 
-M.notify = function(text, title) vim.notify(text, nil, { title = title }) end
-
 M.is_plugin_loaded = function(plugin_name)
   return vim.tbl_get(require("lazy.core.config"), "plugins", plugin_name, "_", "loaded")
 end

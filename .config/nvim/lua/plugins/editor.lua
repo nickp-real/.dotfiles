@@ -132,7 +132,7 @@ return {
             require("trouble").prev({ skip_groups = true, jump = true })
           else
             local ok, err = pcall(vim.cmd.cprev)
-            if not ok then vim.notify(err, vim.log.levels.ERROR) end
+            if not ok then require("snacks").notify.error(err) end
           end
         end,
         desc = "Previous Trouble/Quickfix Item",
@@ -144,7 +144,7 @@ return {
             require("trouble").next({ skip_groups = true, jump = true })
           else
             local ok, err = pcall(vim.cmd.cnext)
-            if not ok then vim.notify(err, vim.log.levels.ERROR) end
+            if not ok then require("snacks").notify.error(err) end
           end
         end,
         desc = "Next Trouble/Quickfix Item",
@@ -171,7 +171,6 @@ return {
       },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
-      { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
     },
   },
 

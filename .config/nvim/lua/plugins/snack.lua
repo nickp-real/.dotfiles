@@ -107,15 +107,16 @@ return {
         },
       },
     },
+    notifier = {
+      top_down = false,
+      timeout = 5000,
+    },
     styles = {
       input = {
         relative = "cursor",
         row = -3,
         border = vim.g.border,
         on_win = function() vim.schedule(vim.cmd.stopinsert) end,
-        keys = {
-          n_cr = { "<cr>", { "confirm" }, mode = "n" },
-        },
       },
     },
   },
@@ -158,7 +159,7 @@ return {
     },
     {
       "<leader>/",
-      function() require("snacks").picker.grep_buffers({ layout = { preset = "ivy", preview = false } }) end,
+      function() require("snacks").picker.grep_buffers({ layout = { preset = "ivy", preview = "main" } }) end,
       desc = "[/] Fuzzily searchin current buffer",
     },
     {
@@ -175,5 +176,9 @@ return {
       end,
       desc = "[F]ind [N]eovim files",
     },
+    { "<leader>ft", function() require("snacks").picker.pick("todo_comments") end },
+    { "<leader>n", function() require("snacks").picker.notifications() end },
+    -- notification
+    { "<leader>nd", function() require("snacks").notifier.hide() end, desc = "Dismiss All Notifications" },
   },
 }

@@ -136,7 +136,7 @@ return {
 
   {
     "SmiteshP/nvim-navbuddy",
-    keys = { { "<leader>n", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
+    keys = { { "<leader>N", "<cmd>Navbuddy<cr>", desc = "NavBuddy" } },
     opts = {
       lsp = { auto_attach = true },
       window = { border = vim.g.border },

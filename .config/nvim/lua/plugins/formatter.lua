@@ -13,6 +13,7 @@ local formatters_by_ft = {
   bash = { "shfmt" },
   sh = { "shfmt" },
   json = { "jq" },
+  fish = { "fish_indent" },
   -- Use the "*" filetype to run formatters on all filetypes.
   -- ["*"] = { "codespell" },
   -- Use the "_" filetype to run formatters on filetypes that don't
@@ -28,7 +29,7 @@ local autoformat_setup = function()
     else
       vim.g.disable_autoformat = true
     end
-    vim.notify("Disabled format on save", vim.log.levels.INFO, { title = "Format" })
+    require("snacks").notify.info("Disabled format on save", { title = "Format" })
   end, {
     desc = "Disable autoformat-on-save",
     bang = true,
@@ -36,7 +37,7 @@ local autoformat_setup = function()
   vim.api.nvim_create_user_command("FormatEnable", function()
     vim.b.disable_autoformat = false
     vim.g.disable_autoformat = false
-    vim.notify("Enabled format on save", vim.log.levels.INFO, { title = "Format" })
+    require("snacks").notify.info("Enabled format on save", { title = "Format" })
   end, {
     desc = "Re-enable autoformat-on-save",
   })
@@ -56,20 +57,6 @@ return {
     event = "BufWritePre",
     cmd = "ConformInfo",
     keys = {
-      {
-        "==",
-        function()
-          require("conform").format({ async = true, quiet = true }, function(err)
-            if not err then
-              if vim.startswith(vim.api.nvim_get_mode().mode:lower(), "v") then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "n", true)
-              end
-            end
-          end)
-        end,
-        mode = { "n", "v" },
-        desc = "Format Buffer",
-      },
       {
         "<leader>f",
         function() require("conform").format() end,
