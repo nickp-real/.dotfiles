@@ -33,7 +33,6 @@ local function navic_icons()
     local icon, _, _ = require("mini.icons").get("lsp", kind)
     table.insert(icons, icon)
   end
-  vim.print(icons)
 
   return icons
 end
