@@ -1,8 +1,48 @@
+local function navic_icons()
+  if not package.loaded["mini.icons"] then return end
+  local kinds = {
+    "File",
+    "Module",
+    "Namespace",
+    "Package",
+    "Class",
+    "Method",
+    "Property",
+    "Field",
+    "Constructor",
+    "Enum",
+    "Interface",
+    "Function",
+    "Variable",
+    "Constant",
+    "String",
+    "Number",
+    "Boolean",
+    "Array",
+    "Object",
+    "Key",
+    "Null",
+    "EnumMember",
+    "Struct",
+    "Event",
+    "Operator",
+    "TypeParameter",
+  }
+  local icons = {}
+  for _, kind in ipairs(kinds) do
+    local icon, _, _ = require("mini.icons").get("lsp", kind)
+    table.insert(icons, icon)
+  end
+  vim.print(icons)
+
+  return icons
+end
+
 return {
   {
     "rebelot/heirline.nvim",
     event = "UiEnter",
-    dependencies = "SmiteshP/nvim-navic",
+    dependencies = { { "SmiteshP/nvim-navic", opts = { lazy_update_context = true, icons = navic_icons() } } },
     keys = {
       --      { "<Tab>", ":bn<cr>", desc = "Next Buffer" },
       --      { "<S-Tab>", ":bp<cr>", desc = "Prev Buffer" },

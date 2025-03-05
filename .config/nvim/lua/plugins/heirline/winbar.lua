@@ -28,15 +28,32 @@ local file_status = utils.clone({
 
 local dir = utils.clone({
   file.dirname,
-  utils_components.chevron_right,
 }, {
   condition = function() return utils_function.get_dir_name() ~= "." end,
 })
 
+local file_name = {
+  init = function(self) self.filename = file.get_file_name() end,
+  flexible = 1,
+  {
+    provider = function(self) return self.filename end,
+  },
+  { provider = function(self) return self.filename:sub(1, 1) .. ".." end },
+}
+
+local file_data = utils.clone({
+  utils.clone(utils_components.chevron_right, {
+    condition = function() return utils_function.get_dir_name() ~= "." end,
+  }),
+  file.icon,
+  file_name,
+}, {
+  condition = function() return file.get_file_name() ~= "" end,
+})
+
 local breadcrumbs = utils.clone({
   dir,
-  file.icon,
-  file.name,
+  file_data,
   concat_chevron,
   navic,
 }, {

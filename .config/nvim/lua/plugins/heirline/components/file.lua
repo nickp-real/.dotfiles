@@ -4,11 +4,12 @@ local utils_function = require("plugins.heirline.utils")
 
 local M = {}
 
+---@param buffer? number
+---@return string
+M.get_file_name = function(buffer) return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buffer or 0), ":t") end
+
 M.name = {
-  init = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
-    self.filename = vim.fn.fnamemodify(filename, ":t")
-  end,
+  init = function(self) self.filename = M.get_file_name() end,
   provider = function(self)
     local filename = self.filename
     if filename == "" then return "[No Name]" end
@@ -28,16 +29,29 @@ M.dirname = {
 
     local entries = {}
     local path_separator = package.config:sub(1, 1)
-    local dirs = vim.split(self.dirname, path_separator, { trimempty = true })
-    for i, dir in ipairs(dirs) do
+    self.dirs = vim.split(self.dirname, path_separator, { trimempty = true })
+    for i, dir in ipairs(self.dirs) do
       table.insert(entries, dir)
-      if i ~= #dirs then table.insert(entries, utils_component.chevron_right.provider) end
+      if i ~= #self.dirs then table.insert(entries, utils_component.chevron_right.provider) end
     end
 
     self.dirname = table.concat(entries)
   end,
-  provider = function(self) return self.dirname end,
   hl = { fg = "white" },
+  flexible = 1,
+  {
+    provider = function(self) return self.dirname end,
+  },
+  {
+    provider = function(self)
+      local entries = {}
+      for i, dir in ipairs(self.dirs) do
+        table.insert(entries, dir:sub(1, 1) .. "..")
+        if i ~= #self.dirs then table.insert(entries, utils_component.chevron_right.provider) end
+      end
+      return table.concat(entries)
+    end,
+  },
 }
 
 M.icon = {
