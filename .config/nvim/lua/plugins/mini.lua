@@ -1,6 +1,6 @@
+local group = vim.api.nvim_create_augroup("Mini_AutoCmd", { clear = true })
 ---@param cb function
 local function load_on_lazy(cb)
-  local group = vim.api.nvim_create_augroup("Mini_VeryLazy", { clear = true })
   vim.api.nvim_create_autocmd("User", {
     desc = "Load mini plugins on lazy",
     pattern = "VeryLazy",
@@ -24,6 +24,7 @@ end
 
 ---@param spec LoadOnKeyArgs
 local function load_on_key(spec)
+  local is_setup = false
   local keys, module, opts = spec.keys, spec.module, spec.opts
   opts = type(opts) == "function" and opts() or opts or {} --[[@as table]]
   keys = type(keys) == "function" and keys(opts) or keys --[=[@as KeySpec[]]=]
@@ -41,19 +42,20 @@ local function load_on_key(spec)
   end
 
   local setup = function()
-    if not package.loaded[module] then
-      -- delete all trigger only keys before load the setup keymap from module
-      if #trigger_only_keys > 0 then
-        for _, key_opts in
-          ipairs(trigger_only_keys --[=[@as KeySpec[]]=])
-        do
-          local key, mode = key_opts[1], key_opts.mode or "n"
-          vim.keymap.del(mode, key)
-        end
-      end
+    if is_setup then return end
 
-      require(module).setup(opts)
+    -- delete all trigger only keys before load the setup keymap from module
+    if #trigger_only_keys > 0 then
+      for _, key_opts in
+        ipairs(trigger_only_keys --[=[@as KeySpec[]]=])
+      do
+        local key, mode = key_opts[1], key_opts.mode or "n"
+        vim.keymap.del(mode, key)
+      end
     end
+
+    require(module).setup(opts)
+    is_setup = true
   end
 
   ---@param key_specs KeySpec[]
