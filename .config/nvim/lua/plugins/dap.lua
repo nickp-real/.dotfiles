@@ -25,20 +25,6 @@ return {
       },
       { "theHamsta/nvim-dap-virtual-text", config = true },
       { "Joakker/lua-json5", run = "./install.sh" },
-
-      -- JS debugger
-      {
-        "microsoft/vscode-js-debug",
-        version = "1.*",
-        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-      },
-      {
-        "mxsdev/nvim-dap-vscode-js",
-        opts = {
-          debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
-          adapters = { "chrome", "pwa-node", "pwa-chrome", "pwa-msedge", "pwa-extensionHost", "node-terminal", "node" },
-        },
-      },
     },
     keys = {
       {
@@ -80,6 +66,35 @@ return {
     },
     config = function()
       local dap = require("dap")
+      local js_dap = require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+        .. "/js-debug/src/dapDebugServer.js"
+
+      if not dap.adapters["pwa-node"] then
+        dap.adapters["pwa-node"] = {
+          type = "server",
+          host = "localhost",
+          port = "${port}",
+          executable = {
+            command = "node",
+            args = {
+              js_dap,
+              "${port}",
+            },
+          },
+        }
+      end
+
+      if not dap.adapters["node"] then
+        dap.adapters["node"] = function(cb, config)
+          if config.type == "node" then config.type = "pwa-node" end
+          local nativeAdapter = dap.adapters["pwa-node"]
+          if type(nativeAdapter) == "function" then
+            nativeAdapter(cb, config)
+          else
+            cb(nativeAdapter)
+          end
+        end
+      end
 
       for _, language in ipairs(js_based_languages) do
         if not dap.configurations[language] then
@@ -113,14 +128,13 @@ return {
                   vim.ui.input({
                     prompt = "Enter URL: ",
                     default = "http://localhost:3000",
-                    function(url)
-                      if url == nil or url == "" then
-                        return
-                      else
-                        coroutine.resume(co, url)
-                      end
-                    end,
-                  })
+                  }, function(url)
+                    if url == nil or url == "" then
+                      return
+                    else
+                      coroutine.resume(co, url)
+                    end
+                  end)
                 end)
               end,
               webRoot = "${workspaceFolder}",
