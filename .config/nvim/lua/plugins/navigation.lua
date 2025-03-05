@@ -47,6 +47,21 @@ return {
           { event = events.FILE_MOVED, handler = on_move },
           { event = events.FILE_RENAMED, handler = on_move },
         },
+        default_component_configs = {
+          icon = {
+            provider = function(icon, node, state)
+              if node.type == "file" or node.type == "terminal" then
+                local success, mini_icons = pcall(require, "mini.icons")
+                local name = node.type == "terminal" and "terminal" or node.name
+                if success then
+                  local mini_icon, hl, _ = mini_icons.get("file", name)
+                  icon.text = mini_icon or icon.text
+                  icon.highlight = hl or icon.highlight
+                end
+              end
+            end,
+          },
+        },
       }
     end,
   },

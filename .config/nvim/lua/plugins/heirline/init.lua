@@ -1,5 +1,7 @@
 local function navic_icons()
-  if not package.loaded["mini.icons"] then return end
+  local success, mini_icons = pcall(require, "mini.icons")
+  if not success then return end
+
   local kinds = {
     "File",
     "Module",
@@ -30,7 +32,7 @@ local function navic_icons()
   }
   local icons = {}
   for _, kind in ipairs(kinds) do
-    local icon, _, _ = require("mini.icons").get("lsp", kind)
+    local icon, _, _ = mini_icons.get("lsp", kind)
     table.insert(icons, icon)
   end
 

@@ -103,7 +103,6 @@ return {
   config = function()
     -- mini.icons
     require("mini.icons").setup()
-    require("mini.icons").mock_nvim_web_devicons()
 
     load_on_lazy(function()
       -- mini.ai

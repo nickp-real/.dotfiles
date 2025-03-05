@@ -57,8 +57,7 @@ M.dirname = {
 M.icon = {
   init = function(self)
     local filename = vim.api.nvim_buf_get_name(0)
-    local extension = vim.fn.fnamemodify(filename, ":e")
-    local icon, hl, _ = require("mini.icons").get("extension", extension)
+    local icon, hl, _ = require("mini.icons").get("file", filename)
     self.icon = icon
     self.icon_color = vim.api.nvim_get_hl(0, { name = hl }).fg
   end,
