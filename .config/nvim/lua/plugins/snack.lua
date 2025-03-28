@@ -111,6 +111,12 @@ return {
       top_down = false,
       timeout = 5000,
     },
+    -- scroll = {
+    --   enabled = true,
+    --   filter = function(buf)
+    --     return vim.bo[buf].ft == "snacks_picker_preview"
+    --   end,
+    -- },
     styles = {
       input = {
         relative = "cursor",

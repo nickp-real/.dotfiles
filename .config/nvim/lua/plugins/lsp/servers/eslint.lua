@@ -14,6 +14,7 @@ end
 M.settings = {
   eslint = {
     workingDirectories = { mode = "auto" },
+    format = { enable = true },
   },
 }
 

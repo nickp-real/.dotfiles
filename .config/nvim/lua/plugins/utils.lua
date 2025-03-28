@@ -53,7 +53,7 @@ return {
   -- At import cost on your js, jsx, ts, tsx file
   {
     "barrett-ruth/import-cost.nvim",
-    build = "sh install.sh pnpm",
+    build = "sh install.sh npm",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
       filetypes = {
@@ -64,6 +64,15 @@ return {
         "svelte",
         "astro",
       },
+    },
+  },
+
+  -- hide secret
+  {
+    "https://github.com/laytan/cloak.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      cloak_telescope = false,
     },
   },
 

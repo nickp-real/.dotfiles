@@ -59,7 +59,7 @@ return {
     keys = {
       {
         "<leader>f",
-        function() require("conform").format() end,
+        function() require("conform").format({ async = true }) end,
         desc = "[F]ormat",
       },
       {
@@ -73,13 +73,16 @@ return {
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
       autoformat_setup()
     end,
+    ---@module "conform"
+    ---@type conform.setupOpts
     opts = {
       formatters_by_ft = formatters_by_ft,
       default_format_opts = {
-        lsp_format = "fallback",
+        lsp_format = "first",
         timeout_ms = 3000,
         async = false,
         quite = false,
+        filter = function(client) return client.name == "eslint" end,
       },
       -- If this is set, Conform will run the formatter on save.
       -- It will pass the table to conform.format().

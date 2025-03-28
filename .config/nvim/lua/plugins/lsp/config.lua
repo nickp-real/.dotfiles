@@ -4,7 +4,7 @@ local nnoremap = require("utils.keymap_utils").nnoremap
 local inlay_hint_setup = function(client, bufnr)
   local disabled_filetypes = { "TelescopePrompt" }
   if
-    not client.server_capabilities.inlayHintProvider
+    not client:supports_method("textDocument/inlayHint", bufnr)
     or not (vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "")
     or vim.tbl_contains(disabled_filetypes, vim.bo.ft)
   then
@@ -61,8 +61,8 @@ local mapping = function(bufnr)
 
   map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
   map("gd", function() require("snacks").picker.lsp_definitions() end, "[G]oto [D]ifinition")
-  map("gr", function() require("snacks").picker.lsp_references() end, "[G]oto [R]eferences")
-  map("gI", function() require("snacks").picker.lsp_implementations() end, "[G]oto [I]mplementation")
+  map("grr", function() require("snacks").picker.lsp_references() end, "[G]oto [R]eferences")
+  map("gri", function() require("snacks").picker.lsp_implementations() end, "[G]oto [I]mplementation")
   map("<leader>D", function() require("snacks").picker.lsp_type_definitions() end, "Type [D]efinition")
   map(
     "<leader>ds",
@@ -73,19 +73,12 @@ local mapping = function(bufnr)
     end,
     "[D]ocument [S]ymbols"
   )
-  map(
-    "<leader>ws",
-    function() require("snacks").picker.pick("lsp_symbols", { workspace = true }) end,
-    "[W]orkspace [S]ymbols"
-  )
-  map("gK", vim.lsp.buf.signature_help, "[G]oto (K hover but signature)")
-  map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-  map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  map("<leader>ws", function() require("snacks").picker.lsp_workspace_symbols() end, "[W]orkspace [S]ymbols")
 end
 
 M.on_attach = function()
   vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LspConfig", { clear = false }),
+    group = vim.api.nvim_create_augroup("lsp_config", { clear = false }),
     callback = function(event)
       local bufnr = event.buf
       local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -93,16 +86,16 @@ M.on_attach = function()
 
       -- client.server_capabilities.documentFormattingProvider = false
       -- client.server_capabilities.documentRangeFormattingProvider = false
+      vim.diagnostic.config(M.diagnostic_config, vim.lsp.diagnostic.get_namespace(client.id))
 
       mapping(bufnr)
+
       inlay_hint_setup(client, bufnr)
-
-      local server_capabilities = client.server_capabilities
-      if not server_capabilities then return end
-
-      if server_capabilities.documentSymbolProvider then require("nvim-navic").attach(client, bufnr) end
-      if server_capabilities.codeLensProvider then
-        local group = vim.api.nvim_create_augroup("Codelens_refresh", { clear = false })
+      if client:supports_method("textDocument/documentSymbol", bufnr) then
+        require("nvim-navic").attach(client, bufnr)
+      end
+      if client:supports_method("textDocument/codeLens", bufnr) then
+        local group = vim.api.nvim_create_augroup("lsp_codelens_refresh", { clear = false })
         vim.lsp.codelens.refresh({ bufnr = bufnr })
         vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
           desc = "Refresh codelens",
@@ -137,37 +130,37 @@ M.default = {
 
 M.signs = { Error = "󰅙 ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
 
+---@type vim.diagnostic.Opts
 M.diagnostic_config = {
   update_in_insert = false,
   virtual_text = { prefix = "", spacing = 4 },
   severity_sort = true,
+  signs = {
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+    },
+    text = {
+      [vim.diagnostic.severity.ERROR] = M.signs.Error,
+      [vim.diagnostic.severity.WARN] = M.signs.Warn,
+      [vim.diagnostic.severity.HINT] = M.signs.Hint,
+      [vim.diagnostic.severity.INFO] = M.signs.Info,
+    },
+  },
   float = {
-    -- focusable = true,
-    -- style = "minimal",
     border = vim.g.border,
     source = true,
   },
 }
 
-function M.setup()
-  M.on_attach()
-
-  for type, icon in pairs(M.signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
-
-  vim.diagnostic.config(M.diagnostic_config)
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = vim.g.border,
-    silent = true,
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = vim.g.border,
-    silent = true,
-  })
-end
+function M.setup() M.on_attach() end
 
 return M

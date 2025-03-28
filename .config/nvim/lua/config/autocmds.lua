@@ -7,7 +7,7 @@ create_autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank() end,
 })
 
-local format_options = create_augroup("Format Options", { clear = true })
+local format_options = create_augroup("format_options", { clear = true })
 create_autocmd("FileType", {
   desc = "set format options, expr",
   callback = function() vim.opt_local.formatoptions = "jcrqln" end,
@@ -18,7 +18,6 @@ create_autocmd("FileType", {
   desc = "use 'q' to quit from common plugins",
   pattern = {
     "help",
-    "man",
     "lspinfo",
     "qf",
     "notify",

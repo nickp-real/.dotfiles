@@ -85,10 +85,6 @@ vnoremap("K", ":m '<-2<CR>gv=gv")
 nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Newline without exit normal
-nnoremap("go", "<cmd>call append(line('.'), repeat([''], v:count1))<cr>")
-nnoremap("gO", "<cmd>call append(line('.')-1, repeat([''], v:count1))<cr>")
-
 -- Select All Text
 nnoremap("<leader>sa", ":keepjumps normal! ggVG<cr>")
 
@@ -131,9 +127,9 @@ nnoremap("<leader>R", vim.cmd.RunUpdate)
 
 -- LSP
 local function diagnostic_goto(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  local go = vim.diagnostic.jump
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() go({ severity = severity, float = false }) end
+  return function() go({ count = next == true and 1 or -1, severity = severity, float = false }) end
 end
 nnoremap("]e", diagnostic_goto(true, "ERROR"), { desc = "Go to next [E]rror message" })
 nnoremap("[e", diagnostic_goto(false, "ERROR"), { desc = "Go to previous [E]rror message" })

@@ -156,7 +156,7 @@ return {
           weekdays,
           months,
         },
-        vue = vim.tbl_flatten(dials_js, dials_hex),
+        vue = vim.iter({ dials_js, dials_hex }):flatten():totable(),
         typescript = dials_js,
         css = dials_hex,
         markdown = { augend.misc.alias.markdown_header },

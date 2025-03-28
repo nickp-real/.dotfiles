@@ -1,8 +1,8 @@
 vim.loader.enable()
 
+require("config.styles")
 require("config.options")
 require("config.filetypes")
-require("config.styles")
 require("config.lazy")
 
 local group = vim.api.nvim_create_augroup("startup_lazy_load", { clear = true })

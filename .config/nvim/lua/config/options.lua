@@ -6,7 +6,7 @@ g.mapleader = " "
 g.maplocalleader = " "
 
 -- Config
-opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
+opt.completeopt = { "menuone", "noinsert", "noselect" }
 opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:histogram" }
 opt.mouse = "a"
 opt.scrolloff = 8
@@ -33,6 +33,7 @@ opt.ruler = false
 opt.showmode = false
 opt.signcolumn = "yes"
 opt.winminwidth = 10
+opt.winborder = g.border
 
 -- Indenting
 opt.breakindent = true
