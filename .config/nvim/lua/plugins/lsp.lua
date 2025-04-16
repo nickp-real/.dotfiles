@@ -2,19 +2,9 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    dependencies = {
-      "fidget.nvim",
-      "nvim-navbuddy",
-      "mason.nvim",
-      "mason-lspconfig.nvim",
-      "blink.cmp",
-    },
-    config = function()
-      local handlers = require("plugins.lsp.servers")
-      require("mason-lspconfig").setup_handlers(handlers)
-
-      require("plugins.lsp.config").setup()
+    init = function()
+      local config_path = require("lazy.core.config").options.root .. "/nvim-lspconfig"
+      vim.opt.runtimepath:append(config_path)
     end,
   },
 
@@ -126,11 +116,12 @@ return {
       },
     },
   },
-  { "williamboman/mason-lspconfig.nvim", config = function() end },
+  { "williamboman/mason-lspconfig.nvim", dependencies = "mason.nvim", config = function() end },
 
   -- Lsp Status
   {
     "j-hui/fidget.nvim",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = { notification = { window = { winblend = 0 } } },
   },
 

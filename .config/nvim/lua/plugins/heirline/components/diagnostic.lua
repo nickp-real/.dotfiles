@@ -1,5 +1,5 @@
 local conditions = require("heirline.conditions")
-local icon = require("plugins.lsp.config").signs
+local icon = vim.g.signs
 
 local diagnostic = {
   condition = conditions.has_diagnostics,

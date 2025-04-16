@@ -12,3 +12,5 @@ vim.g.indent_highlights = {
   "RainbowRed",
   "RainbowCyan",
 }
+
+vim.g.signs = { Error = "󰅙 ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }

@@ -1,4 +1,3 @@
-local M = {}
 local nnoremap = require("utils.keymap_utils").nnoremap
 
 local inlay_hint_setup = function(client, bufnr)
@@ -76,7 +75,7 @@ local mapping = function(bufnr)
   map("<leader>ws", function() require("snacks").picker.lsp_workspace_symbols() end, "[W]orkspace [S]ymbols")
 end
 
-M.on_attach = function()
+local on_attach = function()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp_config", { clear = false }),
     callback = function(event)
@@ -86,7 +85,6 @@ M.on_attach = function()
 
       -- client.server_capabilities.documentFormattingProvider = false
       -- client.server_capabilities.documentRangeFormattingProvider = false
-      vim.diagnostic.config(M.diagnostic_config, vim.lsp.diagnostic.get_namespace(client.id))
 
       mapping(bufnr)
 
@@ -108,7 +106,7 @@ M.on_attach = function()
   })
 end
 
-M.capabilities = {
+local default_capabilities = {
   textDocument = {
     foldingRange = {
       dynamicRegistration = false,
@@ -117,31 +115,22 @@ M.capabilities = {
   },
 }
 -- M.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true -- NOTE: remove when 0.10
+local capabilities = require("blink.cmp").get_lsp_capabilities(default_capabilities, true)
 
-M.flags = {
-  allow_incremental_sync = true,
-  debounce_text_changes = 150,
-}
-
-M.default = {
-  capabilities = M.capabilities,
-  flags = M.flags,
-}
-
-M.signs = { Error = "󰅙 ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
+local signs = vim.g.signs
 
 ---@type vim.diagnostic.Opts
-M.diagnostic_config = {
+local diagnostic_config = {
   update_in_insert = false,
   virtual_text = { prefix = "", spacing = 4 },
   severity_sort = true,
   signs = {
-    linehl = {
-      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-      [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-    },
+    -- linehl = {
+    --   [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+    --   [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+    --   [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+    --   [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+    -- },
     numhl = {
       [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
       [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
@@ -149,10 +138,10 @@ M.diagnostic_config = {
       [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
     },
     text = {
-      [vim.diagnostic.severity.ERROR] = M.signs.Error,
-      [vim.diagnostic.severity.WARN] = M.signs.Warn,
-      [vim.diagnostic.severity.HINT] = M.signs.Hint,
-      [vim.diagnostic.severity.INFO] = M.signs.Info,
+      [vim.diagnostic.severity.ERROR] = signs.Error,
+      [vim.diagnostic.severity.WARN] = signs.Warn,
+      [vim.diagnostic.severity.HINT] = signs.Hint,
+      [vim.diagnostic.severity.INFO] = signs.Info,
     },
   },
   float = {
@@ -161,6 +150,14 @@ M.diagnostic_config = {
   },
 }
 
-function M.setup() M.on_attach() end
+local setup = function()
+  on_attach()
+  vim.diagnostic.config(diagnostic_config)
+  vim.lsp.config("*", {
+    capabilities = capabilities,
+  })
+  local servers = require("mason-lspconfig").get_installed_servers()
+  vim.lsp.enable(servers)
+end
 
-return M
+setup()
