@@ -11,16 +11,6 @@ M.on_attach = function(client, bufnr)
   require("tsc")
 end
 
-M.filetypes = {
-  "javascript",
-  "javascriptreact",
-  "javascript.jsx",
-  "typescript",
-  "typescriptreact",
-  "typescript.tsx",
-  "vue",
-}
-
 M.settings = {
   vtsls = {
     enableMoveToFileCodeAction = true,

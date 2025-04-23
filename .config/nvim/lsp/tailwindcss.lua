@@ -1,13 +1,4 @@
--- local root_pattern = require("lspconfig.util").root_pattern
-
 local M = {}
-
--- M.init_options = {
---   userLanguages = {
---     eelixir = "html-eex",
---     eruby = "erb",
---   },
--- }
 
 M.on_attach = function(client, bufnr) end
 
@@ -16,7 +7,13 @@ M.settings = {
     emmetCompletions = true,
     experimental = {
       classRegex = {
-        { "tw`([^`]*)", 'tw="([^"]*)', 'tw={"([^"}]*)', "tw\\.\\w+`([^`]*)", "tw\\(.*?\\)`([^`]*)" },
+        {
+          "tw`([^`]*)",
+          'tw="([^"]*)',
+          'tw={"([^"}]*)',
+          "tw\\.\\w+`([^`]*)",
+          "tw\\(.*?\\)`([^`]*)",
+        },
         { "clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
         { "classnames\\(([^)]*)\\)", "'([^']*)'" },
         { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
@@ -26,15 +23,5 @@ M.settings = {
     },
   },
 }
-
--- M.root_dir = {
---   "tailwind.config.js",
---   "tailwind.config.ts",
---   "tailwind.config.cjs",
---   "./config/tailwind.config.js",
---   "tailwind.config.mjs",
--- }
-
--- M.root_dir = root_pattern(table.unpack(M.root_dir))
 
 return M
