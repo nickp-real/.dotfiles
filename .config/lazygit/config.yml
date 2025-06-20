@@ -33,3 +33,9 @@ git:
   paging:
     colorArg: always
     pager: delta --dark --syntax-theme=TwoDark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+customCommands:
+  - key: c
+    context: files
+    command: better-commits
+    description: "Commit using better-commits"
+    output: terminal
