@@ -36,7 +36,7 @@
     "add_exclamation_to_title": true
   },
   "cache_last_value": true,
-  "check_status": true,
+  "check_status": false,
   "check_ticket": {
     "add_to_title": true,
     "append_hashtag": false,
@@ -64,7 +64,7 @@
   "commit_scope": {
     "custom_scope": true,
     "enable": true,
-    "initial_value": "nvim",
+    "initial_value": "custom",
     "max_items": 20,
     "options": [
       {
@@ -178,4 +178,3 @@
   "worktree_post_commands": [],
   "worktree_pre_commands": []
 }
-
