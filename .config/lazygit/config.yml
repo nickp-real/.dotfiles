@@ -36,6 +36,6 @@ git:
 customCommands:
   - key: c
     context: files
-    command: better-commits
-    description: "Commit using better-commits"
+    command: cz commit
+    description: "Commit using commitizen"
     output: terminal
