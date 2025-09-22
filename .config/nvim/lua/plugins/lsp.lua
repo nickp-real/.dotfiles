@@ -4,7 +4,7 @@ return {
     "neovim/nvim-lspconfig",
     init = function()
       local config_path = require("lazy.core.config").options.root .. "/nvim-lspconfig"
-      vim.opt.runtimepath:append(config_path)
+      vim.opt.runtimepath:prepend(config_path)
     end,
   },
 
@@ -96,7 +96,7 @@ return {
 
   -- Mason
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     build = ":MasonUpdate",
     cmd = {
       "Mason",
@@ -105,6 +105,7 @@ return {
       "MasonUninstallAll",
       "MasonLog",
     },
+    ---@class MasonSettings
     opts = {
       ui = {
         border = vim.g.border,
@@ -116,12 +117,17 @@ return {
       },
     },
   },
-  { "williamboman/mason-lspconfig.nvim", dependencies = "mason.nvim", config = function() end },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    dependencies = { "nvim-lspconfig", "mason.nvim", "fidget.nvim" },
+    init = function() require("config.lsp") end,
+    opts = {},
+  },
 
   -- Lsp Status
   {
     "j-hui/fidget.nvim",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = { notification = { window = { winblend = 0 } } },
   },
 
@@ -134,15 +140,28 @@ return {
     },
   },
 
+  -- {
+  --   "oribarilan/lensline.nvim",
+  --   -- tag = "1.0.0", -- or: branch = 'release/1.x' for latest non-breaking updates
+  --   event = "LspAttach",
+  --   config = true,
+  -- },
+
   -- Json Schema
   "b0o/SchemaStore.nvim",
 
   -- Typescript
-  { "dmmulroy/tsc.nvim", config = true },
+  { "dmmulroy/tsc.nvim", ft = { "typescript", "typescriptreact" }, config = true },
+  { "dmmulroy/ts-error-translator.nvim", ft = { "typescript", "typescriptreact" }, config = true },
 
   -- Java
   { "mfussenegger/nvim-jdtls", ft = "java" },
 
   -- Go
-  { "olexsmir/gopher.nvim", ft = "go", build = ":GoInstallDeps", config = true },
+  {
+    "olexsmir/gopher.nvim",
+    ft = "go",
+    build = ":GoInstallDeps",
+    config = true,
+  },
 }

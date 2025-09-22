@@ -4,7 +4,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     cmd = "Neotree",
-    keys = { { "<C-n>", "<cmd>Neotree position=right toggle=true<cr>", desc = "Neo Tree" } },
+    keys = { { "<C-n>", "<cmd>Neotree reveal position=right toggle=true<cr>", desc = "Neo Tree" } },
     init = function()
       vim.api.nvim_create_autocmd("BufEnter", {
         group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
@@ -28,18 +28,20 @@ return {
       end
 
       local events = require("neo-tree.events")
+      ---@module "neo-tree"
+      ---@type neotree.Config?
       return {
         open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy", "Outline" },
         use_popups_for_input = false,
         filesystem = {
           hijack_netrw_behavior = "open_current",
-          bind_to_cwd = false,
-          follow_current_file = { enabled = true },
+          bind_to_cwd = true,
+          follow_current_file = { enabled = false },
           use_libuv_file_watcher = true,
           hide_dotfiles = false,
           hide_gitignored = false,
         },
-        -- window = { auto_expand_width = true },
+        window = { auto_expand_width = true },
         event_handlers = {
           { event = events.FILE_OPENED, handler = function(file_path) vim.cmd.Neotree("close") end },
           { event = events.NEO_TREE_WINDOW_AFTER_OPEN, handler = resize },
@@ -61,6 +63,11 @@ return {
               end
             end,
           },
+          file_size = { enabled = false },
+          type = { enabled = false },
+          created = { enabled = false },
+          last_modified = { enabled = false },
+          modified = { enabled = false },
         },
       }
     end,
@@ -73,10 +80,25 @@ return {
     keys = {
       -- { "f", "F", "t", "T", ";", "," },
       { "<cr>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function() require("flash").treesitter() end,
+        desc = "Flash Treesitter",
+      },
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      {
+        "R",
+        mode = { "o", "x" },
+        function() require("flash").treesitter_search() end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function() require("flash").toggle() end,
+        desc = "Toggle Flash Search",
+      },
     },
     opts = {
       jump = { nohlsearch = true },

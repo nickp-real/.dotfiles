@@ -166,7 +166,7 @@ return {
     {
       "<leader>/",
       function() require("snacks").picker.grep_buffers({ layout = { preset = "ivy", preview = "main" } }) end,
-      desc = "[/] Fuzzily searchin current buffer",
+      desc = "[/] Fuzzily search in current buffer",
     },
     {
       "<leader>fl",
@@ -186,5 +186,12 @@ return {
     { "<leader>n", function() require("snacks").picker.notifications() end },
     -- notification
     { "<leader>nd", function() require("snacks").notifier.hide() end, desc = "Dismiss All Notifications" },
+    -- git
+    { "<leader>gl", function() require("snacks").picker.git_log() end, desc = "Git Log" },
+    { "<leader>gL", function() require("snacks").picker.git_log_line() end, desc = "Git Log Line" },
+    { "<leader>gf", function() require("snacks").picker.git_log_file() end, desc = "Git Log File" },
+    { "<leader>gs", function() require("snacks").picker.git_status() end, desc = "Git Status" },
+    { "<leader>gS", function() require("snacks").picker.git_stash() end, desc = "Git Stash" },
+    { "<leader>gd", function() require("snacks").picker.git_diff() end, desc = "Git Diff (Hunks)" },
   },
 }

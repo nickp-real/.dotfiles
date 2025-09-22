@@ -1,77 +1,21 @@
 return {
   -- Fold
   {
-    "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
+    "chrisgrieser/nvim-origami",
     event = "VeryLazy",
     init = function()
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
     end,
-    keys = {
-      { "zR", function() require("ufo").openAllFolds() end, desc = "Open All Folds" },
-      { "zM", function() require("ufo").closeAllFolds() end, desc = "Close All Folds" },
-    },
-    opts = function()
-      local ufo = require("ufo")
-      local promise = require("promise")
-
-      local handler = function(virtText, lnum, endLnum, width, truncate)
-        local newVirtText = {}
-        local suffix = (" 󰁂 %d "):format(endLnum - lnum)
-        local sufWidth = vim.fn.strdisplaywidth(suffix)
-        local targetWidth = width - sufWidth
-        local curWidth = 0
-        for _, chunk in ipairs(virtText) do
-          local chunkText = chunk[1]
-          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-          if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-          else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            local hlGroup = chunk[2]
-            table.insert(newVirtText, { chunkText, hlGroup })
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-            end
-            break
-          end
-          curWidth = curWidth + chunkWidth
-        end
-        table.insert(newVirtText, { suffix, "MoreMsg" })
-        return newVirtText
-      end
-
-      local ftMap = {
-        -- vim = 'indent',
-        python = { "indent" },
-        -- git = ''
-      }
-
-      local function customizeSelector(bufnr)
-        local function handleFallbackException(err, providerName)
-          if type(err) == "string" and err:match("UfoFallbackException") then
-            return ufo.getFolds(bufnr, providerName)
-          else
-            return promise.reject(err)
-          end
-        end
-
-        return ufo
-          .getFolds(bufnr, "lsp")
-          :catch(function(err) return handleFallbackException(err, "treesitter") end)
-          :catch(function(err) return handleFallbackException(err, "indent") end)
-      end
-      return {
-        provider_selector = function(bufnr, filetype, buftype) return ftMap[filetype] or customizeSelector end,
-        -- provider_selector = function(bufnr, filetype, buftype)
-        --   return { "treesitter", "indent" }
-        -- end,
-        fold_virt_text_handler = handler,
-      }
-    end,
+    ---@module 'origami'
+    ---@type Origami.config
+    opts = {
+      foldtext = {
+        lineCount = {
+          template = "    󰘕 %d",
+        },
+      },
+    }, -- needed even when using default config
   },
 
   -- Undo Tree
@@ -171,6 +115,26 @@ return {
       },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
+    },
+  },
+
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    opts = {
+      preset = "simple",
+      options = {
+        show_source = {
+          enabled = true,
+          if_many = false,
+        },
+        multilines = true,
+        use_icons_from_diagnostic = true,
+        show_all_diags_on_cursorline = true,
+      },
+      signs = {
+        diag = "",
+      },
     },
   },
 

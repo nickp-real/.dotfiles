@@ -1,15 +1,14 @@
 local M = {}
 
-local get_pkg_path = function(lsp_name, path)
-  return require("mason-registry").get_package(lsp_name):get_install_path() .. path
-end
+local get_pkg_path = function(lsp_name, path) return vim.fn.stdpath("data") .. "/mason/packages/" .. lsp_name .. path end
 
-M.on_attach = function(client, bufnr)
-  -- local nnoremap = require("utils.keymap_utils").nnoremap
-  -- nnoremap("gd", function() vim.cmd.TSToolsGoToSourceDefinition() end)
-
-  require("tsc")
-end
+-- M.on_attach = function(client, bufnr)
+--   -- local nnoremap = require("utils.keymap_utils").nnoremap
+--   -- nnoremap("gd", function() vim.cmd.TSToolsGoToSourceDefinition() end)
+--
+--   require("tsc")
+--   require("ts-error-translator")
+-- end
 
 M.settings = {
   vtsls = {

@@ -75,37 +75,6 @@ local mapping = function(bufnr)
   map("<leader>ws", function() require("snacks").picker.lsp_workspace_symbols() end, "[W]orkspace [S]ymbols")
 end
 
-local on_attach = function()
-  vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("lsp_config", { clear = false }),
-    callback = function(event)
-      local bufnr = event.buf
-      local client = vim.lsp.get_client_by_id(event.data.client_id)
-      assert(client ~= nil)
-
-      -- client.server_capabilities.documentFormattingProvider = false
-      -- client.server_capabilities.documentRangeFormattingProvider = false
-
-      mapping(bufnr)
-
-      inlay_hint_setup(client, bufnr)
-      if client:supports_method("textDocument/documentSymbol", bufnr) then
-        require("nvim-navic").attach(client, bufnr)
-      end
-      if client:supports_method("textDocument/codeLens", bufnr) then
-        local group = vim.api.nvim_create_augroup("lsp_codelens_refresh", { clear = false })
-        vim.lsp.codelens.refresh({ bufnr = bufnr })
-        vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-          desc = "Refresh codelens",
-          buffer = bufnr,
-          callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end,
-          group = group,
-        })
-      end
-    end,
-  })
-end
-
 local default_capabilities = {
   textDocument = {
     foldingRange = {
@@ -122,7 +91,7 @@ local signs = vim.g.signs
 ---@type vim.diagnostic.Opts
 local diagnostic_config = {
   update_in_insert = false,
-  virtual_text = { prefix = "", spacing = 4 },
+  virtual_text = false, -- use tiny inline plugin
   severity_sort = true,
   signs = {
     -- linehl = {
@@ -150,14 +119,34 @@ local diagnostic_config = {
   },
 }
 
-local setup = function()
-  on_attach()
-  vim.diagnostic.config(diagnostic_config)
-  vim.lsp.config("*", {
-    capabilities = capabilities,
-  })
-  local servers = require("mason-lspconfig").get_installed_servers()
-  vim.lsp.enable(servers)
-end
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp_config", { clear = false }),
+  callback = function(event)
+    local bufnr = event.buf
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    assert(client ~= nil)
 
-setup()
+    -- client.server_capabilities.documentFormattingProvider = false
+    -- client.server_capabilities.documentRangeFormattingProvider = false
+
+    mapping(bufnr)
+
+    inlay_hint_setup(client, bufnr)
+    if client:supports_method("textDocument/documentSymbol", bufnr) then require("nvim-navic").attach(client, bufnr) end
+    if client:supports_method("textDocument/codeLens", bufnr) then
+      local group = vim.api.nvim_create_augroup("lsp_codelens_refresh", { clear = false })
+      vim.lsp.codelens.refresh({ bufnr = bufnr })
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        desc = "Refresh codelens",
+        buffer = bufnr,
+        callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end,
+        group = group,
+      })
+    end
+  end,
+})
+
+vim.diagnostic.config(diagnostic_config)
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})

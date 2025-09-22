@@ -1,0 +1,5 @@
+-- local M = {}
+--
+-- M.cmd = { "qmlls6", "-E" }
+--
+-- return M

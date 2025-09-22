@@ -4,7 +4,6 @@ require("config.styles")
 require("config.options")
 require("config.filetypes")
 require("config.lazy")
-require("config.lsp")
 
 local group = vim.api.nvim_create_augroup("startup_lazy_load", { clear = true })
 vim.api.nvim_create_autocmd("User", {
