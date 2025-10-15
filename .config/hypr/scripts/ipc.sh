@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-handle() {
+function handle() {
   case $1 in
-  monitoradded*) ~/.config/hypr/scripts/arrange-monitors.sh && ~/.config/hypr/scripts/arrange-workspaces.sh ;;
+  monitoradded*) ~/.config/hypr/scripts/monitor.sh ;;
   esac
 }
 
