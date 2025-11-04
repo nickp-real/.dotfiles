@@ -16,20 +16,6 @@ return {
     },
   },
 
-  -- Auto tag
-  {
-    "windwp/nvim-ts-autotag",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
-  },
-
-  -- Comment
-  {
-    "folke/ts-comments.nvim",
-    event = "VeryLazy",
-    opts = { lang = { prisma = "// %s" } },
-  },
-
   -- Toggle between word
   {
     "monaqa/dial.nvim",

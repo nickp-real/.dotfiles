@@ -7,7 +7,7 @@ function M.setup()
   -- To run file run :Run or just press <F5>
   function RunCode()
     if cmd.run_command_table[vim.bo.filetype] then
-      require("FTerm").run(vim.fn.expandcmd(cmd.run_command_table[vim.bo.ft]))
+      require("lazy.util").float_term(vim.fn.expandcmd(cmd.run_command_table[vim.bo.ft]))
     else
       print("\nFileType not supported\n")
     end
@@ -19,9 +19,7 @@ function M.setup()
   function UpdateCommandTable(filetype)
     local command
 
-    if filetype == nil then
-      filetype = vim.bo.filetype
-    end
+    if filetype == nil then filetype = vim.bo.filetype end
 
     filetype = utils.strsplit(filetype)[1]
 

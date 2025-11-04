@@ -57,9 +57,7 @@ local breadcrumbs = utils.clone({
   concat_chevron,
   navic,
 }, {
-  condition = function()
-    return not conditions.buffer_matches({ filetype = { "gitcommit", "Trouble", "alpha", "FTerm" } })
-  end,
+  condition = function() return not conditions.buffer_matches({ filetype = { "gitcommit", "Trouble", "alpha" } }) end,
 })
 
 return {

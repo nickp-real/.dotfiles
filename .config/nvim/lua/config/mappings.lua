@@ -16,7 +16,6 @@ nnoremap("i", function()
   local current_line = vim.api.nvim_get_current_line()
   return current_line:match("^%s*$")
       and string.match(current_line, "%g") == nil
-      and vim.bo.filetype ~= "FTerm"
       and vim.bo.filetype ~= "TelescopePrompt"
       and "cc"
     or "i"

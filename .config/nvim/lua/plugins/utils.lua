@@ -50,23 +50,6 @@ return {
     },
   },
 
-  -- At import cost on your js, jsx, ts, tsx file
-  {
-    "barrett-ruth/import-cost.nvim",
-    build = "sh install.sh npm",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    opts = {
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "svelte",
-        "astro",
-      },
-    },
-  },
-
   -- hide secret
   {
     "https://github.com/laytan/cloak.nvim",
@@ -89,7 +72,6 @@ return {
   -- Code Runner
   {
     dir = "~/.config/nvim/lua/utils/coderunner.nvim",
-    dependencies = { "FTerm.nvim" },
     cmd = { "Run", "RunUpdate", "AutoRun", "AutoRunCP", "AutoRunClear" },
     config = true,
   },

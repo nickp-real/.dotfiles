@@ -62,7 +62,7 @@ local mapping = function(bufnr)
   map("gd", function() require("snacks").picker.lsp_definitions() end, "[G]oto [D]ifinition")
   map("grr", function() require("snacks").picker.lsp_references() end, "[G]oto [R]eferences")
   map("gri", function() require("snacks").picker.lsp_implementations() end, "[G]oto [I]mplementation")
-  map("<leader>D", function() require("snacks").picker.lsp_type_definitions() end, "Type [D]efinition")
+  map("grt", function() require("snacks").picker.lsp_type_definitions() end, "Type [D]efinition")
   map(
     "<leader>ds",
     function()

@@ -10,5 +10,13 @@ local M = {}
 --   --   group = utils.format_group(bufnr),
 --   -- })
 -- end
+M.settings = {
+  autoFixOnSave = true,
+  workingDirectories = { mode = "auto" },
+  codeActionOnSave = {
+    enable = true,
+    mode = "all",
+  },
+}
 
 return M
