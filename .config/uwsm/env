@@ -1,0 +1,32 @@
+export XDG_CURRENT_DESKTOP=Hyprland
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=Hyprland
+
+export GDK_BACKEND='wayland,x11'
+export QT_QPA_PLATFORM='wayland;xcb'
+export QT_QPA_PLATFORMTHEME=hyprqt6engine
+export QT_WAYLAND_DISABLE_WINDOWDECORATION'1
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+export XCURSOR_THEME='Bibata-Modern-Ice'
+export XCURSOR_SIZE=24
+
+export LIBVA_DRIVER_NAME=nvidia
+export GBM_BACKEND='nvidia-drm'
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __GL_VRR_ALLOWED=1
+
+export WLR_DRM_NO_ATOMIC=1
+export _JAVA_AWT_WM_NONREPARENTING=1
+export SDL_VIDEODRIVER='wayland,x11'
+export CLUTTER_BACKEND='wayland'
+
+export MOZ_DISABLE_RDD_SANDBOX=1
+export MOZ_ENABLE_WAYLAND=1
+export NVD_BACKEND='direct'
+
+export ELECTRON_OZONE_PLATFORM_HINT='auto'
+
+export GRIMBLAST_EDITOR='swappy -f'
+
+export APP2UNIT_SLICES='a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice'
