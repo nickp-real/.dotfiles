@@ -10,8 +10,8 @@ create_autocmd("TextYankPost", {
 local format_options = create_augroup("format_options", { clear = true })
 create_autocmd("FileType", {
   desc = "set format options, expr",
-  callback = function() vim.opt_local.formatoptions = "jcrqln" end,
   group = format_options,
+  callback = function() vim.opt_local.formatoptions = "jcrqln" end,
 })
 
 create_autocmd("FileType", {
@@ -34,7 +34,10 @@ create_autocmd("BufReadPost", {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+      vim.schedule(function() vim.cmd("normal! zz") end)
+    end
   end,
 })
 
@@ -78,8 +81,14 @@ create_autocmd("BufWritePre", {
 
 create_autocmd("VimResized", {
   desc = "auto resize splited windows",
-  pattern = "*",
   command = "tabdo wincmd =",
+})
+
+create_autocmd("FocusGained", {
+  desc = "check if need to reload the file when it changed",
+  callback = function(event)
+    if vim.bo[event.buf].buftype ~= "nofile" then vim.cmd.checktime() end
+  end,
 })
 
 -- create_autocmd({ "BufWinEnter" }, {

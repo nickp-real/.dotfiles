@@ -21,7 +21,7 @@ end
 return {
   {
     "saghen/blink.cmp",
-    build = "cargo build --release",
+    version = "1.*",
     event = { "InsertEnter", "CmdlineEnter" },
     opts_extend = { "sources.default" },
     dependencies = {

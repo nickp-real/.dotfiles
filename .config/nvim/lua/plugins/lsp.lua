@@ -13,7 +13,6 @@ return {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
     opts = function()
-      local config = require("plugins.lsp.config")
       return {
         ui = {
           -- the border type to use for all floating windows, the same options/formats
@@ -78,8 +77,8 @@ return {
             virtual_text_str = "■", -- the virtual text character to highlight
           },
           -- on_attach = config.on_attach,
-          capabilities = config.capabilities, -- e.g. lsp_status capabilities
-          handlers = config.handlers,
+          -- capabilities = config.capabilities, -- e.g. lsp_status capabilities
+          -- handlers = config.handlers,
           --- OR you can specify a function to deactivate or change or control how the config is created
           -- capabilities = function(config)
           --   config.specificThingIDontWant = false
@@ -98,6 +97,8 @@ return {
   {
     "mason-org/mason.nvim",
     build = ":MasonUpdate",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    dependencies = { "nvim-lspconfig", "fidget.nvim" },
     cmd = {
       "Mason",
       "MasonInstall",
@@ -105,6 +106,17 @@ return {
       "MasonUninstallAll",
       "MasonLog",
     },
+    config = function(_, opts)
+      require("config.lsp")
+      require("mason").setup(opts)
+      -- auto start lsp server
+      local installed_packs = require("mason-registry").get_installed_packages()
+      local lsp_config_names = vim.iter(installed_packs):fold({}, function(acc, pack)
+        table.insert(acc, pack.spec.neovim and pack.spec.neovim.lspconfig)
+        return acc
+      end)
+      vim.lsp.enable(lsp_config_names)
+    end,
     ---@class MasonSettings
     opts = {
       ui = {
@@ -116,13 +128,6 @@ return {
         },
       },
     },
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    dependencies = { "nvim-lspconfig", "mason.nvim", "fidget.nvim" },
-    init = function() require("config.lsp") end,
-    opts = {},
   },
 
   -- Lsp Status

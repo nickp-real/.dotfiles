@@ -99,13 +99,26 @@ return {
         function() require("flash").toggle() end,
         desc = "Toggle Flash Search",
       },
+      {
+        "<c-space>",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter({
+            actions = {
+              ["<c-space>"] = "next",
+              ["<BS>"] = "prev",
+            },
+          })
+        end,
+        desc = "Treesitter Incremental Selection",
+      },
     },
     opts = {
       jump = { nohlsearch = true },
-      modes = {
-        char = { enabled = false },
-        search = { enabled = true },
-      },
+      -- modes = {
+      --   char = { enabled = false },
+      --   search = { enabled = true },
+      -- },
     },
   },
 

@@ -80,6 +80,8 @@ opt.fillchars = {
   -- foldsep = " ",
   -- foldclose = "",
 }
+opt.list = true
+opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
 
 -- Clipboard
 -- opt.clipboard = "unnamedplus"

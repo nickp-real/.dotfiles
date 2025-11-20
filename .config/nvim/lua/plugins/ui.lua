@@ -14,8 +14,8 @@ return {
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
-      enabled = false,
       completions = { lsp = { enabled = true }, blink = { enabled = true } },
+      overrides = { buftype = { nofile = { enabled = false } } },
     },
   },
 

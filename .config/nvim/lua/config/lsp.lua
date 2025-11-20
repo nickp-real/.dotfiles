@@ -119,6 +119,8 @@ local diagnostic_config = {
   },
 }
 
+local no_navic_attach_lsp = { "graphql" }
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp_config", { clear = false }),
   callback = function(event)
@@ -130,9 +132,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- client.server_capabilities.documentRangeFormattingProvider = false
 
     mapping(bufnr)
-
     inlay_hint_setup(client, bufnr)
-    if client:supports_method("textDocument/documentSymbol", bufnr) then require("nvim-navic").attach(client, bufnr) end
+    if
+      client:supports_method("textDocument/documentSymbol", bufnr)
+      and not vim.tbl_contains(no_navic_attach_lsp, client.name)
+    then
+      require("nvim-navic").attach(client, bufnr)
+    end
     if client:supports_method("textDocument/codeLens", bufnr) then
       local group = vim.api.nvim_create_augroup("lsp_codelens_refresh", { clear = false })
       vim.lsp.codelens.refresh({ bufnr = bufnr })
