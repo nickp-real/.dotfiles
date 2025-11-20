@@ -1,11 +1,10 @@
 local M = {}
 
 M.strsplit = function(inputstr)
-  local t = {}
-  for str in string.gmatch(inputstr, "([^%s]+)") do
-    table.insert(t, str)
-  end
-  return t
+  return vim.iter(inputstr:gmatch("([^%s]+)")):fold({}, function(acc, str)
+    table.insert(acc, str)
+    return acc
+  end)
 end
 
 M.is_plugin_loaded = function(plugin_name)

@@ -93,10 +93,10 @@ return {
 
         for method, keymaps in pairs(moves) do
           for key, query in pairs(keymaps) do
-            local desc = {}
-            for word in method:gmatch("%a+") do
-              table.insert(desc, word)
-            end
+            local desc = vim.iter(method:gmatch("%a+")):fold({}, function(acc, word)
+              table.insert(acc, word)
+              return acc
+            end)
 
             local object = query:gsub("@", ""):gsub("%..*", "")
             table.insert(desc, object)
