@@ -63,7 +63,7 @@
   insteadOf = git@github.com:nickp-real
   pushInsteadOf = git@github.com:nickp-real
 
-[includeIf "hasconfig:remote.*.url:git@github.com:SmartSoftAsia/**"]
+[includeIf "gitdir:SmartSoftAsia/"]
   path = ~/.work.gitconfig
 
 [alias]
