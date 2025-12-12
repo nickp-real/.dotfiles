@@ -20,7 +20,7 @@ default_monitor_name="eDP-1"
 default_monitor_data=$(get_monitor_from_index 0)
 monitor_data=$(get_monitor_from_index 1)
 monitor_name=$(get_monitor_data "$monitor_data" 'name')
-if [[ "$monitor_name" -eq "$default_monitor_name" ]]; then
+if [ "$monitor_name" = "$default_monitor_name" ]; then
   temp=$monitor_data
   monitor_data=$default_monitor_data
   monitor_name=$(get_monitor_data "$monitor_data" 'name')
