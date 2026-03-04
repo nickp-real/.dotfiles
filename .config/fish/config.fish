@@ -2,8 +2,8 @@
 if status is-login
     # launch Hyprland on tty
     set -l TTY1 (tty)
-    [ "$TTY1" = /dev/tty1 ] && exec Hyprland
-    # [ "$TTY1" = "/dev/tty1" ] && exec uwsm start hyprland-uwsm.desktop
+    # [ "$TTY1" = /dev/tty1 ] && exec Hyprland
+    [ "$TTY1" = /dev/tty1 ] && exec uwsm start hyprland-uwsm.desktop
     # if [ "$TTY1" = "/dev/tty1" ]; and uwsm check may-start
     # exec uwsm start hyprland-uwsm.desktop
     # exec systemd-cat -t uwsm_start uwsm start default

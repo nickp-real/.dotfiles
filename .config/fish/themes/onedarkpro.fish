@@ -19,6 +19,8 @@ set -l brblue 8fc6f4
 set -l brmagenta d7a1e7
 set -l brcyan 7bc6d0
 
+set -l selection 414858
+
 # Syntax Highlighting Colors
 set -x fish_color_normal $brwhite
 set -x fish_color_command $green
@@ -30,8 +32,8 @@ set -x fish_color_error $red
 set -x fish_color_param $blue
 set -x fish_color_option $blue
 set -x fish_color_comment $comment
-set -x fish_color_selection --reverse
-set -x fish_color_search_match --background=$brblack
+set -x fish_color_selection --background=$selection
+set -x fish_color_search_match --background=$selection
 set -x fish_color_operator $blue
 set -x fish_color_escape $blue
 set -x fish_color_autosuggestion $comment
@@ -41,4 +43,4 @@ set -x fish_pager_color_progress $brwhite --background=$cyan
 set -x fish_pager_color_prefix $cyan --underline
 set -x fish_pager_color_completion $white
 set -x fish_pager_color_description $yellow
-set -x fish_pager_color_selected_background --reverse
+set -x fish_pager_color_selected_background --background=$selection
