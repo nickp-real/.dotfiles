@@ -64,6 +64,7 @@ return {
       projects = { "~/.dotfiles/.config/*", "~/Coding/*", "~/Coding/web_dev/*", "~/Coding/SmartSoftAsia/*" },
       last_session_on_startup = false,
       datapath = vim.fn.stdpath("data") .. "/sessions",
+      picker = { type = "snacks" },
       session_manager_opts = {
         autosave_ignore_filetypes = {
           "man",

@@ -18,13 +18,6 @@ return {
     }, -- needed even when using default config
   },
 
-  -- Undo Tree
-  {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle",
-    keys = { { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" } },
-  },
-
   {
     "chentoast/marks.nvim",
     event = "VeryLazy",

@@ -168,6 +168,7 @@ return {
   -- Tabout
   {
     "abecodes/tabout.nvim",
+    event = "InsertEnter",
     opts = {
       act_as_shift_tab = true,
       tabouts = {
@@ -185,14 +186,18 @@ return {
   -- Template string for js, jsx, ts, tsx
   {
     "axelvc/template-string.nvim",
-    event = "InsertEnter",
+    ft = {
+      "html",
+      "typescript",
+      "javascript",
+      "typescriptreact",
+      "javascriptreact",
+      "vue",
+      "svelte",
+      "python",
+    },
     opts = {
       remove_template_string = true, -- remove backticks when there are no template string
-      restore_quotes = {
-        -- quotes used when "remove_template_string" option is enabled
-        normal = [["]],
-        jsx = [["]],
-      },
     },
   },
 }

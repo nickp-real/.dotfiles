@@ -15,6 +15,18 @@ M.settings = {
     completion = {
       callSnippet = "Replace",
     },
+    codeLens = {
+      enable = true,
+    },
+    runtime = {
+      version = "LuaJIT",
+    },
+    workspace = {
+      preloadFileSize = 10000,
+      library = {
+        vim.env.VIMRUNTIME,
+      },
+    },
   },
 }
 

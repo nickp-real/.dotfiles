@@ -6,6 +6,16 @@ return {
     opts = { highlight = vim.g.indent_highlights },
   },
 
+  {
+    "sphamba/smear-cursor.nvim",
+    event = "VeryLazy",
+    opts = {
+      hide_target_hack = true,
+      never_draw_over_target = true,
+      cursor_color = "none",
+    },
+  },
+
   -- Markdown
   {
     "MeanderingProgrammer/render-markdown.nvim",

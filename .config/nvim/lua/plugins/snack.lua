@@ -23,6 +23,13 @@ return {
         underline = true,
         hl = vim.g.indent_highlights,
       },
+      chunk = {
+        enabled = false,
+        char = {
+          corner_top = "╭",
+          corner_bottom = "╰",
+        },
+      },
       filter = function(buf)
         local disabled_ft = {
           "help",
@@ -59,7 +66,8 @@ return {
      |:/:/  /   \:\ \:\__\    \:\  /:/  /   |:|__/:/  /  \::/__/           /:/  /
      |::/  /     \:\ \/__/     \:\/:/  /     \::::/__/    \:\__\          /:/  /
      /:/  /       \:\__\        \::/  /       ~~~~         \/__/         /:/  /
-     \/__/         \/__/         \/__/                                   \/__/    ]],
+     \/__/         \/__/         \/__/                                   \/__/
+]],
         keys = {
           { icon = "", key = "e", desc = "New File", action = "<cmd>ene<bar>startinsert<cr>" },
           {

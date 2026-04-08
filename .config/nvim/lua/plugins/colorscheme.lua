@@ -74,6 +74,7 @@ return {
       CursorHidden = { fg = "${bg}", bg = "${bg}" },
 
       Pmenu = { bg = "NONE" },
+      ["@constant.builtin"] = { fg = "${purple}", italic = true },
     },
     -- plugins = {},
     styles = {
@@ -87,7 +88,7 @@ return {
       functions = "bold",
       operators = "NONE",
       variables = "NONE",
-      parameters = "NONE",
+      parameters = "underline",
       conditionals = "italic",
       virtual_text = "NONE",
     },
@@ -95,7 +96,7 @@ return {
       cursorline = true, -- Use cursorline highlighting?
       transparency = true, -- Use a transparent background?
       terminal_colors = false, -- Use the colorscheme's colors for Neovim's :terminal?
-      window_unfocused_color = false, -- When the window is out of focus, change the normal background?
+      highlight_inactive_windows = false, -- When the window is out of focus, change the normal background?
     },
   },
 }

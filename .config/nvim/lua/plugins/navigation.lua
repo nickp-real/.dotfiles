@@ -4,8 +4,9 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     cmd = "Neotree",
-    keys = { { "<C-n>", "<cmd>Neotree reveal position=right toggle=true<cr>", desc = "Neo Tree" } },
+    keys = { { "<C-e>", "<cmd>Neotree reveal position=right toggle=true<cr>", desc = "Neo Tree" } },
     init = function()
+      vim.g.loaded_netrwPlugin = 1
       vim.api.nvim_create_autocmd("BufEnter", {
         group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
         desc = "Start Neo-tree with directory",
@@ -71,6 +72,42 @@ return {
         },
       }
     end,
+  },
+
+  ---@type LazySpec
+  {
+    "mikavilpas/yazi.nvim",
+    version = "*", -- use the latest stable version
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+    },
+    keys = {
+      {
+        "<C-n>",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        "<leader>e",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
+      },
+      -- {
+      --   "<c-up>",
+      --   "<cmd>Yazi toggle<cr>",
+      --   desc = "Resume the last yazi session",
+      -- },
+    },
+    ---@type YaziConfig | {}
+    opts = {
+      -- if you want to open yazi instead of netrw, see below for more info
+      open_for_directories = false,
+      keymaps = {
+        show_help = "<f1>",
+      },
+    },
   },
 
   -- Jump in buffer

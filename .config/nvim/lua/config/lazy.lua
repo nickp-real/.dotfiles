@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 local default_plugins = {
   "2html_plugin",
-  "tohtml",
   "getscript",
   "getscriptPlugin",
   "gzip",

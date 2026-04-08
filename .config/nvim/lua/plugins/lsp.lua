@@ -2,10 +2,9 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      local config_path = require("lazy.core.config").options.root .. "/nvim-lspconfig"
-      vim.opt.runtimepath:prepend(config_path)
-    end,
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    dependencies = { "mason.nvim", "fidget.nvim" },
+    config = vim.schedule_wrap(function() require("config.lsp") end),
   },
 
   -- Flutter
@@ -97,8 +96,6 @@ return {
   {
     "mason-org/mason.nvim",
     build = ":MasonUpdate",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    dependencies = { "nvim-lspconfig", "fidget.nvim" },
     cmd = {
       "Mason",
       "MasonInstall",
@@ -106,8 +103,7 @@ return {
       "MasonUninstallAll",
       "MasonLog",
     },
-    config = function(_, opts)
-      require("config.lsp")
+    config = vim.schedule_wrap(function(_, opts)
       require("mason").setup(opts)
       -- auto start lsp server
       local installed_packs = require("mason-registry").get_installed_packages()
@@ -116,7 +112,7 @@ return {
         return acc
       end)
       vim.lsp.enable(lsp_config_names)
-    end,
+    end),
     ---@class MasonSettings
     opts = {
       ui = {
@@ -134,6 +130,64 @@ return {
   {
     "j-hui/fidget.nvim",
     opts = { notification = { window = { winblend = 0 } } },
+  },
+
+  {
+    "SmiteshP/nvim-navic",
+    init = function() vim.g.navic_silence = true end,
+    opts = function()
+      local no_navic_attach_lsp = { "graphql" }
+      Snacks.util.lsp.on({ method = "textDocument/documentSymbol" }, function(buffer, client)
+        if vim.tbl_contains(no_navic_attach_lsp, client.name) then return end
+        require("nvim-navic").attach(client, buffer)
+      end)
+
+      local function get_icons()
+        local icons = {}
+        local success, mini_icons = pcall(require, "mini.icons")
+        if not success then return icons end
+
+        local kinds = {
+          "File",
+          "Module",
+          "Namespace",
+          "Package",
+          "Class",
+          "Method",
+          "Property",
+          "Field",
+          "Constructor",
+          "Enum",
+          "Interface",
+          "Function",
+          "Variable",
+          "Constant",
+          "String",
+          "Number",
+          "Boolean",
+          "Array",
+          "Object",
+          "Key",
+          "Null",
+          "EnumMember",
+          "Struct",
+          "Event",
+          "Operator",
+          "TypeParameter",
+        }
+        for _, kind in ipairs(kinds) do
+          local icon, _, _ = mini_icons.get("lsp", kind)
+          table.insert(icons, icon)
+        end
+
+        return icons
+      end
+
+      return {
+        lazy_update_context = true,
+        icons = get_icons(),
+      }
+    end,
   },
 
   {

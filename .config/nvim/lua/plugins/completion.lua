@@ -22,7 +22,7 @@ return {
   {
     "saghen/blink.cmp",
     version = "1.*",
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = { "InsertEnter", "CmdwinEnter" },
     opts_extend = { "sources.default" },
     dependencies = {
       "rafamadriz/friendly-snippets",
@@ -115,7 +115,7 @@ return {
           providers = {
             -- dont show LuaLS require statements when lazydev has items
             lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
-            lsp = { fallbacks = { "buffer" } },
+            lsp = { fallbacks = {}, async = true },
             path = { fallbacks = { "buffer" } },
             buffer = { min_keyword_length = 4 },
           },
