@@ -1,0 +1,3 @@
+hl.config({
+	general = GENERAL,
+})

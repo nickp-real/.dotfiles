@@ -1,0 +1,3 @@
+hl.config({
+	gestures = GESTURES,
+})
