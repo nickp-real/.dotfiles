@@ -10,7 +10,7 @@ hl.on("hyprland.start", function()
 		"systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP", --  for XDPH
 
 		-- Program
-		"qs -c $qsConfig",
+		"qs -c " .. QS_CONFIG,
 		"udiskie",
 		-- "~/.config/hypr/scripts/ipc.sh",
 		"sleep 2 && ~/.config/hypr/scripts/monitor.sh",

@@ -1,6 +1,7 @@
 MAIN_MOD = "SUPER"
 TERMINAL = "foot"
 FILE_EXPLORER = "nemo"
+QS_CONFIG = "~/.config/quickshell"
 
 -- Decoration
 DECORATION = {

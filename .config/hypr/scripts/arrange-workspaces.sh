@@ -10,13 +10,14 @@ function bind_workspace_to_monitor() {
   local sec_name
   main_name=$(get_monitor_data "$main" "name")
   sec_name=$(get_monitor_data "$sec" "name")
-  hyprctl keyword workspace 1,monitor:"$main_name",default:true >/dev/null
-  hyprctl keyword workspace 6,monitor:"$sec_name",default:true >/dev/null
 
-  hyprctl dispatch moveworkspacetomonitor 1 "$main_name" >/dev/null
+  hyprctl eval "hl.workspace_rule({ workspace = 1, monitor = '$main_name', default = true })" >/dev/null
+  hyprctl eval "hl.workspace_rule({ workspace = 6, monitor = '$sec_name', default = true })" >/dev/null
 
-  hyprctl dispatch workspace 6 >/dev/null
-  hyprctl dispatch moveworkspacetomonitor 6 "$sec_name" >/dev/null
+  hyprctl dispatch "hl.dsp.workspace.move({ workspace = 1, monitor = '$main_name' })" >/dev/null
 
-  hyprctl dispatch workspace 1 >/dev/null
+  hyprctl dispatch "hl.dsp.focus({ workspace = 6 })" >/dev/null
+  hyprctl dispatch "hl.dsp.workspace.move({ workspace = 6, monitor = '$sec_name' })" >/dev/null
+
+  hyprctl dispatch "hl.dsp.focus({ workspace = 1 })" >/dev/null
 }
