@@ -12,8 +12,6 @@ hl.on("hyprland.start", function()
 		-- Program
 		"qs -c " .. QS_CONFIG,
 		"udiskie",
-		-- "~/.config/hypr/scripts/ipc.sh",
-		"sleep 2 && ~/.config/hypr/scripts/monitor.sh",
 		"nm-applet",
 
 		-- Clipboard
@@ -24,12 +22,14 @@ hl.on("hyprland.start", function()
 	for _, cmd in ipairs(cmd_list) do
 		hl.exec_cmd(cmd)
 	end
+
+	require("scripts.monitor").arrange_monitor()
 end)
 
 hl.on("monitor.added", function()
-	hl.exec_cmd("~/.config/hypr/scripts/monitor.sh")
+	require("scripts.monitor").arrange_monitor()
 end)
 
 hl.on("monitor.removed", function()
-	hl.exec_cmd("~/.config/hypr/scripts/monitor.sh")
+	require("scripts.monitor").arrange_monitor()
 end)

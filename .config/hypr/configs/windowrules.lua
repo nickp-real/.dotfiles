@@ -4,7 +4,7 @@ hl.window_rule({ match = { class = ".*polkit-kde-authentication.*" }, float = tr
 hl.window_rule({ match = { class = "pavucontrol" }, float = true })
 hl.window_rule({ match = { title = "Open File" }, float = true })
 
-hl.window_rule({ match = { class = "Slack" }, workspace = "4 silent" })
+hl.window_rule({ match = { class = "slack" }, workspace = "4 silent" })
 hl.window_rule({ match = { class = "spotify" }, workspace = "5 silent" })
 
 -- # xwaylandvideobridge

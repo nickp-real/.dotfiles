@@ -3,6 +3,8 @@ TERMINAL = "foot"
 FILE_EXPLORER = "nemo"
 QS_CONFIG = "~/.config/quickshell"
 
+MAIN_MONITOR = "eDP-1"
+
 -- Decoration
 DECORATION = {
 	rounding = 8,

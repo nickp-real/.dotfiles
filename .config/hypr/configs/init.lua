@@ -1,7 +1,7 @@
+require("configs.monitors")
 require("configs.execs")
 require("configs.general")
 require("configs.layout")
-require("configs.monitors")
 require("configs.decoration")
 require("configs.gestures")
 require("configs.cursor")
