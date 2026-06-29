@@ -12,7 +12,7 @@ PopupWindow {
     anchor.rect.x: bar.width - Theme.bar.leftRightGap - width
     anchor.rect.y: Theme.bar.height + Theme.bar.topBottomGap
 
-    implicitHeight: 100
+    implicitHeight: 160
     implicitWidth: 240
     color: "transparent"
 
@@ -39,6 +39,7 @@ PopupWindow {
             spacing: 8
 
             VolumeSlide {}
+            BrightnessSlide {}
             SystemTray {
                 window: root.bar
             }
