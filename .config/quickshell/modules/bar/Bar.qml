@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import QtQuick.Layouts
 import qs.modules.bar.components
 import qs.modules.bar.components.dashboard
 import qs.commons
@@ -23,7 +24,7 @@ Scope {
             implicitHeight: Theme.bar.height
             color: "transparent"
 
-            Rectangle {
+            RowLayout {
                 anchors {
                     fill: parent
                     leftMargin: Theme.bar.leftRightGap
@@ -32,14 +33,21 @@ Scope {
                     // bottomMargin: Theme.bar.topBottomGap
                 }
 
-                color: Theme.bg
-                radius: Theme.bar.radius
+                BarBox {
+                    anchors.fill: parent
+                    Layout.fillWidth: true
+                    BarLeft {}
+                }
 
-                BarLeft {}
+                BarBox {
+                    Layout.fillWidth: true
+                    BarCenter {}
+                }
 
-                BarCenter {}
-
-                BarRight {}
+                BarBox {
+                    Layout.fillWidth: true
+                    BarRight {}
+                }
             }
 
             Dashboard {

@@ -13,7 +13,7 @@ alias -s mv "mv -v"
 alias -s cp "cp -v"
 alias -s rm "rm -v"
 alias -s du "du -chsh"
-alias -s cls "clear"
+alias -s cls clear
 
 # Window/WSL
 # alias -s cmd "cmd.exe"
@@ -21,13 +21,12 @@ alias -s cls "clear"
 # alias -s open "wslview"
 
 # nvim
-alias -s vim "nvim"
-alias -s nv "nvim"
+alias -s vim nvim
+alias -s nv nvim
 # alias -s v "nvim"
 
-
 # Python
-alias -s python "python3"
+alias -s python python3
 alias -s pip_update 'pip list | cut -d" " -f1 | tail -n+3 | xargs pip install --upgrade'
 
 # Arch
@@ -40,5 +39,5 @@ alias -s lzg lazygit
 alias -s lzd lazydocker
 
 # Node Package Manager
-alias -s pn "pnpm"
-alias -s px "pnpx"
+alias -s pn pnpm
+alias -s px pnpx

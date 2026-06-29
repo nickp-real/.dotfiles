@@ -66,8 +66,8 @@ return {
     },
     config = function()
       local dap = require("dap")
-      local js_dap = require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-        .. "/js-debug/src/dapDebugServer.js"
+      -- local js_dap = require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+      --   .. "/js-debug/src/dapDebugServer.js"
 
       if not dap.adapters["pwa-node"] then
         dap.adapters["pwa-node"] = {
@@ -77,7 +77,7 @@ return {
           executable = {
             command = "node",
             args = {
-              js_dap,
+              -- js_dap,
               "${port}",
             },
           },

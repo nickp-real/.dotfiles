@@ -6,10 +6,10 @@ import qs.services
 RowLayout {
     Layout.fillWidth: true
 
-    Text {
-        text: VolumeService.source
-        color: "white"
-    }
+    // Text {
+    //     text: VolumeService.source
+    //     color: "white"
+    // }
 
     SliderWidget {
         id: root

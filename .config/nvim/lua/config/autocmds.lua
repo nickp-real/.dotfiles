@@ -32,6 +32,9 @@ create_autocmd("FileType", {
 create_autocmd("BufReadPost", {
   desc = "persistent cursor, last file position",
   callback = function()
+    local current_mode = vim.api.nvim_get_mode().mode
+    if current_mode == "t" then return end
+
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
     if mark[1] > 0 and mark[1] <= lcount then

@@ -5,6 +5,6 @@ vim.filetype.add({
     ["%.env%.[%w_.-]+"] = "dosini",
     ["%.[%w_.-]+%.gitconfig"] = "gitconfig",
     [".*/hypr/.+%.conf"] = "hyprlang",
-    ["Dockerfile.*"] = "dockerfile",
+    ["[dD]ockerfile.*"] = "dockerfile",
   },
 })

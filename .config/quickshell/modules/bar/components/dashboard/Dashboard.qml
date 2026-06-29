@@ -18,14 +18,14 @@ PopupWindow {
 
     visible: GlobalStates.dashboardOpen
 
-    HyprlandFocusGrab {
-        active: GlobalStates.dashboardOpen
-        windows: [root]
-        onCleared: {
-            // closeAnimation.start();
-            GlobalStates.dashboardOpen = false;
-        }
-    }
+    // HyprlandFocusGrab {
+    //     active: GlobalStates.dashboardOpen
+    //     windows: [root]
+    //     onCleared: {
+    //         // closeAnimation.start();
+    //         GlobalStates.dashboardOpen = false;
+    //     }
+    // }
 
     Rectangle {
         id: dashboard

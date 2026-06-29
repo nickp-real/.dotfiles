@@ -29,6 +29,20 @@ return {
     },
   },
 
+  {
+    "rachartier/tiny-cmdline.nvim",
+    event = "VeryLazy",
+    init = function()
+      require("vim._core.ui2").enable({})
+      vim.o.cmdheight = 0
+    end,
+    config = function()
+      require("tiny-cmdline").setup({
+        on_reposition = require("tiny-cmdline").adapters.blink,
+      })
+    end,
+  },
+
   -- Log Highlight
   { "MTDL9/vim-log-highlighting", ft = "log" },
 

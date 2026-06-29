@@ -5,8 +5,9 @@ return {
     ft = "lua",
     opts = {
       library = {
-        { path = "nvim-lspconfig", words = { "lspconfig" } },
+        { path = "nvim-lspconfig", words = { "lspconfig.settings" } },
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        { path = "snacks.nvim", words = { "Snacks" } },
       },
     },
   },

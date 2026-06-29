@@ -30,9 +30,9 @@ gui:
     defaultFgColor:
       - "#abb2bf"
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --syntax-theme=TwoDark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  pagers:
+    - colorArg: always
+      pager: delta --dark --syntax-theme=TwoDark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}" --side-by-side
 customCommands:
   - key: c
     context: files

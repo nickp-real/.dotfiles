@@ -77,8 +77,6 @@ return {
   ---@type LazySpec
   {
     "mikavilpas/yazi.nvim",
-    version = "*", -- use the latest stable version
-    event = "VeryLazy",
     dependencies = {
       { "nvim-lua/plenary.nvim", lazy = true },
     },
@@ -115,7 +113,6 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     keys = {
-      -- { "f", "F", "t", "T", ";", "," },
       { "<cr>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       {
         "S",
@@ -152,10 +149,10 @@ return {
     },
     opts = {
       jump = { nohlsearch = true },
-      -- modes = {
-      --   char = { enabled = false },
-      --   search = { enabled = true },
-      -- },
+      modes = {
+        char = { enabled = false },
+        search = { enabled = true },
+      },
     },
   },
 

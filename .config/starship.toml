@@ -22,6 +22,9 @@ disabled = false
 format = '🕙 [\[$time\]]($style) '
 time_format = "%r"
 
+[gcloud]
+disabled = true
+
 # [aws]
 # symbol = "  "
 

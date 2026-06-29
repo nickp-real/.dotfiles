@@ -119,6 +119,9 @@ return {
       top_down = false,
       timeout = 5000,
     },
+    scratch = {
+      ft = function() return "markdown" end,
+    },
     -- scroll = {
     --   enabled = true,
     --   filter = function(buf)
@@ -201,5 +204,9 @@ return {
     { "<leader>gs", function() require("snacks").picker.git_status() end, desc = "Git Status" },
     { "<leader>gS", function() require("snacks").picker.git_stash() end, desc = "Git Stash" },
     { "<leader>gd", function() require("snacks").picker.git_diff() end, desc = "Git Diff (Hunks)" },
+    --scratch
+    { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+    { "<leader>dps", function() Snacks.profiler.scratch() end, desc = "Profiler Scratch Buffer" },
   },
 }

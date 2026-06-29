@@ -27,7 +27,7 @@ return {
   -- http call
   {
     "mistweaverco/kulala.nvim",
-    ft = "http",
+    event = { "SessionLoadPost", "VimLeavePre" },
     keys = {
       { "<leader>R", "", desc = "+Rest" },
       { "<leader>Rs", "<cmd>lua require('kulala').run()<cr>", desc = "Send the request" },

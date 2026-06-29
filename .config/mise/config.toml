@@ -3,12 +3,17 @@ bun = "latest"
 "go:github.com/air-verse/air" = "latest"
 "go:github.com/google/wire/cmd/wire" = "latest"
 "npm:@antfu/ni" = "latest"
+"npm:czg" = "latest"
 "npm:npkill" = "latest"
 "npm:taze" = "latest"
 "npm:vercel" = "latest"
+"npm:knip" = "latest"
 pnpm = "latest"
 usage = "latest"
+node = "latest"
+"npm:fallow" = "latest"
 
 [settings]
 npm.bun = true
 experimental = true
+idiomatic_version_file_enable_tools = ["node"]

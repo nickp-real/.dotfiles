@@ -9,6 +9,16 @@ return {
         function() require("gitsigns").blame_line({ full = true }) end,
         desc = "show current line blame",
       },
+      {
+        "]g",
+        function() require("gitsigns").nav_hunk("next") end,
+        desc = "Go to next git hunk",
+      },
+      {
+        "[g",
+        function() require("gitsigns").nav_hunk("prev") end,
+        desc = "Go to previous git hunk",
+      },
     },
     opts = {
       signs = {
