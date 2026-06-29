@@ -101,6 +101,31 @@ hl.bind(main_mod("PRINT"), app2unit("grimblast copy"))
 -- Lock screen
 hl.bind(main_mod({ "CTRL", "L" }), app2unit("hyprlock -q"))
 
+-- lid switch, on = close, off = open
+hl.bind("switch:on:Lid Switch", function()
+	local monitors = hl.get_monitors()
+
+	if #monitors > 1 then
+		hl.monitor({
+			output = MAIN_MONITOR,
+			disabled = true,
+		})
+	end
+end, { loacked = true })
+
+hl.bind("switch:off:Lid Switch", function()
+	local monitors = hl.get_monitors()
+
+	hl.monitor({
+		output = MAIN_MONITOR,
+		disabled = false,
+	})
+
+	if #monitors > 1 then
+		require("scripts.monitor").arrange_monitor()
+	end
+end, { loacked = true })
+
 -- # Plugins
 -- # bind = SUPERSHIFT, R, hyprload, reload
 -- # bind = SUPERSHIFT, U, hyprload, update

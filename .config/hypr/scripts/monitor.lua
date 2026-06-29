@@ -35,7 +35,7 @@ local function arrange_monitor(main, sec)
 	})
 	hl.monitor({
 		output = sec,
-		mode = "preferred",
+		mode = "highrr",
 		position = "auto",
 		scale = 1,
 	})
@@ -60,7 +60,7 @@ function M.arrange_monitor()
 		return
 	end
 
-	if another_monitor == "DP-2" then
+	if another_monitor == HOME_MAIN_MONITOR then
 		arrange(another_monitor, MAIN_MONITOR)
 	else
 		arrange(MAIN_MONITOR, another_monitor)
