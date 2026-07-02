@@ -34,7 +34,6 @@ Scope {
                 }
 
                 BarBox {
-                    anchors.fill: parent
                     Layout.fillWidth: true
                     BarLeft {}
                 }

@@ -23,7 +23,8 @@ PopupWindow {
     //     windows: [root]
     //     onCleared: {
     //         // closeAnimation.start();
-    //         GlobalStates.dashboardOpen = false;
+    //         // GlobalStates.dashboardOpen = false;
+    //         console.log("hehe", root.visible);
     //     }
     // }
 
