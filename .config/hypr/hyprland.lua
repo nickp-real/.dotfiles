@@ -1,2 +1,2 @@
-require("variables")
+require("config")
 require("configs")

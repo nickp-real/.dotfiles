@@ -29,13 +29,13 @@ end
 local function arrange_monitor(main, sec)
 	hl.monitor({
 		output = main,
-		mode = "highrr",
+		mode = "highres",
 		position = "0x0",
 		scale = 1,
 	})
 	hl.monitor({
 		output = sec,
-		mode = "highrr",
+		mode = "highres",
 		position = "auto",
 		scale = 1,
 	})

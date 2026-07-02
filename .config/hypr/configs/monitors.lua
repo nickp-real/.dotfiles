@@ -1,13 +1,13 @@
 hl.monitor({
 	output = MAIN_MONITOR,
-	mode = "highrr",
+	mode = "highres",
 	position = "auto",
 	scale = 1,
 })
 
 hl.monitor({
 	output = "",
-	mode = "highrr",
+	mode = "highres",
 	position = "auto",
 	scale = 1,
 })

@@ -4,7 +4,7 @@ FILE_EXPLORER = "nemo"
 QS_CONFIG = "~/.config/quickshell"
 
 MAIN_MONITOR = "eDP-1"
-HOME_MAIN_MONITOR = "HDMI-A-1" -- DP-2
+HOME_MAIN_MONITOR = "DP-1" -- DP-2
 
 -- Decoration
 DECORATION = {
