@@ -1,4 +1,7 @@
 spell
 packer_compiled.lua
 fish_variables
-plugins
+
+# plugins binary
+.config/tmux/plugins
+.config/yazi/plugins
