@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Quickshell
 import qs.commons
 import qs.components
 
@@ -15,6 +14,8 @@ RowLayout {
     property alias slider: slider
     property alias icon: icon
     signal iconClick
+
+    property bool readonly: false
 
     Rectangle {
         visible: icon.source != ""
@@ -56,11 +57,19 @@ RowLayout {
 
         Rectangle {
             width: slider.visualPosition * slider.width
-            height: Math.min(slider.height, width)
+            height: slider.height
             color: root.fg
             radius: root.radius
             clip: true
             anchors.verticalCenter: parent.verticalCenter
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            preventStealing: true
+            enabled: root.readonly
+            onPressed: mouse => mouse.accepted = true
+            onWheel: wheel => wheel.accepted = true
         }
 
         handle: Item {

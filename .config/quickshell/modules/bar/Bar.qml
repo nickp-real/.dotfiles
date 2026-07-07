@@ -11,7 +11,7 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
-            id: bar
+            id: root
             property var modelData
             screen: modelData
 
@@ -24,33 +24,23 @@ Scope {
             implicitHeight: Theme.bar.height
             color: "transparent"
 
-            RowLayout {
-                anchors {
-                    fill: parent
-                    leftMargin: Theme.bar.leftRightGap
-                    rightMargin: Theme.bar.leftRightGap
-                    topMargin: Theme.bar.topBottomGap
-                    // bottomMargin: Theme.bar.topBottomGap
-                }
-
-                BarBox {
-                    Layout.fillWidth: true
-                    BarLeft {}
-                }
-
-                BarBox {
-                    Layout.fillWidth: true
-                    BarCenter {}
-                }
-
-                BarBox {
-                    Layout.fillWidth: true
-                    BarRight {}
-                }
+            BarLeft {
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                height: parent.height
+            }
+            BarCenter {
+                anchors.centerIn: parent
+                height: parent.height
+            }
+            BarRight {
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                height: parent.height
             }
 
             Dashboard {
-                bar: bar
+                bar: root
             }
         }
     }

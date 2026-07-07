@@ -10,7 +10,7 @@ hl.on("hyprland.start", function()
 		"systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP", --  for XDPH
 
 		-- Program
-		"qs -c " .. QS_CONFIG,
+		"env QS_ICON_THEME=Papirus qs -c " .. QS_CONFIG,
 		"udiskie",
 		"nm-applet",
 

@@ -1,9 +1,11 @@
 import QtQuick.Layouts
 import qs.modules.bar.components
+import QtQuick
 
 RowLayout {
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.horizontalCenter: parent.horizontalCenter
-
-    Clock {}
+    BarContainer {
+        Clock {
+            anchors.centerIn: parent
+        }
+    }
 }

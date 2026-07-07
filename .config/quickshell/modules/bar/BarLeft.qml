@@ -4,9 +4,9 @@ import qs.commons
 import QtQuick
 
 RowLayout {
-    anchors.left: parent.left
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.leftMargin: Theme.bar.insideMargin
-
-    WorkSpaces {}
+    BarContainer {
+        WorkSpaces {
+            anchors.centerIn: parent
+        }
+    }
 }

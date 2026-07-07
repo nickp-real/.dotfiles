@@ -1,11 +1,13 @@
 import QtQuick.Layouts
+import QtQuick
 import qs.modules.bar.components.dashboard
+import qs.modules.bar.components
 import qs.commons
 
 RowLayout {
-    anchors.right: parent.right
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.rightMargin: Theme.bar.insideMargin
-
-    DashboardButton {}
+    BarContainer {
+        DashboardButton {
+            anchors.centerIn: parent
+        }
+    }
 }

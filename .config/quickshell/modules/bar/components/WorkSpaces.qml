@@ -6,6 +6,7 @@ import qs.components
 
 RowLayout {
     id: workspaceRow
+    spacing: 4
 
     Repeater {
         model: Hyprland.workspaces

@@ -41,6 +41,7 @@ PopupWindow {
 
             VolumeSlide {}
             BrightnessSlide {}
+            Battery {}
             SystemTray {
                 window: root.bar
             }
