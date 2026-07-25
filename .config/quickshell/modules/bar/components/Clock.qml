@@ -1,11 +1,12 @@
 import QtQuick
 import qs.modules.bar.services
-import qs.commons
+
+import "root:config.js" as Config
 
 Text {
     text: Time.time
-    color: Theme.fg
+    color: Config.colors.fg
     font.bold: true
-    font.pixelSize: FontStyle.md
-    font.family: FontStyle.family
+    font.pixelSize: Config.font.md
+    font.family: Config.font.family
 }

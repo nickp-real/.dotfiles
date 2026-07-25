@@ -1,8 +1,9 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
-import qs.commons
 import qs.components
+
+import "root:config.js" as Config
 
 RowLayout {
     id: workspaceRow
@@ -18,15 +19,9 @@ RowLayout {
             isActive: modelData.active
             property bool isFocused: Hyprland.focusedWorkspace?.id === modelData.id
 
-            height: Theme.workspace.height
-            width: Theme.workspace.width
-            radius: Theme.workspace.radius
-            color: isFocused || workspace.isHovered ? Theme.accentFg : isActive ? Theme.mutedBg : Theme.bg
+            color: isFocused || workspace.isHovered ? Config.colors.accentFg : isActive ? Config.colors.mutedBg : Config.colors.bg
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: Hyprland.dispatch("workspace " + workspace.modelData.name)
-            }
+            onClicked: Hyprland.dispatch("workspace " + workspace.modelData.name)
 
             Text {
                 anchors {
@@ -34,7 +29,7 @@ RowLayout {
                     horizontalCenter: workspace.horizontalCenter
                 }
                 text: workspace.modelData.name
-                color: workspace.isFocused || workspace.isHovered ? Theme.accentBg : workspace.isActive ? Theme.mutedFg : Theme.fg
+                color: workspace.isFocused || workspace.isHovered ? Config.colors.accentBg : workspace.isActive ? Config.colors.mutedFg : Config.colors.fg
 
                 Behavior on color {
                     ColorAnimation {
@@ -43,9 +38,9 @@ RowLayout {
                 }
 
                 font {
-                    pixelSize: FontStyle.md
+                    pixelSize: Config.font.md
                     bold: true
-                    family: FontStyle.family
+                    family: Config.font.family
                 }
             }
         }

@@ -30,9 +30,6 @@ RowLayout {
             width: Theme.slider.icon.width
             height: Theme.slider.icon.height
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-
             MouseArea {
                 anchors.fill: parent
                 onClicked: root.iconClick()

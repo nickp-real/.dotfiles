@@ -4,17 +4,21 @@ import QtQuick
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
-import qs.commons
+
+import "root:config.js" as Config
 
 Item {
     id: root
 
-    property color color: Theme.fg
+    property color color: Config.colors.fg
     property string source
     property bool colorization: true
 
-    width: 30
-    height: 30
+    implicitWidth: Config.icon.width
+    implicitHeight: Config.icon.height
+
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.horizontalCenter: parent.horizontalCenter
 
     IconImage {
         anchors.fill: parent

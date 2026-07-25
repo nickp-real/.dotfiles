@@ -31,10 +31,15 @@ const innerRadius = radius / 2;
 
 const font = {
   family: "Google Sans Display",
-  size: 16,
+  md: 14,
+  base: 16,
+  lg: 18,
+  xl: 20,
 };
 
 const padding = 8;
+
+const icon = { width: 20, height: 20 };
 
 const bar = {
   height: 48,
@@ -44,22 +49,30 @@ const bar = {
   insideMargin: padding,
 };
 
-const workspace = {
-  height: 24,
-  width: 24,
-  radius: innerRadius,
-};
+// const workspace = {
+//   height: 24,
+//   width: 24,
+//   radius: innerRadius,
+// };
 
 const slider = {
   width: 32,
   height: 32,
   radius: innerRadius * 3,
-  icon: {
-    width: 24,
-    height: 24,
-  },
+  icon,
 };
 
 const notifications = {
   timeout: 5000,
+};
+
+const button = { width: 20 + innerRadius, height: 20 + innerRadius };
+
+const startupMenu = {
+  spacing: padding * 3,
+  button: {
+    spacing: padding * 2,
+    size: 100,
+    icon: { size: 50 },
+  },
 };

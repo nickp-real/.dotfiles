@@ -64,7 +64,7 @@ hl.bind(main_mod("mouse:272"), hl.dsp.window.resize(), { mouse = true })
 -- rofi
 hl.bind(main_mod("R"), app2unit("launcher_t1"))
 -- bind = $mainMod, R, exec, uwsm app -- rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-5.rasi
-hl.bind(main_mod({ "SHIFT", "ESCAPE" }), app2unit("powermenu_t3"))
+hl.bind(main_mod({ "SHIFT", "ESCAPE" }), hl.dsp.exec_cmd("qs ipc call startup-menu toggle"))
 hl.bind(main_mod("V"), app2unit("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
 
 -- Screen brightness

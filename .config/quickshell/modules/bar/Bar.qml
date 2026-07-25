@@ -1,10 +1,8 @@
 import Quickshell
-import Quickshell.Io
 import QtQuick
-import QtQuick.Layouts
-import qs.modules.bar.components
 import qs.modules.bar.components.dashboard
-import qs.commons
+
+import "root:config.js" as Config
 
 Scope {
     Variants {
@@ -21,7 +19,7 @@ Scope {
                 right: true
             }
 
-            implicitHeight: Theme.bar.height
+            implicitHeight: Config.bar.height
             color: "transparent"
 
             BarLeft {

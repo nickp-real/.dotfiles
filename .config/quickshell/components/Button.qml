@@ -1,13 +1,19 @@
 import QtQuick
-import qs.commons
+
+import "root:config.js" as Config
 
 Rectangle {
-
+    id: root
     property bool isActive: false
     property bool isHovered: hover.hovered
+    property alias hover: hover
+    signal clicked
 
-    radius: Theme.innerRadius
-    color: Theme.bg
+    radius: Config.innerRadius
+    color: Config.colors.mutedBg
+
+    implicitWidth: Config.button.width
+    implicitHeight: Config.button.height
 
     Behavior on color {
         ColorAnimation {
@@ -17,5 +23,10 @@ Rectangle {
 
     HoverHandler {
         id: hover
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: root.clicked()
     }
 }
