@@ -4,10 +4,12 @@ import "root:config.js" as Config
 
 Rectangle {
     id: root
-    property bool isActive: false
+    property bool isActived: false
     property bool isHovered: hover.hovered
-    property alias hover: hover
+    property bool isFocused: false
     signal clicked
+    signal hoverEntered
+    signal hoverExited
 
     radius: Config.innerRadius
     color: Config.colors.mutedBg
@@ -19,6 +21,13 @@ Rectangle {
         ColorAnimation {
             duration: 100
         }
+    }
+
+    onIsHoveredChanged: {
+        if (root.isHovered)
+            root.hoverEntered();
+        else
+            root.hoverExited();
     }
 
     HoverHandler {

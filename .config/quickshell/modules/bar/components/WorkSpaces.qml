@@ -16,10 +16,10 @@ RowLayout {
             id: workspace
             required property HyprlandWorkspace modelData
 
-            isActive: modelData.active
-            property bool isFocused: Hyprland.focusedWorkspace?.id === modelData.id
+            property bool isActive: modelData.active
+            property bool isWorkspaceFocused: Hyprland.focusedWorkspace?.id === modelData.id
 
-            color: isFocused || workspace.isHovered ? Config.colors.accentFg : isActive ? Config.colors.mutedBg : Config.colors.bg
+            color: isWorkspaceFocused || workspace.isHovered ? Config.colors.accentFg : isActive ? Config.colors.mutedBg : Config.colors.bg
 
             onClicked: Hyprland.dispatch("workspace " + workspace.modelData.name)
 
@@ -29,7 +29,7 @@ RowLayout {
                     horizontalCenter: workspace.horizontalCenter
                 }
                 text: workspace.modelData.name
-                color: workspace.isFocused || workspace.isHovered ? Config.colors.accentBg : workspace.isActive ? Config.colors.mutedFg : Config.colors.fg
+                color: isWorkspaceFocused || workspace.isHovered ? Config.colors.accentBg : workspace.isActive ? Config.colors.mutedFg : Config.colors.fg
 
                 Behavior on color {
                     ColorAnimation {
@@ -38,8 +38,8 @@ RowLayout {
                 }
 
                 font {
-                    pixelSize: Config.font.md
                     bold: true
+                    pixelSize: Config.font.md
                     family: Config.font.family
                 }
             }

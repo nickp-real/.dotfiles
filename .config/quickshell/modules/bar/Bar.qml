@@ -1,6 +1,8 @@
+pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import qs.modules.bar.components.dashboard
+import qs.commons
 
 import "root:config.js" as Config
 
@@ -37,8 +39,11 @@ Scope {
                 height: parent.height
             }
 
-            Dashboard {
-                bar: root
+            LazyLoader {
+                active: GlobalStates.dashboardOpen
+                Dashboard {
+                    window: root
+                }
             }
         }
     }

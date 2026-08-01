@@ -13,19 +13,12 @@ Button {
     implicitHeight: Config.startupMenu.button.size
     implicitWidth: Config.startupMenu.button.size
 
-    color: root.isHovered || root.activeFocus ? Config.colors.accentFg : Config.colors.mutedBg
-
-    Keys.onPressed: event => {
-        if (event.key === Qt.Key_Return) {
-            root.action();
-            event.accepted = true;
-        }
-    }
+    color: root.isHovered || root.isFocused ? Config.colors.accentFg : Config.colors.mutedBg
 
     Icon {
         implicitWidth: Config.startupMenu.button.icon.size
         implicitHeight: Config.startupMenu.button.icon.size
         source: root.icon
-        color: root.isHovered || root.activeFocus ? Config.colors.bg : Config.colors.fg
+        color: root.isHovered || root.isFocused ? Config.colors.bg : Config.colors.fg
     }
 }

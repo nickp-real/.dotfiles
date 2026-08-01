@@ -7,9 +7,9 @@ import qs.commons
 
 PopupWindow {
     id: root
-    required property var bar
-    anchor.window: bar
-    anchor.rect.x: bar.width - Theme.bar.leftRightGap - width
+    required property var window
+    anchor.window: root.window
+    anchor.rect.x: root.window.width - Theme.bar.leftRightGap - width
     anchor.rect.y: Theme.bar.height + Theme.bar.topBottomGap
 
     implicitHeight: 160
@@ -24,7 +24,6 @@ PopupWindow {
     //     onCleared: {
     //         // closeAnimation.start();
     //         // GlobalStates.dashboardOpen = false;
-    //         console.log("hehe", root.visible);
     //     }
     // }
 
@@ -43,7 +42,7 @@ PopupWindow {
             BrightnessSlide {}
             Battery {}
             SystemTray {
-                window: root.bar
+                window: root.window
             }
 
             Item {
