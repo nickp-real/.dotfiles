@@ -1,4 +1,3 @@
 function px --wraps=pnpx --description 'alias px pnpx'
-  pnpx $argv
-        
+    pnpx $argv
 end

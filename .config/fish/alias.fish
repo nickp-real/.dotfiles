@@ -41,3 +41,7 @@ alias -s lzd lazydocker
 # Node Package Manager
 alias -s pn pnpm
 alias -s px pnpx
+
+# Package Manager
+alias -s rebuild-package "checkrebuild | cut -f 2 | xargs yay -S --rebuild --noconfirm"
+alias -s rebuild-hypr "yay -Qq | grep -E '^.*(hypr|aquamarine).*-git\$' | xargs yay -S --rebuild --noconfirm"

@@ -1,4 +1,3 @@
-function cp --wraps 'cp -v' --description 'alias cp cp -v'
- command cp -v $argv
-        
+function cp --description 'alias cp cp -v'
+    command cp -v $argv
 end
