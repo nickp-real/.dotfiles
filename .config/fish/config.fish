@@ -12,7 +12,7 @@ end
 
 if status --is-interactive
     # pnpm
-    set -x PNPM_HOME "/home/nickp_real/.local/share/pnpm"
+    set -x PNPM_HOME $HOME/.local/share/pnpm
 
     # Go path
     set -x GOPATH $HOME/go
