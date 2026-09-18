@@ -25,9 +25,12 @@ return {
       },
       chunk = {
         enabled = false,
+        only_current = true,
         char = {
           corner_top = "╭",
           corner_bottom = "╰",
+          -- vertical = "▎",
+          -- horizontal = "━",
         },
       },
       filter = function(buf)
@@ -136,6 +139,7 @@ return {
         on_win = function() vim.schedule(vim.cmd.stopinsert) end,
       },
     },
+    toggle = { enabled = true },
   },
   keys = {
     -- words
@@ -205,8 +209,8 @@ return {
     { "<leader>gS", function() require("snacks").picker.git_stash() end, desc = "Git Stash" },
     { "<leader>gd", function() require("snacks").picker.git_diff() end, desc = "Git Diff (Hunks)" },
     --scratch
-    { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    { "<leader>S", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-    { "<leader>dps", function() Snacks.profiler.scratch() end, desc = "Profiler Scratch Buffer" },
+    { "<leader>.", function() require("snacks").scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S", function() require("snacks").scratch.select() end, desc = "Select Scratch Buffer" },
+    { "<leader>dps", function() require("snacks").profiler.scratch() end, desc = "Profiler Scratch Buffer" },
   },
 }

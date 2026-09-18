@@ -45,14 +45,6 @@ local autoformat_setup = function()
   })
 end
 
-local toggle_auto_format = function()
-  if vim.g.disable_autoformat or vim.b.disable_autoformat then
-    return "<cmd>FormatEnable<cr>"
-  else
-    return "<cmd>FormatDisable<cr>"
-  end
-end
-
 return {
   {
     "stevearc/conform.nvim",
@@ -64,12 +56,12 @@ return {
         function() require("conform").format({ async = true }) end,
         desc = "[F]ormat",
       },
-      {
-        "<leader>fe",
-        toggle_auto_format,
-        expr = true,
-        desc = "[F]ormat [E]nable/Disable",
-      },
+      -- {
+      --   "<leader>fe",
+      --   toggle_auto_format,
+      --   expr = true,
+      --   desc = "[F]ormat [E]nable/Disable",
+      -- },
     },
     init = function()
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

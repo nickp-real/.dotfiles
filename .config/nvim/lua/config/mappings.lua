@@ -143,3 +143,30 @@ nnoremap("<C-q>", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uicfix
 
 -- undotree
 nnoremap("<leader>u", vim.cmd.Undotree, { desc = "[U]ndotree" })
+
+require("snacks").toggle
+  .new({
+    id = "toggle_auto_format",
+    name = "Auto Format",
+    get = function() return not vim.g.disable_autoformat end,
+    set = function(state) vim.g.disable_autoformat = not state end,
+  })
+  :map("<leader>fE")
+
+require("snacks").toggle
+  .new({
+    id = "toggle_auto_format_buffer",
+    name = "Auto Format (Buffer)",
+    get = function() return not vim.b.disable_autoformat end,
+    set = function(state) vim.b.disable_autoformat = not state end,
+  })
+  :map("<leader>fe")
+
+require("snacks").toggle
+  .new({
+    id = "toggle_auto_format",
+    name = "Auto Format",
+    get = function() return not vim.g.disable_autoformat end,
+    set = function(state) vim.g.disable_autoformat = not state end,
+  })
+  :map("<leader>fE")

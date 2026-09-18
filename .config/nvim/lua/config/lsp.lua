@@ -1,4 +1,5 @@
 local nnoremap = require("utils.keymap_utils").nnoremap
+local skip_workspace_diagnostic_lsp = { "codebook" }
 
 local inlay_hint_setup = function(client, bufnr)
   local disabled_filetypes = { "TelescopePrompt" }
@@ -42,15 +43,7 @@ local inlay_hint_setup = function(client, bufnr)
     group = group,
   })
 
-  nnoremap("<leader>h", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-    vim.g.disable_inlay_hint = not vim.g.disable_inlay_hint
-    if vim.g.disable_inlay_hint then
-      require("snacks").notify.info("Disabled inlay hint", { title = "Inlay Hint" })
-    else
-      require("snacks").notify.info("Enabled inlay hint", { title = "Inlay Hint" })
-    end
-  end, { silent = true, buffer = bufnr, desc = "LSP: Toggle inlay [H]int" })
+  require("snacks").toggle.inlay_hints():map("<leader>h")
 end
 
 local mapping = function(bufnr)
@@ -141,6 +134,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
         group = group,
       })
     end
+
+    -- if client:supports_method("workspace/diagnostic", bufnr) then
+    --   vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
+    -- else
+    --   require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+    -- end
   end,
 })
 
