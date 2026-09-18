@@ -1,11 +1,10 @@
 pragma ComponentBehavior: Bound
 import Quickshell.Services.SystemTray
-import Quickshell.Widgets
-import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.components
-import qs.commons
+
+import "root:config.js" as Config
 
 Rectangle {
     id: root
@@ -40,7 +39,7 @@ Rectangle {
                             if (mouse.button == Qt.LeftButton) {
                                 trayItem.modelData.activate();
                             } else if (trayItem.modelData.hasMenu) {
-                                trayItem.modelData.display(root.window, root.window.width - Theme.bar.leftRightGap - icon.x - root.width, root.window.height + Theme.bar.topBottomGap);
+                                trayItem.modelData.display(root.window, root.window.width - Config.bar.leftRightGap - icon.x - root.width, root.window.height + Config.bar.topBottomGap);
                             }
                         }
                     }

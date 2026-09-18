@@ -42,7 +42,7 @@ const padding = 8;
 const icon = { width: 20, height: 20 };
 
 const bar = {
-  height: 48,
+  height: 40,
   radius,
   leftRightGap: padding,
   topBottomGap: padding,

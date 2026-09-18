@@ -77,6 +77,7 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "Are you sure?"
                     font.pixelSize: Config.font.base
+                    font.family: Config.font.family
                     color: Config.colors.bg
                 }
             }

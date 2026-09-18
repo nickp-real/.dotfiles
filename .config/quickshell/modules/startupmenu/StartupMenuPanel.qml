@@ -105,6 +105,7 @@ PanelWindow {
                             horizontalCenter: parent.horizontalCenter
                         }
                         font.pixelSize: Config.font.base
+                        font.family: Config.font.family
                         color: Config.colors.bg
                     }
                 }
@@ -120,6 +121,7 @@ PanelWindow {
                             horizontalCenter: parent.horizontalCenter
                         }
                         font.pixelSize: Config.font.base
+                        font.family: Config.font.family
                         color: Config.colors.bg
                     }
                 }

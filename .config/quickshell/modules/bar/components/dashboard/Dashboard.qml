@@ -5,12 +5,14 @@ import Quickshell.Hyprland
 import "./components"
 import qs.commons
 
+import "root:config.js" as Config
+
 PopupWindow {
     id: root
     required property var window
     anchor.window: root.window
-    anchor.rect.x: root.window.width - Theme.bar.leftRightGap - width
-    anchor.rect.y: Theme.bar.height + Theme.bar.topBottomGap
+    anchor.rect.x: root.window.width - Config.bar.leftRightGap - width
+    anchor.rect.y: Config.bar.height + Config.bar.topBottomGap
 
     implicitHeight: 160
     implicitWidth: 240
@@ -30,8 +32,8 @@ PopupWindow {
     Rectangle {
         id: dashboard
         anchors.fill: parent
-        color: Theme.bg
-        radius: Theme.radius
+        color: Config.colors.bg
+        radius: Config.radius
 
         ColumnLayout {
             anchors.fill: parent

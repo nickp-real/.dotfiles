@@ -12,9 +12,9 @@ SliderWidget {
     // onIconClick: VolumeService.toggleMuted()
 
     icon.source: {
-        if (BrightnessService.percent >= 0.6)
+        if (BrightnessService.percentage >= 0.6)
             return "brightness-2.svg";
-        if (BrightnessService.percent >= 0.2)
+        if (BrightnessService.percentage >= 0.2)
             return "brightness-1.svg";
         return "brightness.svg";
     }

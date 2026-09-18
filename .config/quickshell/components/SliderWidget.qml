@@ -1,15 +1,16 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import qs.commons
 import qs.components
+
+import "root:config.js" as Config
 
 RowLayout {
     id: root
 
-    property color bg: Theme.mutedBg
-    property color fg: Theme.accentFg
-    property int radius: Theme.radius
+    property color bg: Config.colors.mutedBg
+    property color fg: Config.colors.accentFg
+    property int radius: Config.radius
 
     property alias slider: slider
     property alias icon: icon
@@ -19,16 +20,16 @@ RowLayout {
 
     Rectangle {
         visible: icon.source != ""
-        width: Theme.slider.width
-        height: Theme.slider.height
-        radius: Theme.slider.radius
+        width: Config.slider.width
+        height: Config.slider.height
+        radius: Config.slider.radius
 
-        color: Theme.mutedBg
+        color: Config.colors.mutedBg
 
         Icon {
             id: icon
-            width: Theme.slider.icon.width
-            height: Theme.slider.icon.height
+            width: Config.slider.icon.width
+            height: Config.slider.icon.height
 
             MouseArea {
                 anchors.fill: parent

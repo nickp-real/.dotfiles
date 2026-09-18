@@ -1,16 +1,16 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Services.UPower
 import qs.components
+import qs.services
 
 Loader {
     Layout.fillWidth: true
-    active: UPower.displayDevice.isLaptopBattery
+    active: PowerService.isLaptop
     sourceComponent: SliderWidget {
         slider.to: 1
-        slider.value: UPower.displayDevice.percentage
+        slider.value: PowerService.percentage
         slider.stepSize: 0
         readonly: true
-        icon.source: UPower.displayDevice.iconName
+        icon.source: PowerService.icon
     }
 }

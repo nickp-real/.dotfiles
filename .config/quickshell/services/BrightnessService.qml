@@ -7,7 +7,7 @@ Singleton {
     id: root
     property int brightness
     property int maxBrightness
-    property real percent: recalculatePercent(brightness)
+    property real percentage: recalculatePercentage(brightness)
 
     Process {
         command: ["brightnessctl", "get"]
@@ -33,10 +33,10 @@ Singleton {
     function setValue(value) {
         setBrightnessProcess.command = ["brightnessctl", "set", value];
         setBrightnessProcess.running = true;
-        root.percent = recalculatePercent(value);
+        root.percentage = recalculatePercentage(value);
     }
 
-    function recalculatePercent(value) {
+    function recalculatePercentage(value) {
         if (maxBrightness === 0)
             return 0;
         return value / maxBrightness;

@@ -26,7 +26,6 @@ Scope {
 
             BarLeft {
                 anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
                 height: parent.height
             }
             BarCenter {
@@ -35,7 +34,6 @@ Scope {
             }
             BarRight {
                 anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
                 height: parent.height
             }
 
