@@ -200,4 +200,13 @@ return {
       remove_template_string = true, -- remove backticks when there are no template string
     },
   },
+
+  -- split join
+  {
+    "Wansmer/treesj",
+    keys = { { "J", "<cmd>TSJToggle<cr>" } },
+    opts = {
+      use_default_keymaps = false,
+    },
+  },
 }

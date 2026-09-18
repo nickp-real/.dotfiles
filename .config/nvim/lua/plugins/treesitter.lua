@@ -81,6 +81,8 @@ return {
         "git_rebase",
         "gitignore",
         "gitattributes",
+        "regex",
+        "http",
       },
     },
   },

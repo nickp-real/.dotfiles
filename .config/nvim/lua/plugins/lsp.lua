@@ -199,6 +199,7 @@ return {
     },
   },
 
+  "artemave/workspace-diagnostics.nvim",
   -- {
   --   "oribarilan/lensline.nvim",
   --   -- tag = "1.0.0", -- or: branch = 'release/1.x' for latest non-breaking updates

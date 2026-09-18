@@ -28,8 +28,11 @@ return {
       "rafamadriz/friendly-snippets",
       { "saghen/blink.compat", opts = {} },
       "xzbdmw/colorful-menu.nvim",
+      { "mikavilpas/blink-ripgrep.nvim", version = "*" },
     },
     opts = function()
+      local default_source = { "lsp", "path", "snippets", "buffer", "ripgrep" }
+
       ---@module 'blink.cmp'
       ---@type blink.cmp.Config
       return {
@@ -109,8 +112,9 @@ return {
           },
         },
         sources = {
+          default = default_source,
           per_filetype = {
-            lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+            lua = table.insert(default_source, 1, "lazydev"),
           },
           providers = {
             -- dont show LuaLS require statements when lazydev has items
@@ -118,6 +122,14 @@ return {
             lsp = { fallbacks = {}, async = true },
             path = { fallbacks = { "buffer" } },
             buffer = { min_keyword_length = 4 },
+            ripgrep = {
+              module = "blink-ripgrep",
+              name = "Ripgrep",
+              score_offset = -10,
+              ---@module "blink-ripgrep"
+              ---@type blink-ripgrep.Options
+              opts = { backend = { use = "gitgrep-or-ripgrep" } },
+            },
           },
         },
       }

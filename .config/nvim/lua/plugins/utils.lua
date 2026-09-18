@@ -28,14 +28,15 @@ return {
   {
     "mistweaverco/kulala.nvim",
     event = { "SessionLoadPost", "VimLeavePre" },
+    ft = { "http", "rest", "javascript", "lua" },
     keys = {
-      { "<leader>R", "", desc = "+Rest" },
+      { "<leader>Rr", "", desc = "+Rest" },
       { "<leader>Rs", "<cmd>lua require('kulala').run()<cr>", desc = "Send the request" },
       { "<leader>Rt", "<cmd>lua require('kulala').toggle_view()<cr>", desc = "Toggle headers/body" },
       { "<leader>Rp", "<cmd>lua require('kulala').jump_prev()<cr>", desc = "Jump to previous request" },
       { "<leader>Rn", "<cmd>lua require('kulala').jump_next()<cr>", desc = "Jump to next request" },
     },
-    config = true,
+    opts = { treesitter = { enable = false } },
   },
 
   -- Startuptime
@@ -57,6 +58,32 @@ return {
     opts = {
       cloak_telescope = false,
     },
+  },
+
+  -- auto insert log
+  {
+    "chrisgrieser/nvim-chainsaw",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>lv", function() require("chainsaw").variableLog() end, desc = "[L]og [V]ariable" },
+      { "<leader>lo", function() require("chainsaw").objectLog() end, desc = "[L]og [O]bject" },
+      { "<leader>lt", function() require("chainsaw").typeLog() end, desc = "[L]og [T]ype" },
+      { "<leader>la", function() require("chainsaw").assertLog() end, desc = "[L]og [A]ssert" },
+      { "<leader>le", function() require("chainsaw").emojiLog() end, desc = "[L]og [E]moji" },
+      { "<leader>lso", function() require("chainsaw").sound() end, desc = "[L]og [So]und" },
+      { "<leader>lm", function() require("chainsaw").messageLog() end, desc = "[L]og [M]message" },
+      { "<leader>lt", function() require("chainsaw").timeLog() end, desc = "[L]og [T]ime" },
+      { "<leader>ld", function() require("chainsaw").debugLog() end, desc = "[L]og [D]ebug" },
+      { "<leader>lst", function() require("chainsaw").stacktraceLog() end, desc = "[L]og [S]tack [T]race" },
+      { "<leader>lc", function() require("chainsaw").clearLog() end, desc = "[L]og [C]lear" },
+      {
+        "<leader>lr",
+        function() require("chainsaw").removeLogs() end,
+        desc = "[L]og [R]emove",
+        mode = { "v", "n" },
+      },
+    },
+    opts = {},
   },
 
   "nvim-lua/plenary.nvim",

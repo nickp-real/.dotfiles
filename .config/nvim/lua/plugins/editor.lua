@@ -48,8 +48,10 @@ return {
         end,
       })
     end,
+    ---@type trouble.Config
     opts = {
       use_diagnostic_signs = true,
+      modes = { lsp = { win = { position = "right" } } },
     },
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
