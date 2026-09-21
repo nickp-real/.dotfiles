@@ -9,7 +9,7 @@ PanelWindow {
     id: root
 
     property bool open: false
-    property var handleOnConfirmAction
+    signal confirmAction(confirm: bool)
 
     focusable: open
     visible: open
@@ -23,7 +23,7 @@ PanelWindow {
         active: root.open
         windows: [root]
         onCleared: {
-            root.handleOnConfirmAction(false);
+            root.confirmAction(false);
         }
     }
 
@@ -39,13 +39,13 @@ PanelWindow {
         Keys.onPressed: event => {
             if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                 if (currentFocusAction === "confirm")
-                    root.handleOnConfirmAction(true);
+                    root.confirmAction(true);
                 else
-                    root.handleOnConfirmAction(false);
+                    root.confirmAction(false);
                 event.accepted = true;
             }
             if (event.key === Qt.Key_Escape) {
-                root.handleOnConfirmAction(false);
+                root.confirmAction(false);
                 event.accepted = true;
             }
             if (event.key === Qt.Key_Tab) {
@@ -87,7 +87,7 @@ PanelWindow {
 
                 StartupMenuButton {
                     icon: "x.svg"
-                    onAction: root.handleOnConfirmAction(false)
+                    onAction: root.confirmAction(false)
                     isFocused: confirmPanel.currentFocusAction === "cancel"
                     onHoverEntered: confirmPanel.currentFocusAction = "cancel"
                     onHoverExited: {
@@ -97,7 +97,7 @@ PanelWindow {
                 }
                 StartupMenuButton {
                     icon: "check.svg"
-                    onAction: root.handleOnConfirmAction(true)
+                    onAction: root.confirmAction(true)
                     isFocused: confirmPanel.currentFocusAction === "confirm"
                     onHoverEntered: confirmPanel.currentFocusAction = "confirm"
                     onHoverExited: {

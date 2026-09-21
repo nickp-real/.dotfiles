@@ -9,7 +9,8 @@ import "root:config.js" as Config
 PanelWindow {
     id: root
     property bool open: false
-    required property var onActionClick
+    signal actionClick(action: string, requireConfirm: bool)
+    signal requestClose
 
     implicitHeight: startupPanel.implicitHeight
     implicitWidth: startupPanel.implicitWidth
@@ -23,7 +24,7 @@ PanelWindow {
         active: root.open
         windows: [root]
         onCleared: {
-            root.open = false;
+            root.requestClose();
         }
     }
 
@@ -61,11 +62,11 @@ PanelWindow {
                 if (currentFocusActionIndex < 0)
                     return;
                 const current = menus.get(currentFocusActionIndex);
-                root.onActionClick(current.action, current.requireConfirm);
+                root.actionClick(current.action, current.requireConfirm);
                 event.accepted = true;
             }
             if (event.key === Qt.Key_Escape) {
-                root.open = false;
+                root.requestClose();
                 event.accepted = true;
             }
             if (event.key === Qt.Key_Tab) {
@@ -140,7 +141,7 @@ PanelWindow {
                             required property var model
                             required property int index
                             icon: model.icon
-                            onAction: root.onActionClick(model.action, model.requireConfirm)
+                            onAction: root.actionClick(model.action, model.requireConfirm)
                             isFocused: startupPanel.currentFocusActionIndex === index
                             onHoverEntered: startupPanel.currentFocusActionIndex = index
                             onHoverExited: {
