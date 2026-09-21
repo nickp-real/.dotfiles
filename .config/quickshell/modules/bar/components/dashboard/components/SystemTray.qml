@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import Quickshell
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
@@ -8,7 +9,6 @@ import "root:config.js" as Config
 
 Rectangle {
     id: root
-    required property var window
     Layout.fillWidth: true
     height: 20
     color: "transparent"
@@ -39,7 +39,7 @@ Rectangle {
                             if (mouse.button == Qt.LeftButton) {
                                 trayItem.modelData.activate();
                             } else if (trayItem.modelData.hasMenu) {
-                                trayItem.modelData.display(root.window, root.window.width - Config.bar.leftRightGap - icon.x - root.width, root.window.height + Config.bar.topBottomGap);
+                                trayItem.modelData.display(QsWindow.window, icon.x - Config.padding, icon.y);
                             }
                         }
                     }

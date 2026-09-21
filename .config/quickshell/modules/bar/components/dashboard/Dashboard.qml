@@ -1,33 +1,24 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Hyprland
 import "./components"
-import qs.commons
 
 import "root:config.js" as Config
 
 PopupWindow {
     id: root
-    required property var window
-    anchor.window: root.window
-    anchor.rect.x: root.window.width - Config.bar.leftRightGap - width
-    anchor.rect.y: Config.bar.height + Config.bar.topBottomGap
 
     implicitHeight: 160
     implicitWidth: 240
     color: "transparent"
+    grabFocus: true
 
-    visible: GlobalStates.dashboardOpen
-
-    // HyprlandFocusGrab {
-    //     active: GlobalStates.dashboardOpen
-    //     windows: [root]
-    //     onCleared: {
-    //         // closeAnimation.start();
-    //         // GlobalStates.dashboardOpen = false;
-    //     }
-    // }
+    anchor.margins {
+        top: Config.bar.height - Config.bar.topBottomGap
+        right: -Config.innerRadius
+    }
+    anchor.edges: Edges.Top | Edges.Right
+    anchor.gravity: Edges.Bottom | Edges.Left
 
     Rectangle {
         id: dashboard
@@ -43,9 +34,7 @@ PopupWindow {
             VolumeSlide {}
             BrightnessSlide {}
             Battery {}
-            SystemTray {
-                window: root.window
-            }
+            SystemTray {}
 
             Item {
                 Layout.fillHeight: true
