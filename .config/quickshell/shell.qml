@@ -5,6 +5,7 @@ import QtQuick
 import qs.modules.bar
 import qs.modules.notification
 import qs.modules.startupmenu
+import qs.modules.app_launcher
 
 // import qs.modules.todo
 
@@ -19,4 +20,5 @@ Scope {
     //
     Notification {}
     StartupMenu {}
+    AppLauncher {}
 }

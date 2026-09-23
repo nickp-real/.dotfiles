@@ -33,7 +33,7 @@ PopupScope {
         StartupMenuPanel {
             open: root.open
             onActionClick: (action, requireConfirm) => root.handleOnActionClick(action, requireConfirm)
-            onRequestClose: root.handleClose()
+            onClose: root.handleClose()
         }
     }
 

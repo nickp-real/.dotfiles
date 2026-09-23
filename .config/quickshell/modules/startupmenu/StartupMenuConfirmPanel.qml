@@ -1,15 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Hyprland
+import qs.components
 
 import "root:config.js" as Config
 
-PanelWindow {
+PopupPanelWindow {
     id: root
 
-    property bool open: false
     signal confirmAction(confirm: bool)
+    onClose: root.confirmAction(false)
 
     focusable: open
     visible: open
@@ -18,14 +18,6 @@ PanelWindow {
     implicitWidth: 400
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
-
-    HyprlandFocusGrab {
-        active: root.open
-        windows: [root]
-        onCleared: {
-            root.confirmAction(false);
-        }
-    }
 
     Rectangle {
         id: confirmPanel
@@ -42,10 +34,6 @@ PanelWindow {
                     root.confirmAction(true);
                 else
                     root.confirmAction(false);
-                event.accepted = true;
-            }
-            if (event.key === Qt.Key_Escape) {
-                root.confirmAction(false);
                 event.accepted = true;
             }
             if (event.key === Qt.Key_Tab) {

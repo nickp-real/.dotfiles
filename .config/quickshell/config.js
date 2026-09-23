@@ -31,6 +31,7 @@ const innerRadius = radius / 2;
 
 const font = {
   family: "Google Sans Display",
+  sm: 12,
   md: 14,
   base: 16,
   lg: 18,
@@ -74,5 +75,16 @@ const startupMenu = {
     spacing: padding * 2,
     size: 100,
     icon: { size: 50 },
+  },
+};
+
+const appLauncher = {
+  spacing: padding * 2,
+  padding: padding * 2,
+  input: {
+    height: 24,
+  },
+  listView: {
+    spacing: padding,
   },
 };

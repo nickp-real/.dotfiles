@@ -2,15 +2,13 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
-import Quickshell.Hyprland
+import qs.components
 
 import "root:config.js" as Config
 
-PanelWindow {
+PopupPanelWindow {
     id: root
-    property bool open: false
     signal actionClick(action: string, requireConfirm: bool)
-    signal requestClose
 
     implicitHeight: startupPanel.implicitHeight
     implicitWidth: startupPanel.implicitWidth
@@ -19,14 +17,6 @@ PanelWindow {
 
     focusable: open
     visible: open
-
-    HyprlandFocusGrab {
-        active: root.open
-        windows: [root]
-        onCleared: {
-            root.requestClose();
-        }
-    }
 
     Process {
         command: ["hostnamectl", "hostname"]
@@ -63,10 +53,6 @@ PanelWindow {
                     return;
                 const current = menus.get(currentFocusActionIndex);
                 root.actionClick(current.action, current.requireConfirm);
-                event.accepted = true;
-            }
-            if (event.key === Qt.Key_Escape) {
-                root.requestClose();
                 event.accepted = true;
             }
             if (event.key === Qt.Key_Tab) {

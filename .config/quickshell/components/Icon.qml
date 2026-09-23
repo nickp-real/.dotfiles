@@ -32,7 +32,7 @@ Item {
                 return iconSource;
             }
 
-            return Qt.resolvedUrl(`/usr/share/icons/${Quickshell.env("QS_ICON_THEME")}/24x24/symbolic/status/${root.source}.svg`);
+            return Quickshell.iconPath(root.source);
         }
 
         layer.enabled: root.colorization
