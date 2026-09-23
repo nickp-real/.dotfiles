@@ -2,7 +2,7 @@
 
 theme='OneDark'
 icon='Papirus-Dark'
-font='Roboto 10'
+font='Google Sans Display 10'
 cursor='Bibata-Modern-Ice'
 color_scheme='prefer-dark'
 
