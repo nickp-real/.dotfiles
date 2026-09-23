@@ -1,18 +1,12 @@
 pragma Singleton
 
 import Quickshell
-import Quickshell.Io
 import QtQml
 
 Singleton {
     property ObjectModel entries: DesktopEntries.applications
     property ListModel filteredEntries: ListModel {}
     signal launched
-
-    Process {
-        id: processRunner
-        running: false
-    }
 
     function matcher(input: string, lookupWord: string): var {
         const CONSECUTIVE_PENALTY = 2;
@@ -96,8 +90,7 @@ Singleton {
 
     function launch(entryId: string) {
         const id = entryId.endsWith(".desktop") ? entryId : `${entryId}.desktop`;
-        processRunner.command = ["app2unit", id];
-        processRunner.running = true;
+        Quickshell.execDetached(["app2unit", id]);
         launched();
     }
 }
