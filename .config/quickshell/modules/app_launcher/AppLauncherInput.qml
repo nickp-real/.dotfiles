@@ -42,6 +42,14 @@ Rectangle {
         }
 
         Keys.onPressed: event => {
+            if (event.modifiers & Qt.ControlModifier && event.key === Qt.Key_W) {
+                const allWords = text.split(" ").filter(t => t.trim() !== "");
+                allWords.pop();
+                text = allWords.join(" ");
+                if (allWords.length > 0)
+                    text += " ";
+                event.accepted = true;
+            }
             if (event.key === Qt.Key_Up || (event.modifiers & Qt.ControlModifier && event.key === Qt.Key_P) || event.key === Qt.Key_Backtab) {
                 if (root.listView.count === 0)
                     return;
