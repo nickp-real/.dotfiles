@@ -11,10 +11,10 @@ PopupPanelWindow {
     focusable: open
     visible: open
 
-    onClose: AppLauncherEntriesService.filteredEntries.clear()
+    onClose: AppLauncherEntriesService.clear()
 
     implicitWidth: 600
-    implicitHeight: container.implicitHeight
+    implicitHeight: input.implicitHeight
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
 
@@ -25,8 +25,14 @@ PopupPanelWindow {
         top: Math.max(200, root.screen.height * 0.25)
     }
 
-    AppLauncherContainer {
-        id: container
+    AppLauncherInput {
+        id: input
         open: root.open
+        listView: displayList.listView
+    }
+
+    AppLauncherDisplayList {
+        id: displayList
+        anchor.window: root
     }
 }

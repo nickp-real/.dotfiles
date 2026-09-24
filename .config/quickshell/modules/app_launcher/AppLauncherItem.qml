@@ -11,12 +11,16 @@ Rectangle {
     required property string description
     required property string entryId
     property bool isCurrentItem: ListView.isCurrentItem
+    property bool isSettled: false
 
     width: ListView.view.width
     implicitHeight: rowItem.implicitHeight + Config.padding * 2
     color: isCurrentItem ? Config.colors.accentFg : "transparent"
 
+    Component.onCompleted: Qt.callLater(() => item.isSettled = true)
+
     Behavior on color {
+        enabled: item.isSettled
         ColorAnimation {
             duration: 100
         }
@@ -46,6 +50,7 @@ Rectangle {
             font.pixelSize: Config.font.base
             color: item.isCurrentItem ? Config.colors.accentBg : Config.colors.fg
             Behavior on color {
+                enabled: item.isSettled
                 ColorAnimation {
                     duration: 100
                 }

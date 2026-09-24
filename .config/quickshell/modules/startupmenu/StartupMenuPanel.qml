@@ -99,7 +99,7 @@ PopupPanelWindow {
                 Rectangle {
                     color: Config.colors.green
                     implicitHeight: 40
-                    implicitWidth: childrenRect.width + Config.padding * 2
+                    implicitWidth: uptime.width + Config.padding * 2
 
                     Text {
                         id: uptime

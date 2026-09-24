@@ -11,7 +11,7 @@ PopupScope {
     Connections {
         target: AppLauncherEntriesService
         function onLaunched() {
-            AppLauncherEntriesService.filteredEntries.clear();
+            AppLauncherEntriesService.clear();
             root.open = false;
         }
     }

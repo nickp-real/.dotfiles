@@ -6,6 +6,7 @@ import QtQml
 Singleton {
     property ObjectModel entries: DesktopEntries.applications
     property ListModel filteredEntries: ListModel {}
+    property bool hasResult: false
     signal launched
 
     function matcher(input: string, lookupWord: string): var {
@@ -58,8 +59,10 @@ Singleton {
         filteredEntries.clear();
 
         const q = query.trim();
-        if (!q)
+        if (!q) {
+            hasResult = false;
             return;
+        }
 
         const result = [];
         for (const entry of entries.values) {
@@ -86,11 +89,18 @@ Singleton {
 
         for (const res of result)
             filteredEntries.append(res);
+
+        hasResult = result.length > 0;
     }
 
     function launch(entryId: string) {
         const id = entryId.endsWith(".desktop") ? entryId : `${entryId}.desktop`;
         Quickshell.execDetached(["app2unit", id]);
         launched();
+    }
+
+    function clear() {
+        filteredEntries.clear();
+        hasResult = false;
     }
 }

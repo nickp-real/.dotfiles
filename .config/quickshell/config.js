@@ -82,7 +82,7 @@ const appLauncher = {
   spacing: padding * 2,
   padding: padding * 2,
   input: {
-    height: 24,
+    height: 32,
   },
   listView: {
     spacing: padding,
