@@ -5,8 +5,6 @@ import QtQuick.Layouts
 import "root:config.js" as Config
 
 PanelWindow {
-    required property ObjectModel notifications
-
     anchors {
         top: true
         right: true
@@ -27,7 +25,7 @@ PanelWindow {
         spacing: 10
 
         Repeater {
-            model: server.trackedNotifications
+            model: NotificationService.notifications
             delegate: NotificationCard {}
         }
     }

@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Services.Notifications
 import QtQuick
@@ -9,7 +11,7 @@ import "root:config.js" as Config
 PopupScope {
     id: root
 
-    required property ListModel history
+    readonly property ListModel history: NotificationService.historyList
     name: "notifications"
 
     PanelWindow {
