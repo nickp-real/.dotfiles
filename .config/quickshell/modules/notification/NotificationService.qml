@@ -31,6 +31,7 @@ Singleton {
         }
     }
 
-    function notify(body) {
-    }
+    // function notify(body) {
+    //     Quickshell.execDetached(["notify-send", body]);
+    // }
 }
