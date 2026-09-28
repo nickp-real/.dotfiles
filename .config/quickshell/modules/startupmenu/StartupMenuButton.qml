@@ -20,5 +20,7 @@ Button {
         implicitHeight: Config.startupMenu.button.icon.size
         source: root.icon
         color: root.isHovered || root.isFocused ? Config.colors.bg : Config.colors.fg
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 }

@@ -9,8 +9,6 @@ SliderWidget {
     slider.to: BrightnessService.maxBrightness
     slider.value: BrightnessService.brightness
 
-    // onIconClick: VolumeService.toggleMuted()
-
     icon.source: {
         if (BrightnessService.percentage >= 0.6)
             return "brightness-2.svg";

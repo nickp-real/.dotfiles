@@ -14,7 +14,7 @@ Variants {
             top: true
         }
 
-        height: Config.bar.height
+        implicitHeight: Config.bar.height
         exclusiveZone: Config.bar.height
         color: "transparent"
     }

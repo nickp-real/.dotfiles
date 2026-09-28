@@ -11,15 +11,7 @@ SliderWidget {
 
     onIconClick: VolumeService.toggleMuted()
 
-    icon.source: {
-        if (VolumeService.isMuted)
-            return "volume-mute.svg";
-        if (VolumeService.volume >= 0.6)
-            return "volume-2.svg";
-        if (VolumeService.volume >= 0.2)
-            return "volume-1.svg";
-        return "volume.svg";
-    }
+    icon.source: VolumeService.icon
 
     slider.onMoved: function () {
         VolumeService.setVolume(root.slider.value);

@@ -20,8 +20,10 @@ RowLayout {
 
     Rectangle {
         visible: icon.source != ""
-        width: Config.slider.width
-        height: Config.slider.height
+        Layout.preferredHeight: Config.slider.height
+        Layout.preferredWidth: Config.slider.width
+        Layout.alignment: Qt.AlignVCenter
+
         radius: Config.slider.radius
 
         color: Config.colors.mutedBg
@@ -30,6 +32,8 @@ RowLayout {
             id: icon
             width: Config.slider.icon.width
             height: Config.slider.icon.height
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
 
             MouseArea {
                 anchors.fill: parent
@@ -47,6 +51,7 @@ RowLayout {
 
         height: 16
         Layout.fillWidth: true
+        Layout.alignment: Qt.AlignVCenter
 
         background: Rectangle {
             color: root.bg

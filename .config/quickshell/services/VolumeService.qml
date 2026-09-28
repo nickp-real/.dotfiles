@@ -11,6 +11,15 @@ Singleton {
     property PwNode source: Pipewire.defaultAudioSource
     property real volume: sink?.audio.volume ?? 0
     property bool isMuted: sink?.audio.muted ?? false
+    property string icon: {
+        if (VolumeService.isMuted)
+            return "volume-mute.svg";
+        if (VolumeService.volume >= 0.6)
+            return "volume-2.svg";
+        if (VolumeService.volume >= 0.2)
+            return "volume-1.svg";
+        return "volume.svg";
+    }
 
     PwObjectTracker {
         objects: [root.source, root.sink]

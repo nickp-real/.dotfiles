@@ -16,7 +16,7 @@ Variants {
             left: true
         }
 
-        height: Config.bar.height
+        implicitHeight: Config.bar.height
         implicitWidth: container.implicitWidth
         color: "transparent"
 
@@ -26,9 +26,7 @@ Variants {
             id: container
             bottomRightRadius: Config.bar.radius
 
-            WorkSpaces {
-                anchors.centerIn: parent
-            }
+            WorkSpaces {}
         }
     }
 }

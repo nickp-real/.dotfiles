@@ -28,7 +28,6 @@ Variants {
             Item {
                 implicitHeight: parent.height
                 implicitWidth: 204 + Config.padding * 2
-                anchors.horizontalCenter: parent.horizontalCenter
 
                 Clock {
                     anchors.centerIn: parent

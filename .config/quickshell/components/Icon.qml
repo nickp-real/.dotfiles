@@ -17,9 +17,6 @@ Item {
     implicitWidth: Config.icon.width
     implicitHeight: Config.icon.height
 
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.horizontalCenter: parent.horizontalCenter
-
     IconImage {
         anchors.fill: parent
         source: {
