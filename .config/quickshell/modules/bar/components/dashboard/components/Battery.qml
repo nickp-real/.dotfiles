@@ -3,14 +3,72 @@ import QtQuick.Layouts
 import qs.components
 import qs.services
 
+import "root:config.js" as Config
+
 Loader {
-    Layout.fillWidth: true
     active: PowerService.isLaptop
-    sourceComponent: SliderWidget {
-        slider.to: 1
-        slider.value: PowerService.percentage
-        slider.stepSize: 0
-        readonly: true
-        icon.source: PowerService.icon
+    Layout.fillWidth: true
+    sourceComponent: ColumnLayout {
+        spacing: 4
+        anchors.fill: parent
+
+        RowLayout {
+            spacing: 4
+            Icon {
+                source: PowerService.icon
+            }
+            Text {
+                text: "Battery"
+                font.pixelSize: Config.font.lg
+                font.family: Config.font.family
+                color: Config.colors.fg
+            }
+        }
+
+        RowLayout {
+            spacing: 8
+
+            Text {
+                text: `${PowerService.percentage * 100}%`
+                font.pixelSize: Config.font.base * 2
+                font.family: Config.font.family
+                color: Config.colors.fg
+                font.features: {
+                    "tnum": 1
+                }
+            }
+            Text {
+                text: PowerService.status
+                font.family: Config.font.family
+                font.pixelSize: Config.font.base
+                color: Config.colors.fg
+            }
+        }
+
+        RowLayout {
+            spacing: 8
+            Repeater {
+                model: PowerService.powerProfiles
+                delegate: Button {
+                    required property int modelData
+
+                    Layout.fillWidth: true
+                    onClicked: PowerService.setPowerProfile(modelData)
+                    color: PowerService.currentPowerProfile === modelData ? Config.colors.accentFg : Config.colors.mutedBg
+
+                    implicitHeight: 32
+
+                    Text {
+                        text: PowerService.getPowerProfile(modelData)
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: Config.font.family
+                        font.pixelSize: Config.font.base
+                        color: PowerService.currentPowerProfile === modelData ? Config.colors.accentBg : Config.colors.mutedFg
+                    }
+                }
+            }
+        }
     }
 }

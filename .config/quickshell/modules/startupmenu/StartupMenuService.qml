@@ -4,43 +4,27 @@ import Quickshell
 import Quickshell.Io
 import QtQml
 
-import "./startup.js" as Script
-
 Singleton {
     id: root
-    property alias menus: model
+    readonly property alias menus: model
 
     ListModel {
         id: model
-        ListElement {
-            action: "lock"
-            icon: "lock-icon.svg"
-            requireConfirm: false
-        }
-        ListElement {
-            action: "logout"
-            icon: "logout-icon.svg"
-            requireConfirm: true
-        }
-        ListElement {
-            action: "suspend"
-            icon: "pause-icon.svg"
-            requireConfirm: true
-        }
-        ListElement {
-            action: "reboot"
-            icon: "restart-icon.svg"
-            requireConfirm: true
-        }
-        ListElement {
-            action: "shutdown"
-            icon: "power-icon.svg"
-            requireConfirm: true
+    }
+
+    Component.onCompleted: {
+        for (const action of StartupCommand.orders) {
+            const entry = StartupCommand.actions[action];
+            model.append({
+                action,
+                icon: entry.icon,
+                requireConfirm: entry.requireConfirm
+            });
         }
     }
 
     function runScript(action: string) {
-        actionProcess.command = Script.script[action];
+        actionProcess.command = StartupCommand.actions[action].command;
         actionProcess.running = true;
     }
 

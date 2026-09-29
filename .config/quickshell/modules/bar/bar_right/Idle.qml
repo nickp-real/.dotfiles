@@ -69,8 +69,11 @@ Row {
         value: VolumeService.volume * 100
         icon.source: VolumeService.icon
     }
-    Status {
-        value: PowerService.percentage * 100
-        icon.source: PowerService.icon
+    Loader {
+        active: PowerService.isLaptop
+        sourceComponent: Status {
+            value: PowerService.percentage * 100
+            icon.source: PowerService.icon
+        }
     }
 }

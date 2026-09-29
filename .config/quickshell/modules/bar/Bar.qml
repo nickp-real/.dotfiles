@@ -1,6 +1,6 @@
 import Quickshell
 import QtQuick
-import "./BarRight"
+import qs.modules.bar.bar_right
 
 Scope {
     BarLeft {}

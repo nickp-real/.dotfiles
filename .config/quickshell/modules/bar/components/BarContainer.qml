@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 
 import "root:config.js" as Config
 
@@ -9,7 +10,7 @@ Rectangle {
     implicitHeight: Config.bar.height
     implicitWidth: row.implicitWidth + Config.padding * 2
 
-    Row {
+    RowLayout {
         id: row
         spacing: Config.padding
         anchors.fill: parent

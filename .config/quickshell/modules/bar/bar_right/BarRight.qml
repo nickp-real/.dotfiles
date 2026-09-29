@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import qs.modules.bar.components.dashboard
 import qs.modules.bar.components
@@ -26,7 +27,7 @@ Variants {
         }
 
         implicitHeight: 800
-        implicitWidth: 320
+        implicitWidth: 600
 
         BarContainer {
             id: container
@@ -50,7 +51,7 @@ Variants {
                     PropertyChanges {
                         target: container
                         implicitHeight: 800
-                        implicitWidth: 320
+                        implicitWidth: 600
                     }
                 }
             ]
@@ -115,13 +116,13 @@ Variants {
             Idle {
                 id: idle
                 state: container.containerState === "idle" ? "visible" : "hidden"
-                anchors.verticalCenter: parent.verticalCenter
             }
 
             Dashboard {
                 id: dashboard
                 state: container.containerState === "dashboard" ? "visible" : "hidden"
-                anchors.fill: parent
+                Layout.fillWidth: true
+                Layout.fillHeight: true
             }
         }
     }

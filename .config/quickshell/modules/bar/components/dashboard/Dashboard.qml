@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import "./components"
+import qs.modules.bar.components.dashboard.components
 
 import "root:config.js" as Config
 
