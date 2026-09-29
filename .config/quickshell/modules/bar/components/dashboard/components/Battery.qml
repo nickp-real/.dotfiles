@@ -8,22 +8,9 @@ import "root:config.js" as Config
 Loader {
     active: PowerService.isLaptop
     Layout.fillWidth: true
-    sourceComponent: ColumnLayout {
-        spacing: 4
-        anchors.fill: parent
-
-        RowLayout {
-            spacing: 4
-            Icon {
-                source: PowerService.icon
-            }
-            Text {
-                text: "Battery"
-                font.pixelSize: Config.font.lg
-                font.family: Config.font.family
-                color: Config.colors.fg
-            }
-        }
+    sourceComponent: DashboardSection {
+        title: "Battery"
+        icon.source: PowerService.icon
 
         RowLayout {
             spacing: 8
