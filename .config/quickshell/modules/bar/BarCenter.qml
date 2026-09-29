@@ -25,14 +25,7 @@ Variants {
             bottomLeftRadius: Config.bar.radius
             bottomRightRadius: Config.bar.radius
 
-            Item {
-                implicitHeight: parent.height
-                implicitWidth: 204 + Config.padding * 2
-
-                Clock {
-                    anchors.centerIn: parent
-                }
-            }
+            Clock {}
         }
     }
 }

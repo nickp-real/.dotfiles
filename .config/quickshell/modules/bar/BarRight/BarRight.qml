@@ -2,9 +2,6 @@ import QtQuick
 import Quickshell
 import qs.modules.bar.components.dashboard
 import qs.modules.bar.components
-import qs.services
-
-import qs.components
 
 import "root:config.js" as Config
 
@@ -25,15 +22,15 @@ Variants {
 
         mask: Region {
             item: container
+            bottomLeftRadius: Config.bar.radius
         }
 
         implicitHeight: 800
-        implicitWidth: 800
+        implicitWidth: 320
 
         BarContainer {
             id: container
             bottomLeftRadius: Config.bar.radius
-            anchors.top: parent.top
             anchors.right: parent.right
 
             property string containerState: "idle"
@@ -45,7 +42,7 @@ Variants {
                     PropertyChanges {
                         target: container
                         implicitHeight: Config.bar.height
-                        implicitWidth: statusRow.implicitWidth + Config.padding * 2
+                        implicitWidth: idle.implicitWidth + Config.padding * 2
                     }
                 },
                 State {
@@ -58,18 +55,38 @@ Variants {
                 }
             ]
 
-            Behavior on implicitWidth {
-                NumberAnimation {
-                    duration: 300
-                    easing: Easing.OutExpo
+            transitions: [
+                Transition {
+                    from: "idle"
+                    to: "dashboard"
+                    SequentialAnimation {
+                        PauseAnimation {
+                            duration: 300
+                        }
+                        NumberAnimation {
+                            target: container
+                            duration: 150
+                            easing: Easing.OutQuad
+                            properties: "implicitWidth,implicitHeight"
+                        }
+                    }
+                },
+                Transition {
+                    from: "dashboard"
+                    to: "idle"
+                    SequentialAnimation {
+                        PauseAnimation {
+                            duration: 300
+                        }
+                        NumberAnimation {
+                            target: container
+                            duration: 150
+                            easing: Easing.OutQuad
+                            properties: "implicitWidth,implicitHeight"
+                        }
+                    }
                 }
-            }
-            Behavior on implicitHeight {
-                NumberAnimation {
-                    duration: 300
-                    easing: Easing.OutExpo
-                }
-            }
+            ]
 
             Timer {
                 id: openDelay
@@ -95,24 +112,15 @@ Variants {
                 }
             }
 
-            Row {
-                id: statusRow
-                visible: container.containerState === "idle"
+            Idle {
+                id: idle
+                state: container.containerState === "idle" ? "visible" : "hidden"
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: Config.padding
-                Status {
-                    value: VolumeService.volume * 100
-                    icon.source: VolumeService.icon
-                }
-                Status {
-                    value: PowerService.percentage * 100
-                    icon.source: PowerService.icon
-                }
             }
 
             Dashboard {
                 id: dashboard
-                visible: container.containerState === "dashboard"
+                state: container.containerState === "dashboard" ? "visible" : "hidden"
                 anchors.fill: parent
             }
         }

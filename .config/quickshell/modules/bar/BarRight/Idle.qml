@@ -1,11 +1,12 @@
 import QtQuick
-import QtQuick.Layouts
-import "./components"
+import qs.components
+import qs.services
 
 import "root:config.js" as Config
 
-Item {
+Row {
     id: root
+    spacing: Config.padding
 
     states: [
         State {
@@ -25,7 +26,24 @@ Item {
             }
         }
     ]
+
     transitions: [
+        Transition {
+            from: "visible"
+            to: "hidden"
+            SequentialAnimation {
+                NumberAnimation {
+                    target: root
+                    property: "opacity"
+                    duration: 150
+                    easing.type: Easing.OutQuad
+                }
+                PropertyAction {
+                    target: root
+                    property: "visible"
+                }
+            }
+        },
         Transition {
             from: "hidden"
             to: "visible"
@@ -44,37 +62,15 @@ Item {
                     easing.type: Easing.OutQuad
                 }
             }
-        },
-        Transition {
-            from: "visible"
-            to: "hidden"
-            SequentialAnimation {
-                NumberAnimation {
-                    target: root
-                    property: "opacity"
-                    duration: 150
-                    easing.type: Easing.OutQuad
-                }
-                PropertyAction {
-                    target: root
-                    property: "visible"
-                }
-            }
         }
     ]
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 8
-        spacing: 8
-
-        VolumeSlide {}
-        BrightnessSlide {}
-        Battery {}
-        SystemTray {}
-
-        Item {
-            Layout.fillHeight: true
-        }
+    Status {
+        value: VolumeService.volume * 100
+        icon.source: VolumeService.icon
+    }
+    Status {
+        value: PowerService.percentage * 100
+        icon.source: PowerService.icon
     }
 }
