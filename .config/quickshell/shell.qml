@@ -22,4 +22,5 @@ Scope {
     Notification {}
     StartupMenu {}
     AppLauncher {}
+    Wallpaper {}
 }
