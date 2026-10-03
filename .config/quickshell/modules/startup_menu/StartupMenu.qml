@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import qs.components
 
 PopupScope {
@@ -28,9 +27,9 @@ PopupScope {
         root.open = false;
     }
 
-    LazyLoader {
+    Loader {
         active: root.open
-        StartupMenuPanel {
+        sourceComponent: StartupMenuPanel {
             open: root.open
             onActionClick: (action, requireConfirm) => root.handleOnActionClick(action, requireConfirm)
             onClose: root.handleClose()
@@ -38,9 +37,9 @@ PopupScope {
     }
 
     //  confirm popup
-    LazyLoader {
+    Loader {
         active: root.currentAction !== ""
-        StartupMenuConfirmPanel {
+        sourceComponent: StartupMenuConfirmPanel {
             open: root.currentAction !== ""
             onConfirmAction: confirm => root.handleOnConfirmAction(confirm)
         }
