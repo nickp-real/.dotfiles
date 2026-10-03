@@ -88,3 +88,13 @@ const appLauncher = {
     spacing: padding,
   },
 };
+
+const wallpaper = {
+  transition: {
+    type: "grow",
+    step: "20",
+    duration: "1",
+    bezier: "0.65,0,0.35,1",
+    fps: 60,
+  },
+};
