@@ -111,7 +111,8 @@ return {
         table.insert(acc, pack.spec.neovim and pack.spec.neovim.lspconfig)
         return acc
       end)
-      vim.lsp.enable(lsp_config_names)
+      local extra_lsp = { "gdscript", "qmlls" }
+      vim.lsp.enable(vim.tbl_extend("force", lsp_config_names, extra_lsp))
     end),
     ---@class MasonSettings
     opts = {

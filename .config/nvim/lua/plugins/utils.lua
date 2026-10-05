@@ -27,6 +27,7 @@ return {
   -- http call
   {
     "mistweaverco/kulala.nvim",
+    enabled = false,
     event = { "SessionLoadPost", "VimLeavePre" },
     ft = { "http", "rest", "javascript", "lua" },
     keys = {

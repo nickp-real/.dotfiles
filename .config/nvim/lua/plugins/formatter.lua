@@ -16,6 +16,7 @@ local formatters_by_ft = {
   sh = { "shfmt" },
   json = { "jq" },
   fish = { "fish_indent" },
+  gdscript = { "gdscript-formatter" },
   -- Use the "*" filetype to run formatters on all filetypes.
   -- ["*"] = { "codespell" },
   -- Use the "_" filetype to run formatters on filetypes that don't
