@@ -16,9 +16,9 @@ PopupScope {
         }
     }
 
-    LazyLoader {
+    Loader {
         active: root.open
-        AppLauncherPanel {
+        sourceComponent: AppLauncherPanel {
             open: root.open
             onClose: {
                 root.open = false;

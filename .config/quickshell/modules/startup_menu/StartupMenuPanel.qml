@@ -85,14 +85,13 @@ PopupPanelWindow {
                     implicitHeight: 40
                     implicitWidth: hostname.width + Config.padding * 2
 
-                    Text {
+                    StyledText {
                         id: hostname
                         anchors {
                             verticalCenter: parent.verticalCenter
                             horizontalCenter: parent.horizontalCenter
                         }
                         font.pixelSize: Config.font.base
-                        font.family: Config.font.family
                         color: Config.colors.bg
                     }
                 }
@@ -101,14 +100,13 @@ PopupPanelWindow {
                     implicitHeight: 40
                     implicitWidth: uptime.width + Config.padding * 2
 
-                    Text {
+                    StyledText {
                         id: uptime
                         anchors {
                             verticalCenter: parent.verticalCenter
                             horizontalCenter: parent.horizontalCenter
                         }
                         font.pixelSize: Config.font.base
-                        font.family: Config.font.family
                         color: Config.colors.bg
                     }
                 }

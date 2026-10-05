@@ -30,7 +30,7 @@ const radius = 8;
 const innerRadius = radius / 2;
 
 const font = {
-  family: "Google Sans Display",
+  family: "Google Sans Flex",
   sm: 12,
   md: 14,
   base: 16,

@@ -46,20 +46,18 @@ PopupScope {
                 RowLayout {
                     Layout.fillWidth: true
 
-                    Text {
+                    StyledText {
                         Layout.fillWidth: true
                         text: "Notifications"
                         color: Config.colors.cyan
-                        font.family: Config.font.family
                         font.pixelSize: Config.font.base + 2
                         font.bold: true
                     }
 
-                    Text {
+                    StyledText {
                         text: "Clear all"
                         visible: root.history.count > 0
                         color: Config.colors.red
-                        font.family: Config.font.family
                         font.pixelSize: Config.font.base - 2
                         MouseArea {
                             anchors.fill: parent
@@ -106,25 +104,22 @@ PopupScope {
                                 Layout.fillWidth: true
                                 spacing: 6
 
-                                Text {
+                                StyledText {
                                     Layout.fillWidth: true
                                     text: card.summary
                                     color: Config.colors.cyan
-                                    font.family: Config.font.family
                                     font.pixelSize: Config.font.base
                                     font.bold: true
                                     elide: Text.ElideRight
                                 }
-                                Text {
+                                StyledText {
                                     text: card.time
                                     color: Config.colors.brightBlack
-                                    font.family: Config.font.family
                                     font.pixelSize: Config.font.base - 2
                                 }
-                                Text {
+                                StyledText {
                                     text: "x"
                                     color: Config.colors.brightBlack
-                                    font.family: Config.font.family
                                     font.pixelSize: Config.font.base - 2
                                     MouseArea {
                                         anchors.fill: parent
@@ -133,22 +128,20 @@ PopupScope {
                                 }
                             }
 
-                            Text {
+                            StyledText {
                                 Layout.fillWidth: true
                                 visible: text !== ""
                                 text: card.body
                                 color: Config.colors.mutedFg
-                                font.family: Config.font.family
                                 font.pixelSize: Config.font.base - 1
                                 wrapMode: Text.WordWrap
                             }
 
-                            Text {
+                            StyledText {
                                 Layout.fillWidth: true
                                 visible: text !== ""
                                 text: card.appName
                                 color: Config.colors.brightBlack
-                                font.family: Config.font.family
                                 font.pixelSize: Config.font.base - 4
                                 wrapMode: Text.WordWrap
                             }
@@ -156,12 +149,10 @@ PopupScope {
                     }
                 }
 
-                Text {
+                StyledText {
                     visible: root.history.count === 0
                     Layout.alignment: Qt.AlignCenter
                     text: "No notifications"
-                    color: Config.colors.fg
-                    font.family: Config.font.family
                     font.pixelSize: Config.font.base
                 }
             }

@@ -59,13 +59,12 @@ PopupPanelWindow {
                 implicitWidth: text.width + Config.padding
                 color: Config.colors.red
 
-                Text {
+                StyledText {
                     id: text
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     text: "Are you sure?"
                     font.pixelSize: Config.font.base
-                    font.family: Config.font.family
                     color: Config.colors.bg
                 }
             }

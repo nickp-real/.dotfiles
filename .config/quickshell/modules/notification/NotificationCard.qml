@@ -1,6 +1,7 @@
 import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
+import qs.components
 
 import "root:config.js" as Config
 
@@ -40,22 +41,20 @@ Rectangle {
             Layout.fillWidth: true
             spacing: 2
 
-            Text {
+            StyledText {
                 Layout.fillWidth: true
                 text: card.modelData.summary
                 color: Config.colors.cyan
-                font.family: Config.font.family
                 font.pixelSize: Config.font.size
                 font.bold: true
                 elide: Text.ElideRight
             }
 
-            Text {
+            StyledText {
                 Layout.fillWidth: true
                 visible: text !== ""
                 text: card.modelData.body
                 color: Config.colors.mutedFg
-                font.family: Config.font.family
                 font.pixelSize: Config.font.size - 1
                 wrapMode: Text.WordWrap
             }

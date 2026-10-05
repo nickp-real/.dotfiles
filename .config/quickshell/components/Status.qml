@@ -1,4 +1,5 @@
 import QtQuick
+import qs.components
 
 import "root:config.js" as Config
 
@@ -19,12 +20,9 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
         }
 
-        Text {
+        StyledText {
             anchors.verticalCenter: parent.verticalCenter
             text: `${root.value}%`
-            font.family: Config.font.family
-            font.pixelSize: Config.font.md
-            color: Config.colors.fg
             font.features: {
                 "tnum": 1
             }

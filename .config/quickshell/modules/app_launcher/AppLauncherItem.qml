@@ -43,11 +43,9 @@ Rectangle {
                 colorization: false
             }
         }
-        Text {
+        StyledText {
             Layout.fillWidth: true
             text: item.name
-            font.family: Config.font.family
-            font.pixelSize: Config.font.base
             color: item.isCurrentItem ? Config.colors.accentBg : Config.colors.fg
             Behavior on color {
                 enabled: item.isSettled
