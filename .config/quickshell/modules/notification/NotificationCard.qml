@@ -46,7 +46,7 @@ Rectangle {
                 text: card.modelData.summary
                 color: Config.colors.cyan
                 font.pixelSize: Config.font.size
-                font.bold: true
+                font.weight: 600
                 elide: Text.ElideRight
             }
 

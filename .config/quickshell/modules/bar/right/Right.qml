@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import qs.modules.bar.components.dashboard
 import qs.modules.bar.components
+import qs.modules.bar.right.components
 
 import "root:config.js" as Config
 
@@ -10,6 +11,7 @@ Variants {
     model: Quickshell.screens
 
     PanelWindow {
+        id: panel
         required property ShellScreen modelData
         screen: modelData
 
@@ -26,8 +28,9 @@ Variants {
             bottomLeftRadius: Config.bar.radius
         }
 
-        implicitHeight: 800
-        implicitWidth: 600
+        implicitHeight: Math.floor(modelData.height * 2 / 3)
+        implicitWidth: Math.floor(modelData.width / 3) - 40
+        focusable: container.containerState === "dashboard"
 
         BarContainer {
             id: container
@@ -41,17 +44,15 @@ Variants {
                 State {
                     name: "idle"
                     PropertyChanges {
-                        target: container
-                        implicitHeight: Config.bar.height
-                        implicitWidth: idle.implicitWidth + Config.padding * 2
+                        container.implicitHeight: Config.bar.height
+                        container.implicitWidth: idle.implicitWidth + Config.padding * 2
                     }
                 },
                 State {
                     name: "dashboard"
                     PropertyChanges {
-                        target: container
-                        implicitHeight: 800
-                        implicitWidth: 600
+                        container.implicitHeight: panel.implicitHeight
+                        container.implicitWidth: panel.implicitWidth
                     }
                 }
             ]

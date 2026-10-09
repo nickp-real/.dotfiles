@@ -1,5 +1,6 @@
 import QtQuick
 import qs.modules.bar.services
+import qs.components
 
 import "root:config.js" as Config
 
@@ -29,10 +30,7 @@ Item {
         }
     }
 
-    component ClockText: Text {
-        color: Config.colors.fg
-        font.bold: true
-        font.pixelSize: Config.font.md
-        font.family: Config.font.family
+    component ClockText: StyledText {
+        font.weight: 600
     }
 }

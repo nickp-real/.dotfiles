@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Hyprland
 import qs.components
 
@@ -22,17 +23,16 @@ Item {
                 property bool isActive: modelData.active
                 property bool isWorkspaceFocused: Hyprland.focusedWorkspace?.id === modelData.id
 
-                color: isWorkspaceFocused || workspace.isHovered ? Config.colors.accentFg : isActive ? Config.colors.mutedBg : Config.colors.bg
+                hoverEnabled: true
+                style.color: isWorkspaceFocused || workspace.hovered ? Config.colors.accentFg : isActive ? Config.colors.mutedBg : Config.colors.bg
 
-                onClicked: Hyprland.dispatch("workspace " + workspace.modelData.name)
+                onClicked: Quickshell.execDetached(["hyprctl", "dispatch", `hl.dsp.focus({workspace = ${workspace.modelData.name}})`])
 
-                Text {
-                    anchors {
-                        verticalCenter: workspace.verticalCenter
-                        horizontalCenter: workspace.horizontalCenter
-                    }
+                contentItem: StyledText {
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
                     text: workspace.modelData.name
-                    color: workspace.isWorkspaceFocused || workspace.isHovered ? Config.colors.accentBg : workspace.isActive ? Config.colors.mutedFg : Config.colors.fg
+                    color: workspace.isWorkspaceFocused || workspace.hovered ? Config.colors.accentBg : workspace.isActive ? Config.colors.mutedFg : Config.colors.fg
 
                     Behavior on color {
                         ColorAnimation {
@@ -40,11 +40,7 @@ Item {
                         }
                     }
 
-                    font {
-                        bold: true
-                        pixelSize: Config.font.md
-                        family: Config.font.family
-                    }
+                    font.weight: 600
                 }
             }
         }

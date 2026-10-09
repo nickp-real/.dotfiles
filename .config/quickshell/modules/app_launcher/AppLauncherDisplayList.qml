@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell
+import qs.components
 
 import "root:config.js" as Config
 
@@ -48,25 +49,7 @@ PopupWindow {
 
             delegate: AppLauncherItem {}
 
-            ScrollBar.vertical: ScrollBar {
-                id: sb
-                property bool show: sb.active || sb.hovered
-                policy: ScrollBar.AsNeeded
-                contentItem: Rectangle {
-                    opacity: sb.show ? 1 : 0
-                    implicitWidth: 8
-                    color: Config.colors.accentFg
-                    radius: Config.radius
-
-                    Behavior on opacity {
-                        enabled: !sb.show
-                        NumberAnimation {
-                            duration: 500
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-                }
-            }
+            ScrollBar.vertical: StyledScrollbar {}
         }
     }
 }

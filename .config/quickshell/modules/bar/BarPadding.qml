@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 
 import "root:config.js" as Config
 
@@ -7,6 +8,7 @@ Variants {
     PanelWindow {
         required property ShellScreen modelData
         screen: modelData
+        WlrLayershell.layer: WlrLayer.Background
 
         anchors {
             left: true
@@ -14,7 +16,6 @@ Variants {
             top: true
         }
 
-        implicitHeight: Config.bar.height
         exclusiveZone: Config.bar.height
         color: "transparent"
     }

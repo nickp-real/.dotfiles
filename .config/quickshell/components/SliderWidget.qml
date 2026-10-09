@@ -30,10 +30,9 @@ RowLayout {
 
         Icon {
             id: icon
-            width: Config.slider.icon.width
-            height: Config.slider.icon.height
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            implicitWidth: Config.slider.icon.width
+            implicitHeight: Config.slider.icon.height
+            anchors.centerIn: parent
 
             MouseArea {
                 anchors.fill: parent

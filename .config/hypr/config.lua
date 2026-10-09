@@ -28,8 +28,8 @@ GENERAL = {
 	gaps_out = 8,
 	border_size = 2,
 	col = {
-		active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-		inactive_border = "rgba(595959aa)",
+		active_border = "#61afef",
+		inactive_border = "#282c34",
 	},
 }
 

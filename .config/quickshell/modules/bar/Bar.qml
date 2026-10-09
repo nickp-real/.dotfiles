@@ -1,10 +1,12 @@
 import Quickshell
 import QtQuick
-import qs.modules.bar.bar_right
+import qs.modules.bar.right
+import qs.modules.bar.left
+import qs.modules.bar.center
 
 Scope {
-    BarLeft {}
-    BarCenter {}
-    BarRight {}
+    Left {}
+    Center {}
+    Right {}
     BarPadding {}
 }

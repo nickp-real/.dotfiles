@@ -51,7 +51,7 @@ PopupScope {
                         text: "Notifications"
                         color: Config.colors.cyan
                         font.pixelSize: Config.font.base + 2
-                        font.bold: true
+                        font.weight: 600
                     }
 
                     StyledText {
@@ -109,7 +109,7 @@ PopupScope {
                                     text: card.summary
                                     color: Config.colors.cyan
                                     font.pixelSize: Config.font.base
-                                    font.bold: true
+                                    font.weight: 600
                                     elide: Text.ElideRight
                                 }
                                 StyledText {

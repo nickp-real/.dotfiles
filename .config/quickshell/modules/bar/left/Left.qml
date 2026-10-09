@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import qs.modules.bar.components
+import qs.modules.bar.left.components.workspaces
 
 import "root:config.js" as Config
 
@@ -17,16 +18,21 @@ Variants {
         }
 
         implicitHeight: Config.bar.height
-        implicitWidth: container.implicitWidth
+        implicitWidth: Math.floor(modelData.width / 3) - 40
         color: "transparent"
 
         exclusionMode: ExclusionMode.Ignore
+
+        mask: Region {
+            item: container
+            bottomRightRadius: Config.bar.radius
+        }
 
         BarContainer {
             id: container
             bottomRightRadius: Config.bar.radius
 
-            WorkSpaces {}
+            Workspaces {}
         }
     }
 }

@@ -7,11 +7,10 @@ import qs.components
 
 import "root:config.js" as Config
 
-Rectangle {
+Item {
     id: root
     Layout.fillWidth: true
     height: 20
-    color: "transparent"
 
     RowLayout {
         anchors.fill: parent

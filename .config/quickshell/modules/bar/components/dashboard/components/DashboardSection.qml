@@ -9,19 +9,24 @@ ColumnLayout {
     id: root
     required property string title
     property alias icon: icon
+    property alias titleRowContent: space.data
 
-    spacing: 4
+    spacing: Config.padding / 2
 
     RowLayout {
-        spacing: 4
+        spacing: Config.padding / 2
+
         Icon {
             id: icon
         }
-        Text {
+        StyledText {
             text: root.title
             font.pixelSize: Config.font.lg
-            font.family: Config.font.family
-            color: Config.colors.fg
+        }
+        Item {
+            id: space
+            Layout.fillWidth: true
+            implicitHeight: parent.height
         }
     }
 }

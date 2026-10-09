@@ -47,10 +47,7 @@ PopupPanelWindow {
         }
 
         ColumnLayout {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter
-            }
+            anchors.centerIn: parent
             spacing: Config.startupMenu.spacing
 
             Rectangle {
@@ -73,23 +70,29 @@ PopupPanelWindow {
                 spacing: Config.startupMenu.button.spacing
 
                 StartupMenuButton {
-                    icon: "x.svg"
-                    onAction: root.confirmAction(false)
-                    isFocused: confirmPanel.currentFocusAction === "cancel"
-                    onHoverEntered: confirmPanel.currentFocusAction = "cancel"
-                    onHoverExited: {
-                        confirmPanel.currentFocusAction = "";
-                        confirmPanel.forceActiveFocus();
+                    iconSource: "x.svg"
+                    onPressed: root.confirmAction(false)
+                    highlighted: confirmPanel.currentFocusAction === "cancel"
+                    onHoveredChanged: {
+                        if (hovered)
+                            confirmPanel.currentFocusAction = "cancel";
+                        else {
+                            confirmPanel.currentFocusAction = "";
+                            confirmPanel.forceActiveFocus();
+                        }
                     }
                 }
                 StartupMenuButton {
-                    icon: "check.svg"
-                    onAction: root.confirmAction(true)
-                    isFocused: confirmPanel.currentFocusAction === "confirm"
-                    onHoverEntered: confirmPanel.currentFocusAction = "confirm"
-                    onHoverExited: {
-                        confirmPanel.currentFocusAction = "";
-                        confirmPanel.forceActiveFocus();
+                    iconSource: "check.svg"
+                    onPressed: root.confirmAction(true)
+                    highlighted: confirmPanel.currentFocusAction === "confirm"
+                    onHoveredChanged: {
+                        if (hovered)
+                            confirmPanel.currentFocusAction = "confirm";
+                        else {
+                            confirmPanel.currentFocusAction = "";
+                            confirmPanel.forceActiveFocus();
+                        }
                     }
                 }
             }

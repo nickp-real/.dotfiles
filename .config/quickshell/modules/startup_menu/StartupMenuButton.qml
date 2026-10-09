@@ -5,22 +5,19 @@ import "root:config.js" as Config
 
 Button {
     id: root
-    required property string icon
-    signal action
-
-    onClicked: root.action()
+    required property string iconSource
 
     implicitHeight: Config.startupMenu.button.size
     implicitWidth: Config.startupMenu.button.size
 
-    color: root.isHovered || root.isFocused ? Config.colors.accentFg : Config.colors.mutedBg
+    hoverEnabled: true
+    style.color: root.hovered || root.highlighted ? Config.colors.accentFg : Config.colors.mutedBg
 
     Icon {
+        anchors.centerIn: parent
         implicitWidth: Config.startupMenu.button.icon.size
         implicitHeight: Config.startupMenu.button.icon.size
-        source: root.icon
-        color: root.isHovered || root.isFocused ? Config.colors.bg : Config.colors.fg
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
+        source: root.iconSource
+        color: root.hovered || root.highlighted ? Config.colors.bg : Config.colors.fg
     }
 }

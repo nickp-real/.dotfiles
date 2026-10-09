@@ -15,20 +15,16 @@ Loader {
         RowLayout {
             spacing: 8
 
-            Text {
-                text: `${PowerService.percentage * 100}%`
+            StyledText {
+                text: `${Math.ceil(PowerService.percentage * 100)}%`
                 font.pixelSize: Config.font.base * 2
-                font.family: Config.font.family
-                color: Config.colors.fg
                 font.features: {
                     "tnum": 1
                 }
             }
-            Text {
+            StyledText {
                 text: PowerService.status
-                font.family: Config.font.family
                 font.pixelSize: Config.font.base
-                color: Config.colors.fg
             }
         }
 
@@ -41,16 +37,14 @@ Loader {
 
                     Layout.fillWidth: true
                     onClicked: PowerService.setPowerProfile(modelData)
-                    color: PowerService.currentPowerProfile === modelData ? Config.colors.accentFg : Config.colors.mutedBg
+                    style.color: PowerService.currentPowerProfile === modelData ? Config.colors.accentFg : Config.colors.mutedBg
 
                     implicitHeight: 32
 
-                    Text {
+                    contentItem: StyledText {
                         text: PowerService.getPowerProfile(modelData)
-                        anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
-                        font.family: Config.font.family
                         font.pixelSize: Config.font.base
                         color: PowerService.currentPowerProfile === modelData ? Config.colors.accentBg : Config.colors.mutedFg
                     }

@@ -8,6 +8,8 @@ const colors = {
   mutedBg: "#353b45",
   mutedFg: "#c8ccd4",
 
+  errorFg: "#e06c75",
+
   red: "#e06c75",
   green: "#98c379",
   yellow: "#e5c07b",

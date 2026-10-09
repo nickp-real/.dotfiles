@@ -23,9 +23,8 @@ Item {
         StyledText {
             anchors.verticalCenter: parent.verticalCenter
             text: `${root.value}%`
-            font.features: {
-                "tnum": 1
-            }
+            width: 32
+            horizontalAlignment: Text.AlignRight
         }
     }
 }

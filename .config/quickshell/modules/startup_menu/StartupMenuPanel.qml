@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -70,11 +71,8 @@ PopupPanelWindow {
 
         ColumnLayout {
             id: panel
+            anchors.centerIn: parent
             spacing: Config.startupMenu.spacing
-            anchors {
-                verticalCenter: parent.verticalCenter
-                horizontalCenter: parent.horizontalCenter
-            }
 
             RowLayout {
                 spacing: 16
@@ -87,10 +85,7 @@ PopupPanelWindow {
 
                     StyledText {
                         id: hostname
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                            horizontalCenter: parent.horizontalCenter
-                        }
+                        anchors.centerIn: parent
                         font.pixelSize: Config.font.base
                         color: Config.colors.bg
                     }
@@ -102,11 +97,9 @@ PopupPanelWindow {
 
                     StyledText {
                         id: uptime
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                            horizontalCenter: parent.horizontalCenter
-                        }
+                        anchors.centerIn: parent
                         font.pixelSize: Config.font.base
+                        font.family: Config.font.family
                         color: Config.colors.bg
                     }
                 }
@@ -124,13 +117,16 @@ PopupPanelWindow {
                         delegate: StartupMenuButton {
                             required property var model
                             required property int index
-                            icon: model.icon
-                            onAction: root.actionClick(model.action, model.requireConfirm)
-                            isFocused: startupPanel.currentFocusActionIndex === index
-                            onHoverEntered: startupPanel.currentFocusActionIndex = index
-                            onHoverExited: {
-                                startupPanel.currentFocusActionIndex = -1;
-                                startupPanel.forceActiveFocus();
+                            iconSource: model.icon
+                            onClicked: root.actionClick(model.action, model.requireConfirm)
+                            highlighted: startupPanel.currentFocusActionIndex === index
+                            onHoveredChanged: {
+                                if (hovered)
+                                    startupPanel.currentFocusActionIndex = index;
+                                else {
+                                    startupPanel.currentFocusActionIndex = -1;
+                                    startupPanel.forceActiveFocus();
+                                }
                             }
                         }
                     }

@@ -12,17 +12,15 @@ Row {
         State {
             name: "visible"
             PropertyChanges {
-                target: root
-                opacity: 1
-                visible: true
+                root.opacity: 1
+                root.visible: true
             }
         },
         State {
             name: "hidden"
             PropertyChanges {
-                target: root
-                opacity: 0
-                visible: false
+                root.opacity: 0
+                root.visible: false
             }
         }
     ]
@@ -66,14 +64,21 @@ Row {
     ]
 
     Status {
-        value: VolumeService.volume * 100
+        value: Math.ceil(VolumeService.volume * 100)
         icon.source: VolumeService.icon
     }
     Loader {
         active: PowerService.isLaptop
-        sourceComponent: Status {
-            value: PowerService.percentage * 100
-            icon.source: PowerService.icon
+        sourceComponent: Row {
+            spacing: Config.padding
+            Divider {
+                implicitHeight: parent.implicitHeight
+                implicitWidth: 2
+            }
+            Status {
+                value: Math.ceil(PowerService.percentage * 100)
+                icon.source: PowerService.icon
+            }
         }
     }
 }

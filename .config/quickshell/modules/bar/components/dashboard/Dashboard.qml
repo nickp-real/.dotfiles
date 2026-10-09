@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.bar.components.dashboard.components
+import qs.modules.bar.components.dashboard.components.network
+import qs.components
 
 import "root:config.js" as Config
 
@@ -11,17 +13,15 @@ Item {
         State {
             name: "visible"
             PropertyChanges {
-                target: root
-                opacity: 1
-                visible: true
+                root.opacity: 1
+                root.visible: true
             }
         },
         State {
             name: "hidden"
             PropertyChanges {
-                target: root
-                opacity: 0
-                visible: false
+                root.opacity: 0
+                root.visible: false
             }
         }
     ]
@@ -68,13 +68,26 @@ Item {
         anchors.margins: 8
         spacing: 8
 
-        VolumeSlide {}
-        BrightnessSlide {}
+        Network {}
+        HorizontalDivider {}
+        SystemSlider {}
+        HorizontalDivider {}
         Battery {}
+        HorizontalDivider {}
         SystemTray {}
 
         Item {
             Layout.fillHeight: true
         }
+    }
+
+    component HorizontalDivider: Divider {
+        Layout.fillWidth: true
+        implicitHeight: 2
+    }
+
+    component SystemSlider: ColumnLayout {
+        VolumeSlider {}
+        BrightnessSlider {}
     }
 }
