@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import Quickshell.Networking
 import qs.modules.bar.components.dashboard.components
 
-import qs.services
+import qs.services.network
 import qs.components
 
 import "root:config.js" as Config
@@ -32,10 +32,12 @@ DashboardSection {
     readonly property bool isWifi: NetworkDeviceService.count > 0 && NetworkDeviceService.deviceType === DeviceType.Wifi
 
     onVisibleChanged: {
-        if (!visible || !WifiService.enabled)
+        if (!visible)
             return;
         NetworkService.checkConnectivity();
-        WifiService.rescanWifi(false);
+        if (WifiService.enabled)
+            WifiService.rescanWifi(false);
+        VPNService.listVPN();
     }
 
     ColumnLayout {
@@ -43,6 +45,7 @@ DashboardSection {
         Layout.topMargin: Config.padding
         spacing: Config.padding
 
+        VPN {}
         NetworkDevicePager {}
 
         Item {

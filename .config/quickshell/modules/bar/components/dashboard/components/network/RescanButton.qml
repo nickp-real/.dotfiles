@@ -1,6 +1,6 @@
 import QtQuick
 import qs.components
-import qs.services
+import qs.services.network
 
 import "root:config.js" as Config
 

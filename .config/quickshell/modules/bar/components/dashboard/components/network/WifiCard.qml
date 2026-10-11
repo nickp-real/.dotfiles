@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Networking
-import qs.services
+import qs.services.network
 import qs.components
 
 import "root:config.js" as Config
@@ -75,53 +75,11 @@ Rectangle {
                     }
                 }
 
-                Column {
+                PasswordField {
                     id: password
-                    property string error: ""
+                    modelData: root.modelData
                     visible: root.isClicked && !root.known && !root.connected && root.needsPassword && root.isPsk
-
-                    Connections {
-                        target: root.modelData
-                        function onConnectionFailed(reason: ConnectionFailReason) {
-                            switch (reason) {
-                            case ConnectionFailReason.NoSecrets:
-                                password.error = root.known ? "Wrong password" : "Need password";
-                                break;
-                            case ConnectionFailReason.WifiAuthTimeout:
-                                password.error = "Took too long, try again";
-                                break;
-                            case ConnectionFailReason.WifiNetworkLost:
-                                password.error = "Network gone";
-                                break;
-                            default:
-                                password.error = "Connection failed";
-                            }
-                        }
-                    }
-
-                    onVisibleChanged: {
-                        password.error = "";
-                        passwordField.text = "";
-                        if (visible)
-                            passwordField.forceActiveFocus();
-                    }
-
-                    TextField {
-                        id: passwordField
-                        focus: password.visible
-                        placeholderText: "Password"
-                        width: 120
-                        color: Config.colors.fg
-                        onAccepted: connectButton.clicked()
-                        echoMode: TextInput.Password
-                    }
-
-                    StyledText {
-                        visible: text !== ""
-                        color: Config.colors.errorFg
-                        text: password.error
-                        font.pixelSize: Config.font.sm
-                    }
+                    passwordField.onAccepted: connectButton.clicked()
                 }
             }
         }
@@ -190,7 +148,7 @@ Rectangle {
                 Button {
                     id: connectButton
                     implicitWidth: connectText.implicitWidth + Config.padding * 2
-                    enabled: !root.stateChanging && (root.connected || !root.needsEnterprise && (root.known || !root.needsPassword || passwordField.text.length > 0))
+                    enabled: !root.stateChanging && (root.connected || !root.needsEnterprise && (root.known || !root.needsPassword || password.passwordField.text.length > 0))
 
                     onClicked: {
                         if (!enabled)
@@ -202,7 +160,7 @@ Rectangle {
                         }
 
                         if (!root.known && root.isPsk) {
-                            WifiService.connectToWifiWithPassword(root.modelData, passwordField.text);
+                            WifiService.connectToWifiWithPassword(root.modelData, password.passwordField.text);
                             return;
                         }
 

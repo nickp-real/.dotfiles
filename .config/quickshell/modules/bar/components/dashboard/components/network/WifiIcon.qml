@@ -1,6 +1,6 @@
 import Quickshell.Networking
 import qs.components
-import qs.services
+import qs.services.network
 
 Icon {
     required property WifiNetwork modelData
