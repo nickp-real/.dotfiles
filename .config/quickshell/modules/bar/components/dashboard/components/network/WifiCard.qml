@@ -16,6 +16,7 @@ Rectangle {
     readonly property bool needsPassword: WifiService.needsPassword(modelData)
     readonly property bool needsEnterprise: WifiService.needsEnterprise(modelData)
     readonly property bool isPsk: WifiService.isPsk(modelData)
+    readonly property int profileCount: WifiService.profileCount(root.modelData)
 
     property bool isClicked: false
 
@@ -73,13 +74,46 @@ Rectangle {
                         text: "Work login, use nmcli"
                         visible: root.needsEnterprise && !root.known && !root.connected
                     }
+                    Button {
+                        id: profile
+                        property int index: 0
+                        visible: root.isClicked && root.profileCount > 1
+                        onClicked: index = (index + 1) % root.profileCount
+
+                        Connections {
+                            target: root
+                            function onModelDataChanged() {
+                                profile.index = 0;
+                            }
+                        }
+
+                        contentItem: StyledText {
+                            text: `Profile: ${WifiService.profileName(root.modelData, profile.index)}`
+                        }
+                    }
                 }
 
-                PasswordField {
-                    id: password
-                    modelData: root.modelData
-                    visible: root.isClicked && !root.known && !root.connected && root.needsPassword && root.isPsk
-                    passwordField.onAccepted: connectButton.clicked()
+                Column {
+                    PasswordField {
+                        id: password
+                        modelData: root.modelData
+                        visible: root.isClicked && !root.connected && root.needsPassword && root.isPsk && (!root.known || passwordError.error !== "")
+                        passwordField.onAccepted: connectButton.clicked()
+                    }
+                    PasswordError {
+                        id: passwordError
+                        modelData: root.modelData
+
+                        Connections {
+                            target: root
+                            function onModelDataChanged() {
+                                passwordError.reset();
+                            }
+                            function onIsClickedChanged() {
+                                passwordError.reset();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -94,36 +128,15 @@ Rectangle {
                 bottom: parent.bottom
             }
 
-            CheckBox {
+            AutoConnect {
                 id: autoConnectCheckbox
-                property bool autoConnect: true
-                function refresh() {
-                    autoConnect = WifiService.getAutoConnect(root.modelData);
-                }
-
-                Component.onCompleted: refresh()
+                modelData: root.modelData
                 Connections {
                     target: root
                     function onModelDataChanged() {
                         autoConnectCheckbox.refresh();
                     }
                 }
-
-                Connections {
-                    target: root.modelData.nmSettings.length !== 0 ? root.modelData.nmSettings[0] : null
-                    function onLoaded() {
-                        autoConnectCheckbox.refresh();
-                    }
-                    function onSettingsChanged() {
-                        autoConnectCheckbox.refresh();
-                    }
-                }
-
-                visible: root.modelData.connected || root.modelData.known
-                text: "Auto connect"
-                checked: autoConnect
-                enabled: WifiService.isAutoConnectReady(root.modelData)
-                onToggled: WifiService.setAutoconnect(root.modelData, checked)
             }
             Item {
                 Layout.fillWidth: true
@@ -154,8 +167,15 @@ Rectangle {
                         if (!enabled)
                             return;
 
+                        passwordError.reset();
+
                         if (root.connected) {
                             WifiService.disconnectToWifi(root.modelData);
+                            return;
+                        }
+
+                        if (root.profileCount > 1) {
+                            WifiService.connectWithProfile(root.modelData, profile.index);
                             return;
                         }
 

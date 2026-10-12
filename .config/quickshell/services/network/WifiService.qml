@@ -90,30 +90,49 @@ Singleton {
         network.forget();
     }
 
+    function profileCount(network: WifiNetwork): int {
+        return network.nmSettings.length;
+    }
+
+    function profileName(network: WifiNetwork, i: int): string {
+        return network.nmSettings[i]?.id ?? `Profile ${i + 1}`;
+    }
+
     function isAutoConnectReady(network: WifiNetwork): bool {
-        if (!network.nmSettings.length)
+        if (profileCount(network) === 0)
             return false;
-        const setting = network.nmSettings[0].read();
-        return !!(setting && setting.connection);
+
+        return network.nmSettings.every(profile => {
+            const setting = profile.read();
+            return !!(setting && setting.connection);
+        });
     }
 
     function getAutoConnect(network: WifiNetwork): bool {
-        if (!network.nmSettings.length)
+        if (profileCount(network) === 0)
             return true;
-        const setting = network.nmSettings[0].read();
-        if (!setting || !setting.connection)
-            return true;
-        return setting.connection.autoconnect ?? true;
+
+        return network.nmSettings.some(profile => {
+            const setting = profile.read();
+            if (!setting || !setting.connection)
+                return true;
+            return setting.connection.autoconnect ?? true;
+        });
     }
 
     function setAutoconnect(network: WifiNetwork, on: bool) {
-        if (!network.nmSettings.length)
+        if (profileCount(network) === 0)
             return;
-        network.nmSettings[0].write({
-            "connection": {
-                "autoconnect": on
-            }
-        });
+
+        network.nmSettings.forEach(profile => profile.write({
+                "connection": {
+                    "autoconnect": on
+                }
+            }));
+    }
+
+    function connectWithProfile(network: WifiNetwork, i: int) {
+        network.connectWithSettings(network.nmSettings[i]);
     }
 
     function rescanWifi(force: bool): bool {
