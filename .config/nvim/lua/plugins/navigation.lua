@@ -159,6 +159,12 @@ return {
   -- pane
   {
     "mrjones2014/smart-splits.nvim",
+    dependencies = {
+      {
+        "smart-splits-nvim/backend-tmux",
+        main = "smart-splits-backend-tmux",
+      },
+    },
     keys = {
       -- resize
       { "<A-h>", function() require("smart-splits").resize_left() end, desc = "Resize Left" },
@@ -176,6 +182,6 @@ return {
       { "<leader><C-k>", function() require("smart-splits").swap_buf_up() end, desc = "Swap Left Pane" },
       { "<leader><C-l>", function() require("smart-splits").swap_buf_right() end, desc = "Swap Left Pane" },
     },
-    opts = { default_amount = 5 },
+    opts = { mux = { backend = "smart-splits-backend-tmux" }, resize = { amount = 5 } },
   },
 }
