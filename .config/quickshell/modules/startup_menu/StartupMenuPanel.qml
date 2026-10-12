@@ -43,7 +43,7 @@ PopupPanelWindow {
 
         anchors.fill: parent
         radius: Config.radius
-        color: Config.colors.bg
+        color: Config.colors.surface
 
         implicitWidth: panel.width + Config.padding * 4
         implicitHeight: panel.height + Config.padding * 4
@@ -79,7 +79,7 @@ PopupPanelWindow {
                 Layout.alignment: Qt.AlignHCenter
 
                 Rectangle {
-                    color: Config.colors.red
+                    color: Config.colors.errorFg
                     implicitHeight: 40
                     implicitWidth: hostname.width + Config.padding * 2
 
@@ -87,11 +87,11 @@ PopupPanelWindow {
                         id: hostname
                         anchors.centerIn: parent
                         font.pixelSize: Config.font.base
-                        color: Config.colors.bg
+                        color: Config.colors.onAccent
                     }
                 }
                 Rectangle {
-                    color: Config.colors.green
+                    color: Config.colors.successFg
                     implicitHeight: 40
                     implicitWidth: uptime.width + Config.padding * 2
 
@@ -100,7 +100,7 @@ PopupPanelWindow {
                         anchors.centerIn: parent
                         font.pixelSize: Config.font.base
                         font.family: Config.font.family
-                        color: Config.colors.bg
+                        color: Config.colors.onAccent
                     }
                 }
             }

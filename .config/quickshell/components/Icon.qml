@@ -10,7 +10,7 @@ import "root:config.js" as Config
 Item {
     id: root
 
-    property color color: Config.colors.fg
+    property color color: Config.colors.text
     property string source
     property bool colorization: true
 

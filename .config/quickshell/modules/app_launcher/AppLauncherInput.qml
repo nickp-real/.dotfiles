@@ -11,7 +11,7 @@ Rectangle {
     anchors.fill: parent
     implicitHeight: Config.appLauncher.input.height + Config.appLauncher.padding * 2
 
-    color: Config.colors.accentBg
+    color: Config.colors.surface
     radius: Config.radius
 
     TextField {

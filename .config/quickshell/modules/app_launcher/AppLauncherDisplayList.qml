@@ -20,7 +20,7 @@ PopupWindow {
         id: container
         anchors.fill: parent
         radius: Config.radius
-        color: Config.colors.accentBg
+        color: Config.colors.surface
         implicitHeight: list.implicitHeight + Config.appLauncher.padding * 2
 
         ListView {

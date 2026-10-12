@@ -6,7 +6,7 @@ import "root:config.js" as Config
 Rectangle {
     default property alias content: row.data
 
-    color: Config.colors.bg
+    color: Config.colors.surface
     implicitHeight: Config.bar.height
     implicitWidth: row.implicitWidth + Config.padding * 2
 

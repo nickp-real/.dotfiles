@@ -20,7 +20,7 @@ Rectangle {
 
     property bool isClicked: false
 
-    color: hover.hovered || connected ? Config.colors.mutedBg : "transparent"
+    color: hover.hovered || connected ? Config.colors.hoverBg : "transparent"
     radius: Config.radius
     implicitHeight: isClicked ? !connected && needsPassword ? 96 : 80 : 48
 
@@ -67,7 +67,7 @@ Rectangle {
                     StyledText {
                         visible: root.connected || root.known
                         text: root.connected ? "Connected" : "Known"
-                        color: Config.colors.accentFg
+                        color: Config.colors.accent
                         font.pixelSize: Config.font.sm
                     }
                     StyledText {

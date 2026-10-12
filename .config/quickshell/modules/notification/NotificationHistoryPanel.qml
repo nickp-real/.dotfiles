@@ -35,7 +35,7 @@ PopupScope {
         Rectangle {
             anchors.fill: parent
             radius: Config.radius
-            color: Config.colors.bg
+            color: Config.colors.surface
 
             ColumnLayout {
                 id: centerCol
@@ -49,7 +49,7 @@ PopupScope {
                     StyledText {
                         Layout.fillWidth: true
                         text: "Notifications"
-                        color: Config.colors.cyan
+                        color: Config.colors.infoFg
                         font.pixelSize: Config.font.base + 2
                         font.weight: 600
                     }
@@ -57,7 +57,7 @@ PopupScope {
                     StyledText {
                         text: "Clear all"
                         visible: root.history.count > 0
-                        color: Config.colors.red
+                        color: Config.colors.errorFg
                         font.pixelSize: Config.font.base - 2
                         MouseArea {
                             anchors.fill: parent
@@ -89,10 +89,10 @@ PopupScope {
                         implicitHeight: cardCol.implicitHeight + Config.padding * 2
 
                         anchors.margins: Config.padding
-                        color: Config.colors.bg
+                        color: Config.colors.surface
                         radius: 8
                         border.width: 2
-                        border.color: card.urgency === NotificationUrgency.Critical ? Config.colors.red : Config.colors.white
+                        border.color: card.urgency === NotificationUrgency.Critical ? Config.colors.errorFg : Config.colors.border
 
                         ColumnLayout {
                             id: cardCol
@@ -107,19 +107,19 @@ PopupScope {
                                 StyledText {
                                     Layout.fillWidth: true
                                     text: card.summary
-                                    color: Config.colors.cyan
+                                    color: Config.colors.infoFg
                                     font.pixelSize: Config.font.base
                                     font.weight: 600
                                     elide: Text.ElideRight
                                 }
                                 StyledText {
                                     text: card.time
-                                    color: Config.colors.brightBlack
+                                    color: Config.colors.textSecondary
                                     font.pixelSize: Config.font.base - 2
                                 }
                                 StyledText {
                                     text: "x"
-                                    color: Config.colors.brightBlack
+                                    color: Config.colors.textSecondary
                                     font.pixelSize: Config.font.base - 2
                                     MouseArea {
                                         anchors.fill: parent
@@ -141,7 +141,7 @@ PopupScope {
                                 Layout.fillWidth: true
                                 visible: text !== ""
                                 text: card.appName
-                                color: Config.colors.brightBlack
+                                color: Config.colors.textSecondary
                                 font.pixelSize: Config.font.base - 4
                                 wrapMode: Text.WordWrap
                             }

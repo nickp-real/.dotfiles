@@ -15,7 +15,7 @@ Rectangle {
 
     width: ListView.view.width
     implicitHeight: rowItem.implicitHeight + Config.padding * 2
-    color: isCurrentItem ? Config.colors.accentFg : "transparent"
+    color: isCurrentItem ? Config.colors.accent : "transparent"
 
     Component.onCompleted: Qt.callLater(() => item.isSettled = true)
 
@@ -46,7 +46,7 @@ Rectangle {
         StyledText {
             Layout.fillWidth: true
             text: item.name
-            color: item.isCurrentItem ? Config.colors.accentBg : Config.colors.fg
+            color: item.isCurrentItem ? Config.colors.onAccent : Config.colors.text
             Behavior on color {
                 enabled: item.isSettled
                 ColorAnimation {

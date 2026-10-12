@@ -10,7 +10,7 @@ ScrollBar {
     contentItem: Rectangle {
         opacity: root.show ? 1 : 0
         implicitWidth: 8
-        color: Config.colors.accentFg
+        color: Config.colors.accent
         radius: Config.radius
 
         Behavior on opacity {

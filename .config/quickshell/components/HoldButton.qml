@@ -7,7 +7,7 @@ DelayButton {
     id: root
     delay: 2000
 
-    property color holdColor: Config.colors.accentFg
+    property color holdColor: Config.colors.accent
     property alias style: buttonStyle
 
     onReleased: if (checked)

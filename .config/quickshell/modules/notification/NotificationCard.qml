@@ -11,10 +11,10 @@ Rectangle {
 
     Layout.fillWidth: true
     Layout.preferredHeight: layout.implicitHeight + 20
-    color: Config.colors.bg
+    color: Config.colors.surface
     radius: 8
     border.width: 2
-    border.color: modelData.urgency === NotificationUrgency.Critical ? Config.colors.red : Config.colors.white
+    border.color: modelData.urgency === NotificationUrgency.Critical ? Config.colors.errorFg : Config.colors.border
 
     Timer {
         running: card.modelData.urgency !== NotificationUrgency.Critical
@@ -44,7 +44,7 @@ Rectangle {
             StyledText {
                 Layout.fillWidth: true
                 text: card.modelData.summary
-                color: Config.colors.cyan
+                color: Config.colors.infoFg
                 font.pixelSize: Config.font.size
                 font.weight: 600
                 elide: Text.ElideRight

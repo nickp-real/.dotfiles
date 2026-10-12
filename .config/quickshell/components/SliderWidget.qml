@@ -8,8 +8,8 @@ import "root:config.js" as Config
 RowLayout {
     id: root
 
-    property color bg: Config.colors.mutedBg
-    property color fg: Config.colors.accentFg
+    property color bg: Config.colors.surface
+    property color fg: Config.colors.accent
     property int radius: Config.radius
 
     property alias slider: slider
@@ -26,7 +26,7 @@ RowLayout {
 
         radius: Config.slider.radius
 
-        color: Config.colors.mutedBg
+        color: Config.colors.surface
 
         Icon {
             id: icon

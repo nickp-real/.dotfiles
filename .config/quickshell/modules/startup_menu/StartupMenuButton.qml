@@ -11,13 +11,13 @@ Button {
     implicitWidth: Config.startupMenu.button.size
 
     hoverEnabled: true
-    style.color: root.hovered || root.highlighted ? Config.colors.accentFg : Config.colors.mutedBg
+    style.color: root.hovered || root.highlighted ? Config.colors.accent : Config.colors.surface
 
     Icon {
         anchors.centerIn: parent
         implicitWidth: Config.startupMenu.button.icon.size
         implicitHeight: Config.startupMenu.button.icon.size
         source: root.iconSource
-        color: root.hovered || root.highlighted ? Config.colors.bg : Config.colors.fg
+        color: root.hovered || root.highlighted ? Config.colors.onAccent : Config.colors.text
     }
 }

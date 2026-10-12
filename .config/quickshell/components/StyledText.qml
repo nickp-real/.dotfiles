@@ -7,5 +7,5 @@ Text {
         family: Config.font.family
         pixelSize: Config.font.md
     }
-    color: Config.colors.fg
+    color: Config.colors.text
 }

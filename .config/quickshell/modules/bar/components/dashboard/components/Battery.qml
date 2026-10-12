@@ -37,7 +37,7 @@ Loader {
 
                     Layout.fillWidth: true
                     onClicked: PowerService.setPowerProfile(modelData)
-                    style.color: PowerService.currentPowerProfile === modelData ? Config.colors.accentFg : Config.colors.mutedBg
+                    style.color: PowerService.currentPowerProfile === modelData ? Config.colors.accent : Config.colors.surface
 
                     implicitHeight: 32
 
@@ -46,7 +46,7 @@ Loader {
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: Config.font.base
-                        color: PowerService.currentPowerProfile === modelData ? Config.colors.accentBg : Config.colors.mutedFg
+                        color: PowerService.currentPowerProfile === modelData ? Config.colors.onAccent : Config.colors.mutedFg
                     }
                 }
             }

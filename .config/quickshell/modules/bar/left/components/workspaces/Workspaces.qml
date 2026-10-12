@@ -24,7 +24,7 @@ Item {
                 property bool isWorkspaceFocused: Hyprland.focusedWorkspace?.id === modelData.id
 
                 hoverEnabled: true
-                style.color: isWorkspaceFocused || workspace.hovered ? Config.colors.accentFg : isActive ? Config.colors.mutedBg : Config.colors.bg
+                style.color: isWorkspaceFocused || workspace.hovered ? Config.colors.accent : isActive ? Config.colors.surfaceElevated : Config.colors.surface
 
                 onClicked: Quickshell.execDetached(["hyprctl", "dispatch", `hl.dsp.focus({workspace = ${workspace.modelData.name}})`])
 
@@ -32,7 +32,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     text: workspace.modelData.name
-                    color: workspace.isWorkspaceFocused || workspace.hovered ? Config.colors.accentBg : workspace.isActive ? Config.colors.mutedFg : Config.colors.fg
+                    color: workspace.isWorkspaceFocused || workspace.hovered ? Config.colors.onAccent : workspace.isActive ? Config.colors.mutedFg : Config.colors.text
 
                     Behavior on color {
                         ColorAnimation {

@@ -10,7 +10,7 @@ Rectangle {
     readonly property bool connected: device?.connected ?? false
     readonly property bool hasLink: device?.hasLink ?? false
 
-    color: hover.hovered || connected ? Config.colors.mutedBg : "transparent"
+    color: hover.hovered || connected ? Config.colors.hoverBg : "transparent"
     implicitHeight: 56
     radius: Config.radius
 
@@ -35,7 +35,7 @@ Rectangle {
                 }
                 StyledText {
                     text: !root.device || !root.hasLink ? "Cable unplugged" : root.connected ? `${root.device.name} • ${root.device.linkSpeed} Mb/s` : `Link • ${root.device.linkSpeed} Mb/s`
-                    color: Config.colors.accentFg
+                    color: Config.colors.accent
                     font.pixelSize: Config.font.sm
                 }
             }

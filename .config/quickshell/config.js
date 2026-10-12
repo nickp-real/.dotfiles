@@ -1,14 +1,49 @@
 const colors = {
-  bg: "#282c34",
-  fg: "#abb2bf",
-
-  accentBg: "#282c34",
-  accentFg: "#61afef",
+  text: "#abb2bf",
 
   mutedBg: "#353b45",
   mutedFg: "#c8ccd4",
 
+  surface: "#282c34",
+  surfaceElevated: "#282c34",
+
+  border: "#3e4451",
+  borderMuted: "#353b45",
+  divider: "#3e4451",
+
+  textSecondary: "#7f848e",
+  textDisabled: "#5c6370",
+  placeholder: "#7f848e",
+
+  accent: "#61afef",
+  onAccent: "#282c34",
+  accentHover: "#8fc6f4",
+  accentActive: "#4a9ad4",
+  accentMuted: "#2d3d4d",
+
+  hoverBg: "#353b45",
+  pressedBg: "#3e4451",
+  disabledBg: "#353b45",
+  disabledFg: "#5c6370",
+
+  focusRing: "#61afef",
+  scrim: "#00000080",
+
   errorFg: "#e06c75",
+  errorBg: "#3d2b2e",
+  errorBorder: "#5a3a3e",
+
+  successFg: "#98c379",
+  successBg: "#2c3a2d",
+  successBorder: "#3f5a3a",
+
+  warningFg: "#e5c07b",
+  warningBg: "#3d3626",
+  warningBorder: "#5d5138",
+
+  infoFg: "#56b6c2",
+  infoBg: "#24414a",
+  infoBorder: "#33565e",
 
   red: "#e06c75",
   green: "#98c379",

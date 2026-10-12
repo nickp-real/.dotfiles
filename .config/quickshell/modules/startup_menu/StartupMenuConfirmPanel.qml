@@ -25,7 +25,7 @@ PopupPanelWindow {
 
         anchors.fill: parent
         radius: Config.radius
-        color: Config.colors.bg
+        color: Config.colors.surface
         focus: true
 
         Keys.onPressed: event => {
@@ -54,7 +54,7 @@ PopupPanelWindow {
                 Layout.alignment: Qt.AlignHCenter
                 implicitHeight: 40
                 implicitWidth: text.width + Config.padding
-                color: Config.colors.red
+                color: Config.colors.errorFg
 
                 StyledText {
                     id: text
@@ -62,7 +62,7 @@ PopupPanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "Are you sure?"
                     font.pixelSize: Config.font.base
-                    color: Config.colors.bg
+                    color: Config.colors.onAccent
                 }
             }
 

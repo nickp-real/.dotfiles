@@ -20,7 +20,7 @@ Column {
         focus: root.visible
         placeholderText: "Password"
         width: 120
-        color: Config.colors.fg
+        color: Config.colors.text
         echoMode: TextInput.Password
     }
 }
