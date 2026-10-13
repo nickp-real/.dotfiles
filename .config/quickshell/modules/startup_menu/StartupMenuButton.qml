@@ -11,7 +11,7 @@ Button {
     implicitWidth: Config.startupMenu.button.size
 
     hoverEnabled: true
-    style.color: root.hovered || root.highlighted ? Config.colors.accent : Config.colors.surface
+    style.color: root.hovered || root.highlighted ? Config.colors.accent : Config.colors.buttonBg
 
     Icon {
         anchors.centerIn: parent

@@ -19,6 +19,9 @@ DashboardSection {
         spacing: Config.padding
 
         RescanButton {
+            enabled: !WifiService.scanning
+            onClicked: WifiService.rescanWifi(true)
+            scanning: WifiService.scanning
             visible: WifiService.enabled
             anchors.verticalCenter: parent.verticalCenter
         }

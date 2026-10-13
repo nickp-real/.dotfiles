@@ -21,8 +21,8 @@ Rectangle {
     property bool isClicked: false
 
     color: hover.hovered || connected ? Config.colors.hoverBg : "transparent"
-    radius: Config.radius
     implicitHeight: isClicked ? !connected && needsPassword ? 96 : 80 : 48
+    radius: Config.radius
 
     HoverHandler {
         id: hover
@@ -143,10 +143,13 @@ Rectangle {
             }
 
             Row {
+                spacing: Config.padding / 2
+
                 HoldButton {
                     visible: root.connected || root.known
                     implicitWidth: forgetText.implicitWidth + Config.padding * 2
                     holdColor: Config.colors.errorFg
+                    style.color: Config.colors.surface
 
                     onActivated: WifiService.forgetWifi(root.modelData)
 
@@ -162,6 +165,8 @@ Rectangle {
                     id: connectButton
                     implicitWidth: connectText.implicitWidth + Config.padding * 2
                     enabled: !root.stateChanging && (root.connected || !root.needsEnterprise && (root.known || !root.needsPassword || password.passwordField.text.length > 0))
+                    hoverEnabled: true
+                    style.color: hovered ? Config.colors.pressedBg : Config.colors.surface
 
                     onClicked: {
                         if (!enabled)

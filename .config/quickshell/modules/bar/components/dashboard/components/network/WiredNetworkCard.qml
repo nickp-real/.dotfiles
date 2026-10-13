@@ -47,7 +47,8 @@ Rectangle {
                 bottom: parent.bottom
             }
             enabled: root?.hasLink ?? false
-            implicitWidth: text.implicitWidth + Config.padding * 2
+            implicitWidth: buttonText.implicitWidth + Config.padding * 2
+            style.color: hover.hovered ? Config.colors.surface : Config.colors.buttonBg
 
             onClicked: {
                 if (!root.device || !root.hasLink)
@@ -59,7 +60,7 @@ Rectangle {
             }
 
             contentItem: StyledText {
-                id: text
+                id: buttonText
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: root.connected ? "Disconnect" : "Connect"

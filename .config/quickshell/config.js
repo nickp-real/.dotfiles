@@ -25,6 +25,7 @@ const colors = {
   pressedBg: "#3e4451",
   disabledBg: "#353b45",
   disabledFg: "#5c6370",
+  buttonBg: "#353b45",
 
   focusRing: "#61afef",
   scrim: "#00000080",

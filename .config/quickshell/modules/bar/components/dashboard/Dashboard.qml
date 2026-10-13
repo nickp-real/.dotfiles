@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.modules.bar.components.dashboard.components
 import qs.modules.bar.components.dashboard.components.network
+import qs.modules.bar.components.dashboard.components.bluetooth
 import qs.components
 
 import "root:config.js" as Config
@@ -69,6 +70,8 @@ Item {
         spacing: 8
 
         Network {}
+        HorizontalDivider {}
+        Bluetooth {}
         HorizontalDivider {}
         SystemSlider {}
         HorizontalDivider {}

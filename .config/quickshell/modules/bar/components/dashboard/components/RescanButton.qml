@@ -1,18 +1,16 @@
 import QtQuick
 import qs.components
-import qs.services.network
 
 import "root:config.js" as Config
 
 Button {
-    enabled: !WifiService.scanning
-    onClicked: WifiService.rescanWifi(true)
-
-    implicitWidth: icon.width + Config.padding
+    id: root
+    required property bool scanning
+    implicitWidth: refreshIcon.width + Config.padding
     implicitHeight: implicitWidth
 
     Icon {
-        id: icon
+        id: refreshIcon
         source: "refresh.svg"
         anchors.centerIn: parent
 
@@ -21,8 +19,8 @@ Button {
             to: 360
             duration: 900
             loops: Animation.Infinite
-            running: WifiService.scanning
-            onStopped: icon.rotation = 0
+            running: root.scanning
+            onStopped: refreshIcon.rotation = 0
         }
     }
 }
