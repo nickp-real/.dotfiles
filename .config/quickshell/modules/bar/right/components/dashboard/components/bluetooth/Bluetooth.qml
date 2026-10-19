@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import qs.modules.bar.components.dashboard.components
+import qs.modules.bar.right.components.dashboard.components
 import qs.components
 import qs.services
 

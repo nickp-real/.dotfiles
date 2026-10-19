@@ -157,7 +157,6 @@ Singleton {
     Timer {
         id: rescanTimer
         interval: 6000
-        repeat: false
         onTriggered: root.scanning = false
     }
 }

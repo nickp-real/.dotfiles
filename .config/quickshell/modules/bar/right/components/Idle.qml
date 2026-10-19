@@ -1,83 +1,34 @@
 import QtQuick
 import qs.components
 import qs.services
+import qs.modules.bar.components
 
 import "root:config.js" as Config
 
-Row {
-    id: root
-    spacing: Config.padding
+FadeItem {
+    implicitWidth: content.implicitWidth
+    implicitHeight: content.implicitHeight
 
-    states: [
-        State {
-            name: "visible"
-            PropertyChanges {
-                root.opacity: 1
-                root.visible: true
-            }
-        },
-        State {
-            name: "hidden"
-            PropertyChanges {
-                root.opacity: 0
-                root.visible: false
-            }
+    Row {
+        id: content
+        spacing: Config.padding
+
+        Status {
+            value: Math.ceil(VolumeService.volume * 100)
+            icon.source: VolumeService.icon
         }
-    ]
-
-    transitions: [
-        Transition {
-            from: "visible"
-            to: "hidden"
-            SequentialAnimation {
-                NumberAnimation {
-                    target: root
-                    property: "opacity"
-                    duration: 150
-                    easing.type: Easing.OutQuad
+        Loader {
+            active: PowerService.isLaptop
+            sourceComponent: Row {
+                spacing: Config.padding
+                Divider {
+                    implicitHeight: parent.implicitHeight
+                    implicitWidth: 2
                 }
-                PropertyAction {
-                    target: root
-                    property: "visible"
+                Status {
+                    value: Math.ceil(PowerService.percentage * 100)
+                    icon.source: PowerService.icon
                 }
-            }
-        },
-        Transition {
-            from: "hidden"
-            to: "visible"
-            SequentialAnimation {
-                PauseAnimation {
-                    duration: 600
-                }
-                PropertyAction {
-                    target: root
-                    property: "visible"
-                }
-                NumberAnimation {
-                    target: root
-                    property: "opacity"
-                    duration: 150
-                    easing.type: Easing.OutQuad
-                }
-            }
-        }
-    ]
-
-    Status {
-        value: Math.ceil(VolumeService.volume * 100)
-        icon.source: VolumeService.icon
-    }
-    Loader {
-        active: PowerService.isLaptop
-        sourceComponent: Row {
-            spacing: Config.padding
-            Divider {
-                implicitHeight: parent.implicitHeight
-                implicitWidth: 2
-            }
-            Status {
-                value: Math.ceil(PowerService.percentage * 100)
-                icon.source: PowerService.icon
             }
         }
     }

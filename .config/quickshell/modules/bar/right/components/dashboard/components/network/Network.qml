@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Networking
-import qs.modules.bar.components.dashboard.components
+import qs.modules.bar.right.components.dashboard.components
 
 import qs.services.network
 import qs.components

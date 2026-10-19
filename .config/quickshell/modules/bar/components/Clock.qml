@@ -1,10 +1,11 @@
 import QtQuick
 import qs.modules.bar.services
 import qs.components
+import qs.modules.bar.components
 
 import "root:config.js" as Config
 
-Item {
+FadeItem {
     implicitHeight: parent.height
     implicitWidth: 204 + Config.padding * 2
 

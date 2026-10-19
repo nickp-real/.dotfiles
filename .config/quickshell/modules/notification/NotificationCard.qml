@@ -28,11 +28,11 @@ Rectangle {
         anchors.margins: Config.padding
         spacing: Config.padding
 
-        Image {
+        Icon {
             Layout.preferredHeight: 36
             Layout.preferredWidth: 36
             Layout.alignment: Qt.AlignTop
-            fillMode: Image.PreserveAspectFit
+            // fillMode: Image.PreserveAspectFit
             visible: source.toString() !== ""
             source: card.modelData.image || card.modelData.appIcon || ""
         }

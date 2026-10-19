@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import qs.services
 
 import "root:config.js" as Config
 

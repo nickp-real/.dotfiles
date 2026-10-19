@@ -1,14 +1,9 @@
 import QtQuick
-import QtQuick.Layouts
-import qs.modules.bar.components.dashboard.components
-import qs.modules.bar.components.dashboard.components.network
-import qs.modules.bar.components.dashboard.components.bluetooth
-import qs.components
-
-import "root:config.js" as Config
 
 Item {
     id: root
+    required property bool shown
+    state: shown ? "visible" : "hidden"
 
     states: [
         State {
@@ -26,6 +21,7 @@ Item {
             }
         }
     ]
+
     transitions: [
         Transition {
             from: "hidden"
@@ -63,34 +59,4 @@ Item {
             }
         }
     ]
-
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 8
-        spacing: 8
-
-        Network {}
-        HorizontalDivider {}
-        Bluetooth {}
-        HorizontalDivider {}
-        SystemSlider {}
-        HorizontalDivider {}
-        Battery {}
-        HorizontalDivider {}
-        SystemTray {}
-
-        Item {
-            Layout.fillHeight: true
-        }
-    }
-
-    component HorizontalDivider: Divider {
-        Layout.fillWidth: true
-        implicitHeight: 2
-    }
-
-    component SystemSlider: ColumnLayout {
-        VolumeSlider {}
-        BrightnessSlider {}
-    }
 }

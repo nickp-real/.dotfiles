@@ -18,8 +18,7 @@ Scope {
     }
 
     // Todo {}
-    //
-    Notification {}
+    NotificationList {}
     StartupMenu {}
     AppLauncher {}
     Wallpaper {}

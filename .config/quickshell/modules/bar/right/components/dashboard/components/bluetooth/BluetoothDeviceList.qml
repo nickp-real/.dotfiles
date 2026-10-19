@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Bluetooth
 import qs.components
-import qs.services
 
 import "root:config.js" as Config
 

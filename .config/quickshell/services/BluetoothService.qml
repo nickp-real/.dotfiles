@@ -33,7 +33,6 @@ Singleton {
     Timer {
         id: discoveringTimer
         interval: 10000
-        repeat: false
         onTriggered: root.setDiscovering(false)
     }
 
