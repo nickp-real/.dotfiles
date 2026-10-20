@@ -8,74 +8,50 @@ import "root:config.js" as Config
 RowLayout {
     id: root
 
-    property color bg: Config.colors.surface
+    property color bg: Config.colors.mutedBg
     property color fg: Config.colors.accent
     property int radius: Config.radius
 
     property alias slider: slider
-    property alias icon: icon
+    property alias icon: sliderIcon
     signal iconClick
 
     property bool readonly: false
 
-    Rectangle {
-        visible: icon.source != ""
+    Button {
         Layout.preferredHeight: Config.slider.height
         Layout.preferredWidth: Config.slider.width
         Layout.alignment: Qt.AlignVCenter
+        visible: sliderIcon.source != ""
+        enabled: visible || !root.readonly
 
-        radius: Config.slider.radius
-
-        color: Config.colors.surface
+        style.radius: Config.slider.radius
+        onClicked: root.iconClick()
 
         Icon {
-            id: icon
+            id: sliderIcon
             implicitWidth: Config.slider.icon.width
             implicitHeight: Config.slider.icon.height
             anchors.centerIn: parent
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: root.iconClick()
-            }
         }
     }
 
-    Slider {
+    StyledSlider {
         id: slider
 
         from: 0
         to: 100
         value: 0
+        enabled: !root.readonly
 
-        height: 16
+        Layout.preferredHeight: 16
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignVCenter
 
-        background: Rectangle {
-            color: root.bg
-            radius: root.radius
-        }
+        backgroundStyle.color: root.bg
+        backgroundStyle.radius: root.radius
 
-        Rectangle {
-            width: slider.visualPosition * slider.width
-            height: slider.height
-            color: root.fg
-            radius: root.radius
-            clip: true
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            preventStealing: true
-            enabled: root.readonly
-            onPressed: mouse => mouse.accepted = true
-            onWheel: wheel => wheel.accepted = true
-        }
-
-        handle: Item {
-            visible: false
-        }
+        progress.color: root.fg
+        progress.radius: root.radius
     }
 }

@@ -11,4 +11,10 @@ Rectangle {
             duration: 100
         }
     }
+
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 100
+        }
+    }
 }

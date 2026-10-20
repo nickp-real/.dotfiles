@@ -17,6 +17,12 @@ Item {
     implicitWidth: Config.icon.width
     implicitHeight: Config.icon.height
 
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 100
+        }
+    }
+
     IconImage {
         anchors.fill: parent
         source: {

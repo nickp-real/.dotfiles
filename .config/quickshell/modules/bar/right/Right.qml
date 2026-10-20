@@ -10,82 +10,55 @@ import "root:config.js" as Config
 Variants {
     model: Quickshell.screens
 
-    PanelWindow {
-        id: panel
-        required property ShellScreen modelData
-        screen: modelData
+    BarPanel {
+        id: root
+        implicitHeight: Math.floor(modelData.height * 2 / 3)
+        implicitWidth: Math.floor(modelData.width / 3) - 40
+        focusable: container.state === "dashboard"
 
         anchors {
             top: true
             right: true
         }
 
-        exclusionMode: ExclusionMode.Ignore
-        color: "transparent"
-
-        mask: Region {
-            item: container
-            bottomLeftRadius: Config.bar.radius
+        onOpenTriggered: {
+            root.container.state = "dashboard";
+        }
+        onCloseTriggered: {
+            root.container.state = "idle";
         }
 
-        implicitHeight: Math.floor(modelData.height * 2 / 3)
-        implicitWidth: Math.floor(modelData.width / 3) - 40
-        focusable: container.state === "dashboard"
+        container.anchors.right: container.parent.right
+        container.bottomLeftRadius: Config.bar.radius
 
-        FadeTimer {
-            id: delay
-            open.onTriggered: {
-                container.state = "dashboard";
-            }
-            close.onTriggered: {
-                container.state = "idle";
-            }
-        }
-
-        HoverHandler {
-            onHoveredChanged: {
-                if (hovered) {
-                    delay.enter();
-                } else {
-                    delay.exit();
+        container.state: "idle"
+        container.states: [
+            State {
+                name: "idle"
+                PropertyChanges {
+                    root.container.implicitHeight: Config.bar.height
+                    root.container.implicitWidth: idle.implicitWidth + Config.padding * 2
+                }
+            },
+            State {
+                name: "dashboard"
+                PropertyChanges {
+                    root.container.implicitHeight: root.implicitHeight
+                    root.container.implicitWidth: root.implicitWidth
                 }
             }
+        ]
+
+        Idle {
+            id: idle
+            shown: root.container.state === "idle"
         }
 
-        BarContainer {
-            id: container
-            bottomLeftRadius: Config.bar.radius
-            anchors.right: parent.right
-
-            state: "idle"
-            states: [
-                State {
-                    name: "idle"
-                    PropertyChanges {
-                        container.implicitHeight: Config.bar.height
-                        container.implicitWidth: idle.implicitWidth + Config.padding * 2
-                    }
-                },
-                State {
-                    name: "dashboard"
-                    PropertyChanges {
-                        container.implicitHeight: panel.implicitHeight
-                        container.implicitWidth: panel.implicitWidth
-                    }
-                }
-            ]
-
-            Idle {
-                id: idle
-                shown: container.state === "idle"
-            }
-
-            Dashboard {
-                id: dashboard
-                shown: container.state === "dashboard"
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
+        Dashboard {
+            id: dashboard
+            shown: root.container.state === "dashboard"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
     }
 }

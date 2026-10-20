@@ -37,7 +37,7 @@ Loader {
 
                     Layout.fillWidth: true
                     onClicked: PowerService.setPowerProfile(modelData)
-                    style.color: PowerService.currentPowerProfile === modelData ? Config.colors.accent : Config.colors.surface
+                    style.color: PowerService.currentPowerProfile === modelData ? Config.colors.accent : Config.colors.buttonBg
 
                     implicitHeight: 32
 

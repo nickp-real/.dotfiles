@@ -13,5 +13,6 @@ AbstractButton {
 
     background: ButtonBase {
         id: styleButton
+        opacity: enabled ? 1 : 0.6
     }
 }
